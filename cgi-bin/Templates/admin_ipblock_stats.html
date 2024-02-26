@@ -1,0 +1,14 @@
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH>Date</TH>
+    <TH>Blocked</TH>
+    <TH>Money saved</TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><TMPL_VAR day></TD>
+    <TD align=right><TMPL_VAR ipblock_blocked></TD>
+    <TD align=right>$<TMPL_VAR ipblock_money_saved></TD>
+</TR>
+</TMPL_LOOP>
+</Table>

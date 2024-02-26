@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0' name='viewport'/>
+<link rel="stylesheet" href="<TMPL_VAR cdn_url>/css/main.css">
+<script src="<TMPL_VAR cdn_url>/js/jquery.min.js"></script>
+<script src="<TMPL_VAR cdn_url>/js/xupload.js"></script>
+<script src="<TMPL_VAR cdn_url>/js/jquery.cookie.js"></script>
+<script>
+$.cookie('file_id', '<TMPL_VAR file_id>', { expires: 10 });
+<TMPL_IF aff>$.cookie('aff', '<TMPL_VAR aff>', { expires: 10 });</TMPL_IF>
+<TMPL_IF referer>$.cookie('ref_url', '<TMPL_VAR referer>', { expires: 10 });</TMPL_IF>
+</script>
+</HEAD>
+<BODY topmargin=0 leftmargin=0 style="background:transparent;">
+
+<TMPL_IF devtools_mode><TMPL_INCLUDE detector_devtools.html></TMPL_IF>
+<TMPL_IF adb_mode><TMPL_INCLUDE detector_adb.html></TMPL_IF>
+
+<TMPL_IF video_code_js>
+    <div style="position:relative;">
+    <TMPL_IF video_ads>
+        <!-- Over player banner ADs code start here -->
+
+        <!-- Over player banner ADs code end here -->
+    </TMPL_IF>
+
+          <div id="play_limit_box">
+            <a href="<TMPL_VAR site_url>/premium.html" target="_blank">Upgrade you account</a> to watch videos with no limits!
+          </div>
+
+    <TMPL_VAR video_code_html>
+
+    </div>
+</TMPL_IF>
+
+<TMPL_IF video_wait>
+     <div style="width:<TMPL_VAR play_w>px;height:<TMPL_VAR play_h>px;position:relative;">
+     <img src="<TMPL_VAR video_img_url>" style="border:2px solid #c3c3c3;width:<TMPL_VAR play_w>px;height:<TMPL_VAR play_h>px;">
+           <TMPL_IF msg2>
+           <div id="over_player_msg"><TMPL_VAR msg2></div>
+           </TMPL_IF>
+     </div>
+</TMPL_IF>
+
+<TMPL_VAR video_code_js>
+
+<TMPL_IF enc_status>
+<Script>
+encStatus('<TMPL_VAR file_id>',1);
+</Script>
+</TMPL_IF>
+
+<TMPL_IF force_disable_adb><script src="<TMPL_VAR cdn_url>/js/pop.js"></script></TMPL_IF>
+<Script>
+$(function() {
+ <TMPL_IF force_disable_adb>
+   if( window.cRAds === undefined ){ $('#adbd').css('display','table'); }
+ </TMPL_IF>
+});
+</Script>
+
+<TMPL_IF ad_code>
+<!-- Custom User Ads start -->
+	<TMPL_VAR ad_code>
+<!-- Custom User Ads end -->
+</TMPL_IF>
+
+<TMPL_IF video_ads>
+<!-- Javascript Alt Ads code start -->
+	<TMPL_IF ad1><script>console.log('AD1');</script></TMPL_IF>
+	<TMPL_IF ad2><script>console.log('AD2');</script></TMPL_IF>
+	<TMPL_IF ad3><script>console.log('AD3');</script></TMPL_IF>
+<!-- Javascript Alt Ads code end -->
+</TMPL_IF>
+
+</BODY></HTML>
+
+</BODY></HTML>

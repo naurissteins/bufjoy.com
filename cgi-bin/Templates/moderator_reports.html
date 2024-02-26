@@ -1,0 +1,35 @@
+<h2>Flagged videos</h2>
+
+<TMPL_IF list>
+<form>
+<input type="hidden" name="op" value="moderator_reports">
+
+<Table cellpadding=2 cellspacing=1 class="tbl1" width="500">
+<TMPL_LOOP list>
+<TR>
+<TD width=1%><input type="checkbox" name="file_code" value="<TMPL_VAR file_code>"></TD>
+<TD>
+<TMPL_IF file_code><b><a href="<TMPL_VAR site_url>/<TMPL_VAR file_code>/<TMPL_VAR file_name>.html" target="_blank"><TMPL_VAR file_name></a></b><TMPL_ELSE>(file deleted)</TMPL_IF>
+<br>
+<b>File owner:</b> <a href="?op=admin_files&amp;usr_id=<TMPL_VAR usr_id>"><TMPL_VAR usr_login></a><br>
+<b>Reported:</b> <TMPL_VAR created> (<TMPL_VAR ip>)<br>
+<b>Reason:</b> <TMPL_VAR type>
+<br>
+<div class="block_yellow"><TMPL_VAR info></div>
+</TD></TR>
+</TMPL_LOOP>
+<tr>
+	<th colspan=2>
+		<input type="submit" name="delete_selected" value="Delete Selected" class="f-btn-red"> &nbsp; 
+		<input type="submit" name="ignore_selected" value="Ignore Selected" class="f-btn-green">
+	</th>
+</tr>
+</Table>
+
+</form>
+
+<TMPL_ELSE>
+No reports
+</TMPL_IF>
+
+<TMPL_VAR paging>

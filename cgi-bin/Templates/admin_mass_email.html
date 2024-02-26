@@ -1,0 +1,24 @@
+<h2>Send mass e-mail to users</h2>
+<Form method="POST">
+<input type="hidden" name="op" value="admin_mass_email">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1" cellpadding=2 cellspacing=1>
+<TR><TD align=right><b>Filter:</b></TD><TD>
+<TMPL_IF users>
+<TMPL_VAR users_num> selected users
+<TMPL_ELSE>
+<input type="checkbox" name="premium_only" value="1" id="prem"><label for="prem">Premium Users Only</label></TD></TR>
+</TMPL_IF>
+<TR><TD align=right><b>Subject:</b></TD><TD><input type="text" name="subject" size=36></TD></TR>
+<TR><TD align=right><b>Text message:</b></TD><TD><Textarea name="body" cols=42 rows=7></Textarea>
+<br>Use <b>%username%</b> to insert login into message
+<br>Use <b>%unsubscribe_url%</b> to insert Unsubscription URL into message
+</TD></TR>
+</Table>
+<TMPL_LOOP users>
+<input type="hidden" name="usr_id" value="<TMPL_VAR usr_id>">
+</TMPL_LOOP>
+<input type="submit" name="send" value=" Send e-mails ">
+</Form>
+<br><br>

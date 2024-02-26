@@ -1,0 +1,156 @@
+<h3>User management</h3>
+<a href="?op=admin_users_add<TMPL_VAR token_str>">Add new users</a> | 
+<a href="?op=admin_mass_email<TMPL_VAR token_str>">Mass e-mail</a>
+<TMPL_IF m_o> | <a href="?op=admin_users_monitor<TMPL_VAR token_str>">Users monitor</a></TMPL_IF>
+<TMPL_IF m_b> | <a href="?op=admin_websites<TMPL_VAR token_str>">Websites</a></TMPL_IF>
+ | <a href="?op=admin_top_ips<TMPL_VAR token_str>">Top IPs</a>
+ | <a href="?op=admin_top_users<TMPL_VAR token_str>">Top Users</a>
+
+<br><br>
+
+<form style="margin:0;">
+<input type="hidden" name="op" value="admin_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1">
+<tr>
+	<td class="rc">Search</td>
+	<td><input type="text" name="key" value="<TMPL_VAR key>" size=16 placeholder="login, email, ip"></td>
+</tr>
+<tr>
+	<td class="rc">Money &gt;</td>
+	<td>$<input type="text" name="money" value="<TMPL_VAR money>" size=4></td>
+</tr>
+<tr>
+	<td class="rc">Premium days &gt;</td>
+	<td><input type="text" name="premium_days" value="<TMPL_VAR premium_days>" size=10></td>
+</tr>
+<tr>
+	<td class="rc">AffID</td>
+	<td><input type="text" name="aff_id" value="<TMPL_VAR aff_id>" size=5></td>
+</tr>
+<tr>
+	<td class="rc">Files</td>
+	<td>
+		more than<input type="text" name="files_more" value="<TMPL_VAR files_more>" size=3> &nbsp;  
+		less than<input type="text" name="files_less" value="<TMPL_VAR files_less>" size=3>
+	</td>
+</tr>
+<tr>
+	<td class="rc">Status</td>
+	<td>
+		<input type="radio" name="usr_status" value="OK" id="status1"<TMPL_VAR status_OK>><label for="status1">OK</label> &nbsp; 
+		<input type="radio" name="usr_status" value="PENDING" id="status2"<TMPL_VAR status_PENDING>><label for="status2">PENDING</label> &nbsp; 
+		<input type="radio" name="usr_status" value="BANNED" id="status3"<TMPL_VAR status_BANNED>><label for="status3">BANNED</label>
+	</td>
+</tr>
+<tr>
+    <td class="rc">Per page</td>
+    <td>
+    <input type="radio" name="per_page" id="pp0" value="<TMPL_VAR items_per_page>"<TMPL_UNLESS per_page> checked</TMPL_UNLESS>><label for="pp0"><TMPL_VAR items_per_page></label>
+    <input type="radio" name="per_page" id="pp50" value="50" class="lmargin10"<TMPL_VAR per_50>><label for="pp50">50</label> 
+    <input type="radio" name="per_page" id="pp100" value="100" class="lmargin10"<TMPL_VAR per_100>><label for="pp100">100</label> 
+    <input type="radio" name="per_page" id="pp500" value="500" class="lmargin10"<TMPL_VAR per_500>><label for="pp500">500</label> 
+    <input type="radio" name="per_page" id="ppall" value="all" class="lmargin10"<TMPL_VAR per_all>><label for="ppall">All</label> 
+    </td>
+</tr>
+<tr>
+	<td colspan=2 align=center><input type="submit" value="Search"></td>
+</tr>
+</Table>
+</form>
+<br>
+
+<TMPL_IF msg><p class="ok"><TMPL_VAR msg></p></TMPL_IF>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1" cellspacing=1 cellpadding=3 id="xusers">
+<TR>
+	<TH style="width:1%;"><input type="checkbox" id="selall"></TH>
+	<TH title="Sort by Username"><TMPL_VAR s_usr_login>Username<TMPL_VAR s2_usr_login></TH>
+	<TH title="Sort by E-mail"><TMPL_VAR s_usr_email>Email<TMPL_VAR s2_usr_email></TH>
+	<TH title="Sort by Number of Files"><TMPL_VAR s_usr_files_used>Files<TMPL_VAR s2_usr_files_used></TH>
+	<TH title="Sort by Disk Usage"><TMPL_VAR s_usr_disk_used>Disk used<TMPL_VAR s2_usr_disk_used></TH>
+	<TH><TMPL_VAR s_usr_money>Money<TMPL_VAR s2_usr_money></TH>
+	<TH title="Sort by Last Visit"><TMPL_VAR s_last_visit>Last visit<TMPL_VAR s2_last_visit></TH>
+	<TH title="Sort by Creation date"><TMPL_VAR s_usr_created>Registered<TMPL_VAR s2_usr_created></TH>
+	<TH>IP</TH>
+	<TH></TH>
+</TR>
+<TMPL_LOOP users>
+<TR<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS> align=center>
+	<TD><input type="checkbox" name="usr_id" value="<TMPL_VAR usr_id>"></TD>
+	<TD align=left><a href="?op=admin_user_edit&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a>
+	<TMPL_IF premium><img src="<TMPL_VAR site_url>/images/star.gif" title="Premium"></TMPL_IF>
+	<TMPL_IF status_BANNED> <sup style="color:red">ban</sup></TMPL_IF>
+	</TD>
+	<TD align=left><small><TMPL_VAR usr_email></small></TD>
+	<TMPL_IF status_PENDING>
+	<TD colspan=4><a href="?op=admin_users&resend_activation=<TMPL_VAR usr_id><TMPL_VAR token_str>">Re-send activation email</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="?op=admin_users&activate=<TMPL_VAR usr_id><TMPL_VAR token_str>">Activate</a></TD>
+	<TMPL_ELSE>
+	<TD><a href="?op=admin_files&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_files_used></a></TD>
+	<TD><TMPL_VAR disk_used></TD>
+	<TD><TMPL_VAR usr_money></TD>
+	<TD><TMPL_VAR last_visit></TD>
+	</TMPL_IF>
+	<TD><small><TMPL_VAR usr_created></small></TD>
+	<TD><small><TMPL_VAR usr_ip><TMPL_IF country> [<TMPL_VAR country>]</TMPL_IF></small></TD>
+	<TD><a href="?op=admin_users&del_id=<TMPL_VAR usr_id><TMPL_VAR token_str>" onClick="return confirm('Delete <TMPL_VAR usr_login> user with his files?')"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+	<TH colspan=10 style="text-align:left;">
+    <input type="submit" name="del_users" value="Delete selected users" onClick="return confirm('Delete users with all their files?')" class="f-btn-red">
+    <input type="submit" name="mass_email" value="Send email to selected users" class="f-btn-blue lm10">
+    <input type="submit" name="update_files" value="Update files number / size" class="f-btn-blue lm10">
+    <input type="button" value="Change status..." class="f-btn-blue lm10" onclick="$(this).hide();$('#status_id').show();">
+    <span id="status_id" class="inv lm10">
+        <select name="usr_status2">
+        <option>OK</option>
+        <option>PENDING</option>
+        <option>BANNED</option>
+        </select>
+        <input type="submit" name="change_status" value="Change" class="f-btn-orange">
+    </span>
+	</TH>
+</TR>
+</Table>
+</Form>
+
+<TMPL_VAR paging>
+<br><br>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+Extend all Premium Users subscribtion for <input type="text" name="extend_premium_all" size=2> days
+<input type="submit" value="Extend">
+</Form>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+Delete PENDING users created more than <input type="text" name="del_pending" size=2> days ago
+<input type="submit" value="Delete">
+</Form>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+Delete users not logged more than <input type="text" name="del_inactive" size=2> days
+<input type="submit" value="Delete">
+</Form>
+
+<script>
+    $("#xusers input[name=usr_id]").change( function(){ $(this).parent().parent().toggleClass('hi2'); } );
+    $("#selall").change(function(){ 
+           var sel=this.checked;
+           
+           $("#xusers input[name=usr_id]:enabled").each(function(){
+               $(this).prop('checked',sel);
+               if(sel){$(this).parent().parent().addClass('hi2');} else {$(this).parent().parent().removeClass('hi2');}
+           });
+    });
+    $("input[name=usr_id]:enabled").shiftSelectable();
+</script>

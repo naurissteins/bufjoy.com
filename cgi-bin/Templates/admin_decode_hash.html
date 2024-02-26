@@ -1,0 +1,42 @@
+<h2>Decode download hash</h2>
+<Form method="POST">
+<input type="hidden" name="op" value="admin_decode_hash">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+URL: <input type="text" name="url" value="<TMPL_VAR url>" size=84> &nbsp; 
+<input type="submit" value="Decode">
+</Form>
+
+<TMPL_IF file_id>
+<br>
+<table class="tbl1">
+<tr>
+	<td>IP</td>
+	<td><TMPL_VAR ip></td>
+</tr>
+<tr>
+	<td>File</td>
+	<td>file_id=<TMPL_VAR file_id></td>
+</tr>
+<tr>
+	<td>File Real</td>
+	<td><TMPL_VAR id></td>
+</tr>
+<tr>
+	<td>Quality</td>
+	<td><TMPL_VAR dmode></td>
+</tr>
+<tr>
+	<td>Disk ID</td>
+	<td><TMPL_VAR disk_id></td>
+</tr>
+<tr>
+	<td>Speed</td>
+	<td><TMPL_VAR speed></td>
+</tr>
+<tr>
+	<td>Flags</td>
+	<td><TMPL_VAR flags></td>
+</tr>
+
+</table>
+</TMPL_IF>

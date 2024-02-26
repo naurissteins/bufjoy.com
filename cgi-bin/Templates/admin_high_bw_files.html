@@ -1,0 +1,36 @@
+<h3>Highest Bandwidth files</h3>
+
+<Form>
+<input type="hidden" name="op" value="admin_high_bw_files">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+	<td>Last <input type="text" name="hours" value="<TMPL_VAR hours>" size=3> hours</td>
+</tr>
+<tr>
+	<td>srv_id <input type="text" name="srv_id" value="<TMPL_VAR srv_id>" size=3></td>
+</tr>
+<tr>
+    <td align=center><input type="submit" value="Show"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR>
+    <TH>File</TH>
+    <TH>Size</TH>
+    <TH>Period Traffic</TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD align=left><a href="<TMPL_VAR download_link>"><TMPL_VAR file_name></a></TD>
+    <TD><TMPL_VAR file_size></TD>
+    <TD><TMPL_VAR bandwidth> GB</TD>
+</TR>
+</TMPL_LOOP>
+</Table>

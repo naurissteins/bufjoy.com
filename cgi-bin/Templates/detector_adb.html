@@ -1,0 +1,38 @@
+<style>
+.a<TMPL_VAR rnd> {display:none;z-index: 999;position: fixed;top:0;left:0;width:100%;height:100%;font:15px Verdana;text-align:center;color:#FFF;background: #000;background-color: rgba(0,0,0,.85);}
+.b<TMPL_VAR rnd> {position:absolute;top:47%;left:50%;margin-left:-200px;width:400px;padding: 30px;background-color: rgba(0,0,0,.3);border-radius: 15px;}
+</style>
+
+<script>
+function showADBOverlay(){
+	$('<div class="a<TMPL_VAR rnd>" oncontextmenu="return false;"><div class="b<TMPL_VAR rnd>"><TMPL_VAR lng_main_disable_adb></div></div>').appendTo('body').show();
+}
+</script>
+
+<TMPL_IF adb_mode_1>
+<script src="/js/<TMPL_VAR m_5_adb_script>?ads=1&AdType=1&cbrandom=2&clicktag=http"></script>
+<script>
+setTimeout("checkADB()", <TMPL_VAR adb_delay>);
+function checkADB()
+{
+ if( window.cRAds === undefined ){ showADBOverlay(); }
+}
+</script>
+</TMPL_IF>
+
+<TMPL_IF adb_mode_2>
+<script src="/js/jdadbl.js"></script>
+<script>
+if( window.justDetectAdblock === undefined ){ 
+	showADBOverlay();
+}
+else
+{
+  justDetectAdblock.detectAnyAdblocker().then(function(detected) {
+    if(detected){
+		setTimeout("showADBOverlay()", <TMPL_VAR adb_delay>);
+    }
+  });
+}
+</script>
+</TMPL_IF>

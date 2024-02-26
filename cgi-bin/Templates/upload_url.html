@@ -1,0 +1,201 @@
+<TMPL_INCLUDE menu-1.html> 
+<TMPL_INCLUDE top_menu.html>  	
+<TMPL_INCLUDE upload_menu.html>
+
+<form method="POST" action="<TMPL_VAR site_url>/" onSubmit="return validateURLForm(this)">
+    <input type="hidden" name="op" value="upload_url">
+
+    <TMPL_IF hosts>
+        Upload server: 
+        <select name="srv_id">
+        <TMPL_LOOP hosts>
+        <optgroup label="<TMPL_VAR host_name>">
+            <TMPL_LOOP servers><option value="<TMPL_VAR srv_id>"<TMPL_VAR selected>><TMPL_VAR srv_name></option></TMPL_LOOP>
+        </optgroup>
+        </TMPL_LOOP>
+        </select>
+        <br>
+    </TMPL_IF>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5">
+        <div class="bg-gray-700/10 p-4 rounded-md">
+        <div class="flex flex-col items-start justify-between sm:flex-row sm:items-center mb-3">
+            <div>
+                <span class="text-gray-300 text-sm">
+                    <TMPL_VAR lng_uploadform_max_filesize>: <TMPL_VAR max_upload_filesize> Mb
+                </span>    
+            </div>
+            <div>
+                <span class="text-gray-300 text-sm">
+                    <TMPL_VAR lng_uploadurl_you_can_enter_up_to> <TMPL_VAR slots_left> URLs
+                </span>    
+            </div>       
+        </div>    
+        <textarea name="urls" rows="12" wrap="off" class="block w-full rounded-md border-0 bg-gray-900 py-1.5 text-white  ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="https://example.com/file.zip 
+https://example.com/video.mp4"></textarea>
+        </div>
+    </div>
+
+    <div class="flex justify-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5">  
+        <button id="button" name="submit_btn" type="submit" class="group rounded-md shadow bg-blue-500 text-white cursor-pointer flex justify-between items-center overflow-hidden transition-all hover:glow">
+            <div class="relative w-12 h-12 bg-white bg-opacity-20 text-white flex justify-center items-center transition-all"><svg id="arrow" class="w-4 h-4 transition-all group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              </svg>
+              <svg id="check" class="absolute z-10 w-0 top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-white transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <div id="progress" class="absolute w-full h-0 bg-white bg-opacity-20 top-0 duration-200"></div>
+            </div>
+              <p class="px-5 text-sm">Add to upload queue</p>
+          </button>
+    </div> 
+</form>        
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-5">
+
+<!-- <TMPL_IF list>
+
+    <a href="/?op=upload_url&restart_errors=1">Restart All Errors</a> &nbsp; 
+    <a href="/?op=upload_url&delete_errors=1">Delete All Errors</a> &nbsp; 
+    <a href="/?op=upload_url&delete_pending=1" onclick="return confirm('You want to delete all PENDING URL uploads?');">Delete All Pending</a>
+
+
+    <TMPL_VAR lng_uploadurl_your_pending_urls> 
+    <table class="w-full mt-8 whitespace-nowrap">
+        <colgroup>
+            <col class="lg:w-1/12">
+            <col class="lg:w-1/12">
+            <col class="lg:w-1/12">
+      </colgroup> 
+      <thead class="border-b border-white/10 text-xs leading-6 text-white">     
+        <tr>
+            <th scope="col" class="py-2 font-semibold text-left">URL</th>
+            <th scope="col" class="py-2 font-semibold"><TMPL_VAR lng_uploadurl_created></th>
+            <th scope="col" class="py-2 font-semibold"><TMPL_VAR lng_uploadurl_status></th>
+            <th scope="col" class="py-2 font-semibold"></th>
+        </tr>
+    </thead>  
+    <tbody class="divide-y divide-white/5">
+        <TMPL_LOOP list>
+        <tr>
+            <td class="text-gray-400 text-xs py-2 "><TMPL_VAR url></td>
+            <td class="text-gray-400 text-xs py-2 text-center"><TMPL_VAR created></td>
+            <td class="enc_td text-gray-400 text-xs py-2 text-center">
+                <div style="position:relative;">
+                    <div class="enc_status" style="width:<TMPL_VAR progress>%;"></div>
+                    <div class="enc_value"><TMPL_IF size_full><TMPL_VAR progress>% (<TMPL_VAR size_dl> MB of <TMPL_VAR size_full> MB) <TMPL_VAR speed> KB/s<TMPL_ELSE><TMPL_VAR status></TMPL_IF></div>
+                </div>
+            </td>
+            <td class="text-gray-400 text-xs py-2 text-center"><a href="?op=upload_url&amp;del_id=<TMPL_VAR id>"><img src="<TMPL_VAR site_url>/images/del.gif"></a></td>
+            </tr>
+        </TMPL_LOOP>
+    </tbody>    
+    </table>
+</TMPL_IF>
+</div> -->
+
+<TMPL_IF list>
+<table class="w-full whitespace-nowrap text-left">
+    <colgroup>
+        <col class="w-full">
+        <col class="lg:w-1/12">
+        <col class="lg:w-1/12">
+    </colgroup>
+    <thead class="border-b border-white/10 text-sm leading-6 text-white">
+        <tr>
+            <th scope="col" class="py-2 font-semibold">URL</th>
+            <th scope="col" class="py-2 font-semibold pr-8">Created</th>
+            <th scope="col" class="py-2 font-semibold pr-8">Status</th>
+            <th scope="col" class="py-2 font-semibold">Speed</th>
+        </tr>
+    </thead>  
+    <tbody class="divide-y divide-white/5">
+        <TMPL_LOOP list>
+        <tr>
+            <td class="text-gray-400 text-xs py-2"><TMPL_VAR url></td>
+            <td class="text-gray-400 text-xs py-2 pr-8"><TMPL_VAR created></td>
+            <td class="text-gray-400 text-xs py-2 pr-8"><TMPL_IF size_full><TMPL_VAR progress>% (<TMPL_VAR size_dl> MB of <TMPL_VAR size_full> MB) <TMPL_ELSE><TMPL_VAR status></TMPL_IF></td>
+            <td class="text-gray-400 text-xs py-2"><TMPL_IF speed><TMPL_VAR speed> Kb/s<TMPL_ELSE>-</TMPL_IF></td>
+        </tr>
+        </TMPL_LOOP>
+    </tbody>
+</table>  
+</TMPL_IF>
+
+<TMPL_IF msg>
+    <div x-data="{ isOpen: true }" x-init="setTimeout(() => isOpen = false, 4000)" x-show="isOpen" x-transition:enter="transform ease-out duration-300 transition" x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2" x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-live="assertive" class="pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6">
+        <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+            <div class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
+            <div class="p-4">
+                <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="ml-3 w-0 flex-1 pt-0.5">
+                    <p class="text-sm font-medium text-gray-300"><TMPL_VAR msg></p>
+                    <!-- <p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p> -->
+                </div>
+                <div class="ml-4 flex flex-shrink-0">
+                    <button type="button" class="inline-flex rounded-md bg-gray-800 text-gray-400 hover:text-gray-500 focus:outline-none" x-on:click="isOpen = false">
+                    <span class="sr-only">Close</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                    </button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</TMPL_IF>     
+<TMPL_INCLUDE menu-2.html>     
+
+
+
+<script>
+    $(document).ready(function() {
+        $("body").addClass("h-full");
+        $("html").addClass("h-full");
+    });
+</script>  
+
+<script src="<TMPL_VAR static_url>/js/jquery.cookie.js"></script>
+<script>
+var lng_uploadurl_select_url_to_upload='<TMPL_VAR lng_uploadurl_select_url_to_upload>';
+var lng_uploadform_agree_to_tos='<TMPL_VAR lng_uploadform_agree_to_tos>';
+var category_required='<TMPL_VAR category_required>';
+$("select[name=cat_id]").val( $.cookie('cat_id') );
+$("select[name=cat_id]").change(function(){ $.cookie('cat_id', $("#cat_id").val(), { expires: 9999 }); });
+$("input[name=file_public]").prop("checked", $.cookie('file_public') );
+$("input[name=file_public]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_public', val, { expires: 9999 }); });
+$("input[name=file_adult]").prop("checked", $.cookie('file_adult') );
+$("input[name=file_adult]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_adult', val, { expires: 9999 }); });
+function validateURLForm(f)
+{
+    <TMPL_IF category_required>
+    if($('#cat_id').val()==0) { alert("<TMPL_VAR lng_uploadurl_choose_category>"); return false; }
+    </TMPL_IF>
+
+    var NF = 0;
+    var arr = f.urls.value.split(/\n/);
+    for(i = 0; i < arr.length; i++)
+    {
+        if(arr[i].length > 10)NF++;
+    }    
+    if(NF<=0){alert(lng_uploadurl_select_url_to_upload);return false;};
+    if(f.tos && !f.tos.checked){alert(lng_uploadform_agree_to_tos);return false;};
+}
+$("#fld_id").change(function()
+{
+ if($(this).val()!="000")return false;
+ x=prompt('New folder name','');
+ if(typeof(x)=='undefined' || x=='' || x==null){$("#fld_id").val('0');return false;}
+ $.post("<TMPL_VAR site_url>/", {op:"ajax_new_folder", create_new_folder:x}, function(data) {
+  if(!data.match(/^<option/i)){alert(data)}
+  else {$("#fld_id").append(data);$("#fld_id option:last").attr('selected','selected');}
+ });
+});
+</script>

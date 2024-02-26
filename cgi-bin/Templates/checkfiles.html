@@ -1,0 +1,13 @@
+<h3><TMPL_VAR lng_checkfiles_title></h3>
+<div style="width:620px;text-align:left;margin:0 auto;">
+
+<TMPL_VAR result>
+<br>
+<TMPL_VAR lng_checkfiles_one_url_per_line>
+<br>
+<Form method="POST">
+<input type="hidden" name="op" value="checkfiles">
+<Textarea name="list" rows=12 style="width:100%;font-size:12px;font-family: monospace, monospace;"></Textarea>
+<br><input type="submit" name="process" value="<TMPL_VAR lng_checkfiles_check_urls>">
+</Form>
+</div>

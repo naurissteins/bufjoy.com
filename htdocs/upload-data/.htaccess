@@ -1,0 +1,15 @@
+IndexIgnore *
+
+### Disable PHP
+<Files *>
+ SetHandler default-handler
+</Files>
+<Files *.php>
+ Deny from all
+</Files>
+<IfModule mod_php5.c>
+ php_flag engine off
+</IfModule>
+Options -Includes -IncludesNOEXEC -ExecCGI
+RemoveHandler cgi-script .pl .py .cgi
+RemoveType php

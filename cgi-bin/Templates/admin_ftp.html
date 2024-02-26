@@ -1,0 +1,23 @@
+<Table class="tbl1" cellspacing=1 cellpadding=3>
+<TMPL_LOOP hosts>
+<TR>
+	<TH colspan=5>
+		<TMPL_VAR host_name> (<TMPL_VAR disk_used> MB used) 
+		<TMPL_IF m_f_track_current>
+			<TMPL_IF online><span style="color:green">online</span><TMPL_ELSE><span style="color:red">offline</span></TMPL_IF>
+		</TMPL_IF>
+	</TH>
+</TR>
+
+<TMPL_LOOP uploads>
+<TR>
+	<TD><TMPL_VAR filename></TD>
+	<TD><TMPL_VAR size> MB</TD>
+	<TD><TMPL_VAR user></TD>
+	<TD><TMPL_VAR ip></TD>
+	<TD><TMPL_VAR speed> KB/s</TD>
+</TR>
+</TMPL_LOOP>
+
+</TMPL_LOOP>
+</Table>

@@ -1,0 +1,286 @@
+    <TMPL_UNLESS is_image>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Player Bottom Bar -->
+      <div class="<TMPL_IF is_audio>rounded-lg<TMPL_ELSE>rounded-b-lg</TMPL_IF> bg-gray-700/10 shadow-2xl mb-5">
+        <div class="p-6">
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <div class="sm:flex sm:space-x-5">
+              <div class="flex-shrink-0">
+                <TMPL_UNLESS usr_file_privacy>
+                  <!-- Channel avatar -->
+                  <TMPL_IF user_channel_avatar>
+                    <img class="mx-auto h-20 w-20 rounded-full object-cover"
+                      src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR user_channel_avatar>"
+                      alt="<TMPL_VAR usr_channel_name>">
+                    <TMPL_ELSE>
+                      <span
+                        class="mx-auto flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[2rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+                        <TMPL_VAR usr_login_short_dl>
+                      </span>
+                  </TMPL_IF>
+              </div>
+              <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                <!-- Channel name -->
+                <div class="inline-flex items-center">
+                  <a href="/@<TMPL_VAR file_usr_login>"
+                    class="font-semibold <TMPL_IF usr_adm>text-red-400<TMPL_ELSIF usr_mod>text-green-400<TMPL_ELSIF ispremium>text-purple-400<TMPL_ELSE>text-gray-400</TMPL_IF>">
+                    <TMPL_VAR usr_channel_name>
+                  </a>
+                  <!-- Verified-->
+                  <TMPL_IF usr_verified>
+                    <svg class="fill-indigo-400 h-4 w-4 inline-block ml-2" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+                      </path>
+                    </svg>
+                  </TMPL_IF>
+                </div>
+              </TMPL_UNLESS>
+      <!-- File title-->
+      <div class="text-lg font-bold text-gray-300 sm:text-2x1">
+        <TMPL_VAR file_title>
+          <TMPL_IF edit_ok>
+            <a href="/?op=file_edit&amp;file_code=<TMPL_VAR file_code>" class="inline-flex">
+              <svg class="fill-gray-500 ml-2 w-4 h-4 items-center " xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512">
+                <path
+                  d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z" />
+              </svg>
+            </a>
+          </TMPL_IF>
+      </div>
+      <!-- Uploaded on -->
+      <div class="text-sm font-medium text-gray-600">
+        Uploaded on <TMPL_VAR file_created_txt>
+          <TMPL_IF my_login>
+            <button data-modal-id="modal-4" type="button" class="inline-flex">
+              <svg class="fill-indigo-400 ml-2 w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M498.7 6c8.3 6 13.3 15.7 13.3 26V96c0 13.8-8.8 26-21.9 30.4L416 151.1V432c0 44.2-50.1 80-112 80s-112-35.8-112-80s50.1-80 112-80c17.2 0 33.5 2.8 48 7.7V128 64c0-13.8 8.8-26 21.9-30.4l96-32C479.6-1.6 490.4 0 498.7 6zM32 64H256c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96S14.3 64 32 64zm0 128H256c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+              </svg>
+            </button>
+          </TMPL_IF>
+          <TMPL_IF add_to_account>
+            <button type="button" value="<TMPL_VAR lng_download_add_to_my_account>"
+              onclick="return jah('/?op=my_files&amp;add_my_acc=<TMPL_VAR file_code>',$(this).parent())">
+              <svg class="fill-indigo-400 ml-2 w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M512 416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H192c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8H448c35.3 0 64 28.7 64 64V416zM232 376c0 13.3 10.7 24 24 24s24-10.7 24-24V312h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H280V200c0-13.3-10.7-24-24-24s-24 10.7-24 24v64H168c-13.3 0-24 10.7-24 24s10.7 24 24 24h64v64z" />
+              </svg>
+            </button>
+          </TMPL_IF>
+          <TMPL_IF admin>
+            <span class="ml-2 text-indigo-400 text-xs items-center" id="fft">
+              <a href="#" onclick="return jah('/adm?op=admin_files_featured&amp;ajax_toggle=<TMPL_VAR file_id>','fft')">
+                [<TMPL_IF featured>Remove from Featured<TMPL_ELSE>Add to Featured</TMPL_IF>]
+              </a>
+            </span>
+          </TMPL_IF>
+      </div>
+    </div>
+    </div>
+    <div class="mt-5 flex justify-center sm:mt-0">
+      <!-- Share Button -->
+      <TMPL_UNLESS file_status_LOCKED>
+        <TMPL_UNLESS video_wait>
+          <button data-modal-id="modal-1" type="button"
+            class="mr-3 relative inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
+            <svg class="h-6 w-6 fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M288 240H192c-66.2 0-122 44.7-138.8 105.5C49.9 333.1 48 319.3 48 304c0-70.7 57.3-128 128-128H288h24c13.3 0 24-10.7 24-24V128 99.9L456.1 208 336 316.1V288 264c0-13.3-10.7-24-24-24H288zm0 48v48 16c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4s-19 16.6-19 29.2V80v48H240 176C78.8 128 0 206.8 0 304c0 78 38.6 126.2 68.7 152.1c4.1 3.5 8.1 6.6 11.7 9.3c3.2 2.4 6.2 4.4 8.9 6.2c4.5 3 8.3 5.1 10.8 6.5c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-6.8-3.6-13.2-8.3-18.1c-.5-.5-.9-.9-1.4-1.4c-2.4-2.3-5.1-5.1-7.7-8.6c-1.7-2.3-3.4-5-5-7.9c-5.3-9.7-9.5-22.9-9.5-40.2c0-53 43-96 96-96h48 48z" />
+            </svg>
+          </button>
+        </TMPL_UNLESS>
+      </TMPL_UNLESS>
+
+
+
+    <TMPL_IF file_status_LOCKED>
+      <!-- File Locked by Admin -->
+      <span
+        class="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 448 512">
+          <path
+            d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z">
+          </path>
+        </svg>
+        Locked by Admin
+      </span>
+      <TMPL_ELSIF no_dl_btn>
+        Upgrade Account
+        <TMPL_ELSE>
+          <TMPL_IF transfer>
+            <!-- Transfering Button-->
+            <span
+              class="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400">
+              <svg class="motion-reduce:hidden animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+              Transfering...
+            </span>
+
+            <!-- Download button if not video or audio -->
+            <TMPL_ELSIF not_video_audio>
+              <TMPL_IF file_dl_link>
+                <!-- Audio Custom Download Link -->
+                <a href="<TMPL_VAR file_dl_link>" target="_blank"
+                  class="relative inline-flex items-center gap-x-1.5 rounded-md bg-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-400">
+                  <TMPL_IF file_dl_title>
+                    <TMPL_VAR file_dl_title>
+                      <TMPL_ELSE>
+                        Download
+                  </TMPL_IF>
+                </a>
+                <TMPL_ELSIF downloads_off>
+                  <!-- Audio Download Button-->
+                  <a href="<TMPL_VAR site_url>/d/<TMPL_VAR file_code>_o" target="_blank"
+                    class="relative inline-flex items-center gap-x-1.5 rounded-md bg-green-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-400">
+                    <svg class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path
+                        d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                    </svg>
+                    Download
+                  </a>
+              </TMPL_IF>
+
+              <!-- Processing Button if video or audio -->
+              <TMPL_ELSIF video_wait>
+                <button type="button"
+                  class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-indigo-500 hover:bg-indigo-400 transition ease-in-out duration-150 cursor-not-allowed"
+                  disabled="">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                  Processing...
+                </button>
+
+                <!-- Download-->
+                <TMPL_ELSIF is_audio>
+                  <TMPL_IF file_dl_link>
+                    <!-- Audio Custom Download Link -->
+                    <a href="<TMPL_VAR file_dl_link>" target="_blank"
+                      class="relative inline-flex items-center gap-x-1.5 rounded-md bg-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-400">
+                      <TMPL_IF file_dl_title>
+                        <TMPL_VAR file_dl_title>
+                          <TMPL_ELSE>
+                            Download
+                      </TMPL_IF>
+                    </a>
+                    <TMPL_ELSIF downloads_off>
+                      <!-- Audio Download Button-->
+                      <a href="<TMPL_VAR site_url>/d/<TMPL_VAR file_code>_o" target="_blank"
+                        class="relative inline-flex items-center gap-x-1.5 rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400">
+                        <svg class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                          <path
+                            d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                        </svg>
+                        Download
+                      </a>
+                  </TMPL_IF>
+                  <TMPL_ELSE>
+
+                    <TMPL_IF file_dl_link>
+                      <!-- Video Custom Download Link -->
+                      <a href="<TMPL_VAR file_dl_link>" target="_blank"
+                        class="relative inline-flex items-center gap-x-1.5 rounded-md bg-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-400">
+                        <TMPL_IF file_dl_title>
+                          <TMPL_VAR file_dl_title>
+                            <TMPL_ELSE>
+                              Download
+                        </TMPL_IF>
+                      </a>
+                      <TMPL_ELSIF downloads_off>
+                        <!-- Video Download Button-->
+                        <button data-modal-id="modal-3" type="button"
+                          class="relative inline-flex items-center gap-x-1.5 rounded-md bg-emerald-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400">
+                          <svg class="h-5 w-5 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path
+                              d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                          </svg>
+                          Download
+                        </button>
+                    </TMPL_IF>
+          </TMPL_IF>
+    </TMPL_IF>
+
+    <!-- File Options -->
+    <div class="relative inline-block text-left">
+      <div class="inline-flex">
+        <div x-data="{ isOpen: false }">
+          <button @click="isOpen = !isOpen" type="button"
+            class="mt-1 flex items-center rounded-full text-gray-400 hover:text-gray-600" id="menu-0-button"
+            aria-expanded="false" aria-haspopup="true">
+            <span class="sr-only">Open options</span>
+            <svg class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path
+                d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
+            </svg>
+          </button>
+
+          <div x-cloak @click.away="isOpen = false" x-show="isOpen" x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-100 transform opacity-100 scale-100"
+            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="absolute right-0 z-10 mt-4 mr-3 w-30 origin-top-right rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+            <div class="py-1" role="none">
+              <button data-modal-id="modal-2" type="button" class="text-gray-300 flex px-4 py-2 text-sm" role="menuitem"
+                tabindex="-1" id="menu-0-item-0">
+                <svg class="mr-3 h-5 w-5 fill-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                  <path
+                    d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V64 368 480c0 17.7 14.3 32 32 32s32-14.3 32-32V352l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48V32z" />
+                </svg>
+                <span class="hover:text-white">Report</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+  <!-- File Stats -->
+  <!-- <TMPL_UNLESS is_audio>
+    <div
+      class="grid grid-cols-1 divide-y divide-white/10 border-t border-white/10 bg-gray-700/10 sm:grid-cols-4 sm:divide-x sm:divide-y-0">
+      <div class="px-6 py-5 text-center text-sm font-medium">
+        <span class="text-gray-300 text-lg">
+          <TMPL_VAR file_views>
+        </span>
+        <span class="text-gray-300 text-lg">views</span>
+      </div>
+      <div class="px-6 py-5 text-center text-sm font-medium">
+        <span class="text-gray-300 text-lg">
+          <TMPL_VAR file_size_mb>
+        </span>
+      </div>
+      <div class="px-6 py-5 text-center text-sm font-medium">
+        <span class="text-gray-300 text-lg">
+          <TMPL_VAR vid_width>x<TMPL_VAR vid_height>
+        </span>
+      </div>
+      <div class="px-6 py-5 text-center text-sm font-medium">
+        <span class="text-gray-300 text-lg">
+          <TMPL_VAR vid_length_txt>
+        </span>
+      </div>
+    </div>
+  </TMPL_UNLESS> -->
+  </div>
+  <!-- / Player Bottom Bar -->
+</div>
+</TMPL_UNLESS>

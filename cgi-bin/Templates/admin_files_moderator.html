@@ -1,0 +1,101 @@
+<h3>Moderator Files</h3>
+
+<br>
+
+<Form style="margin:0;" method="POST">
+<input type="hidden" name="op" value="moderator_files">
+<input type="hidden" name="num" value="<TMPL_VAR num>">
+<input type="hidden" name="usr_id" value="<TMPL_VAR usr_id>">
+<input type="hidden" name="del_info" value="">
+<Table class="tbl1">
+<tr>
+    <td>Search</td>
+    <td><input type="text" name="key" value="<TMPL_VAR key>" size=24></td>
+</tr>
+<tr>
+    <td>by Code</td>
+    <td><input type="text" name="code" value="<TMPL_VAR code>" size=13></td>
+</tr>
+<tr>
+    <td>Files per page</td>
+    <td>
+        <input type="radio" name="per_page" id="rs1" value="<TMPL_VAR items_per_page>"<TMPL_UNLESS per_page> checked</TMPL_UNLESS>><label for="rs1"><TMPL_VAR items_per_page></label>
+        <input type="radio" name="per_page" id="rs2" value="50"<TMPL_VAR per_50>><label for="rs2">50</label> 
+        <input type="radio" name="per_page" id="rs3" value="100"<TMPL_VAR per_100>><label for="rs3">100</label> 
+        <input type="radio" name="per_page" id="rs4" value="all"<TMPL_VAR per_all>><label for="rs4">All</label> 
+    </td>
+</tr>
+<tr>
+    <td>Status</td>
+    <td>
+        <input type="radio" name="file_status" value="OK" id="fsr1"<TMPL_VAR file_status_OK>><label for="fsr1">OK</label> &nbsp; 
+        <input type="radio" name="file_status" value="PENDING" id="fsr2"<TMPL_VAR file_status_PENDING>><label for="fsr2">PENDING</label> &nbsp; 
+        <input type="radio" name="file_status" value="LOCKED" id="fsr3"<TMPL_VAR file_status_LOCKED>><label for="fsr3">LOCKED</label>
+    </td>
+</tr>
+<tr>
+    <td>Show thumbnails</td>
+    <td>
+        <input type="checkbox" name="thumbnail" value="1" id="thmo"<TMPL_IF thumbnail> checked</TMPL_IF>><label for="thmo">Enabled</label>
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=center>
+        <textarea name="mass_search" id="mass_search" wrap="off" style="width:99%;display:none;font-size:11px;" rows=10></textarea>
+        <small><a href="#" id="btn1">Mass Search</a></small>
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value="Show files"></td>
+</tr>
+</Table>
+
+<br>
+
+<script>
+$(document).ready(function(){
+    $("#btn1").click( function(){
+        $("#btn1").hide("fast", function(){
+            $("#mass_search").show("fast");
+            });
+        return false;
+    });
+});
+</script>
+
+<TMPL_VAR paging>
+
+<Table class="tbl1" cellspacing=1 cellpadding=3>
+<TR>
+    <TH><input type="checkbox" onClick="for(i=0;i<this.form.file_id.length;i++){this.form.file_id[i].checked=this.checked;}if(this.form.file_id.value)this.form.file_id.checked=this.checked;"></TH>
+    <TH><TMPL_VAR s_file_title>Title<TMPL_VAR s2_file_title></TH>
+    <TH><TMPL_VAR s_file_size_n>Size<TMPL_VAR s2_file_size_n></TH>
+    <TH>Uploaded by</TH>
+    <TH><TMPL_VAR s_file_id>Created<TMPL_VAR s2_file_id></TH>
+    <TH>IP</TH>
+</TR>
+<TMPL_LOOP files>
+<TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+<TD<TMPL_IF file_public> class='pub'</TMPL_IF>><input type="checkbox" name="file_id" value="<TMPL_VAR file_id>"></TD>
+<TD align=left<TMPL_VAR td_style>>
+    <TMPL_IF video_thumb_url><img src="<TMPL_VAR video_thumb_url>"><br></TMPL_IF>
+    <a href="<TMPL_VAR download_link>"><TMPL_VAR file_title_txt></a><TMPL_IF file_password><img src="<TMPL_VAR site_url>/images/lock.gif" title="Password"></TMPL_IF>
+</TD>
+<TD align=right><TMPL_VAR file_size2></TD>
+<TD><a href="?op=moderator_files&usr_id=<TMPL_VAR usr_id>"><TMPL_VAR usr_login></a></TD>
+<TD nowrap><small><TMPL_VAR file_created></small></TD>
+<TD><a href="?op=moderator_files&ip=<TMPL_VAR file_ip>"><small><TMPL_VAR file_ip></small></a></TD>
+</TR>
+</TMPL_LOOP>
+<TR class="hdr">
+    <TD colspan=13 style="text-align:left;">
+    <input type="submit" name="del_selected" value="Delete" class="btn2" onClick="var x=prompt('Delete selected files? Reason of deletion','');if(typeof(x)=='undefined')return false;this.form.del_info.value=x;"> &nbsp; 
+    <input type="submit" name="lock" value="Lock" class="btn2"> &nbsp; 
+    <input type="submit" name="unlock" value="Unlock" class="btn2"> &nbsp; 
+    <TMPL_IF m_d_featured><input type="submit" name="featured_add" value="Add to Featured" class="btn2"> &nbsp; </TMPL_IF>
+    </TD>
+</TR>
+</Table>
+<TMPL_VAR paging>
+<br>
+</Form>

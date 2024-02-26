@@ -1,0 +1,17 @@
+<table class="tbl1">
+    <th colspan=2>Download <TMPL_VAR file_name>
+    </th>
+    <TMPL_LOOP versions>
+        <tr>
+            <td>
+                <TMPL_IF not_available><a href="#"
+                        onclick="alert('<TMPL_VAR lng_download_premium_for_originals>');return false;">
+                        <TMPL_ELSE><a href="<TMPL_VAR quality_download_link>"></TMPL_IF>
+                <TMPL_VAR vid_title></a>
+            </td>
+            <td>
+                <TMPL_VAR vid_width>x<TMPL_VAR vid_height>, <TMPL_VAR file_size_mb>
+            </td>
+        </tr>
+    </TMPL_LOOP>
+</table>

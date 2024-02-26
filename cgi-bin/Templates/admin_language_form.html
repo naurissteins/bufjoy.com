@@ -1,0 +1,24 @@
+<h2>Language form</h2>
+<br>
+<form method="POST">
+<input type="hidden" name="op" value="admin_language_form">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="lang_id" value="<TMPL_VAR lang_id>">
+<Table class="tbl1">
+<tr>
+	<td>Name</td>
+	<td><input type="text" name="lang_name" value="<TMPL_VAR lang_name>" size=16></td>
+</tr>
+<tr>
+	<td>Order</td>
+	<td><input type="text" name="lang_order" value="<TMPL_VAR lang_order>" size=2></td>
+</tr>
+<tr>
+	<td>Active</td>
+	<td><input type="checkbox" name="lang_active" value="1"<TMPL_IF lang_active> checked</TMPL_IF>></td>
+</tr>
+<tr>
+	<td colspan=2 align=center><input type="submit" name="save" value="Save"></td>
+</tr>
+</Table>
+</form>

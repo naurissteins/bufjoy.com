@@ -1,0 +1,18 @@
+<table>
+<tr><td>
+	<iframe src="/streams/<TMPL_VAR stream_code>.html" style="width:720px;height:404px;border:0;"></iframe>
+</td></tr>
+<tr><td>
+<b><TMPL_VAR stream_title></b>
+<span style="float:right;">Online: <span id="online">0</span></span><br>
+<TMPL_IF stream_descr><TMPL_VAR stream_descr><br></TMPL_IF>
+</td></tr>
+</table>
+
+<script>
+function updateOnline(){
+	$.get('<TMPL_VAR site_url>/dl?op=stream_ping&stream_id=<TMPL_VAR stream_id>&check=1', function(data) {eval(data);} );
+}
+	updateOnline();
+	setInterval(updateOnline, 30000);
+</script>

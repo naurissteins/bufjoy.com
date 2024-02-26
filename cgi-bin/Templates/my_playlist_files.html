@@ -1,0 +1,44 @@
+<h2><a href="/playlist/<TMPL_VAR pls_code>"><TMPL_VAR pls_name></a> playlist files</h2>
+<br>
+<a href="?op=my_playlists">Back to Playlists management</a>
+<br><br>
+
+<form method="post">
+<input type="hidden" name="op" value="my_playlist_files">
+<input type="hidden" name="pls_id" value="<TMPL_VAR pls_id>">
+<table class="tbl1">
+<TR>
+    <TH class="nojs"><input type="checkbox" id="selall"></TH>
+    <TH></TH>
+    <TH width="70%"></TH>
+    <TH>&nbsp;</TH>
+</TR>
+<TMPL_LOOP files>
+    <TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+    <TD>
+        <input type="checkbox" name="file_id" value="<TMPL_VAR file_id>">
+    </TD>
+    <TD><img src="<TMPL_VAR video_thumb_url>"></TD>
+    <TD align=left valign=top>
+        <a href="<TMPL_VAR download_link>"><b><TMPL_VAR file_title_txt></b></a>
+        <TMPL_IF file_descr><br><small><TMPL_VAR file_descr></small></TMPL_IF>
+        <br>Length: <TMPL_VAR vid_length_txt>
+        
+        <TMPL_IF file_views><br><TMPL_VAR file_views> views</TMPL_IF>
+
+        <TMPL_IF comments><br><TMPL_VAR comments> comments</TMPL_IF>
+    <TD><a href="?op=my_playlist_files&amp;remove=1&amp;file_id=<TMPL_VAR file_id>&amp;pls_id=<TMPL_VAR pls_id>&amp;token=<TMPL_VAR token>" onClick="return confirm('<TMPL_VAR lng_myfiles_delete_file>')"><img src="<TMPL_VAR static_url>/images/del.gif"></a></TD>
+    </TR>
+</TMPL_LOOP>
+<tr>
+    <th colspan=4 class="left"><input type="submit" name="remove" value="Remove from Playlist"></th>
+</tr>
+</table>
+</form>
+
+<script>
+$("#selall").change(function(){ 
+           var sel=this.checked;
+           $("input[name=file_id]:enabled").click();
+    });
+</script>

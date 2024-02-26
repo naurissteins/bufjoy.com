@@ -1,0 +1,26 @@
+<h2>DMCA Reported Files</h2>
+
+<br>
+<Table class="tbl1" cellpadding=3>
+<TR>
+	<TH>File</TH>
+	<TH>Reported, ago</TH>
+	<TH>Will be deleted in</TH>
+	<TH>Code</TH>
+	<TH>Set new code</TH>
+</TR>
+<TMPL_LOOP files>
+<TR align=center>
+	<TD><a href="<TMPL_VAR dl_link>"><TMPL_VAR file_title></a></TD>
+	<TD><TMPL_VAR ago></TD>    
+	<TD><TMPL_VAR left></TD>
+	<TD><tt><TMPL_VAR file_code></tt></TD>
+	<TD id="td<TMPL_VAR file_code>"><button onclick="$.get('?op=my_files_dmca&new_code=<TMPL_VAR file_code><TMPL_VAR token_str>', function( data ) {$('#td<TMPL_VAR file_code>').html( data ); });">new</button></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+
+
+<br/>
+<br/>

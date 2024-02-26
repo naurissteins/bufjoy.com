@@ -1,0 +1,75 @@
+<TMPL_INCLUDE menu-1.html>
+
+	<TMPL_INCLUDE top_menu.html>
+
+		<!-- Secondary navigation -->
+		<div class="border-b border-white/10">
+			<nav class="overflow-x-auto py-4 max-w-7xl">
+				<ul role="list"
+					class="flex min-w-full flex-none gap-x-6 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
+					<li class="flex items-center">
+						<div>
+							<div class="flex items-center gap-x-3">
+								<div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+									<div class="h-2 w-2 rounded-full bg-current"></div>
+								</div>
+								<h1 class="flex gap-x-3 text-base leading-8 items-center py-1">
+									<span class="text-base text-white font-semibold">
+										Create new ticket
+									</span>
+									<span class="text-xs  ">Please read <a href="/faq/" class="text-indigo-300">FAQ</a>
+										before create a ticket</span>
+								</h1>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+
+		<div class="max-w-3xl sm:px-6 lg:px-8 px-4 mt-10">
+			<form method="POST">
+				<input type="hidden" name="op" value="ticket_create">
+				<div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+					<div class="max-w-10">
+						<label for="category" class="block text-sm font-semibold leading-6 text-white">Category</label>
+						<div class="mt-2">
+							<select name="category"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&amp;_*]:text-black">
+								<TMPL_LOOP categories>
+									<option value="<TMPL_VAR category>">
+										<TMPL_VAR category>
+									</option>
+								</TMPL_LOOP>
+							</select>
+						</div>
+					</div>
+					<div>
+						<label for="title" class="block text-sm font-semibold leading-6 text-white">Title</label>
+						<div class="mt-2.5">
+							<input type="text" name="ti_title" value="<TMPL_VAR ti_title>"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+						</div>
+					</div>
+					<div class="sm:col-span-2">
+						<label for="message" class="block text-sm font-semibold leading-6 text-white">Message</label>
+						<div class="mt-2.5">
+							<textarea name="message" id="message" rows="4"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-5">
+					<button type="submit" name="save" value="Create"
+						class="relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-xs font-semibold shadow-sm text-indigo-400 bg-indigo-400/10 hover:bg-indigo-400/20">
+						Send Ticket
+					</button>
+				</div>
+
+
+			</form>
+		</div>
+
+		<TMPL_INCLUDE menu-2.html>

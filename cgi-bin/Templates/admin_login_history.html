@@ -1,0 +1,16 @@
+<h3>Login History for usr_id=<TMPL_VAR usr_id></h3>
+
+<Table class="tbl1">
+<tr align=center>
+    <th>Date</th>
+    <th>IP</th>
+    <th>User Agent</th>
+</tr>
+<TMPL_LOOP list>
+<tr>
+    <td><TMPL_VAR created></td>
+    <td><TMPL_VAR ip><TMPL_IF country> (<TMPL_VAR country>)</TMPL_IF></td>
+    <td><TMPL_VAR agent></td>
+</tr>
+</TMPL_LOOP>
+</table>

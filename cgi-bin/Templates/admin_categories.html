@@ -1,0 +1,17 @@
+<h3>Admin Categories</h3>
+<Table class="tbl1" cellpadding=2 width=480>
+<TMPL_LOOP list>
+<TR>
+    <TD><TMPL_VAR pre><TMPL_VAR cat_id> <a href="?op=admin_category_form&cat_id=<TMPL_VAR cat_id><TMPL_VAR token_str>"><TMPL_VAR cat_name></a>
+        <TMPL_IF up> <a href="?op=admin_categories&cat1=<TMPL_VAR cat_id>&cat2=<TMPL_VAR up><TMPL_VAR token_str>"><img src="<TMPL_VAR cdn_url>/images/up.gif" title="Move Up"></a></TMPL_IF>
+        <TMPL_IF down> <a href="?op=admin_categories&cat1=<TMPL_VAR cat_id>&cat2=<TMPL_VAR down><TMPL_VAR token_str>"><img src="<TMPL_VAR cdn_url>/images/down.gif" title="Move Down"></a></TMPL_IF>
+    </TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<br>
+<input type="button" value=" Add category " onclick="window.location='?op=admin_category_form<TMPL_VAR token_str>'">
+
+<br><br>
+<small>You can use custom image for each category.<br>Upload cat_ID.jpg or cat_ID.png files to /images/ folder.<br>ID = Category ID.</small>

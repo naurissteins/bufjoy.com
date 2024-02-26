@@ -1,0 +1,144 @@
+<TMPL_INCLUDE menu_main.html>
+    <div class="relative isolate">
+        <img class="h-56 w-full object-cover lg:h-[600px]" src="<TMPL_VAR tags_thumb>" alt="<TMPL_VAR tag>">
+        <div class="absolute inset-0  bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+        <div class="absolute inset-0  rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+        <!-- Add this div for your h1 tag -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h1 class="text-white text-xl lg:text-3xl font-extrabold capitalize"><TMPL_VAR tag></h1>
+        </div>        
+    </div>
+    
+    <!-- Statistic -->
+    <div class="flex justify-center">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex flex-row  p-6 -mt-10 sm:-mt-10">
+                <div class="flex flex-col px-6">
+                    <div class="mt-2 flex flex-row items-center space-x-5">
+                    <TMPL_IF total_audio_files>
+                    <!-- Audios -->
+                    <a href="<TMPL_VAR site_url>/tag/<TMPL_VAR tag_value2>/audios" class="flex h-20 w-40 flex-col items-center justify-center rounded-md border <TMPL_IF is_audio>border-gray-700<TMPL_ELSE>border-gray-800</TMPL_IF> transition-colors duration-100 ease-in-out hover:border-gray-700">
+                        <div class="flex flex-row items-center justify-center">
+                        <span class="font-bold text-gray-200"><TMPL_VAR total_audio_files></span>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-400 font-semibold">Audios</div>
+                    </a>
+                    </TMPL_IF>
+                    <TMPL_IF total_video_files>
+                    <!-- Videos -->
+                    <a href="<TMPL_VAR site_url>/tag/<TMPL_VAR tag_value2>/videos" class="flex h-20 w-40 flex-col items-center justify-center rounded-md border <TMPL_IF is_video>border-gray-700<TMPL_ELSE>border-gray-800</TMPL_IF> transition-colors duration-100 ease-in-out hover:border-gray-700">
+                        <div class="flex flex-row items-center justify-center">
+                        <span class="font-bold text-gray-200"><TMPL_VAR total_video_files></span>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-400 font-semibold">Videos</div>
+                    </a>
+                    </TMPL_IF>
+                    <TMPL_IF total_image_files>
+                    <!-- Images -->
+                    <a href="<TMPL_VAR site_url>/tag/<TMPL_VAR tag_value2>/images" class="flex h-20 w-40 flex-col items-center justify-center rounded-md border <TMPL_IF is_image>border-gray-700<TMPL_ELSE>border-gray-800</TMPL_IF> transition-colors duration-100 ease-in-out hover:border-gray-700">
+                        <div class="flex flex-row items-center justify-center">
+                        <span class="font-bold text-gray-200"><TMPL_VAR total_image_files></span>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-400 font-semibold">Images</div>
+                    </a>
+                    </TMPL_IF>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative mt-10">
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none <TMPL_IF audios>lg:grid-cols-1<TMPL_ELSIF images>lg:grid-cols-4<TMPL_ELSE>lg:grid-cols-3</TMPL_IF> <TMPL_IF images>pswp-gallery</TMPL_IF>" id="my-gallery">
+            <TMPL_LOOP tags>
+                <TMPL_IF audios>
+                    <TMPL_INCLUDE dev_audio.html>
+                  <TMPL_ELSIF videos>
+                      <article class="flex flex-col items-start  rounded-md">
+                        <a href="<TMPL_VAR download_link>">
+                            <div class="relative w-full">
+                                <img src="<TMPL_VAR video_thumb_url>" alt="" class="aspect-[16/9] lg:aspect-[16/9] sm:aspect-[16/9] w-full rounded-md object-cover">
+                            </div>
+                        </a>
+                        <div class="w-full mt-3">
+                            <div class="group relative">
+                                <h3 class="text-xs font-semibold leading-normal text-white group-hover:text-indigo-300">
+                                    <a href="<TMPL_VAR download_link>">
+                                        <span class="absolute inset-0"></span>
+                                        <TMPL_VAR file_title>
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                      </article>
+                  <TMPL_ELSE>
+                    <article class="flex flex-col items-start rounded-md">
+                        <a href="<TMPL_VAR video_thumb_url>" id="pic" data-download-link="<TMPL_VAR download_link>">
+                            <div class="relative w-full aspect-[1/1] sm:aspect-[1/1] lg:aspect-[1/1]">
+                                <img src="<TMPL_VAR video_thumb_url>" alt="" class="w-full h-full rounded-md object-cover object-center min-w-full">                                   
+                            </div>
+                        </a>
+                    </article> 
+                  </TMPL_IF> 
+              </TMPL_LOOP> 
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center  bg-grey-800 px-4 py-3 sm:px-6">
+        <TMPL_VAR paging>
+    </div>  
+    
+    <TMPL_INCLUDE footer.html>  
+
+        <script type="module">
+            import PhotoSwipeLightbox from '<TMPL_VAR site_url>/js/photoswipe-lightbox.esm.min.js';
+            const options = {
+            gallery:'#my-gallery',
+            children:'#pic',
+            showHideAnimationType: 'none',
+            maxSpreadZoom: 1, // Limit maximum zoom level
+            pswpModule: () => import('<TMPL_VAR site_url>/js/photoswipe.esm.min.js')
+            };
+            const lightbox = new PhotoSwipeLightbox(options);
+            lightbox.on('uiRegister', function() {
+                lightbox.pswp.ui.registerElement({
+                    name: 'download-button',
+                    order: 8,
+                    isButton: true,
+                    tagName: 'a',
+                
+                    // SVG with outline
+                    html: {
+                    isCustomSVG: true,
+                    inner: '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+                    outlineID: 'pswp__icn-download'
+                    },
+                
+                    onInit: (el, pswp) => {
+                    el.setAttribute('target', '_blank');
+                    el.setAttribute('rel', 'noopener noreferrer'); // Added noreferrer for security
+
+                        pswp.on('change', () => {
+                            const currentSlideElement = pswp.currSlide.data.element;
+                            const downloadLink = currentSlideElement.getAttribute('data-download-link');
+                            el.href = downloadLink;
+                        });                        
+                
+                    }
+                });
+            });
+            
+            document.querySelectorAll('#my-gallery #pic').forEach(anchor => {
+            const img = anchor.querySelector('img');
+            img.onload = () => {
+                anchor.setAttribute('data-pswp-width', img.naturalWidth);
+                anchor.setAttribute('data-pswp-height', img.naturalHeight);
+            };
+            if(img.complete) {
+                anchor.setAttribute('data-pswp-width', img.naturalWidth);
+                anchor.setAttribute('data-pswp-height', img.naturalHeight);
+            }
+            });
+            
+            lightbox.init();
+        </script>         

@@ -1,0 +1,12 @@
+<Center>
+<h2><TMPL_VAR lng_index_add_categories></h2>
+<div style="padding-left:150px;">
+<TMPL_LOOP list>
+<div class="vid_block">
+<a href="<TMPL_VAR site_url>/s/<TMPL_VAR name2>/<TMPL_VAR value3>" class="morevids" style="background-image:url(<TMPL_VAR img>);"><span><TMPL_VAR num> videos</span></a>
+<div colspan=2 class="vb_title_center"><a href="<TMPL_VAR site_url>/s/<TMPL_VAR name2>/<TMPL_VAR value3>" class="link"><b><TMPL_VAR value></b></a></div>
+</div>
+<TMPL_IF clear><div class="clear"></div><br></TMPL_IF>
+</TMPL_LOOP>
+</div>
+</center>

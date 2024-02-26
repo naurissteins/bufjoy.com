@@ -1,0 +1,267 @@
+<h3>Servers management</h3>
+
+<Form method=POST>
+<input type="hidden" name="op" value="admin_servers">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1" style="margin-bottom: 20px">
+<tr>
+	<td>Host name</td>
+	<td><input type="text" name="host_name" value="<TMPL_VAR host_name>" size=8></td>
+</tr>
+<tr>
+	<td>Net out ></td>
+	<td><input type="text" name="host_out" value="<TMPL_VAR host_out>" size=3>Mbps</td>
+</tr>
+<tr>
+	<td>Connections ></td>
+	<td><input type="text" name="host_connections" value="<TMPL_VAR host_connections>" size=4></td>
+</tr>
+<tr>
+	<td>Disk util ></td>
+	<td><input type="text" name="disk_util" value="<TMPL_VAR disk_util>" size=2>%</td>
+</tr>
+<tr>
+	<td>Type</td>
+	<td>
+	<label><input type="radio" name="srv_type" value=""<TMPL_VAR srv_type_>>All</label>
+	<label><input type="radio" name="srv_type" value="STORAGE" class="lmargin10"<TMPL_VAR srv_type_STORAGE>>STORAGE</label> 
+	<label><input type="radio" name="srv_type" value="UPLOADER" class="lmargin10"<TMPL_VAR srv_type_UPLOADER>>UPLOADER</label> 
+	</td>
+</tr>
+<tr>
+	<td>Show extra info</td>
+	<td id="extra">
+		<label><input type="checkbox" name="srv_show_enc" value="1"<TMPL_VAR srv_show_enc>>Encodings</label>
+		<label><input type="checkbox" name="srv_show_trans" value="1" class="lmargin10"<TMPL_VAR srv_show_trans>>Transfers</label> 
+		<label><input type="checkbox" name="srv_show_url" value="1" class="lmargin10"<TMPL_VAR srv_show_url>>URL Uploads</label> 
+	</td>
+</tr>
+<tr>
+	<td colspan=2 align=center><input type="submit" name="filter" value="Show servers" class="f-btn-blue"></td>
+</tr>
+</Table>
+
+<TMPL_IF warnings>
+<span class="err" style="background:#ffc;padding:7px;"><TMPL_VAR warnings></span><br><br>
+</TMPL_IF>
+
+<TMPL_IF msg><br><br><b class="err"><TMPL_VAR msg></b><br><br></TMPL_IF>
+
+
+<Table class="tbl1" cellspacing=1 cellpadding=3>
+<TR class="hdr">
+	<TD></TD>
+	<TD>ID</TD>
+	<TD>Server Name</TD>
+	<TD></TD>
+	<TD><TMPL_VAR sum_host_in> Mbps in</TD>
+	<TD><TMPL_VAR sum_host_out> Mbps out</TD>
+	<TD><TMPL_VAR sum_srv_disk> of <TMPL_VAR sum_srv_disk_max> TB used</TD>
+	<TMPL_IF srv_show_enc>
+		<TD>Encodings</TD>
+	</TMPL_IF>
+	<TMPL_IF srv_show_trans>
+		<TD>Transfers Out</TD>
+		<TD>Transfers In</TD>
+	</TMPL_IF>
+	<TMPL_IF srv_show_url>
+		<TD>URL Uploads</TD>
+	</TMPL_IF>
+	<TD title="Disk utilization">Disk Load</TD>
+</TR>
+<TMPL_LOOP hosts>
+<TMPL_UNLESS hide>
+<TR align=center class="trhost">
+	<TD colspan=3 align=left>
+		<a name="host<TMPL_VAR host_id>"></a><a href="?op=admin_host_edit&amp;host_id=<TMPL_VAR host_id><TMPL_VAR token_str>"><b><TMPL_VAR host_name></b></a>
+		<TMPL_IF host_live> <sup style="font-weight:bold;color:green;" title="Live Streaming">live</sup></TMPL_IF>
+		<TMPL_IF host_torrent> <sup style="font-weight:bold;color:blue;" title="Torrent engine">torr</sup></TMPL_IF>
+		<TMPL_IF host_ftp> <sup style="font-weight:bold;color:red;" title="FTP server">ftp</sup></TMPL_IF>
+		<TMPL_IF host_proxy> <sup style="font-weight:bold;color:purple;" title="HLS Proxy">prox</sup></TMPL_IF>
+	</TD>
+	<TD><TMPL_VAR host_ip></TD>
+	<TD><TMPL_VAR host_in> in</TD>
+	<TD<TMPL_IF warn_net> style='color:red'</TMPL_IF>><TMPL_VAR host_out> out</TD>
+	<TD><TMPL_VAR host_avg> avg, <TMPL_VAR host_connections> con<TMPL_IF host_cache_rate><span title="HLS cache hit traffic rate">, <TMPL_VAR host_cache_rate>% cache</span></TMPL_IF></TD>
+	<TMPL_IF srv_show_enc>
+	<TD>
+		<TMPL_IF enc_PENDING><TMPL_VAR enc_PENDING> pend</TMPL_IF>
+		<TMPL_IF enc_ENCODING><TMPL_VAR enc_ENCODING> enc</TMPL_IF>
+		<TMPL_IF fps><TMPL_VAR fps> fps</TMPL_IF>
+	</TD>
+	</TMPL_IF>
+	<TMPL_IF srv_show_trans>
+		<TD colspan=2></TD>
+	</TMPL_IF>
+	<TMPL_IF srv_show_url>
+		<TD></TD>
+	</TMPL_IF>
+	<TD><a href="?op=admin_server_add&amp;host_id=<TMPL_VAR host_id><TMPL_VAR token_str>" style="font-weight:normal;"">add srv</a></TD>
+</TR>
+	<TMPL_LOOP servers>
+	<TR align=center>
+		<TD><input type="checkbox" name="srv_id" value="<TMPL_VAR srv_id>"></TD>
+		<TD><TMPL_VAR srv_id></TD>
+		<TD align=left><a href="?op=admin_server_add&amp;srv_id=<TMPL_VAR srv_id><TMPL_VAR token_str>"><b><TMPL_VAR srv_name></b></a><TMPL_IF spec_filters><b title="Special users/countries">*</b></TMPL_IF></TD>
+		<TD>
+			<TMPL_VAR srv_type>
+			<TMPL_IF srv_encode> <sup style="font-weight:bold;color:green;" title="Encoding">e</sup></TMPL_IF>
+			<TMPL_IF srv_ssd> <sup style="font-weight:bold;color:grey;" title="HLS Proxy">p</sup></TMPL_IF>
+		</TD>
+		<TD><TMPL_VAR srv_status></TD>
+		<TD><a href="?op=admin_files&amp;srv_id<TMPL_IF srv_ssd>_copy</TMPL_IF>=<TMPL_VAR srv_id><TMPL_VAR token_str>"><TMPL_VAR srv_files> files</a></TD>
+		<TD align=left><b<TMPL_IF warn_space> style='color:red'</TMPL_IF>><TMPL_VAR srv_disk_percent>%</b> (<TMPL_VAR srv_disk> of <TMPL_VAR srv_disk_max> Gb)</TD>
+		<TMPL_IF srv_show_enc><TD></TD></TMPL_IF>
+		<TMPL_IF srv_show_trans>
+		<TD>
+			<TMPL_IF trans_from_PENDING><TMPL_VAR trans_from_PENDING> pend </TMPL_IF>
+			<TMPL_IF trans_from_MOVING><TMPL_VAR trans_from_MOVING> mov </TMPL_IF>
+			<TMPL_IF trans_from_ERROR><TMPL_VAR trans_from_ERROR> err </TMPL_IF>
+			<TMPL_IF trans_from_STUCK><TMPL_VAR trans_from_STUCK> stu</TMPL_IF>
+		</TD>
+		<TD>
+			<TMPL_IF trans_to_PENDING><TMPL_VAR trans_to_PENDING> pend </TMPL_IF>
+			<TMPL_IF trans_to_MOVING><TMPL_VAR trans_to_MOVING> mov </TMPL_IF>
+			<TMPL_IF trans_to_ERROR><TMPL_VAR trans_to_ERROR> err </TMPL_IF>
+			<TMPL_IF trans_to_STUCK><TMPL_VAR trans_to_STUCK> stu</TMPL_IF>
+		</TD>
+		</TMPL_IF>
+		<TMPL_IF srv_show_url>
+		<TD>
+			<TMPL_IF url_PENDING><TMPL_VAR url_PENDING> pend </TMPL_IF>
+			<TMPL_IF url_WORKING><TMPL_VAR url_WORKING> work </TMPL_IF>
+			<TMPL_IF url_ERROR><TMPL_VAR url_ERROR> err </TMPL_IF>
+			<TMPL_IF url_STUCK><TMPL_VAR url_STUCK> stu</TMPL_IF>
+		</TD>
+		</TMPL_IF>
+		<TD<TMPL_IF warn_util> style='color:red'</TMPL_IF>><a href="?op=admin_high_bw_files&hours=1&srv_id=<TMPL_VAR srv_id><TMPL_VAR token_str>"><TMPL_VAR disk_util>%</a></TD>
+	</TR>
+	</TMPL_LOOP>
+</TMPL_UNLESS>
+</TMPL_LOOP>
+<TR class="hdr"><TD colspan=12 style="text-align:left">
+	<input type="submit" name="check_db_to_file" value=" DB-to-File check " class="btn2"> &nbsp; 
+	<!--input type="submit" name="check_file_to_db" value=" File-to-DB check " onClick="document.location='?op=admin_check_file_db'" class="btn2"--> &nbsp; 
+	<input type="submit" name="update_disk_used" value=" Update servers disk used " onClick="document.location='?op=admin_update_srv_stats'" class="btn2">
+
+	<input type="button" value="Change status" class="btn2 lmargin10" onclick="$(this).hide();$('#status_id').show();">
+	<span id="status_id" style="display:none" class="lmargin10">
+		<select name="srv_status">
+		<option>ON</option>
+		<option>READONLY</option>
+		<option>READONLY2</option>
+		<option>OFF</option>
+		</select>
+		<input type="submit" name="change_status" value="Change" class="btn2">
+	</span>
+</TD></TR>
+</Table>
+</Form>
+
+<br>
+<input type="button" value=" Add new Host " <TMPL_IF sum_srv_numb>disabled title="Disabled with your license"<TMPL_ELSE>onClick="document.location='?op=admin_host_edit<TMPL_VAR token_str>'"</TMPL_IF>>
+
+<br><br>
+<Form method="POST">
+<input type="hidden" name="op" value="admin_servers_transfer">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1" cellpadding=4 cellspacing=1>
+<TR class="hdr"><TD>Transfer Files</TD></TR>
+<TR><TD>
+From 
+<select name="srv_id1">
+	<TMPL_LOOP hosts>
+		<optgroup label="<TMPL_VAR host_name>">
+		<TMPL_LOOP servers><TMPL_IF on><option value="<TMPL_VAR srv_id>"><TMPL_VAR srv_id> - <TMPL_VAR srv_name></option></TMPL_IF></TMPL_LOOP>
+		</optgroup>
+	</TMPL_LOOP>
+</select> 
+To 
+<select name="srv_id2">
+	<TMPL_LOOP hosts>
+		<optgroup label="<TMPL_VAR host_name>">
+		<TMPL_LOOP servers><TMPL_IF on><option value="<TMPL_VAR srv_id>"><TMPL_VAR srv_id> - <TMPL_VAR srv_name></option></TMPL_IF></TMPL_LOOP>
+		</optgroup>
+	</TMPL_LOOP>
+</select>
+</TD></TR>
+<TR><TD>
+Number of files: <input type="text" name="files_num" size=5>
+</TD></TR>
+<TR><TD>
+File Order: 
+<select name="order">
+<option name="size_desc">Biggest first</option>
+<option name="size_enc">Smallest first</option>
+<option name="id_desc">New first</option>
+<option name="id_enc">Old first</option>
+<option name="views_desc">More views first</option>
+<option name="views_enc">Less views first</option>
+<option name="hot_desc">Top traffic last 24 hours</option>
+</select>
+</TD></TR>
+<TR><TD>
+Video views >= <input type="text" name="filter_views_more" size=3><br>
+Video views < <input type="text" name="filter_views_less" size=3>
+</TD></TR>
+<TR><TD>
+File size Normal >= <input type="text" name="filter_size_more" size=3> Mb<br>
+File size Normal < <input type="text" name="filter_size_less" size=3> Mb
+</TD></TR>
+<TR><TD align=center>
+<input type="submit" value="  Transfer  ">
+</TD></TR>
+</Table>
+</Form>
+
+<br><br>
+<Table class="tbl1" cellpadding=4 cellspacing=1>
+<TR class="hdr"><TD>Special Functions</TD></TR>
+<TR><TD align=center>
+	<input type="button" value="Run cron.pl" onClick="document.location='<TMPL_VAR site_cgi>/cron.pl?<TMPL_VAR token_str>'">
+</TD></TR>
+<TR><TD align=center>
+	<input type="button" value="Run cron_expire.pl" onClick="document.location='<TMPL_VAR site_cgi>/cron_expire.pl?delok=0<TMPL_VAR token_str>'">
+</TD></TR>
+<TR><TD align=center>
+	<input type="button" value="Run cron_static_update.pl" onClick="document.location='<TMPL_VAR site_cgi>/cron_static_update.pl'">
+</TD></TR>
+</Table>
+
+<br><br>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_servers">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1" cellpadding=4 cellspacing=1>
+<TR class="hdr"><TD>Servers Functions</TD></TR>
+<TR><TD align=center>
+	
+	<select name="host_id">
+		<TMPL_LOOP hosts><option value="<TMPL_VAR host_id>"><TMPL_VAR host_name></option></TMPL_LOOP>
+		<option value="all">All</option>
+	</select>	
+	<select name="cmd">
+		<option value="nginx-restart">Restart NGINX</option>
+		<option value="daemons-restart">Restart daemons</option>
+		<option value="logs-clean">Empty logs</option>
+		<option value="torrents-clean">Delete torrent files</option>
+		<option value="hls-clean">Empty HLS cache</option>
+	</select> 
+	
+</TD></TR>
+<TR><TD align=center>
+	<input type="submit" name="root_cmd" value="Send command to servers">
+</TD></TR>
+</Table>
+</Form>
+
+<script src="<TMPL_VAR static_url>/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+$('#extra input:checkbox').change(function(){
+        var sel=0;
+        if(this.checked)sel=1;
+        $.cookie(this.name, sel, { expires: 24*30 });
+});
+</script>>

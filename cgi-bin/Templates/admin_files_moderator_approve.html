@@ -1,0 +1,43 @@
+<h3>Moderator Files Approval</h3>
+
+<br>
+<form method="post">
+<input type="hidden" name="op" value="moderator_files_approve">
+<input type="hidden" name="del_info" value="">
+
+<TMPL_VAR paging>
+
+<Table class="tbl1" cellspacing=1 cellpadding=3>
+<TR>
+	<TH><input type="checkbox" onClick="for(i=0;i<this.form.file_id.length;i++){this.form.file_id[i].checked=this.checked;}if(this.form.file_id.value)this.form.file_id.checked=this.checked;"></TH>
+	<TH>Filename</TH>
+	<TH>Size/Time</TH>
+	<TH>Uploaded by</TH>
+	<TH>Uploaded/IP</TH>
+</TR>
+<TMPL_LOOP files>
+<TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+	<TD<TMPL_IF file_public> class='pub'</TMPL_IF>><input type="checkbox" name="file_id" value="<TMPL_VAR file_id>"></TD>
+	<TD align=left>
+		<img src="<TMPL_VAR video_thumb_url>"><br>
+		<a href="<TMPL_VAR download_link>"><TMPL_VAR file_name_txt></a><TMPL_IF file_password><img src="<TMPL_VAR site_url>/images/lock.gif" title="Password"></TMPL_IF>
+	</TD>
+	<TD>
+		<TMPL_VAR file_size2><br>
+		<TMPL_VAR vid_length2>
+		<TMPL_IF img_screenlist><br><br><a href="<TMPL_VAR img_screenlist>">screenlist</a></TMPL_IF>
+	</TD>
+	<TD><a href="?op=moderator_files&usr_id=<TMPL_VAR usr_id>"><TMPL_VAR usr_login></a></TD>
+	<TD nowrap><small><TMPL_VAR file_created><br><a href="?op=moderator_files&ip=<TMPL_VAR file_ip>"><TMPL_VAR file_ip></a></small></TD>
+</TR>
+</TMPL_LOOP>
+<TR class="hdr">
+    <TD colspan=13 style="text-align:left;">
+    <input type="submit" name="del_selected" value="Delete selected" class="btn2" onClick="var x=prompt('Delete selected files?\nReason of deletion:','');if(typeof(x)=='undefined')return false;this.form.del_info.value=x;" style="background:#ffe0e0"> &nbsp; 
+    <input type="submit" name="approve" value="Approve selected" class="btn2" style="background:#e0ffe0">
+    </TD>
+</TR>
+</Table>
+<TMPL_VAR paging>
+<br>
+</form>

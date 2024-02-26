@@ -1,0 +1,91 @@
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_news_edit">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="news_id" value="<TMPL_VAR news_id>">
+<input type="hidden" name="news_text" id="news-text">    
+
+<Table class="tbl1" cellpadding=2 cellspacing=1>
+<TR class="hdr"><TD colspan=2>News form</TD></TR>
+<TR><TD align=right><b>Title</b></TD><TD><input type="text" name="news_title" value="<TMPL_VAR news_title>" size=80></TD></TR>
+<TR><TD align=right><b>Title Code</b></TD><TD><input type="text" name="news_title2" value="<TMPL_VAR news_title2>" size=70></TD></TR>
+<TR><TD align=right><b>News Image</b></TD><TD><input type="text" name="news_image" value="<TMPL_VAR news_image>" size=70></TD></TR>    
+<TR><TD align=right><b>Published</b></TD><TD><input type="text" name="created" value="<TMPL_VAR created>" size=20></TD></TR>
+<TR><TD colspan=2>
+
+<div id="quill-editor" style="height: 500px;"><TMPL_VAR news_text></div>
+<br>
+Tags: <b>[cut]</b> - cut news body
+</TD></TR>
+</Table>
+<input type="submit" name="save" value="Save">
+</Form>
+
+<script>
+var quill = new Quill('#quill-editor', {
+  modules: {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+
+     // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+      //[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'direction': 'rtl' }],                         // text direction
+
+      //[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+
+      ['image'],
+      ['clean']                                         // remove formatting button
+    ]
+  },
+  theme: 'snow'
+});
+var toolbar = quill.getModule('toolbar');
+toolbar.addHandler('image', () => {
+  var range = quill.getSelection();
+  var value = prompt('Please enter the image URL');
+
+  if (value) {
+    quill.insertEmbed(range.index, 'image', value, 'user');
+  }
+});  
+function getQuillContent(quill) {
+			var content = quill.root.innerHTML;
+			// Check if content is empty (only contains blank paragraph)
+			if (content === '<p><br></p>') {
+				return '';
+				} else {
+			return content;
+			}
+		}
+		document.querySelector('form').addEventListener('submit', function (e) {
+			var quillContent = getQuillContent(quill);
+			document.getElementById('news-text').value = quillContent;
+		});
+// document.querySelector('form').addEventListener('submit', function (e) {
+//       var html = quill.root.innerHTML;
+//       document.getElementById('news-text').value = html;
+//     });
+	quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+	let ops = [];
+	delta.ops.forEach(op => {
+		if (op.insert && typeof op.insert === 'string') {
+		ops.push({
+			insert: op.insert
+		});
+		}
+	});
+	delta.ops = ops;
+	return delta;
+});	     
+</script>  

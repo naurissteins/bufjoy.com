@@ -1,0 +1,5 @@
+You've used Forgot Password function for <TMPL_VAR usr_login> account on <TMPL_VAR site_name>
+
+Request IP: <TMPL_VAR ip>
+
+Follow this link to Reset your password: <TMPL_VAR site_url>/?op=forgot_pass&sess_id=<TMPL_VAR sess_id>

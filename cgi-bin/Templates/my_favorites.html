@@ -1,0 +1,53 @@
+    <div id="content" class="left">
+
+	<h2>MY FAVORITES</h2>
+
+        <div id="inwg">
+            <h3><span class="first-word"><TMPL_VAR title></span></h3><hr>
+            <div id="col3">
+                <TMPL_INCLUDE videos_list.html>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+<TMPL_VAR paging>
+
+    </div> <!--end content-->
+
+
+    <div id="sidebar1" class="left">
+
+        <div id="widget" class="withbg">
+            <h3><TMPL_VAR lng_index_categories_list></h3>
+            <div style="margin-bottom: 20px;">
+            <TMPL_INCLUDE static/categories.html>
+            </div>
+            <a href="<TMPL_VAR site_url>/categories_all" class="btn-blue"><TMPL_VAR lng_index_all_categories></a>
+        </div>
+
+        <div id="widget" class="withbg">
+            <h3><TMPL_VAR lng_index_tags_list></h3>
+            <TMPL_INCLUDE static/tags.html>
+        </div>
+
+    </div> <!--end sidebar1-->
+
+<TMPL_IF m_z>
+<script src="<TMPL_VAR cdn_url>/js/thumb_slide.js"></script>
+<script>
+tile_x=<TMPL_VAR m_z_cols>,tile_y=<TMPL_VAR m_z_rows>;
+thumb_w=200, thumb_h=112;
+</script>
+</TMPL_IF>
+
+
+
+
+
+<TMPL_IF m_z>
+<script src="<TMPL_VAR cdn_url>/js/thumb_slide.js"></script>
+<script>
+tile_x=<TMPL_VAR m_z_cols>,tile_y=<TMPL_VAR m_z_rows>;
+thumb_w=200, thumb_h=112;
+</script>
+</TMPL_IF>

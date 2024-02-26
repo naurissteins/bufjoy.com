@@ -1,0 +1,75 @@
+    <div id="content" class="left"> <!-- start content-->
+
+<TMPL_UNLESS hide_search>
+<Form method="GET" action="<TMPL_VAR site_url>/">
+<input type="hidden" name="op" value="search">
+<table xclass="tbl1" xstyle="margin: 10px auto;">
+<tr><th colspan=2><TMPL_VAR lng_search_search></th></tr>
+<tr>
+    <td><TMPL_VAR lng_search_title></td>
+    <td><input type="text" name="k" value="<TMPL_VAR k>" size=24></td>
+</tr>
+<tr>
+    <td><TMPL_VAR lng_search_username></td>
+    <td><input type="text" name="user" value="<TMPL_VAR user>" size=16></td>
+</tr>
+<tr>
+    <td><TMPL_VAR lng_search_tag></td>
+    <td><input type="text" name="tag" value="<TMPL_VAR tag>" size=16></td>
+</tr>
+<tr>
+    <td><TMPL_VAR lng_search_category></td>
+    <td>
+    <select name="cat_id">
+        <option value="">All</option>
+        <TMPL_LOOP categories><option value="<TMPL_VAR cat_id>"<TMPL_VAR selected>><TMPL_VAR pre><TMPL_VAR cat_name></option></TMPL_LOOP>
+    </select>
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value=" <TMPL_VAR lng_search_search> " class="f-btn-blue"></td>
+</tr>
+</table>
+</Form>
+</TMPL_UNLESS>
+
+
+        <div id="inwg">
+            <h3><span class="first-word"><TMPL_VAR title></span></h3><hr>
+            <div id="col3">
+                <TMPL_INCLUDE videos_list.html>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+<TMPL_VAR paging>
+
+
+    </div> <!--end content-->
+
+
+
+    <div id="sidebar1" class="left">
+
+        <div id="widget" class="withbg">
+            <h3><TMPL_VAR lng_index_categories_list></h3>
+            <div style="margin-bottom: 20px;">
+            <TMPL_INCLUDE static/categories.html>
+            </div>
+            <a href="<TMPL_VAR site_url>/categories_all" class="btn-blue"><TMPL_VAR lng_index_all_categories></a>
+        </div>
+
+        <div id="widget" class="withbg">
+            <h3><TMPL_VAR lng_index_tags_list></h3>
+            <TMPL_INCLUDE static/tags.html>
+        </div>
+
+    </div> <!--end sidebar1-->
+
+<TMPL_IF m_z>
+<script src="<TMPL_VAR cdn_url>/js/thumb_slide.js"></script>
+<script>
+tile_x=<TMPL_VAR m_z_cols>,tile_y=<TMPL_VAR m_z_rows>;
+thumb_w=200, thumb_h=112;
+</script>
+</TMPL_IF>

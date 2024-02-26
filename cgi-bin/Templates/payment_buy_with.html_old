@@ -1,0 +1,60 @@
+<Table class="tbl1" cellpadding=3 cellspacing=1>
+<TR class="hdr">
+<TD><TMPL_VAR lng_buywith_price></TD>
+<TD><TMPL_VAR lng_buywith_premium_days></TD>
+<TMPL_IF paypal_email><TD>&nbsp;</TD></TMPL_IF>
+<TMPL_IF two_checkout_sid><TD></TD></TMPL_IF>
+<TMPL_IF alertpay_email><TD>&nbsp;</TD></TMPL_IF>
+<TMPL_IF webmoney_merchant_id><TD></TD></TMPL_IF>
+<TMPL_IF smscoin_id><TD></TD></TMPL_IF>
+<TMPL_IF daopay_app_id><TD></TD></TMPL_IF>
+<TMPL_IF plimus_contract_id><TD></TD></TMPL_IF>
+<TMPL_IF moneybookers_email><TD></TD></TMPL_IF>
+<TMPL_IF cashu_merchant_id><TD></TD></TMPL_IF>
+<TMPL_IF lr_acc><TD></TD></TMPL_IF>
+<TMPL_IF hipay_merchant_id><TD></TD></TMPL_IF>
+<TMPL_IF okpay_receiver><TD></TD></TMPL_IF>
+<TMPL_IF pwall_app_id><TD></TD></TMPL_IF>
+</TR>
+<TMPL_LOOP plans>
+<TR align=center>
+<TD><TMPL_VAR amount> <TMPL_VAR currency_code></TD>
+<TD><b><TMPL_VAR days> <TMPL_VAR lng_buywith_days></b></TD>
+<TMPL_IF paypal_email><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=paypal&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_paypal.gif" border=0 alt="PayPal"></a></TD></TMPL_IF>
+<TMPL_IF two_checkout_sid><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=2co&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_2co.gif" border=0 alt="2Checkout"></a></TD></TMPL_IF>
+<TMPL_IF alertpay_email><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=alertpay&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_alertpay.gif" border=0 alt="AlertPay"></a></TD></TMPL_IF>
+<TMPL_IF webmoney_merchant_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=wmz&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_wmz.gif" border=0 alt="Webmoney"></a></TD></TMPL_IF>
+<TMPL_IF smscoin_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=smscoin&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_smscoin.gif" border=0 alt="SMSCoin"></a></TD></TMPL_IF>
+<TMPL_IF daopay_app_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=daopay&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_daopay.gif" border=0 alt="DaoPay"></a></TD></TMPL_IF>
+<TMPL_IF plimus_contract_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=plimus&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_plimus.gif" border=0 alt="Plimus"></a></TD></TMPL_IF>
+<TMPL_IF moneybookers_email><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=moneybookers&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_moneybookers.gif" border=0 alt="Moneybookers"></a></TD></TMPL_IF>
+<TMPL_IF cashu_merchant_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=cashu&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_cashu.gif" border=0 alt="CashU"></a></TD></TMPL_IF>
+<TMPL_IF lr_acc><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=liberty&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_liberty.gif" alr="LibertyReserve"></a></TD></TMPL_IF>
+<TMPL_IF hipay_merchant_id><TD><a href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=hipay&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_hipay.gif" border=0 alt="hipay"></a></TD></TMPL_IF>
+<TMPL_IF okpay_receiver><TD><a class="ask_email" href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=okpay&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_okpay.png" border=0 alt="okpay"></a></TD></TMPL_IF>
+<TMPL_IF pwall_app_id><TD><a class="ask_email" href="<TMPL_VAR site_url>/?op=payments&amp;amount=<TMPL_VAR amount>&amp;type=pwall&amp;r=<TMPL_VAR rand>"><img src="<TMPL_VAR site_url>/images/buy_pwall.png" border=0 alt="paymentwall"></a></TD></TMPL_IF>
+</TR>
+</TMPL_LOOP>
+</Table>
+<br><br>
+
+<script>
+<TMPL_UNLESS my_login>
+$("table.tbl1 a").click(function(e){
+  var x=prompt('Enter your e-mail to send account data to:','');
+  if(x=='' || x==null || typeof(x)=='undefined')return false;
+  if( !x.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) ){ alert('<TMPL_VAR lng_buywith_invalid_email>');return false; }
+  $(this).prop('href', $(this).prop('href')+'&email='+x );
+  return true;
+}
+);
+</TMPL_UNLESS>
+function getEmail(l)
+{
+  var x=prompt('Enter your e-mail to send account data to:','');
+  if(x=='' || x==null || typeof(x)=='undefined')return false;
+  if( !x.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) ){ alert('<TMPL_VAR lng_buywith_invalid_email>');return false; }
+  l.href += '&email='+x;
+  return true;
+}
+</script>

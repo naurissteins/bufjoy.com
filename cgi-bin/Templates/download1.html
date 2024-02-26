@@ -1,0 +1,365 @@
+<TMPL_INCLUDE menu_main.html>
+
+  <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+    <div
+      class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[42.1875rem]"
+      style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+    </div>
+  </div>
+
+  <TMPL_IF devtools_mode>
+    <!-- Force disable dev tools -->
+    <TMPL_INCLUDE detector_devtools.html>
+  </TMPL_IF>
+
+  <TMPL_IF not_video_audio_image>
+    <!-- If not media block -->
+    <TMPL_IF transfer>
+      <h1 class="text-lg font-bold text-gray-300 sm:text-2x1">Transfer in progress, please wait</h1>
+    </TMPL_IF>
+  </TMPL_IF>
+
+  <TMPL_IF video_code_html>
+    <!-- Video and Audio player -->
+    <TMPL_IF is_video>
+    <div class="relative isolate overflow-hidden pt-0 ">
+      <img src="<TMPL_VAR video_thumb_url>" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover blur-lg">
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-gray-950/50"></div>
+        <div class="absolute inset-0   ring-1 ring-inset ring-gray-900/10"></div>
+        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+          <div
+            class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+          </div>
+        </div>
+      </TMPL_IF>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-20">
+        <div id="video-content">
+          <div id="pdiv" class="<TMPL_IF jwplayer><TMPL_ELSE>aspect-w-16 aspect-h-9</TMPL_IF>">
+
+            <div id="play_limit_box" style="display: none;">
+              <div class="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8 h-full w-full">
+                <img src="<TMPL_VAR video_img_url>" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+                <div
+                  class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+                  aria-hidden="true">
+                  <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                  </div>
+                </div>
+                <div
+                  class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu"
+                  aria-hidden="true">
+                  <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <TMPL_IF preview_message>
+              <div id="over_player_msg" style="display:none;">
+                <TMPL_VAR preview_message>
+              </div>
+            </TMPL_IF>
+
+            <TMPL_VAR video_code_html>
+
+          </div>
+        </div>
+      </div>
+    <TMPL_IF is_video>
+    </div>
+    </TMPL_IF>
+  </TMPL_IF>
+
+  <TMPL_IF video_wait>
+     <!-- Video Wait -->
+    <TMPL_IF is_video>
+      <div class="relative isolate">
+        <img src="<TMPL_VAR video_img_url>"
+          class="aspect-[16/9] w-full object-cover sm:aspect-[16/9] lg:aspect-[16/9]">
+        <div class="absolute inset-0  bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+        <div class="absolute inset-0  rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+        <TMPL_IF msg2>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div id="over_player_msg" class="text-center text-white">
+              <TMPL_VAR msg2>
+            </div>
+          </div>
+        </TMPL_IF>
+      </div>
+      <TMPL_ELSIF is_audio>
+        <!-- Audio Wait -->
+        <div class="flex flex-col md:flex-row gap-8 mb-8">
+          <div class="md:flex-shrink-0 md:min-w-[250px] min-w-full">
+            <div class="relative aspect-[1/1] sm:aspect-[1/1] lg:aspect-square  lg:shrink-0">
+              <img src="<TMPL_VAR video_thumb_url>" alt=""
+                class="absolute inset-0 h-full w-full rounded-lg bg-gray-900 object-cover">
+              <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between">
+              <div class="flex space-x-4 mt-6 items-center">
+                <sapn id="play"
+                  class="text-white w-10 h-10 p-1.5 rounded-full ring-2 ring-indigo-500 bg-indigo-500 cursor-pointer">
+                  <svg class="animate-spin  h-7 w-7 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
+                  </svg>
+                </sapn>
+                <div class="flex flex-col">
+                  <TMPL_IF audio_title_artist>
+                    <h1 class="lg:text-md md:text-md font-semibold text-gray-100">
+                      <TMPL_VAR audio_title>
+                    </h1>
+                    <h3 class="lg:text-md md:text-sm font-semibold text-gray-400">
+                      <TMPL_VAR audio_artist>
+                    </h3>
+                    <TMPL_ELSE>
+                      <h1 class="lg:text-md md:text-md font-semibold text-gray-100">
+                        <TMPL_VAR file_title>
+                      </h1>
+                  </TMPL_IF>
+                </div>
+              </div>
+              <div class="inline-flex items-center space-x-1 text-xs">
+                <TMPL_IF audio_genre>
+                  <span
+                    class="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-300 bg-slate-800 mr-2">
+                    <svg class="h-1.5 w-1.5 fill-indigo-400" viewBox="0 0 6 6" aria-hidden="true">
+                      <circle cx="3" cy="3" r="3" />
+                    </svg>
+                    <TMPL_VAR audio_genre>
+                  </span>
+                </TMPL_IF>
+                <div class="current-time text-gray-400 hidden">00:00</div>
+                <div class="divider text-gray-600 hidden">/</div>
+                <div class="total-time text-gray-400">
+                  <TMPL_VAR vid_length_txt>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-2 mb-1 relative md:h-28 lg:h-28">
+              <div class="absolute inset-0 "></div>
+              <TMPL_IF msg_audio>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div id="over_player_msg" class="text-center text-white">
+                    <TMPL_VAR msg_audio>
+                  </div>
+                </div>
+              </TMPL_IF>
+            </div>
+
+            <div class="button">
+              <div class="flex justify-between">
+                <div class="inline-flex items-center space-x-2">
+                </div>
+                <div class="inline-flex items-center space-x-2">
+                  <div class="inline-flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-md">
+                    <span class="text-gray-400 text-xs font-medium">
+                      <TMPL_VAR vid_audio_bitrate> kbp/s
+                    </span>
+                  </div>
+                  <div class="inline-flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-md">
+                    <span class="text-gray-400 text-xs font-medium">
+                      <TMPL_VAR file_size_mb>
+                    </span>
+                  </div>
+                  <div class="inline-flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-md">
+                    <span class="text-gray-400 text-xs font-medium">
+                      <TMPL_VAR vid_audio_rate> Hz
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </TMPL_IF>
+    <!-- / Video Wait -->
+  </TMPL_IF>
+
+  <!-- Player Bottom -->
+  <TMPL_INCLUDE download1_player_bottom.html>
+   <!-- Player Bottom -->
+
+   <TMPL_UNLESS is_image>
+   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between  gap-x-2 mb-5">
+      <div>
+        <div class="flex items-center gap-x-3">
+          <TMPL_IF category2>
+            <div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+              <div class="h-2 w-2 rounded-full bg-current"></div>
+            </div>
+            <h1 class="flex gap-x-3 text-base leading-7">
+              <a href="/category/<TMPL_VAR category2>" class="font-semibold text-purple-300">
+                <TMPL_VAR category>
+              </a>
+            </h1>
+          </TMPL_IF>
+          <TMPL_IF tags>
+            <p>
+              <TMPL_LOOP tags>
+                <a href="/tag/<TMPL_VAR tag_value2>/<TMPL_IF is_audio>audios<TMPL_ELSIF image_file>images<TMPL_ELSE>videos</TMPL_IF>"
+                  class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-400 bg-slate-800 hover:bg-slate-700 hover:text-white mr-1">
+                  <!-- <svg class="h-1.5 w-1.5 fill-purple-400" viewBox="0 0 6 6" aria-hidden="true">
+                        <circle cx="3" cy="3" r="3"></circle>
+                      </svg> -->
+
+                  <TMPL_VAR tag_value>
+                </a>
+              </TMPL_LOOP>
+            </p>
+          </TMPL_IF>
+        </div>
+      </div>
+
+      <TMPL_UNLESS is_audio>
+        <!-- Likes and Dislikes-->
+        <div class="ml-auto">
+          <div class="relative">
+            <div
+              class="pointer-events-auto relative inline-flex rounded-full bg-gray-800 text-[0.8125rem] font-medium leading-5  shadow-sm ring-1 ring-slate-700/10">
+              <div class="flex px-3 py-2">
+                <a href="#" class="vote_up<TMPL_VAR voted_up>"
+                  onclick="return jah('/?op=vote&file_code=<TMPL_VAR file_code>&v=up')"
+                  title="<TMPL_VAR lng_download_like>">
+                  <svg class="h-5 w-5 flex-none fill-slate-400 hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
+                    height="1em" viewBox="0 0 512 512">
+                    <path
+                      d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z" />
+                  </svg>
+                </a>
+                <span id="likes_num-<TMPL_VAR file_id>" class="ml-2 text-slate-400">
+                  <TMPL_VAR likes>
+                </span>
+              </div>
+              <div class="border-l border-slate-400/20 px-2.5 py-2">
+                <div class="flex ">
+                  <a href="#" class="vote_down<TMPL_VAR voted_down>"
+                    onclick="return jah('/?op=vote&file_code=<TMPL_VAR file_code>&v=down')"
+                    title="<TMPL_VAR lng_download_dislike>">
+                    <svg class="h-5 w-5 flex-none fill-slate-400 hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M313.4 479.1c26-5.2 42.9-30.5 37.7-56.5l-2.3-11.4c-5.3-26.7-15.1-52.1-28.8-75.2H464c26.5 0 48-21.5 48-48c0-18.5-10.5-34.6-25.9-42.6C497 236.6 504 223.1 504 208c0-23.4-16.8-42.9-38.9-47.1c4.4-7.3 6.9-15.8 6.9-24.9c0-21.3-13.9-39.4-33.1-45.6c.7-3.3 1.1-6.8 1.1-10.4c0-26.5-21.5-48-48-48H294.5c-19 0-37.5 5.6-53.3 16.1L202.7 73.8C176 91.6 160 121.6 160 153.7V192v48 24.9c0 29.2 13.3 56.7 36 75l7.4 5.9c26.5 21.2 44.6 51 51.2 84.2l2.3 11.4c5.2 26 30.5 42.9 56.5 37.7zM32 384H96c17.7 0 32-14.3 32-32V128c0-17.7-14.3-32-32-32H32C14.3 96 0 110.3 0 128V352c0 17.7 14.3 32 32 32z" />
+                    </svg>
+                  </a>
+                  <span id="dislikes_num" class="ml-2 text-slate-400">
+                    <TMPL_VAR dislikes>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="z-0">
+              <div
+                class="absolute -bottom-8 -top-12 right-0 w-px bg-slate-900/[0.1] [mask-image:linear-gradient(to_top,transparent,white_4rem,white_calc(100%-4rem),transparent)]">
+              </div>
+              <div
+                class="absolute -bottom-8 -top-12 left-0 w-px bg-slate-900/[0.1] [mask-image:linear-gradient(to_top,transparent,white_4rem,white_calc(100%-4rem),transparent)]">
+              </div>
+            </div>
+          </div>
+        </div>
+      </TMPL_UNLESS>
+    </div>
+
+
+    <TMPL_IF file_descr>
+      <!-- File Description -->
+      <div x-data="{ isCollapsed: false}" class="mb-10">
+        <div class="rounded-lg bg-gray-700/10 shadow-2xl my-5 p-6">
+          <div x-ref="container" class="overflow-hidden transition-all duration-200"
+            x-bind:style="isCollapsed ? 'max-height: ' + $refs.container.scrollHeight + 'px' : 'max-height: 50px'">
+
+            <div class="text-gray-400 text-sm leading-6 ">
+              <TMPL_VAR file_descr>
+            </div>
+          </div>
+          <button class="text-gray-300 mt-2 text-sm" @click="isCollapsed = !isCollapsed"
+            x-show="$refs.container.scrollHeight > 50" x-text="isCollapsed ? 'Show less' : '...more'"></button>
+        </div>
+      </div>
+    </TMPL_IF>
+  </div>
+  </TMPL_UNLESS>
+
+
+  <TMPL_IF is_image>
+    <!-- Image Block -->
+    <TMPL_INCLUDE download1_is_image.html>
+  </TMPL_IF>
+
+  <!-- If playlists -->
+  <TMPL_IF playlist_prev>
+    <div style="float:left;padding:7px;"><a href="<TMPL_VAR playlist_prev>">
+        <TMPL_VAR playlist_prev_title>
+      </a></div>
+  </TMPL_IF>
+  <TMPL_IF playlist_next>
+    <div style="float:right;padding:7px;"><a href="<TMPL_VAR playlist_next>">
+        <TMPL_VAR playlist_next_title>
+      </a></div>
+  </TMPL_IF>
+
+  <TMPL_IF file_comments_on>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Comments -->
+      <TMPL_UNLESS file_status_LOCKED>
+        <div class="mx-auto grid gap-x-8 gap-y-3 <TMPL_IF is_image>max-w-2xl relative</TMPL_IF>">
+          <div class="<TMPL_IF is_image>mr-10</TMPL_IF> space-y-3">
+            <span class="text-2x1 text-white font-semibold">
+              <TMPL_IF comment_count>
+                <TMPL_VAR comment_count>
+              </TMPL_IF> Comments
+            </span>
+            <TMPL_INCLUDE comments.html>
+          </div>
+        </div>
+      </TMPL_UNLESS>
+    </div>
+  </TMPL_IF>
+
+  <!-- User more files -->
+  <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+    <TMPL_LOOP files>
+      <article class="flex flex-col items-start justify-between">
+        <div class="relative w-full">
+          <img src="<TMPL_VAR video_img_url>" alt=""
+            class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+          <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+        </div>
+        <div class="max-w-xl">
+          <div class="mt-8 flex items-center gap-x-4 text-xs">
+            <time datetime="2020-03-16" class="text-white">October 17th, 2023</time>
+            <span class="text-gray-400">
+              <TMPL_VAR file_length2>
+            </span>
+            <a href="#"
+              class="relative z-10 rounded-full bg-indigo-500 px-3 py-1.5 font-medium text-white hover:bg-indigo-600">Marketing</a>
+          </div>
+          <div class="group relative">
+            <h3 class="mt-3 text-lg font-semibold leading-6 text-white group-hover:text-indigo-300">
+              <a href="<TMPL_VAR download_link>">
+                <span class="absolute inset-0"></span>
+                <TMPL_VAR file_title_txt>
+              </a>
+            </h3>
+          </div>
+        </div>
+      </article>
+    </TMPL_LOOP>
+  </div>
+
+<TMPL_INCLUDE footer.html>
+
+<TMPL_INCLUDE download1_footer.html>

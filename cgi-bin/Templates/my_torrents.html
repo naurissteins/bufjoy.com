@@ -1,0 +1,35 @@
+<H2>My Torrents</H2>
+<br>
+
+<TMPL_IF msg><div class="ok"><TMPL_VAR msg></div><br></TMPL_IF>
+
+<Table class="tbl1" xstyle="width: 600px">
+<TR class="hdr"><TD colspan=8>Torrents running</TD></TR>
+<TR class="hdr">
+    <td>Torrent</td>
+    <td>Progress</td>
+    <td>Download</td>
+    <td>Upload</td>
+    <td>Working</td>
+    <td></td>
+</TR>
+<TMPL_LOOP torrents>
+<TR>
+    <TD>
+		<a href="#" onclick="$('#<TMPL_VAR sid>').toggle();"><TMPL_VAR name></a>
+		<div id="<TMPL_VAR sid>" style="display:none"><TMPL_VAR file_list></div>
+    </TD>
+    <TD align=right><TMPL_VAR downloaded> of <TMPL_VAR size> Gb (<TMPL_VAR percent>%)</TD>
+    <TD align=right><TMPL_VAR download_speed></TD>
+    <TD align=right><TMPL_VAR upload_speed></TD>
+    <TD><TMPL_VAR working></TD>
+    <TD><a href="?op=my_torrents&del_torrents=1&sid=<TMPL_VAR sid>" onClick="return confirm('Delete torrent?')"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<br><br>
+<a href="<TMPL_VAR site_url>/?op=upload_torrent">Upload .torrent</a>
+<br>
+
+

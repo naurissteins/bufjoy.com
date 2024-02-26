@@ -1,0 +1,131 @@
+<h3>Encoding queue</h3>
+
+<TMPL_IF restart_stuck>
+<div>
+  <input type="button" value="Restart all stucked" onclick="window.location='?op=admin_enc_list&amp;restart_stuck=1<TMPL_VAR token_str>'" class="f-btn-blue"> &nbsp; 
+  <input type="button" value="Cancel all stucked" onclick="if(!confirm('Cancel all stucked?'))return false; window.location='?op=admin_enc_list&amp;delete_stuck=1<TMPL_VAR token_str>'" class="f-btn-red">
+</div>
+</TMPL_IF>
+
+<TMPL_IF restart_error>
+<div style="margin:5px;">
+  <input type="button" value="Restart all errors" onclick="window.location='?op=admin_enc_list&amp;restart_errors=1<TMPL_VAR token_str>'" class="f-btn-blue"> &nbsp; 
+  <input type="button" value="Cancel all errors" onclick="if(!confirm('Cancel all errors?'))return false; window.location='?op=admin_enc_list&amp;delete_errors=1<TMPL_VAR token_str>'" class="f-btn-red">
+</div>
+</TMPL_IF>
+
+<br>
+
+<TMPL_IF chart>
+<Table class="tbl1">
+<tr>
+  <th>User</th>
+  <th>Queue</th>
+</tr>
+<TMPL_LOOP top_users>
+<tr>
+  <td><a href="?op=admin_enc_list&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></td>
+  <td align=center><TMPL_VAR x></td>
+</tr>
+</TMPL_LOOP>
+</Table>
+
+<br>
+
+<Table class="tbl1">
+<tr>
+  <th>Server</th>
+  <th>Queue</th>
+  <th>FPS</th>
+</tr>
+<TMPL_LOOP chart>
+<tr align=center>
+  <td><a href="?op=admin_enc_list&amp;host_id=<TMPL_VAR host_id><TMPL_VAR token_str>"><TMPL_VAR host_name></a></td>
+  <td><TMPL_VAR num> ( <TMPL_VAR PENDING> pending
+                      <TMPL_IF ENCODING>, <TMPL_VAR ENCODING> encoding</TMPL_IF>
+                      <TMPL_IF ERROR>, <TMPL_VAR ERROR> errors</TMPL_IF>
+                      <TMPL_IF STUCK>, <TMPL_VAR STUCK> stuck</TMPL_IF>)
+  </td>
+  <td><TMPL_VAR fps></td>
+</tr>
+</TMPL_LOOP>
+</Table>
+
+<br>
+
+<Table class="tbl1">
+<tr>
+  <th>Quality</th>
+  <th>Pending</th>
+</tr>
+<TMPL_LOOP chart_quality>
+<tr align=center>
+  <td><TMPL_VAR quality></td>
+  <td><TMPL_VAR num></td>
+</tr>
+</TMPL_LOOP>
+</Table>
+
+<br><br>
+</TMPL_IF>
+
+<form method="POST">
+<input type="hidden" name="op" value="admin_enc_list">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1" cellspacing=1 cellpadding=3 id="xfiles">
+<TR class="hdr">
+<TD><input type="checkbox" id="selall"></TD>
+<TD>Title</TD>
+<TD>Size</TD>
+<TD>Length</TD>
+<TD title="Quality: Normal / High / Low">Q</TD>
+<TD>User</TD>
+<TD>Started</TD>
+<TD>Host</TD>
+<TD>Progress</TD>
+</TR>
+<TMPL_LOOP list>
+<TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+    <TD><input type="checkbox" name="file_real" value="<TMPL_VAR file_real>-<TMPL_VAR quality>"></TD>
+    <TD align=left>
+        <a href="<TMPL_VAR download_link>"><TMPL_IF premium><b></TMPL_IF><TMPL_VAR file_title_txt></a>
+        <TMPL_IF priority><sup title="Priority"><TMPL_VAR priority></sup></TMPL_IF>
+        <TMPL_IF qstatus> <TMPL_VAR qstatus></TMPL_IF>
+        <TMPL_IF restart> <a href="?op=admin_enc_list&amp;restart=1&amp;file_real=<TMPL_VAR file_real>-<TMPL_VAR quality><TMPL_VAR token_str>"><i style="color:#aa3">-restart-</i></a></TMPL_IF>
+    </TD>
+    <TD align=right><TMPL_VAR file_size2></TD>
+    <TD align=right><TMPL_VAR file_length2></TD>
+    <TD align=right><TMPL_VAR quality></TD>
+    <TD><TMPL_IF usr_id><a href="?op=admin_files&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TMPL_IF></TD>
+    <TD nowrap><small><TMPL_VAR started2></small></TD>
+    <TD><TMPL_VAR host_name></TD>
+    <TD align=left class="enc_td"><div style="position:relative;"><div class="enc_status" style="width:<TMPL_VAR progress>%;"></div><div class="enc_value"><TMPL_VAR progress>%<TMPL_IF fps> (<TMPL_VAR fps> fps)</TMPL_IF></div></div></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+<TD colspan=9 style="padding:10px;">
+    <input type="submit" name="restart" value="Restart" class="f-btn-blue"> &nbsp; 
+    <input type="submit" name="cancel" value="Cancel" class="f-btn-red" onClick="return confirm('Cancel selected encodings?')"> &nbsp; 
+    <input type="submit" name="delete" value="Delete File" class="f-btn-red" onClick="return confirm('Delete selected files?')"> &nbsp; 
+    <input type="submit" name="priority_up" value="Increase priority" class="f-btn-green"> &nbsp; 
+</TD>
+</TR>
+</Table>
+
+</form>
+
+<TMPL_VAR paging>
+
+<script>
+$(document).ready(function(){
+    $("input[name=file_real]").change( function(){ $(this).parent().parent().toggleClass('hi2'); } );
+    $("#selall").change(function(){ 
+           var sel=this.checked;
+           $("#xfiles input[name=file_real]:enabled").each(function(){
+               $(this).prop('checked',sel);
+               if(sel){$(this).parent().parent().addClass('hi2');} else {$(this).parent().parent().removeClass('hi2');}
+           });
+    });
+});
+</script>

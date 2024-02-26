@@ -1,0 +1,662 @@
+<TMPL_INCLUDE menu-1.html>
+
+  <TMPL_INCLUDE top_menu.html>
+
+    <TMPL_VAR total_rating>
+
+      <div class="bg-gray-900">
+        <div class="mx-auto">
+          <div class="grid grid-cols-1 gap-px bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="border-b border-white/5 bg-gray-900 px-4 py-3 sm:px-6 lg:px-8">
+              <p class="text-sm font-medium leading-6 text-gray-400">Used disk space</p>
+              <p class="mt-2 flex items-baseline gap-x-2">
+                <span class="text-3xl font-semibold tracking-tight text-white">
+                  <TMPL_VAR total_size> GB
+                </span>
+                <span class="text-sm text-gray-500">of 5000 GB</span>
+              </p>
+            </div>
+            <!-- <div class="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8">
+                <p class="text-sm font-medium leading-6 text-gray-400">Total files</p>
+                <p class="mt-2 flex items-baseline gap-x-2">
+                <span class="text-3xl font-semibold tracking-tight text-white">2056</span>
+                </p>
+            </div> -->
+            <div class="border-b border-white/5 bg-gray-900 px-4 py-3 sm:px-6 lg:px-8">
+              <p class="text-sm font-medium leading-6 text-gray-400">Total disk space</p>
+              <p class="mt-2 flex items-baseline gap-x-2">
+                <span class="text-3xl font-semibold tracking-tight text-white">
+                  <TMPL_IF disk_space>
+                    <TMPL_VAR disk_space>
+                  </TMPL_IF> GB
+                </span>
+                <span class="text-sm text-gray-500">get more</span>
+              </p>
+            </div>
+            <div class="border-b border-white/5 bg-gray-900 px-4 py-3 sm:px-6 lg:px-8">
+              <p class="text-sm font-medium leading-6 text-gray-400">Total files</p>
+              <p class="mt-2 flex items-baseline gap-x-2">
+                <span class="text-3xl font-semibold tracking-tight text-white">
+                  <TMPL_VAR total_files>
+                </span>
+                <span class="text-sm text-gray-500">of unlimited*</span>
+              </p>
+            </div>
+            <div class="border-b border-white/5 bg-gray-900 px-4 py-3 sm:px-6 lg:px-8">
+              <p class="text-sm font-medium leading-6 text-gray-400">Referrals</p>
+              <p class="mt-2 flex items-baseline gap-x-2">
+                <span class="text-3xl font-semibold tracking-tight text-white">
+                  <TMPL_VAR referrals>
+                </span>
+                <a href="<TMPL_VAR site_url>/?op=my_referrals" class="text-sm text-gray-500">see all</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="">
+        <dl class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 pt-6 sm:px-6 lg:px-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="relative overflow-hidden rounded-lg bg-gray-700/10 shadow-2xl px-4 pb-3 pt-5 sm:px-6 sm:pt-6">
+            <dt>
+              <div class="absolute rounded-md bg-emerald-500 p-3">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg> -->
+
+                <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <path d="M32 480c-17.7 0-32-14.3-32-32s14.3-32 32-32H352c17.7 0 32 14.3 32 32s-14.3 32-32 32H32zM214.6 342.6c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 242.7V64c0-17.7 14.3-32 32-32s32 14.3 32 32V242.7l73.4-73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-128 128z"/>
+                </svg>
+              </div>
+              <p class="ml-16 truncate text-sm font-medium text-gray-300">Total downloads</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-2 sm:pb-2">
+              <p class="text-2xl font-semibold text-white">
+                <TMPL_VAR sum_downloads>
+              </p>
+              <p class="ml-2 flex items-baseline text-sm text-gray-500 font-medium">
+                this month
+              </p>
+            </dd>
+          </div>
+          <div class="relative overflow-hidden rounded-lg bg-gray-700/10 shadow-2xl px-4 pb-3 pt-5 sm:px-6 sm:pt-6">
+            <dt>
+              <div class="absolute rounded-md bg-purple-400 p-3">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                </svg> -->
+                <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                  <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/>
+                </svg>
+              </div>
+              <p class="ml-16 truncate text-sm font-medium text-gray-300">Total plays</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-2 sm:pb-2">
+              <p class="text-2xl font-semibold text-white">
+                <TMPL_VAR sum_views>
+              </p>
+              <p class="ml-2 flex items-baseline text-sm text-gray-500 font-medium">
+                this month
+              </p>
+            </dd>
+          </div>
+          <div class="relative overflow-hidden rounded-lg bg-gray-700/10 shadow-2xl px-4 pb-3 pt-5 sm:px-6 sm:pt-6">
+            <dt>
+              <div class="absolute rounded-md bg-red-400 p-3">
+                <!-- <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                </svg> -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 512 512">
+                  <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"></path>
+                </svg>
+              </div>
+              <p class="ml-16 truncate text-sm font-medium text-gray-300">Total Votes</p>
+            </dt>
+            <dd class="ml-16 flex items-baseline pb-2 sm:pb-2">
+              <p class="text-2xl font-semibold text-white">
+                <TMPL_VAR sum_file_rating>
+              </p>
+              <p class="ml-2 flex items-baseline text-sm text-gray-500 font-medium">
+                this month
+              </p>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-10 px-4 mt-2 py-6 sm:px-6 lg:px-8">
+        <div class="col-span-1 md:col-span-9">
+          <div class="bg-gray-800/10 shadow-2xl pt-3 pl-3 pb-3">
+            <div id="reports" style="width:auto;height:382px;" class=""></div>
+          </div>
+        </div>
+        <div class="col-span-1 md:col-span-3">
+          <!-- Top Countries-->
+          <div>
+            <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+              <colgroup>
+                <col class="w-full">
+                <col class="lg:w-1/12">
+                <col class="lg:w-1/12">
+              </colgroup>
+              <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+                <tr>
+                  <th class="font-semibold text-left pt-4 pb-3">
+                    <div class="inline-flex items-center ml-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-indigo-300" viewBox="0 0 512 512">
+                        <path
+                          d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                      </svg>
+                      <span class="text-base font-semibold leading-6 text-gray-200 px-3">Top Countries</span>
+                    </div>
+                  </th>
+                  <!-- Play svg icon-->
+                  <th class="py-2 font-semibold px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-purple-400" viewBox="0 0 512 512">
+                      <path
+                        d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z" />
+                    </svg>
+                  </th>
+                  <!-- Download svg icon-->
+                  <th class="py-2 font-semibold px-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-green-400" viewBox="0 0 512 512">
+                      <path
+                        d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                    </svg>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 ">
+                <TMPL_LOOP top_countries>
+                  <tr>
+                    <td class="py-1"><span class="text-xs font-medium leading-6 text-gray-400 truncate pl-3">
+                        <TMPL_VAR country>
+                      </span></td>
+                    <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                        <TMPL_VAR views>
+                      </span></td>
+                    <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                        <TMPL_VAR downloads>
+                      </span></td>
+                  </tr>
+                </TMPL_LOOP>
+              </tbody>
+            </table>
+            <TMPL_UNLESS top_countries>
+              <div class="bg-gray-900 shadow-2xl text-center py-8">
+                <span class="text-gray-500 font-medium">No data available yet</span>
+              </div>
+            </TMPL_UNLESS>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 px-4 pt-3 sm:px-6 lg:px-8 sm:grid-cols-2 lg:grid-cols-3 pb-10">
+        <!-- Top Plays-->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10 ">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-yellow-300" viewBox="0 0 576 512">
+                      <path
+                        d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                    </svg>
+                    <span class="text-base font-semibold leading-6 text-gray-200 px-3">Top Plays</span>
+                  </div>
+                </th>
+                <!-- Play svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-purple-400" viewBox="0 0 512 512">
+                    <path
+                      d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9V344c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 ">
+              <TMPL_LOOP top_views>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR file_id_count>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS top_views>
+            <div class="bg-gray-900 shadow-2xl text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+        </div>
+        <!-- Top Downloads-->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-yellow-300" viewBox="0 0 576 512">
+                      <path
+                        d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                    </svg> <span class="text-base font-semibold leading-6 text-gray-200 px-3">Top Downloads</span>
+                  </div>
+                </th>
+                <!-- Download svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-green-400" viewBox="0 0 512 512">
+                    <path
+                      d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <TMPL_LOOP top_downloads>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR file_id_count>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS top_downloads>
+            <div class="bg-gray-900 shadow-2xl text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+        </div>
+        <!-- Top Votes -->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-yellow-300" viewBox="0 0 576 512">
+                      <path
+                        d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
+                    </svg> <span class="text-base font-semibold leading-6 text-gray-200 px-3">Top Voted</span>
+                  </div>
+                </th>
+                <!-- Play svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-400" viewBox="0 0 512 512">
+                    <path
+                      d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 ">
+              <TMPL_LOOP top_votes>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR file_rating>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS top_votes>
+            <div class="bg-gray-900 shadow-2xl text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+        </div>
+        <!-- Recent comments -->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-indigo-300" viewBox="0 0 512 512">
+                      <path
+                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                    </svg>
+                    <span class="text-base font-semibold leading-6 text-gray-200 px-3">Recent Comments</span>
+                  </div>
+                </th>
+                <!-- Play svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-blue-400" viewBox="0 0 512 512">
+                    <path
+                      d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5" id="comment-section">
+              <TMPL_LOOP recent_comments>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR comment_count>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS recent_comments>
+            <div class="bg-gray-900 shadow-2xl text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+
+
+        </div>
+        <!-- Recent Downloads -->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-indigo-300" viewBox="0 0 512 512">
+                      <path
+                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                    </svg>
+                    <span class="text-base font-semibold leading-6 text-gray-200 px-3">Recent Downloads</span>
+                  </div>
+                </th>
+                <!-- Play svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-green-400" viewBox="0 0 512 512">
+                    <path
+                      d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6L269.8 394.5c-3.8 3.5-8.7 5.5-13.8 5.5s-10.1-2-13.8-5.5L135.1 294.6c-4.5-4.2-7.1-10.1-7.1-16.3c0-12.3 10-22.3 22.3-22.3l57.7 0 0-96c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 96 57.7 0c12.3 0 22.3 10 22.3 22.3c0 6.2-2.6 12.1-7.1 16.3z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+              <TMPL_LOOP recent_downloads>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR file_id_count>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS recent_downloads>
+            <div class="bg-gray-900 shadow-2xl  text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+        </div>
+        <!-- Recent Votes -->
+        <div>
+          <table class="w-full whitespace-nowrap bg-gray-900 shadow-2xl">
+            <colgroup>
+              <col class="w-full">
+              <col class="lg:w-1/12">
+            </colgroup>
+            <thead class="border-b border-white/5 text-xs leading-6 text-white bg-gray-800/10">
+              <tr>
+                <th class="font-semibold text-left pt-4 pb-3">
+                  <div class="inline-flex items-center ml-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-indigo-300" viewBox="0 0 512 512">
+                      <path
+                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                    </svg>
+                    <span class="text-base font-semibold leading-6 text-gray-200 px-3">Recent Votes</span>
+                  </div>
+                </th>
+                <!-- Play svg icon-->
+                <th class="py-2 font-semibold px-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-400" viewBox="0 0 512 512">
+                    <path
+                      d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                  </svg>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 ">
+              <TMPL_LOOP recent_votes>
+                <tr>
+                  <td class="py-1"><a href="<TMPL_VAR download_link>" target="_blank"
+                      class="text-xs font-medium leading-6 text-gray-400 truncate pl-3 hover:text-indigo-400">
+                      <TMPL_VAR file_title>
+                    </a></td>
+                  <td class="text-center px-2"><span class="text-xs leading-6 text-gray-400 font-medium">
+                      <TMPL_VAR file_rating>
+                    </span></td>
+                </tr>
+              </TMPL_LOOP>
+            </tbody>
+          </table>
+          <TMPL_UNLESS recent_votes>
+            <div class="bg-gray-900 shadow-2xl text-center py-8">
+              <span class="text-gray-500 font-medium">No data available yet</span>
+            </div>
+          </TMPL_UNLESS>
+        </div>
+      </div>
+
+      <TMPL_IF nothing>
+      <div class="bg-gray-900 relative isolate pb-10">
+
+        <div class="mx-auto px-6 lg:px-8">
+          <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+            <TMPL_LOOP news>
+              <article class="flex flex-col items-start">
+                <a href="<TMPL_VAR site_url>/n<TMPL_VAR news_id>-<TMPL_VAR news_title2>">
+                  <div class="relative w-full">
+                    <img src="<TMPL_VAR news_image>" alt=""
+                      class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+                    <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                  </div>
+                </a>
+                <div class="max-w-xl">
+                  <div class="mt-8 flex items-center gap-x-4 text-xs font-medium">
+                    <time datetime="<TMPL_VAR created_txt>" class="text-gray-300">
+                      <TMPL_VAR created_txt>
+                    </time>
+                    <span class="text-gray-400">
+                      <TMPL_VAR comments>
+                        <TMPL_VAR lng_news_comments>
+                    </span>
+                  </div>
+                  <div class="group relative">
+                    <h3 class="mt-3 text-lg font-semibold leading-6 text-white hover:text-indigo-300">
+                      <a href="<TMPL_VAR site_url>/n<TMPL_VAR news_id>-<TMPL_VAR news_title2>">
+                        <TMPL_VAR news_title>
+                      </a>
+                    </h3>
+                    <div class="mt-5 text-sm leading-6 text-gray-300">
+                      <TMPL_VAR news_text>
+                    </div>
+                  </div>
+                  <div class="relative mt-8 flex items-center gap-x-4">
+                    <div class="relative flex items-center gap-x-4">
+                      <TMPL_IF usr_avatar>
+                        <img src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR usr_avatar>" alt=""
+                          class="h-10 w-10 rounded-full bg-gray-50 object-cover">
+                        <TMPL_ELSE>
+                          <span
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[1rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+                            <TMPL_VAR usr_login_short>
+                          </span>
+                      </TMPL_IF>
+                      <div class="text-sm leading-6">
+                        <p class="font-semibold text-gray-200">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>" target="_blank">
+                            <TMPL_VAR usr_channel_name>
+                          </a>
+                        </p>
+                        <p class="text-gray-500">Co-Founder / CTO</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </TMPL_LOOP>
+          </div>
+        </div>
+      </div>
+      </TMPL_IF>
+
+
+      <TMPL_INCLUDE menu-2.html>
+
+        <style>
+          .sm-menu {
+            display: none;
+          }
+
+          [x-cloak] {
+            display: none;
+          }
+        </style>
+
+        <script>
+          $(document).ready(function () {
+            $("body").addClass("h-full");
+            $("html").addClass("h-full");
+          });
+        </script>
+
+        <script src="<TMPL_VAR static_url>/js/jquery.flot.min.js"></script>
+        <script src="<TMPL_VAR static_url>/js/jquery.flot.time.min.js"></script>
+        <script>
+          $(function () {
+
+            var data_views = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR views>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+              var data_sales = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR downloads>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+                var data_refs  = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR refs>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+                  var total_rating  = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR file_rating>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+
+                    $.plot("#reports", [ {data:data_views,label:"Plays"},{data:data_sales,label:"Downloads"},{data:total_rating,label:"Votes"},{data:data_refs,label:"Referrals"} ], {
+                      series: {
+                      lines: {show: true},
+                    points: {show: true}
+              },
+                    grid: {
+                      hoverable: true,
+                    clickable: true,
+                    markings: weekendAreas,
+                    backgroundColor: "#111827",
+                    color: "#949daf", // Around border color
+                    borderColor: "#1f2937", // Around border color,
+                    markingsColor: "#111827"
+              },
+                    yaxis: {tickDecimals: 0},
+                    colors: ["#c084fc", "#4ade80", "#f87171", "#fde047", "#9440ed"],
+                    xaxis: {
+                      mode: "time",
+                    tickLength: 5
+              },
+                    legend: {
+                      backgroundColor: "#1f2937",
+                    labelBoxBorderColor: "#111827",
+              }                            
+          });
+
+
+
+                    $("<div id='tooltip' style='margin-top:-50px;border-radius:3px'></div>").css({
+                      position: "absolute",
+                    display: "none",
+                    //border: "1px solid #ccc",
+                    padding: "5px 10px",
+                    "background-color": "#020617",
+                    "font-size": "13px",
+                    color: "#9ca3af",
+              //opacity: 0.80
+          }).appendTo("body");
+
+                    $("#reports").bind("plothover", function (event, pos, item)
+                    {
+                  if (item) {
+                      var x = item.datapoint[0];
+                    y = item.datapoint[1];
+                    var d = new Date(x);
+                    dt = d.toJSON().substring(0,10);
+                    $("#tooltip").html(item.series.label + ': ' + dt + " = " + y)
+                    .css({top: item.pageY+5, left: item.pageX+5})
+                    .fadeIn(200);
+                  } else {
+                      $("#tooltip").hide();
+                  }
+          });
+      });
+
+                    function weekendAreas(axes) {
+  
+              var markings = [],
+                    d = new Date(axes.xaxis.min);
+
+                    // go to the first Saturday
+
+                    d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+                    d.setUTCSeconds(0);
+                    d.setUTCMinutes(0);
+                    d.setUTCHours(0);
+
+                    var i = d.getTime();
+
+                    do {
+                      markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+                    i += 7 * 24 * 60 * 60 * 1000;
+              } while (i < axes.xaxis.max);
+
+                    return markings;
+          }
+
+
+        </script>

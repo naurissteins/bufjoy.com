@@ -1,0 +1,110 @@
+<TMPL_INCLUDE menu-1.html>
+    <TMPL_INCLUDE top_menu.html>
+
+        <div class="px-4 py-6 sm:px-6 lg:px-8">
+            <form method="POST">
+                <input type="hidden" name="op" value="my_files_deleted">
+                <div class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 rounded-md ">
+                    <div class="flex items-start space-x-5">
+                        <div class="flex-shrink-0">
+                            <div class="relative relative rounded-md bg-gray-800 p-2">
+                                <svg class="w-10 h-10 text-white fill-gray-300" xmlns="http://www.w3.org/2000/svg"
+                                    height="16" width="14" viewBox="0 0 448 512">
+                                    <path
+                                        d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h1 class="text-lg font-bold text-gray-300">
+                                Deleted Files <span class="text-gray-500">
+                                    (<TMPL_IF deleted_num>
+                                        <TMPL_VAR deleted_num>
+                                            <TMPL_ELSE>0
+                                    </TMPL_IF>)</span>
+                            </h1>
+                            <div class="mt-2 flex flex-shrink-0 gap-x-4">
+                                <span class="text-gray-400 inline-flex items-center text-xs">
+                                    You'll be able to restore your files for next 30 days
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+                        <input type="button" value="Hide deleted files"
+                            onclick="window.location='?op=my_files_deleted&hide=1'"
+                            class="inline-flex items-center justify-center rounded-md px-3 py-2 text-xs font-semibold shadow-sm focus-visible:outline cursor-pointer text-red-400 bg-red-400/10 hover:bg-red-400/20">
+                        <input type="submit" name="restore" value="Restore selected"
+                            class="inline-flex items-center justify-center rounded-md px-3 py-2 text-xs font-semibold shadow-sm focus-visible:outline cursor-pointer text-indigo-400 bg-indigo-400/10 hover:bg-indigo-400/20">
+                    </div>
+                </div>
+
+                <table class="w-full mt-8 whitespace-nowrap">
+                    <colgroup>
+                        <col class="">
+                        <col class="w-full">
+                        <col class="lg:w-1/12">
+                        <col class="lg:w-1/12">
+                        <col class="lg:w-1/12">
+                    </colgroup>
+                    <thead class="border-b border-white/10 text-xs leading-6 text-white">
+                        <tr>
+                            <th scope="col" class="pr-2"><input type="checkbox" id="selall"
+                                    class="h-4 w-4 rounded border-gray-700 text-indigo-600 focus:ring-indigo-600 bg-gray-800 items-center flex">
+                            </th>
+                            <th scope="col" class="py-2 font-semibold text-left">File Title</th>
+                            <th scope="col" class="py-2 pr-12 font-semibold text-left">File Folder / Name</th>
+                            <th scope="col" class="py-2 pr-12 font-semibold text-left">File code</th>
+                            <th scope="col" class="py-2 font-semibold text-left">Deleted, ago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <TMPL_LOOP files>
+                            <tr>
+                                <td>
+                                    <TMPL_IF restore><input type="checkbox" name="file_code"
+                                            value="<TMPL_VAR file_code>"
+                                            class="h-4 w-4 rounded border-gray-700 text-indigo-600 focus:ring-indigo-600 bg-gray-800 items-center flex">
+                                    </TMPL_IF>
+                                </td>
+                                <td class="text-gray-300 text-xs font-semibold py-2 ">
+                                    <TMPL_VAR file_title>
+                                </td>
+                                <td class="text-gray-400 text-xs py-2 pr-6">
+                                    <TMPL_VAR file_name>
+                                </td>
+                                <td class="text-gray-400 text-xs py-2 ">
+                                    <TMPL_VAR file_code>
+                                </td>
+                                <td class="text-gray-400 text-xs py-2 ">
+                                    <TMPL_VAR ago>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+        <TMPL_INCLUDE menu-2.html>
+
+            <script>
+                $(document).ready(function () {
+                    $("body").addClass("h-full");
+                    $("html").addClass("h-full");
+                });
+            </script>
+
+
+            <script>
+                $("#selall").change(function () {
+                    var sel = this.checked;
+                    $("input[name=file_code]:enabled").each(function () {
+                        $(this).prop('checked', sel);
+                        $(this).change();
+                    });
+                });
+                $("input[name=file_code]:enabled").shiftSelectable();
+            </script>

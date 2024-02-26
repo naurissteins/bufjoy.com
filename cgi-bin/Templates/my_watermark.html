@@ -1,0 +1,177 @@
+<h2>Watermark management</h2>
+
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TD>
+        <input type="radio" name="watermark_mode" value="0" id="wm0" onclick="$('div.wdiv').hide();$('#wdiv_'+this.value).show();"<TMPL_IF watermark_mode_0> checked</TMPL_IF>><label for="wm0"><b>Watermark disabled</b></label><br>
+        <input type="radio" name="watermark_mode" value="text" id="wm1" onclick="$('div.wdiv').hide();$('#wdiv_'+this.value).show();"<TMPL_VAR watermark_mode_text>><label for="wm1"><b>Static Text</b></label><br>
+        <input type="radio" name="watermark_mode" value="scroll" id="wm2" onclick="$('div.wdiv').hide();$('#wdiv_'+this.value).show();"<TMPL_VAR watermark_mode_scroll>><label for="wm2"><b>Scrolling text</b></label><br>
+        <TMPL_IF m_v_image_logo><input type="radio" name="watermark_mode" value="image" id="wm3" onclick="$('div.wdiv').hide();$('#wdiv_'+this.value).show();"<TMPL_VAR watermark_mode_image>><label for="wm3"><b>Image logo</b></label></TMPL_IF>
+    </TD>
+</TR>
+<TR>
+    <TD width=400>
+        <div id="wdiv_0" class="wdiv"<TMPL_UNLESS watermark_mode_0> style="display:none"</TMPL_UNLESS>>
+        <form method="post">
+        <input type="hidden" name="op" value="my_watermark">
+        <input type="hidden" name="watermark_mode" value="0">
+        <center>No watermark on video
+        <br><br><input type="submit" name="submit" value=" Save Settings "></center>
+        </form>
+        </div>
+
+
+        <div id="wdiv_text" class="wdiv"<TMPL_UNLESS watermark_mode_text> style="display:none"</TMPL_UNLESS>>
+        <form method="post">
+        <input type="hidden" name="op" value="my_watermark">
+        <input type="hidden" name="watermark_mode" value="text">
+        Text: <input type="text" name="watermark_text" value="<TMPL_VAR watermark_text>" size=36>
+        <br>
+        Position on video:<br>
+        <table cellpadding=0 cellspacing=0 width=120>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="nw"<TMPL_IF watermark_position_nw> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="n"<TMPL_IF watermark_position_n> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="ne"<TMPL_IF watermark_position_ne> checked</TMPL_IF>></td>
+        </tr>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="w"<TMPL_IF watermark_position_w> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="c"<TMPL_IF watermark_position_c> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="e"<TMPL_IF watermark_position_e> checked</TMPL_IF>></td>
+        </tr>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="sw"<TMPL_IF watermark_position_sw> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="s"<TMPL_IF watermark_position_s> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="se"<TMPL_IF watermark_position_se> checked</TMPL_IF>></td>
+        </tr>
+        </table>
+        <br>
+        Font face:
+        <select name="watermark_font">
+        <TMPL_LOOP fonts>
+        	<option value="<TMPL_VAR font_name>"<TMPL_VAR selected>><TMPL_VAR font_name></option>
+        </TMPL_LOOP>
+        </select>
+        <br>
+        Color: <input type="text" name="watermark_color" value="<TMPL_VAR watermark_color>" size=8> e.g.: #FFFFFF, white
+        <br>
+        Shadow color: <input type="text" name="watermark_shadow_color" value="<TMPL_VAR watermark_shadow_color>" size=8> e.g.: #303030, white
+        <br>
+        Opacity:
+        <select name="watermark_opacity">
+        <option value="1.0"<TMPL_VAR watermark_opacity_1.0>>100%</option>
+        <option value="0.95"<TMPL_VAR watermark_opacity_0.95>>95%</option>
+        <option value="0.9"<TMPL_VAR watermark_opacity_0.9>>90%</option>
+        <option value="0.8"<TMPL_VAR watermark_opacity_0.8>>80%</option>
+        <option value="0.7"<TMPL_VAR watermark_opacity_0.7>>70%</option>
+        <option value="0.6"<TMPL_VAR watermark_opacity_0.6>>60%</option>
+        <option value="0.5"<TMPL_VAR watermark_opacity_0.5>>50%</option>
+        <option value="0.4"<TMPL_VAR watermark_opacity_0.4>>40%</option>
+        <option value="0.3"<TMPL_VAR watermark_opacity_0.3>>30%</option>
+        <option value="0.2"<TMPL_VAR watermark_opacity_0.2>>20%</option>
+        </select>
+        <br>
+        Size: <input type="text" name="watermark_size" value="<TMPL_VAR watermark_size>" size=2> pixels
+        <br>
+        Padding: <input type="text" name="watermark_padding" value="<TMPL_VAR watermark_padding>" size=2> pixels
+        <br>
+        Disposal mode:
+        <select name="watermark_dispose_mode" onchange="$('.disp').hide();$('#disp_'+this.value).show();">
+         <option value="all">Show all time</option>
+         <option value="start_end"<TMPL_VAR watermark_dispose_mode_start_end>>Show in the start and end</option>
+         <option value="blink"<TMPL_VAR watermark_dispose_mode_blink>>Blink thorough the video</option>
+        </select>
+        <div class="disp" id="disp_start_end"<TMPL_UNLESS watermark_dispose_mode_start_end> style="display:none"</TMPL_UNLESS>>Show watermark first / last <input type="text" name="watermark_dispose_time" value="<TMPL_VAR watermark_dispose_time>" size=3> seconds of video</div>
+        <div class="disp" id="disp_blink"<TMPL_UNLESS watermark_dispose_mode_blink> style="display:none"</TMPL_UNLESS>>Show watermark every <input type="text" name="watermark_dispose_blink1" value="<TMPL_VAR watermark_dispose_blink1>" size=3> sec for <input type="text" name="watermark_dispose_blink2" value="<TMPL_VAR watermark_dispose_blink2>" size=3> sec</div>
+        <br><br><center><input type="submit" value=" Save Settings "></center>
+        </form>
+        </div>
+
+
+        <div id="wdiv_scroll" class="wdiv"<TMPL_UNLESS watermark_mode_scroll> style="display:none"</TMPL_UNLESS>>
+        <form method="post">
+        <input type="hidden" name="op" value="my_watermark">
+        <input type="hidden" name="watermark_mode" value="scroll">
+        Text: <input type="text" name="watermark_text" value="<TMPL_VAR watermark_text>" size=36>
+        <br>
+        Start each <input type="text" name="watermark_scroll_start" value="<TMPL_VAR watermark_scroll_start>" size=3> sec, scroll during <input type="text" name="watermark_scroll_length" value="<TMPL_VAR watermark_scroll_length>" size=3> sec
+        <br>
+        Position on video: 
+        <select name="watermark_position">
+         <option value="top"<TMPL_IF watermark_position_top> selected</TMPL_IF>>Top</option>
+         <option value="middle"<TMPL_IF watermark_position_middle> selected</TMPL_IF>>Middle</option>
+         <option value="bottom"<TMPL_IF watermark_position_bottom> selected</TMPL_IF>>Bottom</option>
+        </select>
+        <br>
+        Padding: <input type="text" name="watermark_padding" value="<TMPL_VAR watermark_padding>" size=2> pixels
+        <br>
+        Font name:
+        <select name="watermark_font">
+        <TMPL_LOOP fonts>
+        	<option value="<TMPL_VAR font_name>"<TMPL_VAR selected>><TMPL_VAR font_name></option>
+        </TMPL_LOOP>
+        </select>
+        <br>
+        Color: <input type="text" name="watermark_color" value="<TMPL_VAR watermark_color>" size=8> e.g.: #FFFFFF, white
+        <br>
+        Shadow color: <input type="text" name="watermark_shadow_color" value="<TMPL_VAR watermark_shadow_color>" size=8> e.g.: #FFFFFF, white
+        <br>
+        Opacity:
+        <select name="watermark_opacity">
+        <option value="1.0"<TMPL_VAR watermark_opacity_1.0>>100%</option>
+        <option value="0.95"<TMPL_VAR watermark_opacity_0.95>>95%</option>
+        <option value="0.9"<TMPL_VAR watermark_opacity_0.9>>90%</option>
+        <option value="0.8"<TMPL_VAR watermark_opacity_0.8>>80%</option>
+        <option value="0.7"<TMPL_VAR watermark_opacity_0.7>>70%</option>
+        <option value="0.6"<TMPL_VAR watermark_opacity_0.6>>60%</option>
+        <option value="0.5"<TMPL_VAR watermark_opacity_0.5>>50%</option>
+        <option value="0.4"<TMPL_VAR watermark_opacity_0.4>>40%</option>
+        <option value="0.3"<TMPL_VAR watermark_opacity_0.3>>30%</option>
+        <option value="0.2"<TMPL_VAR watermark_opacity_0.2>>20%</option>
+        </select>
+        <br>
+        Size: <input type="text" name="watermark_size" value="<TMPL_VAR watermark_size>" size=2> pixels
+        <br><br><center><input type="submit" value=" Save Settings "></center>
+        </form>
+        </div>
+
+
+        <TMPL_IF m_v_image_logo>
+        <div id="wdiv_image" class="wdiv"<TMPL_UNLESS watermark_mode_image> style="display:none"</TMPL_UNLESS>>
+        <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="op" value="my_watermark">
+        <input type="hidden" name="watermark_mode" value="image">
+        Current logo:<br><TMPL_IF logo_url><img src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR logo_url>?r=<TMPL_VAR rand>"><TMPL_ELSE>NONE</TMPL_IF><br><br>
+        New logo image: <input type="file" name="logo_image" size=24 accept="image/*"><br>Max size: <TMPL_VAR m_v_image_max_size>x<TMPL_VAR m_v_image_max_size> pixels<br><br>
+        <input type="checkbox" name="watermark_fade" value="1"<TMPL_IF watermark_fade> checked</TMPL_IF>> 
+        Fade out after <input type="text" name="watermark_image_fadeout" value="<TMPL_VAR watermark_image_fadeout>" size=3> seconds (Max 60 sec)<br>
+        Position on video:<br>
+        <table cellpadding=0 cellspacing=0 width=120>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="nw"<TMPL_IF watermark_position_nw> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="n"<TMPL_IF watermark_position_n> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="ne"<TMPL_IF watermark_position_ne> checked</TMPL_IF>></td>
+        </tr>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="w"<TMPL_IF watermark_position_w> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="c"<TMPL_IF watermark_position_c> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="e"<TMPL_IF watermark_position_e> checked</TMPL_IF>></td>
+        </tr>
+        <tr align=center>
+            <td><input type="radio" name="watermark_position" value="sw"<TMPL_IF watermark_position_sw> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="s"<TMPL_IF watermark_position_s> checked</TMPL_IF>></td>
+            <td><input type="radio" name="watermark_position" value="se"<TMPL_IF watermark_position_se> checked</TMPL_IF>></td>
+        </tr>
+        </table>
+        <br>
+        Padding: <input type="text" name="watermark_padding" value="<TMPL_VAR watermark_padding>" size=2> pixels
+        <br><br><center><input type="submit" value=" Save Settings "></center>
+        </form>
+        </div>
+        </TMPL_IF>
+    </TD>
+</TR>
+</Table>
+
+
+

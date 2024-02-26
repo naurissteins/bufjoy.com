@@ -1,0 +1,27 @@
+<h2>My Streams</h2>
+
+<TMPL_IF msg><b class="msg"><TMPL_VAR msg></b><br><br></TMPL_IF>
+
+<TMPL_IF list>
+<Table class="tbl1" cellpadding=3 width=640>
+<TR>
+    <TH>Title</TH>
+    <TH width="110">Live</TH>
+    <TH width="2%"></TH>
+</TR>
+<TMPL_LOOP list>
+<TR>
+    <TD><a href="?op=stream_form&stream_id=<TMPL_VAR stream_id>"><b><TMPL_VAR stream_title></b></a></TD>
+    <TD align=center>
+    	<TMPL_IF stream_live><b style="color:green">LIVE</b></TMPL_IF>
+    	<TMPL_IF watchers> <TMPL_VAR watchers> watching</TMPL_IF>
+    </TD>
+    <TD><a href="?op=my_streams&amp;del=<TMPL_VAR stream_id>&amp;token=<TMPL_VAR token>" onClick="return confirm('Delete this stream?')"><img src="<TMPL_VAR static_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<TMPL_ELSE>
+empty
+</TMPL_IF>
+
+<br><button onclick="window.location='?op=stream_form';">Create new stream</button>

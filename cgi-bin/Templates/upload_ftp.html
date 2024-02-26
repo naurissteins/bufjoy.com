@@ -1,0 +1,14 @@
+<TMPL_INCLUDE upload_menu.html>
+
+<h2><TMPL_VAR lng_uploadform_ftp_upload></h2>
+
+<table cellpadding=2 class="upload_slot">
+<tr>
+    <td align=center>
+	Use any FTP client with these server details:<br><br>
+	<b>ftp://<TMPL_VAR my_login>:<TMPL_VAR usr_ftp_password>@<TMPL_VAR srv_ip>/</b>
+	<br><br>
+	Files will be moved to account <TMPL_VAR m_f_sync_files_after> mins after upload complete.
+    </td>
+</tr>
+</table>

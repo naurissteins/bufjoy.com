@@ -1,0 +1,90 @@
+<html>
+<body style="width:100%;height:100%;padding:0;margin:0;">
+<script src="<TMPL_VAR static_url>/js/jquery.min.js"></script>
+<script src="/player_clappr/clappr.min.js"></script>
+<script src="/player_clappr/level-selector.min.js"></script>
+
+<div id="vplayer" style="width:100%;height:100%;"></div>
+
+
+<script>
+var player = new Clappr.Player({
+		source: "<TMPL_VAR host_htdocs_url>/hlsx/<TMPL_VAR stream_code>.m3u8",
+        poster: "<TMPL_VAR host_htdocs_url>/tmp/<TMPL_VAR stream_code>.jpg",
+		width: "100%",
+    	height: "100%",
+    	events: {
+    		onPlay:  streamStart,
+    		onError: streamEnd,
+    		onPause: streamPause,
+  		},
+		plugins: [LevelSelector],
+		levelSelectorConfig: {
+    		title: 'Quality',
+    		labels: {
+        	3: 'Ultra',
+        	2: 'HD',
+        	1: 'High',
+        	0: 'Low',
+    		},
+    	hlsjsConfig: {liveSyncDurationCount: 2,}, //start from N-2 chunk
+    	hlsMinimumDvrSize: 30, //time before rewind seeking enables
+    	//hlsjsConfig: {nudgeMaxRetry: 2, fragLoadingMaxRetry: 3, levelLoadingMaxRetry: 2, manifestLoadingMaxRetryTimeout: 12000, levelLoadingMaxRetryTimeout: 12000, fragLoadingMaxRetryTimeout: 12000, }
+		},
+    	disableVideoTagContextMenu: true,
+		parentId: "#vplayer"
+	});
+//player.configure({source:''});
+if(document.visibilityState=='visible'){ player.play(); }
+
+var timeOutID = '';
+player.listenTo(player.core.getCurrentContainer(), Clappr.Events.CONTAINER_STATE_BUFFERING, function() {
+	if(timeOutID!==''){ clearTimeout(timeOutID); }
+	timeOutID = setTimeout(function() {
+		if($(".spinner-three-bounce").css('display')=='block'){
+			//player.destroy();
+			clearTimeout(timeOutID);
+			window.location='/streams/<TMPL_VAR stream_code>.html';
+		}
+	}, 8000);
+});
+
+var pinger='';
+var visible=1;
+var invisTimer='';
+function streamStart(){
+	if(pinger!==''){ clearInterval(pinger); }
+	pingOnline();
+	pinger = setInterval(pingOnline, 15000);
+}
+
+function pingOnline(){
+	//if(visible==0)return;
+	$.get('<TMPL_VAR site_url>/dl?op=stream_ping&stream_id=<TMPL_VAR stream_id>', function(data) {eval(data);} );
+}
+
+function streamEnd(){
+	if(pinger!==''){ clearInterval(pinger); }
+	window.location='/streams/<TMPL_VAR stream_code>.html';
+}
+
+function streamPause(){
+	if(pinger!==''){ clearInterval(pinger); }
+}
+
+document.addEventListener("visibilitychange", function() {
+  if(document.visibilityState=='hidden')visible=0;
+  if(document.visibilityState=='visible')visible=1;
+  <TMPL_IF m_q_stop_invis_after>
+  if(visible==0){
+  	invisTimer = setTimeout(function (){player.stop();},<TMPL_VAR m_q_stop_invis_after>*1000);
+  }
+  else { 
+  	clearTimeout(invisTimer); 
+  }
+  </TMPL_IF>
+});
+</script>
+
+</body>
+</html>

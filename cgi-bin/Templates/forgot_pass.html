@@ -1,0 +1,31 @@
+<h2><TMPL_VAR lng_forgotpassword_title></h2>
+
+<b class="err"><TMPL_VAR msg></b>
+
+<Form method="POST">
+<input type="hidden" name="op" value="forgot_pass">
+<input type="hidden" name="rand" value="<TMPL_VAR rand>">
+<table>
+<tr>
+	<td align=center>
+		<b><TMPL_VAR lng_forgotpassword_enter_username_email>:</b><br>
+		<input type="text" name="usr_login" size=36>
+	</td>
+</tr>
+
+<TMPL_IF ihtml>
+<tr><td colspan=2 align=center><TMPL_VAR ihtml></td></tr>
+<TMPL_ELSE>
+<tr><td>
+	<table cellspacing=0 cellpadding=1 border=0 align=left><tr><td><TMPL_IF iurl><img src="<TMPL_VAR iurl>"><TMPL_ELSE><TMPL_VAR itext></TMPL_IF></td><td><input type="text" name="code" class="captcha_code"></td></tr></table>
+</td></tr>
+</TMPL_IF>
+
+<tr>
+	<td align=center>
+	<input type="submit" value=" <TMPL_VAR lng_forgotpassword_remind_me_password> " class="f-btn-blue">
+	</td>
+</tr>
+</table>
+</Form>
+

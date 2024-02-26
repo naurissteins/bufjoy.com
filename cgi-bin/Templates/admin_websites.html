@@ -1,0 +1,20 @@
+<h3>Admin Websites</h3>
+<br>
+<Table class="tbl1">
+<tr>
+	<th>Domain</th>
+	<th>User</th>
+	<th>Total profit</th>	
+</tr>
+<tr>
+<TMPL_LOOP list>
+	<td><TMPL_VAR domain></td>
+	<td><a href="?op=admin_user_edit&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></td>
+	<td>$<TMPL_VAR money_sales></td>
+</TMPL_LOOP>
+</tr>
+</Table>
+
+<br>
+
+<input type="button" value="Reset profit counter" class="btn2" onclick="if(!confirm('Reset websites profit counters?'))return false;window.location='?op=admin_websites&amp;site_reset=1<TMPL_VAR token_str>';">

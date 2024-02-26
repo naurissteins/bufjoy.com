@@ -1,0 +1,65 @@
+<H3>Payouts History</H3>
+<br>
+<a href="?op=admin_payouts<TMPL_VAR token_str>">Payouts management</a> &nbsp; 
+<br><br>
+
+<Form>
+<input type="hidden" name="op" value="admin_payouts_history">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+From <input type="text" name="date1" value="<TMPL_VAR date1>" size=9> to <input type="text" name="date2" value="<TMPL_VAR date2>" size=9>
+<br>Username <input type="text" name="usr_login" value="<TMPL_VAR usr_login>" size=12>
+<br>Status: <select name="status"><option value="">Any</option><option>PAID</option><option>REJECTED</option></select>
+<br><input type="submit" value="Show">
+
+<br>
+
+<Table class="tbl1" cellpadding=2 cellspacing=1>
+<TR class="hdr"><TD colspan=11>Payouts history</TD></TR>
+<TR class="hdr">
+	<TD><input type="checkbox" id="selall"></TD>
+    <TD>Username</TD>
+    <TD>Amount</TD>
+    <TD>Email</TD>
+    <TD>Payout system</TD>
+    <TD>Payment Info</TD>
+    <TD>Requested</TD>
+    <TD>Processed</TD>
+    <TD>Status</TD>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+	<TD><input type="checkbox" name="id" value="<TMPL_VAR id>"></TD>
+    <TD><TMPL_VAR usr_login></TD>
+    <TD>$<TMPL_VAR amount></TD>
+    <TD><TMPL_VAR usr_email></TD>
+    <TD><TMPL_VAR pay_type></TD>
+    <TD><TMPL_VAR pay_info></TD>
+    <TD><TMPL_VAR created></TD>
+    <TD><TMPL_VAR processed></TD>
+    <TD><TMPL_VAR status></TD>
+</TR>
+</TMPL_LOOP>
+<TR class="hdr">
+	<TD></TD>
+	<TD></TD>
+	<TD>$<TMPL_VAR sum_amount></TD>
+	<TD colspan=9 style="text-align:right;">
+		<input type="submit" name="delete_selected" value="Delete selected" onClick="return confirm('Delete?')" class="f-btn-orange"> 
+	</TD>
+</TR>
+</Table>
+
+</Form>
+
+<TMPL_VAR paging>
+
+<script>
+$("input[name=id]").change( function(){ $(this).parent().parent().toggleClass('hi2'); } );	
+$("#selall").change(function(){ 
+           var sel=this.checked;
+           $("input[name=id]:enabled").each(function(){
+               $(this).prop('checked',sel);
+               if(sel){$(this).parent().parent().addClass('hi2');} else {$(this).parent().parent().removeClass('hi2');}
+           });
+    });	
+</script>

@@ -1,0 +1,283 @@
+<TMPL_INCLUDE menu-1.html>
+
+    <TMPL_INCLUDE top_menu.html>
+
+        <Form>
+            <input type="hidden" name="op" value="my_reports">
+
+            <!-- <div class="mx-auto grid grid-cols-4 gap-x-4 gap-y-6 sm:grid-cols-2 max-w-sm">
+            <div>
+                <label for="company-website" class="block text-sm font-medium leading-6 text-gray-900">Company Website</label>
+                <div class="flex rounded-md shadow-sm">
+                  <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-800 px-3 text-gray-500 sm:text-sm ">From:</span>
+                  <input type="text" name="date1" value="<TMPL_VAR date1>" class="block w-full min-w-0 flex-1 rounded-none bg-white/5 rounded-r-md border-0 py-1.5 text-white ring-1 ring-inset ring-white/10 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="www.example.com">
+                </div>
+            </div>
+            <div>
+                <label for="company-website" class="block text-sm font-medium leading-6 text-gray-900">Company Website</label>
+                <div class="flex rounded-md shadow-sm">
+                  <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-800 px-3 text-gray-500 sm:text-sm ">To:</span>
+                  <input type="text" name="date2" value="<TMPL_VAR date2>" class="block w-full min-w-0 flex-1 rounded-none bg-white/5 rounded-r-md border-0 py-1.5 text-white ring-1 ring-inset ring-white/10 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="www.example.com">
+                </div>
+            </div>
+            <div class="sm:col-span-2">
+                <button type="submit" value="<TMPL_VAR lng_myreports_show>" class="relative w-full block inline-flex items-center text-center justify-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 576 512"><path d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z"></path></svg>
+                    Dashboard
+                </button>
+            </div>
+        </div> -->
+
+            <div class="mx-auto grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-2 max-w-md">
+
+                <div class="row-start-2">
+                    <div class="flex rounded-md shadow-sm">
+                        <span
+                            class="inline-flex items-center rounded-l-md border border-r-0 border-gray-800 px-3 text-gray-500 sm:text-sm ">From:</span>
+                        <input type="text" name="date1" value="<TMPL_VAR date1>"
+                            class="block w-full min-w-0 flex-1 rounded-none bg-white/5 rounded-r-md border-0 py-1.5 text-white ring-1 ring-inset ring-white/10 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder="www.example.com">
+                    </div>
+                </div>
+                <div class="row-start-2">
+                    <div class="flex rounded-md shadow-sm">
+                        <span
+                            class="inline-flex items-center rounded-l-md border border-r-0 border-gray-800 px-3 text-gray-500 sm:text-sm ">To:</span>
+                        <input type="text" name="date2" value="<TMPL_VAR date2>"
+                            class="block w-full min-w-0 flex-1 rounded-none bg-white/5 rounded-r-md border-0 py-1.5 text-white ring-1 ring-inset ring-white/10 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            placeholder="www.example.com">
+                    </div>
+                </div>
+                <div class="row-start-2">
+                    <button type="submit" value="<TMPL_VAR lng_myreports_show>"
+                        class="relative w-full block inline-flex items-center text-center justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 576 512"><path d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z"></path></svg> -->
+                        Show
+                    </button>
+                </div>
+
+            </div>
+
+        </Form>
+
+        <script src="<TMPL_VAR static_url>/js/jquery.flot.min.js"></script>
+        <script src="<TMPL_VAR static_url>/js/jquery.flot.time.min.js"></script>
+        <script>
+            $(function () {
+
+                var data_views = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR views>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+                    var data_sales = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR downloads>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+                        var data_refs  = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR refs>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+                            var data_uploads  = [<TMPL_LOOP list>['<TMPL_VAR time>','<TMPL_VAR uploads>']<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>];
+
+                                $.plot("#reports", [ {data:data_views,label:"Views"},{data:data_sales,label:"Downloads"},{data:data_uploads,label:"Uploads"},{data:data_refs,label:"Referrals"} ], {
+                                    series: {
+                                    lines: {show: true},
+                                points: {show: true}
+                    },
+                                grid: {
+                                    hoverable: true,
+                                clickable: true,
+                                markings: weekendAreas,
+                                backgroundColor: "#111827",
+                                color: "#949daf", // Around border color
+                                borderColor: "#1f2937", // Around border color,
+                                markingsColor: "#1f2937"
+                    },
+                                yaxis: {tickDecimals: 2},
+                                colors: ["#e879f9", "#60a5fa", "#2dd4bf", "#4da74d", "#9440ed"],
+                                xaxis: {
+                                    mode: "time",
+                                tickLength: 5
+                    },
+                                legend: {
+                                    backgroundColor: "#1f2937",
+                                labelBoxBorderColor: "#111827",
+                    }                            
+                });
+
+
+
+                                $("<div id='tooltip' style='margin-top:-50px;border-radius:3px'></div>").css({
+                                    position: "absolute",
+                                display: "none",
+                                //border: "1px solid #ccc",
+                                padding: "5px 10px",
+                                "background-color": "#020617",
+                                "font-size": "13px",
+                                color: "#9ca3af",
+                    //opacity: 0.80
+                }).appendTo("body");
+
+                                $("#reports").bind("plothover", function (event, pos, item)
+                                {
+                        if (item) {
+                            var x = item.datapoint[0];
+                                y = item.datapoint[1];
+                                var d = new Date(x);
+                                dt = d.toJSON().substring(0,10);
+                                $("#tooltip").html(item.series.label + ': ' + dt + " = " + y)
+                                .css({top: item.pageY+5, left: item.pageX+5})
+                                .fadeIn(200);
+                        } else {
+                                    $("#tooltip").hide();
+                        }
+                });
+            });
+
+                                function weekendAreas(axes) {
+        
+                    var markings = [],
+                                d = new Date(axes.xaxis.min);
+
+                                // go to the first Saturday
+
+                                d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+                                d.setUTCSeconds(0);
+                                d.setUTCMinutes(0);
+                                d.setUTCHours(0);
+
+                                var i = d.getTime();
+
+                                do {
+                                    markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+                                i += 7 * 24 * 60 * 60 * 1000;
+                    } while (i < axes.xaxis.max);
+
+                                return markings;
+                }
+
+
+        </script>
+
+        <div id="reports" style="width:auto;height:390px" class="mt-4 ml-4"></div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full mt-8 whitespace-nowrap" style="min-width: 1000px;">
+                <colgroup>
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                    <col class="lg:w-1/12">
+                </colgroup>
+                <thead class="border-b border-white/10 text-xs leading-6 text-white">
+                    <tr>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_date>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_views>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">Views Prem</th>
+                        <th scope="col" class="py-2 font-semibold">Views ADB</th>
+                        <th scope="col" class="py-2 font-semibold">Views Profit</th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_premium_sales>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_referrals>
+                        </th>
+                        <TMPL_IF m_b>
+                            <th scope="col" class="py-2 font-semibold">
+                                <TMPL_VAR lng_myreports_website>
+                            </th>
+                        </TMPL_IF>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_downloads>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">Refs</th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR lng_myreports_total>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <TMPL_LOOP list>
+                        <tr>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR day>
+                            </td>
+                            <td class="text-gray-400 text-xs text-center py-2"><a
+                                    href="?op=my_reports_day&amp;day=<TMPL_VAR day>">
+                                    <TMPL_VAR views>
+                                </a></td>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR views_prem>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR views_adb>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">$<TMPL_VAR profit_views>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR sales> / $<TMPL_VAR profit_sales>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">$<TMPL_VAR profit_refs>
+                            </td>
+                            <TMPL_IF m_b>
+                                <td class="text-gray-400 text-xs py-2 text-center">$<TMPL_VAR profit_site>
+                                </td>
+                            </TMPL_IF>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR downloads>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">
+                                <TMPL_VAR refs>
+                            </td>
+                            <td class="text-gray-400 text-xs py-2 text-center">$<TMPL_VAR profit_total>
+                            </td>
+                        </tr>
+                    </TMPL_LOOP>
+                </tbody>
+                <thead class="border-t border-b bg-gray-800 border-white/10 text-xs leading-6 text-white">
+                    <tr>
+                        <th scope="col" class="py-2 font-semibold">Total:</th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_views>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_views_prem>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_views_adb>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">$<TMPL_VAR sum_profit_views>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_sales> / $<TMPL_VAR sum_profit_sales>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">$<TMPL_VAR sum_profit_refs>
+                        </th>
+                        <TMPL_IF m_b>
+                            <th scope="col" class="py-2 font-semibold">$<TMPL_VAR sum_profit_site>
+                            </th>
+                        </TMPL_IF>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_downloads>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">
+                            <TMPL_VAR sum_refs>
+                        </th>
+                        <th scope="col" class="py-2 font-semibold">$<TMPL_VAR sum_profit_total>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+        <script>
+                                $(document).ready(function() {
+                                    $("body").addClass("h-full");
+                                $("html").addClass("h-full");
+        });
+        </script>
+
+        <TMPL_INCLUDE menu-2.html>

@@ -1,0 +1,189 @@
+<TMPL_INCLUDE menu-1.html>
+
+	<TMPL_INCLUDE top_menu.html>
+
+		<!-- Secondary navigation -->
+		<div class="border-b border-white/10">
+			<nav class="flex overflow-x-auto py-4 max-w-7xl">
+				<ul role="list"
+					class="flex min-w-full flex-none gap-x-6 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
+					<li class="flex items-center">
+						<div>
+							<div class="flex items-center gap-x-3">
+								<div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+									<div class="h-2 w-2 rounded-full bg-current"></div>
+								</div>
+								<h1 class="flex gap-x-3 text-base leading-8 items-center">
+									<!-- <a href="/?op=my_files" class="font-semibold text-purple-300">Support Center</a>	   -->
+									<span class="text-base text-indigo-400 font-semibold">
+										<TMPL_VAR ti_title>
+									</span>
+									<span class="text-xs text-gray-500 font-semibold">Ticket ID #<TMPL_VAR ti_id></span>
+								</h1>
+							</div>
+						</div>
+					</li>
+					<li class="ml-auto">
+						<TMPL_IF open>
+							<a href="?op=ticket_view&ti_id=<TMPL_VAR ti_id>&close=1"
+								class="relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-xs font-semibold shadow-sm text-red-400 bg-red-400/10 hover:bg-red-400/20"
+								onclick="return confirm('Close this ticket?')">
+								<svg class="fill-red-400 h-3 w-3" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 448 512">
+									<path
+										d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+								</svg>
+								Close Ticket
+							</a>
+							<TMPL_ELSE>
+								<a href="?op=ticket_create"
+									class="relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-xs font-semibold shadow-sm text-green-400 bg-green-400/10 hover:bg-green-400/20">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+										stroke-width="2.5" stroke="currentColor" class="-ml-1.5 w-4 h-4">
+										<path stroke-linecap="round" stroke-linejoin="round"
+											d="M12 4.5v15m7.5-7.5h-15" />
+									</svg>
+									Create a new ticket
+								</a>
+						</TMPL_IF>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+
+		<div class="max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+			<TMPL_LOOP messages>
+				<div class="bg-gray-700/10 px-4 py-5 sm:px-6 rounded-lg mb-4 shadow">
+					<div class="flex space-x-3">
+
+						<div class="flex-shrink-0">
+							<TMPL_IF usr_avatar>
+								<img class="h-10 w-10 rounded-full object-cover"
+									src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR usr_avatar>"
+									alt="<TMPL_VAR my_login>">
+								<TMPL_ELSE>
+									<TMPL_ELSE>
+										<span
+											class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[1rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+											<TMPL_VAR usr_login_short>
+										</span>
+							</TMPL_IF>
+						</div>
+
+						<div class="min-w-0 flex-1">
+							<p>
+								<a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>"
+									class="text-sm font-semibold <TMPL_IF usr_adm>text-red-400<TMPL_ELSIF usr_mod>text-green-400<TMPL_ELSIF ispremium>text-purple-400<TMPL_ELSE>text-gray-300</TMPL_IF>">
+									<TMPL_VAR usr_channel_name>
+								</a>
+								<TMPL_IF usr_verified>
+									<svg class="fill-indigo-400 h-3.5 w-3.5 inline-block"
+										xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+										<path
+											d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+										</path>
+									</svg>
+								</TMPL_IF>
+							</p>
+
+							<p class="text-xs text-gray-500">
+								<TMPL_VAR created>
+							</p>
+						</div>
+
+						<TMPL_IF usr_adm>
+							<div class="relative inline-block text-left">
+								<span
+									class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium ring-1 ring-inset text-red-400 bg-red-400/10 ring-red-400/10">Admin</span>
+							</div>
+							<TMPL_ELSIF usr_mod>
+								<div class="relative inline-block text-left">
+									<span
+										class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium ring-1 ring-inset text-green-400 bg-green-400/10 ring-green-400/10">Moderator</span>
+								</div>
+								<TMPL_ELSIF ispremium>
+									<div class="relative inline-block text-left">
+										<span
+											class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium ring-1 ring-inset text-purple-400 bg-purple-400/10 ring-purple-400/10">PRO</span>
+									</div>
+						</TMPL_IF>
+
+
+					</div>
+					<p class="text-gray-300 mt-4">
+						<TMPL_VAR message>
+					</p>
+				</div>
+			</TMPL_LOOP>
+
+			<TMPL_IF open>
+				<div class="flex items-start space-x-4 my-10">
+					<div class="flex-shrink-0">
+						<TMPL_IF avatar>
+							<img class="h-10 w-10 rounded-full object-cover"
+								src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR avatar>" alt="<TMPL_VAR my_login>">
+							<TMPL_ELSE>
+								<span
+									class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[1rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+									<TMPL_VAR usr_login_short>
+								</span>
+						</TMPL_IF>
+					</div>
+
+
+					<div class="min-w-0 flex-1">
+						<form method="POST" class="relative">
+							<input type="hidden" name="op" value="ticket_reply">
+							<input type="hidden" name="ti_id" value="<TMPL_VAR ti_id>">
+							<div
+								class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-800 focus-within:ring-2 focus-within:ring-indigo-600">
+								<label for="cmt_txt" class="sr-only">Add your comment</label>
+								<textarea rows="3" name="message"
+									class="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-300 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+									placeholder="Reply..."><TMPL_VAR message></textarea>
+
+								<div class="py-2" aria-hidden="true">
+									<div class="py-px">
+										<div class="h-4"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+								<div class="flex items-center space-x-5">
+								</div>
+								<div class="flex-shrink-0">
+									<button type="submit" name="save" value=" Reply "
+										class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<TMPL_ELSE>
+					<p class="text-sm text-red-400 font-semibold inline-flex items-center">
+						<svg class="fill-white h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+							<path
+								d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+						</svg>
+						<span class="ml-3">This ticket is closed! </span>
+					</p>
+			</TMPL_IF>
+		</div>
+
+		<TMPL_INCLUDE menu-2.html>
+
+
+			<style>
+				.sm-menu {
+					display: none;
+				}
+			</style>
+
+			<script>
+				$(document).ready(function () {
+					$("body").addClass("h-full");
+					$("html").addClass("h-full");
+				});
+			</script>

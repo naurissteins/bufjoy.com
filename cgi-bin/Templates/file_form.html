@@ -1,0 +1,844 @@
+<TMPL_INCLUDE menu-1.html>
+	<TMPL_INCLUDE top_menu.html>
+		<form method="POST" enctype="multipart/form-data" action="<TMPL_VAR site_url>/" id="form_file">
+			<input type="hidden" name="op" value="file_edit">
+			<input type="hidden" name="file_code" value="<TMPL_VAR file_code>">
+			<input type="hidden" name="file_descr" id="file-descr">
+			<input type="submit" name="upload_new" value="Upload" style="display: none;">
+
+			<div class="max-w-7xl px-6 sm:px-6 lg:px-8 py-6 mx-auto">
+				<div
+					class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 rounded-md shadow-lg">
+					<div class="flex items-start space-x-5">
+						<div class="flex-shrink-0">
+							<div class="relative relative rounded-md bg-gray-800 p-2">
+								<TMPL_IF is_audio>
+									<svg class="w-10 h-10 text-white fill-gray-300" xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 512 512">
+										<path
+											d="M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z">
+										</path>
+									</svg>
+									<TMPL_ELSIF is_video>
+										<svg class="w-10 h-10 text-white fill-gray-300"
+											xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+											<path
+												d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1V320 192 174.9l14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z">
+											</path>
+										</svg>
+										<TMPL_ELSIF is_image>
+											<svg class="w-10 h-10 text-white fill-gray-300"
+												xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+												<path
+													d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z">
+												</path>
+											</svg>
+											<TMPL_ELSE>
+												<svg class="w-10 h-10 text-white fill-gray-300"
+													xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+													<path
+														d="M320 0H160C124.7 0 96 28.7 96 64V352c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V128H352c-17.7 0-32-14.3-32-32V0zM448 96L416 64 384 32 352 0V45.3 64 96h32 18.7H448zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V376c0 75.1 60.9 136 136 136H328c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z" />
+												</svg>
+								</TMPL_IF>
+							</div>
+						</div>
+
+						<div>
+							<h1 class="text-lg font-bold text-gray-300">
+								<a href="<TMPL_VAR file_url>" target="_blank" class="hover:text-indigo-400">
+									<TMPL_VAR file_title>
+								</a>
+								<TMPL_IF admin>
+									<span class="text-xs text-green-400 font-semibold">Server ID #<TMPL_VAR srv_id>
+											<TMPL_IF srv_id_copy> (copy: <TMPL_VAR srv_id_copy>)</TMPL_IF></span>
+								</TMPL_IF>
+								<TMPL_IF is_dupe>
+									<span class="text-xs text-yellow-400 font-semibold">This file is a copy</span>
+								</TMPL_IF>
+
+								<TMPL_IF file_fld_id>
+									<a href="?op=my_files&fld_id=<TMPL_VAR file_fld_id>" target="_blank"
+										class="font-semibold text-indigo-500 text-sm">
+										<TMPL_VAR fld_name>
+									</a>
+								</TMPL_IF>
+								<TMPL_IF encoding>
+									<span
+										class="rounded-full inline-flex items-center py-1 px-2 text-xs font-medium text-white bg-indigo-500 ml-2">
+										<svg class="motion-reduce:hidden animate-spin -ml-1 mr-1 h-4 w-4 text-white"
+											xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+												stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+											</path>
+										</svg>
+										Encoding
+									</span>
+								</TMPL_IF>
+								<TMPL_IF transfer>
+									<span
+										class="rounded-full inline-flex items-center py-1 px-2 text-xs font-medium text-white bg-green-500 ml-2">
+										<svg class="motion-reduce:hidden animate-spin -ml-1 mr-1 h-4 w-4 text-white"
+											xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+												stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor"
+												d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+											</path>
+										</svg>
+										Transfering
+									</span>
+								</TMPL_IF>
+							</h1>
+							<!-- Video -->
+							<TMPL_IF is_video>
+								<div class="mt-2 flex flex-shrink-0 gap-x-4">
+									<span class="text-gray-400 inline-flex items-center  text-xs">
+										<svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em"
+											viewBox="0 0 512 512">
+											<path
+												d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+											</path>
+										</svg>
+										<TMPL_VAR vid_length_txt>
+									</span>
+									<span class="text-gray-400 inline-flex items-center text-xs">
+										<svg class="fill-gray-400  mr-2" xmlns="http://www.w3.org/2000/svg"
+											height="1.2em" viewBox="0 0 448 512">
+											<path
+												d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z">
+											</path>
+										</svg>
+										<TMPL_VAR file_size_mb>
+									</span>
+									<span class="text-gray-400 inline-flex items-center text-xs">
+										<svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em"
+											viewBox="0 0 576 512">
+											<path
+												d="M128 64a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM352 256H128C57.3 256 0 198.7 0 128S57.3 0 128 0c48.2 0 90.2 26.6 112 66C261.8 26.6 303.8 0 352 0c70.7 0 128 57.3 128 128s-57.3 128-128 128zm0-192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM558.3 259.4c10.8 5.4 17.7 16.5 17.7 28.6V480c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48L448 448V432 336 320l12.8-9.6 64-48c9.7-7.3 22.7-8.4 33.5-3zM64 288h64H352c35.3 0 64 28.7 64 64v96c0 35.3-28.7 64-64 64H128c-35.3 0-64-28.7-64-64V352H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64z">
+											</path>
+										</svg>
+										<TMPL_VAR vid_width>x<TMPL_VAR vid_height>
+									</span>
+									<TMPL_IF vid_bitrate>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 576 512">
+												<path
+													d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1V320 192 174.9l14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z">
+												</path>
+											</svg>
+											<TMPL_VAR vid_bitrate> kbp/s
+										</span>
+									</TMPL_IF>
+									<TMPL_IF vid_audio_bitrate>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400  mr-2" xmlns="http://www.w3.org/2000/svg"
+												height="1.2em" viewBox="0 0 512 512">
+												<path
+													d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z">
+												</path>
+											</svg>
+											<TMPL_VAR vid_audio_bitrate> kbp/s
+										</span>
+									</TMPL_IF>
+								</div>
+								<!-- Audio -->
+								<TMPL_ELSIF is_audio>
+									<div class="mt-2 flex flex-shrink-0 gap-x-4">
+										<span class="text-gray-400 inline-flex items-center  text-xs">
+											<svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg"
+												height="1em" viewBox="0 0 512 512">
+												<path
+													d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+												</path>
+											</svg>
+											<TMPL_VAR vid_length_txt>
+										</span>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg"
+												height="1.2em" viewBox="0 0 448 512">
+												<path
+													d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z">
+												</path>
+											</svg>
+											<TMPL_VAR file_size_mb>
+										</span>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 576 512">
+												<path
+													d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z">
+												</path>
+											</svg>
+											<TMPL_VAR vid_audio_bitrate> kbp/s
+										</span>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512">
+												<path
+													d="M24 32c13.3 0 24 10.7 24 24V408c0 13.3 10.7 24 24 24H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H72c-39.8 0-72-32.2-72-72V56C0 42.7 10.7 32 24 32zM128 136c0-13.3 10.7-24 24-24l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24zm24 72H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 96H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z">
+												</path>
+											</svg>
+											<TMPL_VAR vid_audio_rate> Hz
+										</span>
+									</div>
+									<!-- Image -->
+									<TMPL_ELSIF is_image>
+										<span class="text-gray-400 inline-flex items-center text-xs">
+											<svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 448 512">
+												<path
+													d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z">
+												</path>
+											</svg>
+											<TMPL_VAR file_size_mb>
+										</span>
+										<!-- Other files -->
+										<TMPL_ELSE>
+											<div class="mt-2 flex flex-shrink-0 gap-x-4">
+												<span class="text-gray-400 inline-flex items-center text-xs">
+													<svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg"
+														height="1.2em" viewBox="0 0 448 512">
+														<path
+															d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z">
+														</path>
+													</svg>
+													<TMPL_VAR file_size_mb>
+												</span>
+											</div>
+							</TMPL_IF>
+						</div>
+					</div>
+					<div
+						class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+						<a href="/?op=my_files&amp;del_code=<TMPL_VAR file_code>&amp;fld_id=0&amp;token=<TMPL_VAR token>"
+							class="inline-flex items-center justify-center rounded-md text-red-400 bg-red-400/10 px-3 py-2 text-xs font-semibold hover:bg-red-400/20"
+							onClick="return confirm('<TMPL_VAR lng_myfiles_delete_file>?')">Delete File</a>
+						<TMPL_UNLESS file_status_LOCKED>
+							<button type="submit" name="save" value=" <TMPL_VAR lng_misc_save> "
+								class="inline-flex items-center justify-center rounded-md text-green-400 bg-green-400/10 px-3 py-2 text-xs font-semibold hover:bg-green-400/20">Save
+								Details</button>
+						</TMPL_UNLESS>
+					</div>
+
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-10 py-6">
+					<div class="col-span-1 md:col-span-5">
+						<div class="grid gap-x-6 gap-y-8">
+							<TMPL_IF is_media>
+								<div class="relative flex-shrink-0">
+									<img class="rounded-md object-cover h-full w-full"
+										src="<TMPL_VAR video_thumb_url>?<TMPL_IF newshot>nocache=1&</TMPL_IF>r=<TMPL_VAR rand>"
+										alt="<TMPL_VAR file_title>">
+									<TMPL_IF vid_audio_file>
+										<label for="snap_cover" class="cursor-pointer">
+											<div
+												class="absolute top-0 right-0 bg-gray-800 bg-opacity-70 hover:bg-gray-700 hover:bg-opacity-70 text-white font-bold py-2 px-4 rounded-full mt-3 mr-3 text-xs z-10">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+													stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
+													<path stroke-linecap="round" stroke-linejoin="round"
+														d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z">
+													</path>
+													<path stroke-linecap="round" stroke-linejoin="round"
+														d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z">
+													</path>
+												</svg>
+											</div>
+										</label>
+										<input type="file" name="file" id="snap_cover" accept="image/*"
+											style="display: none;">
+									</TMPL_IF>
+									<span class="absolute inset-0 rounded-md shadow-inner" aria-hidden="true"></span>
+								</div>
+							</TMPL_IF>
+							<TMPL_IF is_video>
+								<TMPL_IF img_screenlist>
+									<a href="<TMPL_VAR img_screenlist>" target=_blank><img
+											src="<TMPL_VAR img_screenlist>?r=<TMPL_VAR rand>"
+											class="rounded-md object-cover h-full w-full"></a>
+								</TMPL_IF>
+							</TMPL_IF>
+							<TMPL_IF is_audio>
+								<TMPL_IF spectrogram_url>
+									<a href="<TMPL_VAR spectrogram_url>" target=_blank><img
+											src="<TMPL_VAR spectrogram_url>?r=<TMPL_VAR rand>"
+											class="rounded-md object-cover h-full w-full"></a>
+								</TMPL_IF>
+							</TMPL_IF>
+
+							<TMPL_IF is_video>
+								<TMPL_LOOP versions>
+									<div class="bg-gray-700/10 px-4 py-2 sm:px-2 rounded-md">
+										<div
+											class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+											<div class="ml-4 mt-4">
+												<div class="flex items-center">
+													<!-- <div class="flex-shrink-0">
+													<img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+												</div> -->
+													<div class="">
+														<h3 class="text-base font-semibold leading-6 text-gray-200">
+															<TMPL_VAR vid_title>
+																<span class="font-medium text-gray-400 text-xs">
+																	<TMPL_VAR vid_container>, <TMPL_VAR vid_codec>,
+																			<TMPL_VAR vid_audio_codec>
+																</span>
+														</h3>
+														<div class="mt-2 flex flex-shrink-0 gap-x-4">
+															<span
+																class="text-gray-400 inline-flex items-center  text-xs">
+																<svg class="fill-gray-400 mr-2"
+																	xmlns="http://www.w3.org/2000/svg" height="1em"
+																	viewBox="0 0 512 512">
+																	<path
+																		d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z">
+																	</path>
+																</svg>
+																<TMPL_VAR vid_length_txt>
+															</span>
+															</button>
+															<span
+																class="text-gray-400 inline-flex items-center text-xs">
+																<svg class="fill-gray-400 h-4 w-4 mr-2"
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 448 512">
+																	<path
+																		d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z">
+																	</path>
+																</svg>
+																<TMPL_VAR file_size_mb>
+															</span>
+															<span
+																class="text-gray-400 inline-flex items-center text-xs">
+																<svg class="fill-gray-400 mr-2"
+																	xmlns="http://www.w3.org/2000/svg" height="1em"
+																	viewBox="0 0 576 512">
+																	<path
+																		d="M128 64a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM352 256H128C57.3 256 0 198.7 0 128S57.3 0 128 0c48.2 0 90.2 26.6 112 66C261.8 26.6 303.8 0 352 0c70.7 0 128 57.3 128 128s-57.3 128-128 128zm0-192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM558.3 259.4c10.8 5.4 17.7 16.5 17.7 28.6V480c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48L448 448V432 336 320l12.8-9.6 64-48c9.7-7.3 22.7-8.4 33.5-3zM64 288h64H352c35.3 0 64 28.7 64 64v96c0 35.3-28.7 64-64 64H128c-35.3 0-64-28.7-64-64V352H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64z">
+																	</path>
+																</svg>
+																<TMPL_VAR vid_width>x<TMPL_VAR vid_height>
+															</span>
+															<span
+																class="text-gray-400 inline-flex items-center text-xs">
+																<svg class="fill-gray-400 h-4 w-4 mr-2"
+																	xmlns="http://www.w3.org/2000/svg"
+																	viewBox="0 0 576 512">
+																	<path
+																		d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1V320 192 174.9l14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z">
+																	</path>
+																</svg>
+																<TMPL_VAR vid_bitrate> kbp/s
+															</span>
+															<TMPL_IF vid_audio_bitrate>
+																<span
+																	class="text-gray-400 inline-flex items-center text-xs">
+																	<svg class="fill-gray-400 h-4 w-4 mr-2"
+																		xmlns="http://www.w3.org/2000/svg"
+																		viewBox="0 0 512 512">
+																		<path
+																			d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.1 28.3 5z">
+																		</path>
+																	</svg>
+																	<TMPL_VAR vid_audio_bitrate> kbp/s
+																</span>
+															</TMPL_IF>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</TMPL_LOOP>
+							</TMPL_IF>
+						</div>
+					</div>
+					<div class="col-span-1 md:col-span-7">
+						<div class="grid gap-x-6 gap-y-8">
+							<div>
+								<label for="file_title"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">File name</label>
+								<input type="text" name="file_title" value="<TMPL_VAR file_title>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+							<TMPL_IF admin>
+								<div>
+									<TMPL_ELSE>
+										<div style="display:none">
+							</TMPL_IF>
+							<label for="file_name" class="block text-sm font-medium leading-6 text-gray-300 mb-2">
+								<TMPL_VAR lng_fileform_file_name>
+							</label>
+							<input type="text" name="file_name" value="<TMPL_VAR file_name>"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+						</div>
+						<TMPL_IF is_audio>
+							<div>
+								<label for="audio_artist"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">Artist name</label>
+								<input type="text" name="audio_artist" value="<TMPL_VAR audio_artist>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+							<div>
+								<label for="audio_title"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">Track title</label>
+								<input type="text" name="audio_title" value="<TMPL_VAR audio_title>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+							<div>
+								<label for="audio_album"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">Album</label>
+								<input type="text" name="audio_album" value="<TMPL_VAR audio_album>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+							<div>
+								<label for="audio_genre"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">Genre</label>
+								<input type="text" name="audio_genre" value="<TMPL_VAR audio_genre>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+						</TMPL_IF>
+						<TMPL_IF enable_file_descr>
+							<div>
+								<label for="file_descr" class="block text-sm font-medium leading-6 text-gray-300 mb-2">
+									<TMPL_VAR lng_fileform_description>
+								</label>
+								<div id="quill-editor" style="height: 200px;" class="text-gray-300">
+									<TMPL_VAR file_descr>
+								</div>
+							</div>
+						</TMPL_IF>
+						<div>
+							<label for="cat_id" class="block text-sm font-medium leading-6 text-gray-300 mb-2">
+								<TMPL_VAR lng_fileform_category>
+							</label>
+							<select id="cat_id" name="cat_id"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+								<option value="0">None</option>
+								<TMPL_LOOP categories>
+									<option value="<TMPL_VAR cat_id>" <TMPL_VAR selected>><TMPL_VAR pre>
+											<TMPL_VAR cat_name>
+								</TMPL_LOOP>
+							</select>
+						</div>
+
+						<div>
+							<label for="file_title" class="block text-sm font-medium leading-6 text-gray-300 mb-2">
+								<TMPL_VAR lng_fileform_tags>
+							</label>
+							<input type="text" name="tags" value=""
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+								placeholder="e.g. ocean, holidays, plane">
+							<div class="inline-flex space-x-2 mt-2">
+								<TMPL_LOOP tags>
+									<span
+										class="inline-flex items-center gap-x-0.5 rounded-md px-2 py-1 text-xs font-medium  text-indigo-400 bg-indigo-400/10 hover:bg-indigo-40">
+										<TMPL_VAR tag_value>
+											<a href="<TMPL_VAR site_url>/?op=file_edit&file_code=<TMPL_VAR file_code>&del_tag=<TMPL_VAR tag_id>"
+												onClick="return confirm('<TMPL_VAR lng_fileform_delete_tag>')"
+												class="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-red-600/20">
+												<span class="sr-only">Remove</span>
+												<svg viewBox="0 0 14 14" class="h-3.5 w-3.5 stroke-red-400 ">
+													<path d="M4 4l6 6m0-6l-6 6" />
+												</svg>
+												<span class="absolute -inset-1"></span>
+											</a>
+									</span>
+								</TMPL_LOOP>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-10">
+						<div x-data="{ isChecked: <TMPL_IF file_public>true<TMPL_ELSE>false</TMPL_IF> }"
+							class="inline-flex">
+							<label for="file_public"
+								class="flex items-center cursor-pointer select-none text-dark dark:text-white">
+								<div class="relative">
+									<input type="checkbox" name="file_public" value="1" id="file_public"
+										x-model="isChecked" x-on:click="isChecked = !isChecked" class="peer sr-only" />
+									<div class="block h-4 rounded-full box bg-gray-800 dark:bg-dark-2 w-8"
+										x-bind:class="{ 'peer-checked:bg-indigo-400': isChecked }"></div>
+									<div class="absolute flex items-center justify-center h-4 w-4 transition bg-white rounded-full dot left-0 top-0 dark:bg-dark-5"
+										x-bind:class="{ 'peer-checked:translate-x-full peer-checked:dark:bg-white': isChecked }">
+									</div>
+								</div>
+							</label>
+							<label for="file_public" class="text-sm font-medium leading-6 text-white ml-5">Public <span
+									class="text-xs text-gray-400">(file will be visable to your account
+									page)</span></label>
+						</div>
+					</div>
+
+					<!-- <div class="mt-2">
+						<div x-data="{ isChecked: <TMPL_IF file_comment>true<TMPL_ELSE>false</TMPL_IF> }"
+							class="inline-flex">
+							<label for="file_comment"
+								class="flex items-center cursor-pointer select-none text-dark dark:text-white">
+								<div class="relative">
+									<input type="checkbox" name="file_comment" value="1" id="file_comment"
+										x-model="isChecked" x-on:click="isChecked = !isChecked" class="peer sr-only" />
+									<div class="block h-4 rounded-full box bg-gray-800 dark:bg-dark-2 w-8"
+										x-bind:class="{ 'peer-checked:bg-indigo-400': isChecked }"></div>
+									<div class="absolute flex items-center justify-center h-4 w-4 transition bg-white rounded-full dot left-0 top-0 dark:bg-dark-5"
+										x-bind:class="{ 'peer-checked:translate-x-full peer-checked:dark:bg-white': isChecked }">
+									</div>
+								</div>
+							</label>
+							<label for="file_comment" class="text-sm font-medium leading-6 text-white ml-5">Enable
+								Comments<span class="text-xs text-gray-400"></span></label>
+						</div>
+					</div> -->
+
+					<TMPL_IF premium_only_mod>
+						<div class="mt-2">
+							<div x-data="{ isChecked: <TMPL_IF file_premium_only>true<TMPL_ELSE>false</TMPL_IF> }"
+								class="inline-flex">
+								<label for="file_premium_only"
+									class="flex items-center cursor-pointer select-none text-dark dark:text-white">
+									<div class="relative">
+										<input type="checkbox" name="file_premium_only" value="1" id="file_premium_only"
+											x-model="isChecked" x-on:click="isChecked = !isChecked"
+											class="peer sr-only" />
+										<div class="block h-4 rounded-full box bg-gray-800 dark:bg-dark-2 w-8"
+											x-bind:class="{ 'peer-checked:bg-indigo-400': isChecked }"></div>
+										<div class="absolute flex items-center justify-center h-4 w-4 transition bg-white rounded-full dot left-0 top-0 dark:bg-dark-5"
+											x-bind:class="{ 'peer-checked:translate-x-full peer-checked:dark:bg-white': isChecked }">
+										</div>
+									</div>
+								</label>
+								<label for="file_premium_only" class="text-sm font-medium leading-6 text-white ml-5">
+									<TMPL_VAR lng_fileform_premium_only> <span class="text-xs text-gray-400">(only
+											premium users can download)</span>
+								</label>
+							</div>
+
+						</div>
+					</TMPL_IF>
+					<TMPL_IF is_video>
+						<div class="mt-2">
+							<div x-data="{ isChecked: <TMPL_IF file_adult>true<TMPL_ELSE>false</TMPL_IF> }"
+								class="inline-flex">
+								<label for="file_adult"
+									class="flex items-center cursor-pointer select-none text-dark dark:text-white">
+									<div class="relative">
+										<input type="checkbox" name="file_adult" value="1" id="file_adult"
+											x-model="isChecked" x-on:click="isChecked = !isChecked"
+											class="peer sr-only" />
+										<div class="block h-4 rounded-full box bg-gray-800 dark:bg-dark-2 w-8"
+											x-bind:class="{ 'peer-checked:bg-indigo-400': isChecked }"></div>
+										<div class="absolute flex items-center justify-center h-4 w-4 transition bg-white rounded-full dot left-0 top-0 dark:bg-dark-5"
+											x-bind:class="{ 'peer-checked:translate-x-full peer-checked:dark:bg-white': isChecked }">
+										</div>
+									</div>
+								</label>
+								<label for="file_adult" class="text-sm font-medium leading-6 text-white ml-5">Adult
+									<span class="text-xs text-gray-400">(enable if file contain mature
+										content)</span></label>
+							</div>
+						</div>
+					</TMPL_IF>
+
+
+					<div class="mt-10">
+						<label for="file_comments" class="block text-sm font-medium leading-6 text-white">
+							File Comments
+						</label>
+						<div class="mt-2">
+							<select id="file_comments" name="file_comments"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+								<option value="1" <TMPL_VAR file_comment1>>Default</option>
+								<option value="2" <TMPL_VAR file_comment2>>Enabled</option>
+								<option value="3" <TMPL_VAR file_comment3>>Disabled</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="mt-10">
+						<label for="file_download_on" class="block text-sm font-medium leading-6 text-white">
+							File Download
+						</label>
+						<div class="mt-2">
+							<select id="file_download_on" name="file_download_on"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+								<option value="1" <TMPL_VAR file_download_on1>>Default</option>
+								<option value="2" <TMPL_VAR file_download_on2>>Enabled</option>
+								<option value="3" <TMPL_VAR file_download_on3>>Disabled</option>
+							</select>
+						</div>
+					</div>
+
+
+					<TMPL_UNLESS is_image>
+						<div class="mt-10">
+							<label for="file_dl_link"
+								class="block text-sm font-medium leading-6 text-gray-300 mb-2">Custom Download Link</label>
+							<input type="text" name="file_dl_link" value="<TMPL_VAR file_dl_link>"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+						</div>
+
+						<div class="mt-10">
+							<label for="file_dl_title"
+								class="block text-sm font-medium leading-6 text-gray-300 mb-2">Custom Download Button Title</label>
+							<input type="text" name="file_dl_title" value="<TMPL_VAR file_dl_title>"
+								class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+						</div>
+					</TMPL_UNLESS>
+
+					<div class="grid gap-x-6 gap-y-8 mt-10">
+						<!-- Remote upload File Source -->
+						<TMPL_IF file_src>
+							<div>
+								<label for="file_src" class="block text-sm font-medium leading-6 text-gray-300">
+									<TMPL_VAR lng_fileform_source_url>
+								</label>
+								<a href="<TMPL_VAR file_src>" target="_blank"
+									class="font-semibold text-indigo-500 text-sm">
+									<TMPL_VAR file_src>
+								</a>
+							</div>
+						</TMPL_IF>
+
+						<!-- Subtitles -->
+						<TMPL_IF is_video>
+							<TMPL_IF srt_on>
+								<div>
+									<label for="srt" class="block text-sm font-medium leading-6 text-gray-300">
+										<TMPL_VAR lng_fileform_subtitles>
+									</label>
+									<TMPL_LOOP captions_list>
+										<div class="font-semibold text-indigo-500 text-sm mt-2 inline-flex">
+											<a href="<TMPL_VAR url>" target="_blank">
+												<TMPL_VAR title> (<TMPL_VAR language>)
+											</a>
+											<TMPL_IF main>
+												<a href="?op=file_edit&file_code=<TMPL_VAR file_code>&del_srt_file=<TMPL_VAR main>"
+													onClick="return confirm('Delete SRT file?')"><svg
+														class="fill-red-500 h-3 w-3 ml-1 mr-2"
+														xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+														<path
+															d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+													</svg></a>
+												<TMPL_ELSE>
+													<a href="?op=file_edit&file_code=<TMPL_VAR file_code>&del_srt=<TMPL_VAR language>"
+														onClick="return confirm('Delete SRT file?')"><svg
+															class="fill-red-500 h-3 w-3 ml-1 mr-2"
+															xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+															<path
+																d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+														</svg></a>
+											</TMPL_IF>
+										</div>
+									</TMPL_LOOP>
+
+									<div class="bg-gray-700/10 p-2 mt-2">
+										<label for="srt_lang"
+											class="block text-sm font-medium leading-6 text-gray-300 mb-2">
+											<TMPL_VAR lng_fileform_upload_srt_file>
+										</label>
+
+										<div class="flex items-center space-x-6">
+											<div class="shrink-0">
+												<select name="srt_lang"
+													class="max-w-[10rem] block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+													<TMPL_LOOP srt_langs>
+														<option value="<TMPL_VAR value>">
+															<TMPL_VAR title>
+														</option>
+													</TMPL_LOOP>
+												</select>
+											</div>
+											<input type="file" name="srt" accept=".srt,.vtt" class="block w-full text-sm text-slate-500 file:cursor-pointer file:mr-4 file:py-2 file:px-4
+												file:rounded-lg file:border-0
+												file:text-sm file:font-semibold
+												file:bg-white/10 file:text-gray-200
+												hover:file:bg-white/20
+											">
+											<input type="submit" name="save_srt" value="<TMPL_VAR lng_misc_upload>"
+												class="mr-2 relative inline-flex cursor-pointer items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+										</div>
+									</div>
+								</div>
+							</TMPL_IF>
+						</TMPL_IF>
+
+
+						<TMPL_IF admin>
+							<div class="mt-2 max-w-xs">
+								<label for="file_code"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">File Code</label>
+								<input type="text" name="file_code_new" value="<TMPL_VAR file_code>"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+							</div>
+							<TMPL_IF proxies>
+								<div>
+									<label for="proxies"
+										class="block text-sm font-medium leading-6 text-gray-300">Proxies</label>
+									<TMPL_LOOP proxies>
+										<div>
+											<TMPL_VAR host_name>
+										</div>
+									</TMPL_LOOP><a
+										href="?op=file_edit&file_code=<TMPL_VAR file_code>&reset_proxies=1<TMPL_VAR token_str>"
+										onclick="return confirm('Reset all proxy pairs for this file?')">reset</a>
+								</div>
+							</TMPL_IF>
+							<div>
+								<label for="file_status"
+									class="block text-sm font-medium leading-6 text-gray-300 mb-2">Status</label>
+								<select id="file_status" name="file_status"
+									class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 shadow-sm focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 [&_*]:text-black">
+									<option<TMPL_VAR file_status_OK>>OK</option>
+										<option<TMPL_VAR file_status_PENDING>>PENDING</option>
+											<option<TMPL_VAR file_status_LOCKED>>LOCKED</option>
+								</select>
+							</div>
+							<TMPL_IF file_logs>
+								<div>
+									<label for="file_src"
+										class="block text-sm font-medium leading-6 text-gray-300">Logs</label>
+									<TMPL_LOOP file_logs><span class="text-sm font-medium leading-6 text-gray-300">
+											<TMPL_VAR created>
+												<TMPL_VAR event>
+										</span><br></TMPL_LOOP>
+								</div>
+							</TMPL_IF>
+
+							<!-- <TMPL_IF file_spec_txt>
+									<br clear=all><a href="#" onclick="$(this).hide();$('#iraw').show();return false;">Source raw info</a>
+									<div id="iraw" style="display:none;font-size:11px;background:#fff;border:1px solid #999;"><pre><TMPL_VAR file_spec_txt></pre></div>
+								</TMPL_IF> -->
+
+						</TMPL_IF>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+
+		<TMPL_IF msg>
+			<div x-data="{ isOpen: true }" x-init="setTimeout(() => isOpen = false, 4000)" x-show="isOpen"
+				x-transition:enter="transform ease-out duration-300 transition"
+				x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+				x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+				x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
+				x-transition:leave-end="opacity-0" aria-live="assertive"
+				class="pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6">
+				<div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+					<div
+						class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
+						<div class="p-4">
+							<div class="flex items-start">
+								<div class="flex-shrink-0">
+									<svg class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24"
+										stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round"
+											d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+									</svg>
+								</div>
+								<div class="ml-3 w-0 flex-1 pt-0.5">
+									<p class="text-sm font-medium text-gray-300">
+										<TMPL_VAR msg>
+									</p>
+									<!-- <p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p> -->
+								</div>
+								<div class="ml-4 flex flex-shrink-0">
+									<button type="button"
+										class="inline-flex rounded-md bg-gray-800 text-gray-400 hover:text-gray-500 focus:outline-none"
+										x-on:click="isOpen = false">
+										<span class="sr-only">Close</span>
+										<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<path
+												d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+										</svg>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</TMPL_IF>
+
+		<TMPL_INCLUDE menu-2.html>
+
+			<script>
+				var quill = new Quill('#quill-editor', {
+					modules: {
+						toolbar: [
+							['bold', 'italic', 'underline'],
+							[{ 'list': 'bullet' }],
+							['image', 'link'],
+							[{ 'direction': 'rtl' }],
+							[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+							[{ 'color': [] }],
+							[{ 'align': [] }],
+						]
+					},
+					theme: 'snow'
+				});
+				var toolbar = quill.getModule('toolbar');
+				toolbar.addHandler('image', () => {
+					var range = quill.getSelection();
+					var value = prompt('Please enter the image URL');
+
+					if (value) {
+						quill.insertEmbed(range.index, 'image', value, 'user');
+					}
+				});
+
+				toolbar.addHandler('link', () => {
+					var range = quill.getSelection();
+					if (range) {
+						var value = prompt('Please enter the link URL');
+
+						if (value) {
+							quill.format('link', value);
+						}
+					}
+				});
+
+				function getQuillContent(quill) {
+					var content = quill.root.innerHTML;
+					// Check if content is empty (only contains blank paragraph)
+					if (content === '<p><br></p>') {
+						return '';
+					} else {
+						return content;
+					}
+				}
+				document.querySelector('#form_file').addEventListener('submit', function (e) {
+					var quillContent = getQuillContent(quill);
+					document.getElementById('file-descr').value = quillContent;
+				});
+
+				quill.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+					let ops = [];
+					delta.ops.forEach(op => {
+						if (op.insert && typeof op.insert === 'string') {
+							ops.push({
+								insert: op.insert
+							});
+						}
+					});
+					delta.ops = ops;
+					return delta;
+				});
+
+			</script>
+
+			<script>
+				$(document).ready(function () {
+					$("body").addClass("h-full");
+					$("html").addClass("h-full");
+				});
+
+				$(document).ready(function () {
+					$('#snap_cover').on('change', function () {
+						$('[name="upload_new"]').click();
+					});
+				});
+			</script>

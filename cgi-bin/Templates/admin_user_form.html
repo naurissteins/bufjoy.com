@@ -1,0 +1,312 @@
+<Form method="POST">
+<input type="hidden" name="op" value="admin_user_edit">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="usr_id" value="<TMPL_VAR usr_id>">
+<Table class="tbl1 rct">
+<TR>
+	<TH colspan=2>User edit</TH>
+</TR>
+<TR>
+	<TD>Username</TD>
+	<TD><input type="text" name="usr_login" value="<TMPL_VAR usr_login>" size=24></TD>
+</TR>
+<TR>
+	<TD>E-mail</TD>
+	<TD><input type="text" name="usr_email" value="<TMPL_VAR usr_email>" size=32></TD>
+</TR>
+<TR>
+	<TD>Change password</TD>
+	<TD><input type="text" name="usr_password" value="" size=20></TD>
+</TR>
+
+<TMPL_IF m_d>
+<TR>
+	<TD>Moderator</TD>
+	<TD><input type="checkbox" name="usr_mod" value="1" id="umod"<TMPL_IF usr_mod> checked</TMPL_IF>><label for="umod">Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD class=top>Status</TD>
+	<TD>
+		<Select name="usr_status">
+		<option value="OK"<TMPL_VAR status_OK>>OK</option>
+		<option value="PENDING"<TMPL_VAR status_PENDING>>PENDING</option>
+		<option value="BANNED"<TMPL_VAR status_BANNED>>BANNED</option>
+		</Select>
+	</TD>
+</TR>
+<TR>
+	<TD class=top>Premium expires</TD>
+	<TD><input type="text" name="usr_premium_expire" value="<TMPL_VAR usr_premium_expire>" size=20><TMPL_IF expire_elapsed><br><small>(<TMPL_VAR expire_elapsed>)</small></TMPL_IF></TD>
+</TR>
+<TR>
+	<TD>Money</TD>
+	<TD>$<input type="text" name="usr_money" value="<TMPL_VAR usr_money>" size=8></TD>
+</TR>
+<TR>
+	<TD>Storage space</TD>
+	<TD><input type="text" name="usr_disk_space" value="<TMPL_VAR usr_disk_space>" size=7> GB (0 = default)</TD>
+</TR>
+<TR>
+	<TD>Don't expire</TD>
+	<TD><label><input type="checkbox" name="usr_no_expire" value="1"<TMPL_IF usr_no_expire> checked</TMPL_IF>>user files</label></TD>
+</TR>
+<TR>
+	<TD>Affiliate ID</TD>
+	<TD><input type="text" name="usr_aff_id" value="<TMPL_VAR usr_aff_id>" size=5></TD>
+</TR>
+<TR>
+	<TD>Last logged IP</TD>
+	<TD><TMPL_VAR usr_lastip><TMPL_IF last_country> [<TMPL_VAR last_country>]</TMPL_IF></TD>
+</TR>
+<TMPL_IF sessions>
+<TR>
+	<TD>Sessions</TD>
+	<TD>
+		<TMPL_LOOP sessions>
+		<TMPL_VAR ip><TMPL_IF country> [<TMPL_VAR last_country>]</TMPL_IF> (<TMPL_VAR dtt>)<br>
+		</TMPL_LOOP>
+		<a href="?op=admin_login_history&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><small>View login history (<TMPL_VAR login_history_num>)</small></a>
+	</TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD>Allowed IPs</TD>
+	<TD><input type="text" name="usr_allowed_ips" value="<TMPL_VAR usr_allowed_ips>" size=36></TD>
+</TR>
+<TR>
+	<TD>PremiumOnly downloads</TD>
+	<TD><label><input type="checkbox" name="usr_premium_dl_only" value="1>"<TMPL_IF usr_premium_dl_only> checked</TMPL_IF>>for all user files</label></TD>
+</TR>
+<TR>
+	<TD>Allow PremiumOnly</TD>
+	<TD><label><input type="checkbox" name="usr_premium_only" value="1>"<TMPL_IF usr_premium_only> checked</TMPL_IF>> flag set for specific videos</label></TD>
+</TR>
+<TR>
+	<TD>User receive</TD>
+	<TD><input type="text" name="usr_sales_rate" value="<TMPL_VAR usr_sales_rate>" size=2>% from Premium sales <small>(0 = default: <TMPL_VAR sale_aff_percent>%)</small></TD>
+</TR>
+<TMPL_IF m_b>
+<TR>
+	<TD>Website percent</TD>
+	<TD><input type="text" name="usr_website_rate" value="<TMPL_VAR usr_website_rate>" size=2>% from Premium sales <small>(0 = default: <TMPL_VAR m_b_rate>%)</small></TD>
+</TR>
+</TMPL_IF>
+
+<TMPL_IF m_k_manual>
+<TR>
+	<TD>Reseller account</TD>
+	<TD><input type="checkbox" name="usr_reseller" value="1"<TMPL_IF usr_reseller> checked</TMPL_IF>></TD>
+</TR>
+</TMPL_IF>
+
+<TR>
+	<TD>Verified account</TD>
+	<TD><input type="checkbox" name="usr_verified" value="1"<TMPL_IF usr_verified> checked</TMPL_IF>></TD>
+</TR>
+
+<TMPL_IF usr_watermark_mod>
+<TR>
+	<TD>Watermark mod</TD>
+	<TD><label><input type="checkbox" name="usr_watermark" value="1"<TMPL_IF usr_watermark> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_snapshot_mod>
+<TR>
+	<TD>Snapshot mod</TD>
+	<TD><label><input type="checkbox" name="usr_snapshot" value="1"<TMPL_IF usr_snapshot> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_gif_mod>
+<TR>
+	<TD>GIF mod</TD>
+	<TD><label><input type="checkbox" name="usr_gif" value="1"<TMPL_IF usr_gif> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_ftp_mod>
+<TR>
+	<TD>FTP mod</TD>
+	<TD><label><input type="checkbox" name="usr_ftp" value="1"<TMPL_IF usr_ftp> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_torrent_mod>
+<TR>
+	<TD>Torrents mod</TD>
+	<TD><label><input type="checkbox" name="usr_torrent" value="1" id="wtm"<TMPL_IF usr_torrent> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_domains_mod>
+<TR>
+	<TD>Custom Domains mod</TD>
+	<TD><label><input type="checkbox" name="usr_domains" value="1" id="wtm"<TMPL_IF usr_domains> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_api_mod>
+<TR>
+	<TD>API mod</TD>
+	<TD><label><input type="checkbox" name="usr_api" value="1"<TMPL_IF usr_api> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_api_spec_mod>
+<TR>
+	<TD>API special functions</TD>
+	<TD><label><input type="checkbox" name="usr_api_spec" value="1"<TMPL_IF usr_api_spec> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_ads_mod>
+<TR>
+	<TD>Ads mod</TD>
+	<TD><label><input type="checkbox" name="usr_ads" value="1"<TMPL_IF usr_ads> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF m_o>
+<TR>
+	<TD>Monitor user</TD>
+	<TD><label><input type="checkbox" name="usr_monitor" value="1" <TMPL_IF usr_monitor> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_autoapprove_mod>
+<TR>
+	<TD>Files auto-approve</TD>
+	<TD><label><input type="checkbox" name="usr_autoapprove" value="1" <TMPL_IF usr_autoapprove> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF uploads_selected_only>
+<TR>
+	<TD>Uploads enabled</TD>
+	<TD><label><input type="checkbox" name="usr_uploads_on" value="1" <TMPL_IF usr_uploads_on> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_website_mod>
+<TR>
+	<TD>Website owner</TD>
+	<TD><label><input type="checkbox" name="usr_website" value="1" <TMPL_IF usr_website> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_effects_mod>
+<TR>
+	<TD>Video effects</TD>
+	<TD><label><input type="checkbox" name="usr_effects" value="1" <TMPL_IF usr_effects> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_clone_mod>
+<TR>
+	<TD>Clone upload</TD>
+	<TD><label><input type="checkbox" name="usr_clone" value="1" <TMPL_IF usr_clone> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF usr_streams_mod>
+<TR>
+	<TD>Live Streaming</TD>
+	<TD><label><input type="checkbox" name="usr_streams" value="1" <TMPL_IF usr_streams> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD>Statistics</TD>
+	<TD><a href="?op=admin_user_reports&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>">View user stats</a></TD>
+</TR>
+<TR>
+	<TD>Spy</TD>
+	<TD><a href="?op=admin_login_as&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>">Login as user</a></TD>
+</TR>
+<TMPL_IF extra_fields>
+<TR>
+	<TD>Extra data</TD>
+	<TD><TMPL_LOOP extra_fields><TMPL_VAR name>: <TMPL_VAR value><br></TMPL_LOOP></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD align=left colspan=2 style="font-weight: normal;">
+	<b>Notes:</b><br>
+	<textarea name="usr_notes" cols=32 rows=7 style="width:98%"><TMPL_VAR usr_notes></textarea><br>
+	Special words:<br>
+	NOADS - don't show ads for this user's files<br>
+	NOEXPIRE - don't expire user's files<br>
+	<TMPL_IF m_8>DEFAUDIO=eng - default audio track<br></TMPL_IF>
+	BLOCKVIDEOS - give error for all user's videos
+	</TD>
+</TR>
+<TR><TD align=center colspan=2>
+	<input type="submit" name="save" value=" Save user details ">
+</TD></TR>
+</Table>
+
+<!-- <br>
+
+<Table class="tbl1">
+<tr>
+	<th>Special user actions</th>	
+</tr>
+<TR>
+	<TD>
+		<input type="submit" name="reset_downloads" value="Reset downloads limits">
+	</TD>
+</TR>
+</Table> -->
+
+</Form>
+
+<TMPL_IF referrals>
+<br><br>
+<Table class="tbl1" cellpadding=2 cellspacing=1>
+<TR><TH colspan=4>User Referrals</TH></TR>
+<TR>
+	<TH>Date</TH>
+	<TH>Username</TH>
+	<TH>Money</TH>
+	<TH></TH>
+</TR>
+<TMPL_LOOP referrals>
+<TMPL_IF more>
+<TR><TD colspan=4><a href="?op=admin_user_referrals&usr_id=<TMPL_VAR usr_aff_id><TMPL_VAR token_str>">More...</a></TD></TR>
+<TMPL_ELSE>
+<TR align=center>
+	<TD><TMPL_VAR usr_created></TD>
+	<TD><a href="?op=admin_user_edit&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+	<TD align=right>$<TMPL_VAR usr_money></TD>
+	<TD><a href="?op=admin_user_edit&usr_id=<TMPL_VAR usr_id1>&ref_del=<TMPL_VAR usr_id><TMPL_VAR token_str>"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_IF>
+</TMPL_LOOP>
+</Table>
+</TMPL_IF>
+
+<TMPL_IF transactions>
+<br><br>
+<Table class="tbl1" cellpadding=2>
+<TR><TH colspan=4>Payment Transactions</TH></TR>
+<TR>
+	<TH>Date</TH>
+	<TH>Amount</TH>
+	<TH>Txn ID</TH>
+	<TH>Verified</TH>
+</TR>
+<TMPL_LOOP transactions>
+<TR align=center>
+	<TD><a href="?op=admin_ipn_logs&amp;ipn_id=<TMPL_VAR ipn_id><TMPL_VAR token_str>"><TMPL_VAR created></a></TD>
+	<TD><TMPL_VAR amount></TD>
+	<TD><TMPL_VAR txn_id></TD>
+	<TD><TMPL_IF verified><img src="<TMPL_VAR site_url>/images/done.gif" title="Verified"></TMPL_IF></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+</TMPL_IF>
+
+<TMPL_IF payments>
+<br><br>
+<Table class="tbl1" cellpadding=2>
+<TR><TH colspan=4>Profit payments sent to user</TH></TR>
+<TR>
+	<TH>Date</TH>
+	<TH>Amount</TH>
+	<TH>Status</TH>
+</TR>
+<TMPL_LOOP payments>
+<TR align=center>
+	<TD><TMPL_VAR created></TD>
+	<TD><TMPL_VAR amount></TD>
+	<TD><TMPL_VAR status></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+</TMPL_IF>

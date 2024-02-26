@@ -1,0 +1,74 @@
+<script>
+	function stoppp(){
+		<TMPL_IF m_5_devtools_redirect>location.href = '<TMPL_VAR m_5_devtools_redirect>';</TMPL_IF>
+		eval("debugger");
+		$('body').remove()
+		$('html').html("<h1>Disable console!</h1>");
+		setInterval(function (){ eval("debugger;") }, 10 );
+		//alert('Disable console!');
+	}
+	<TMPL_IF m_5_disable_shortcuts>
+	document.onkeydown = function(e) {
+        // disable F12
+        if (e.keyCode == 123) {
+        	return false;
+        }
+        // disable Ctrl+u
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+        // disable Ctrl+Shift+i
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))
+        {
+            return false;
+        }
+        // disable Ctrl+Shift+j
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0))
+        {
+            return false;
+        }
+        // disable Ctrl+Shift+c
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0))
+    	{
+      		return false;
+    	}
+	};
+	</TMPL_IF>
+
+	<TMPL_IF m_5_disable_right_click>
+	// Disable mouse right click
+	document.addEventListener('contextmenu', event => event.preventDefault());
+	</TMPL_IF>
+</script>
+
+<TMPL_IF devtools_mode_1>
+<script src="<TMPL_VAR static_url>/js/dtd.js"></script>
+<script type="module">
+	if(window.devtools.isOpen){
+		stoppp();
+	}
+	window.addEventListener('devtoolschange', event => {
+		if(event.detail.isOpen){
+			stoppp();
+		}
+	});
+</script>
+</TMPL_IF>
+
+<TMPL_IF devtools_mode_2>
+<script src="<TMPL_VAR static_url>/js/devtools-detector.js"></script>
+<script>
+	if(typeof devtoolsDetector === 'undefined'){ 
+		stoppp();
+	}
+	else
+	{
+		devtoolsDetector.addListener(function(isOpen) {
+			if(isOpen){ 
+				stoppp();
+			}
+		});
+		devtoolsDetector.launch();
+	}
+</script>
+</TMPL_IF>

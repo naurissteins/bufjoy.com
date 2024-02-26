@@ -1,0 +1,26 @@
+These files were deleted from your account last 24 hours:
+
+<br><br>
+
+<table border=1 cellpadding=5 cellspacing=1>
+<tr align=center>
+	<td>Filecode</td>
+	<td>Video title</td>
+	<td>Uploaded</td>
+	<td>Deleted</td>
+	<td>Video link</td>
+</tr>
+<TMPL_LOOP files>
+<tr align=center>
+	<td><TMPL_VAR file_code></td>
+	<td><TMPL_VAR file_title></td>
+	<td><TMPL_VAR file_created></td>
+	<td><TMPL_VAR file_deleted></td>
+	<td><a href="<TMPL_VAR file_url>"><TMPL_VAR file_url></a></td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+<br><br>
+
+You can check your deleted files on special page: <a href="<TMPL_VAR site_url>/?op=my_files_deleted">Delete Files</a>

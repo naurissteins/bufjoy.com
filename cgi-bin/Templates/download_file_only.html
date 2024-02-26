@@ -1,0 +1,5 @@
+        <h2>Download video</h2>
+        <TMPL_LOOP versions>
+        <a href="#" onclick="<TMPL_IF not_available>alert('<TMPL_VAR lng_download_premium_for_originals>')<TMPL_ELSE>window.location='<TMPL_VAR dl_link>';</TMPL_IF>"><TMPL_VAR vid_title></a> <TMPL_VAR file_size_mb><br>
+        </TMPL_LOOP>
+        

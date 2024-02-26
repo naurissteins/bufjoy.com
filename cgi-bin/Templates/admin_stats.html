@@ -1,0 +1,455 @@
+<h3>Site Statistics</h3>
+<script src="<TMPL_VAR static_url>/js/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+
+<Form>
+<input type="hidden" name="op" value="admin_stats">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+From <input type="text" name="date1" value="<TMPL_VAR date1>" size=9> to <input type="text" name="date2" value="<TMPL_VAR date2>" size=9>
+<input type="submit" value="Show">
+</Form>
+
+<br>
+	<script>
+	$(function() {
+
+const data_profit = {
+	labels: [<TMPL_LOOP list>'<TMPL_VAR x>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Profit',
+		yAxisID: 'L',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR profit><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Payout',
+		yAxisID: 'R',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR payout><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	}
+]
+};
+const config_profit = {
+  type: 'line',
+  data: data_profit,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+    scales: {
+    		L: {
+				title: {display: true, text: 'Profit, USD',},
+				position: 'left',
+				min: 0,
+			},
+			R: {
+				type: 'linear',
+				min: 0,
+				title: {display: true, text: 'Payouts, USD',},
+				position: 'right',
+			}
+        },
+  }
+};
+//-------------------------------------------------
+const data_register = {
+	labels: [<TMPL_LOOP list>'<TMPL_VAR x>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Registered',
+		yAxisID: 'L',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR registered><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Sales',
+		yAxisID: 'R',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR paid><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	}
+]
+};
+const config_register = {
+  type: 'line',
+  data: data_register,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+    scales: {
+    		L: {
+				title: {display: true, text: 'Registered',},
+				position: 'left',
+				min: 0,
+			},
+			R: {
+				type: 'linear',
+				min: 0,
+				title: {display: true, text: 'Sales, USD',},
+				position: 'right',
+			}
+        },
+  }
+};
+//-------------------------------------------------
+const data_views = {
+	labels: [<TMPL_LOOP list>'<TMPL_VAR x>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Views',
+		yAxisID: 'L',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR views><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Traffic',
+		yAxisID: 'R',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR bandwidth><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	}
+]
+};
+const config_views = {
+  type: 'line',
+  data: data_views,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+    scales: {
+    		L: {
+				title: {display: true, text: 'Views',},
+				position: 'left',
+				min: 0,
+			},
+			R: {
+				type: 'linear',
+				min: 0,
+				title: {display: true, text: 'Traffic, GBytes',},
+				position: 'right',
+			}
+        },
+  }
+};
+//-------------------------------------------------
+const data_uploads = {
+	labels: [<TMPL_LOOP list>'<TMPL_VAR x>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Uploaded',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR uploads><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Deleted',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP list><TMPL_VAR deleted><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	}
+]
+};
+const config_uploads = {
+  type: 'line',
+  data: data_uploads,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+    scales: {
+        }
+  }
+};
+//-------------------------------------------------
+const data_speeds = {
+	labels: [<TMPL_LOOP listperf>'<TMPL_VAR time1>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Out',
+		yAxisID: 'L',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP listperf><TMPL_VAR speed_out><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'In',
+		yAxisID: 'L',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		cubicInterpolationMode: 'monotone',
+      	tension: 0.4,
+		data: [<TMPL_LOOP listperf><TMPL_VAR speed_in><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Connections',
+		yAxisID: 'R',
+		backgroundColor: '#33f',
+		borderColor: '#006',
+		fill: false,
+		data: [<TMPL_LOOP listperf><TMPL_VAR connections><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+]
+};
+const config_speeds = {
+  type: 'line',
+  data: data_speeds,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+    scales: {
+            x: {
+            	type: 'time',
+            	time: {
+		          // Luxon format string
+		          tooltipFormat: 'DD MMM HH:mm',
+		          unit: '<TMPL_VAR xunit>',
+		          displayFormats: {
+                        hour: 'HH:mm'
+                  },
+		          stepSize: '<TMPL_VAR skip>'
+		        }
+            },
+			L: {
+				title: {display: true, text: 'Mbps',},
+				position: 'left',
+				min: 0,
+			},
+			R: {
+				type: 'linear',
+				min: 0,
+				title: {display: true, text: 'Connections',},
+				position: 'right',
+			}
+        }
+  }
+};
+//--------------------------------------------------------
+const data_queues = {
+	labels: [<TMPL_LOOP listperf>'<TMPL_VAR time1>'<TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>],
+	datasets: [
+	{
+		label: 'Encodings',
+		backgroundColor: '#f33',
+		borderColor: '#600',
+		fill: false,
+		data: [<TMPL_LOOP listperf><TMPL_VAR encode><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'Transfers',
+		backgroundColor: '#3f3',
+		borderColor: '#060',
+		fill: false,
+		data: [<TMPL_LOOP listperf><TMPL_VAR transfer><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+	{
+		label: 'URL Uploads',
+		backgroundColor: '#33f',
+		borderColor: '#006',
+		fill: false,
+		data: [<TMPL_LOOP listperf><TMPL_VAR urlupload><TMPL_UNLESS __last__>,</TMPL_UNLESS></TMPL_LOOP>]
+	},
+]
+};
+const config_queues = {
+  type: 'line',
+  data: data_queues,
+  options: {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      // title: {
+      //   display: true,
+      //   text: 'Queue '
+      // }
+    },
+    scales: {
+            x: {
+            	type: 'time',
+            	time: {
+		          // Luxon format string
+		          tooltipFormat: 'DD MMM HH:mm',
+		          unit: '<TMPL_VAR xunit>',
+		          displayFormats: {
+                        hour: 'HH:mm'
+                  },
+		          stepSize: '<TMPL_VAR skip>'
+		        },
+          //   	display: true,
+          //       title: {
+		        //   display: true,
+		        //   text: 'Date'
+		        // }
+            },
+            y: {
+				min: 0,
+			},
+        }
+  }
+};
+
+		new Chart($('#chart_uploads'), config_uploads );
+		new Chart($('#chart_queues'), config_queues );
+		new Chart($('#chart_speeds'), config_speeds );
+		new Chart($('#chart_views'), config_views );
+		new Chart($('#chart_register'), config_register );
+		new Chart($('#chart_profit'), config_profit );
+
+	});
+
+
+	</script>
+<center>
+	<b>Files Uploaded / Deleted</b>
+	<canvas id="chart_uploads" style="width:640px;height:300px;"></canvas>
+
+	<br>
+
+	<b>Views / Traffic, GB</b>
+	<canvas id="chart_views" style="width:640px;height:300px;"></canvas>
+
+	<br>
+
+	<b>Registered / Sales</b>
+	<canvas id="chart_register" style="width:640px;height:300px;"></canvas>
+
+	<br>
+
+	<b>User views Profit, $</b>
+	<canvas id="chart_profit" style="width:640px;height:300px;"></canvas>
+
+	<br>
+
+	<b>All servers speed, Mbps</b>
+	<canvas id="chart_speeds" style="width:640px;height:300px;"></canvas>
+
+	<br>
+
+	<b>Queues</b>
+	<canvas id="chart_queues" style="width:640px;height:300px;"></canvas>
+</center>
+<br><br>
+
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH>Date</TH>
+    <TH>Uploads</TH>
+    <TH>Deleted</TH>
+    <TH>Views</TH>
+    <TH>ViewsADB</TH>
+    <TH>Downloads</TH>
+    <TH>Registered</TH>
+    <TH>Traffic,GB</TH>
+    <TH>Sales $</TH>
+    <TH>Views $</TH>
+    <TH>Total Profit $</TH>
+    <TH>Payouts $</TH>
+</TR>
+<TMPL_LOOP list2>
+<TR align=center>
+    <TD><TMPL_VAR day></TD>
+    <TD align=right><TMPL_VAR uploads></TD>
+    <TD align=right><TMPL_VAR deleted></TD>
+    <TD><TMPL_VAR views></TD>
+    <TD><TMPL_VAR views_adb></TD>
+    <TD align=right><TMPL_VAR downloads></TD>
+    <TD align=right><TMPL_VAR registered></TD>
+    <TD><TMPL_VAR bandwidth></TD>
+    <TD><TMPL_VAR paid></TD>
+    <TD><TMPL_VAR profit></TD>
+    <TD align=right><TMPL_VAR profit_total></TD>
+    <TD align=right><TMPL_VAR payout></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+    <TH></TH>
+    <TH><TMPL_VAR sum_uploads></TH>
+    <TH><TMPL_VAR sum_deleted></TH>
+    <TH><TMPL_VAR sum_views></TH>
+    <TH><TMPL_VAR sum_views_adb></TH>
+    <TH><TMPL_VAR sum_downloads></TH>
+    <TH><TMPL_VAR sum_registered></TH>
+    <TH><TMPL_VAR sum_bandwidth></TH>
+    <TH>$<TMPL_VAR sum_paid></TH>
+    <TH>$<TMPL_VAR sum_profit></TH>
+    <TH>$<TMPL_VAR sum_profit_total></TH>
+    <TH>$<TMPL_VAR sum_payout></TH>
+</TR>
+</Table>

@@ -1,0 +1,452 @@
+<TMPL_INCLUDE menu-1.html> 
+  <TMPL_INCLUDE top_menu.html>  
+    
+    <div class="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 pb-10">
+      
+      <TMPL_IF audio_files>	
+      <div class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 my-8 rounded-md shadow-lg">
+        <div class="flex items-start space-x-5">
+          <div class="flex-shrink-0">
+          <div class="relative rounded-md bg-indigo-500 p-2">
+            <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z"/></svg>
+            </div>
+          </div>
+          <div class="pt-1">
+          <h1 class="text-2xl font-bold text-gray-300">Audio</h1>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+          <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+          Links				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"></path>
+          </svg>
+          Embed				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+          <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zM96 240c0-35 17.5-71.1 45.2-98.8S205 96 240 96c8.8 0 16-7.2 16-16s-7.2-16-16-16c-45.4 0-89.2 22.3-121.5 54.5S64 194.6 64 240c0 8.8 7.2 16 16 16s16-7.2 16-16z"/></svg>
+          Cover				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+          <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>
+          Spectrum				
+          </button>				  
+        </div>
+      </div>
+  
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+        <TMPL_LOOP audio_files>				
+          <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+            <div class="relative aspect-[1/1] sm:aspect-[1/1] lg:aspect-square lg:w-40 lg:shrink-0">
+              <img src="<TMPL_IF video_thumb_url><TMPL_VAR video_thumb_url></TMPL_IF>" alt="" class="absolute inset-0 h-full w-full rounded-lg bg-gray-900 object-cover">
+              <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>				  
+            </div>
+  
+            <div class="">
+              <div class="group relative">
+              <h3 class="text-lg font-semibold leading-6 text-white hover:text-indigo-300">
+                <a href="<TMPL_VAR download_link>" target="_blank">
+                <span class="absolute inset-0"></span>
+                <TMPL_VAR file_title>
+                </a>
+              </h3>
+              </div>
+              <div class="mt-4 flex items-center gap-x-4 text-sm">
+              <span class="text-gray-400 inline-flex items-center">
+                <span class="relative z-10 rounded-full bg-gray-800 px-2 py-1 font-medium text-gray-300 text-xs"><TMPL_VAR file_extension></span>
+              </span> 		
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>            
+                <TMPL_VAR vid_length_txt>
+              </span> 												
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>            
+                <TMPL_VAR file_size_mb>
+              </span> 
+              <TMPL_IF vid_audio_bitrate>
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>
+                <TMPL_VAR vid_audio_bitrate> kbp/s
+              </span>    
+              </TMPL_IF> 
+              <TMPL_IF vid_audio_rate>
+                <span class="text-gray-400 inline-flex items-center">
+                  <svg class="fill-gray-400 h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M24 32c13.3 0 24 10.7 24 24V408c0 13.3 10.7 24 24 24H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H72c-39.8 0-72-32.2-72-72V56C0 42.7 10.7 32 24 32zM128 136c0-13.3 10.7-24 24-24l208 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-208 0c-13.3 0-24-10.7-24-24zm24 72H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 96H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>
+                  <TMPL_VAR vid_audio_rate> Hz
+                </span>    
+              </TMPL_IF>  							                             
+              </div>
+              <div class="mt-3 max-w-[26rem] min-w-[26rem]">
+              <div x-data="{openTab: 1, activeClasses: 'border-b-2 border-indigo-500', inactiveClasses: 'text-gray-400 hover:border-indigo-500 hover:border-b-2'}">
+                <div>
+                  <div class="hidden sm:block border-b border-gray-700">
+                  <nav class="-mb-px flex" aria-label="Tabs">
+                    <span @click="openTab = 1">
+                      <a :class="openTab === 1 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs font-medium text-gray-300 cursor-pointer">File Link</a>
+                    </span>
+                    <span @click="openTab = 2">
+                      <a :class="openTab === 2 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Embed Code</a>
+                    </span> 
+                    <span @click="openTab = 3">
+                    <a :class="openTab === 3 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Cover Artwork</a>
+                    </span> 
+                    <span @click="openTab = 4">
+                    <a :class="openTab === 4 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Spectrogram</a>
+                    </span> 									  									  
+                  </nav>
+                  </div>
+                  <div x-cloak x-show="openTab === 1">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR download_link>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>      
+                  </div>
+          
+                  <div x-cloak x-show="openTab === 2">
+                  <div class="relative w-full mt-4">
+                    <input value='<TMPL_VAR embed_code>' class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>
+                  </div>
+  
+                  <div x-cloak x-show="openTab === 3">
+                  <div class="relative w-full mt-4">
+                    <input value='<TMPL_VAR video_thumb_url>' class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>
+                  </div>
+  
+                  <div x-cloak x-show="openTab === 4">
+                  <div class="relative w-full mt-4">
+                    <input value='<TMPL_VAR spectrogram_url>' class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              </div>					  
+            </div>
+            </article> 
+        </TMPL_LOOP>
+      </div>
+      </TMPL_IF>	
+  
+      <TMPL_IF video_files>
+  
+      <div class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 my-8 rounded-md shadow-lg">
+        <div class="flex items-start space-x-5">
+          <div class="flex-shrink-0">
+          <div class="relative rounded-md bg-indigo-500 p-2">
+            <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.8-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L416 337.1V320 192 174.9l14.2-9.5 96-64c9.8-6.5 22.4-7.2 32.9-1.6z"></path></svg>
+            </div>
+          </div>
+          <div class="pt-1">
+          <h1 class="text-2xl font-bold text-gray-300">Video</h1>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+            <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+            Links				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"></path>
+            </svg>
+            Embed				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+            <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm-96-32a96 96 0 1 0 192 0 96 96 0 1 0 -192 0zM96 240c0-35 17.5-71.1 45.2-98.8S205 96 240 96c8.8 0 16-7.2 16-16s-7.2-16-16-16c-45.4 0-89.2 22.3-121.5 54.5S64 194.6 64 240c0 8.8 7.2 16 16 16s16-7.2 16-16z"/></svg>
+            Snapshot				
+          </button>
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+            <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>
+            Screenlist				
+          </button>				  
+        </div>
+      </div>		
+      
+    
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+        <TMPL_LOOP video_files>
+          <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+            <div class="relative aspect-[16/9] sm:aspect-[16/9] lg:aspect-square lg:w-64 lg:shrink-0">
+              <img src="<TMPL_IF video_thumb_url><TMPL_VAR video_thumb_url><TMPL_ELSE><TMPL_VAR video_img_url></TMPL_IF>" alt="" class="absolute inset-0 h-full w-full rounded-lg bg-gray-900 object-cover">
+              <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+            </div>
+  
+            <div>
+              <div class="group relative">
+              <h3 class="text-lg font-semibold leading-6 text-white hover:text-indigo-300">
+                <a href="<TMPL_VAR download_link>" target="_blank">
+                <span class="absolute inset-0"></span>
+                <TMPL_VAR file_title>
+                </a>
+              </h3>
+              </div>
+              <div class="mt-4 flex items-center gap-x-4 text-sm">
+              <span class="text-gray-400 inline-flex items-center">
+                <span class="relative z-10 rounded-full bg-gray-800 px-2 py-1 font-medium text-gray-300 text-xs"><TMPL_VAR file_extension></span>
+              </span> 
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>            
+                <TMPL_VAR vid_length_txt>
+              </span> 
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>            
+                <TMPL_VAR file_size_mb>
+              </span> 
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><path d="M128 64a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM352 256H128C57.3 256 0 198.7 0 128S57.3 0 128 0c48.2 0 90.2 26.6 112 66C261.8 26.6 303.8 0 352 0c70.7 0 128 57.3 128 128s-57.3 128-128 128zm0-192a64 64 0 1 0 0 128 64 64 0 1 0 0-128zM558.3 259.4c10.8 5.4 17.7 16.5 17.7 28.6V480c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48L448 448V432 336 320l12.8-9.6 64-48c9.7-7.3 22.7-8.4 33.5-3zM64 288h64H352c35.3 0 64 28.7 64 64v96c0 35.3-28.7 64-64 64H128c-35.3 0-64-28.7-64-64V352H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64z"/></svg>          
+                <TMPL_VAR vid_width>x<TMPL_VAR vid_height>
+              </span>                                 
+              </div>
+              <div class="mt-3 max-w-[27rem] min-w-[27rem]">
+              <div x-data="{openTab: 1, activeClasses: 'border-b-2 border-indigo-500', inactiveClasses: 'text-gray-400 hover:border-indigo-500 hover:border-b-2'}">
+                <div>
+                  <div class="hidden sm:block border-b border-gray-700">
+                  <nav class="-mb-px flex" aria-label="Tabs">
+                    <span @click="openTab = 1">
+                      <a :class="openTab === 1 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs font-medium text-gray-300 cursor-pointer">File Link</a>
+                    </span>
+                    <span @click="openTab = 2">
+                      <a :class="openTab === 2 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Embed Link</a>
+                    </span>
+                    <span @click="openTab = 3">
+                      <a :class="openTab === 3 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Embed Code</a>
+                    </span>					
+                    <span @click="openTab = 4">
+                      <a :class="openTab === 4 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Snapshot</a>
+                    </span>					
+                    <span @click="openTab = 5">
+                      <a :class="openTab === 5 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Screenlist</a>
+                    </span>  
+                  </nav>
+                  </div>
+                  <div x-cloak x-show="openTab === 1">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR download_link>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>         
+                  </div>
+          
+                  <div x-cloak x-show="openTab === 2">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR site_url>/e/<TMPL_VAR file_code>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div> 
+                  </div>
+          
+                  <div x-cloak x-show="openTab === 3">
+                  <div class="relative w-full mt-4">
+                    <input value='<TMPL_VAR embed_code>' class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div> 
+                  </div>
+          
+                  <div x-cloak x-show="openTab === 4">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR video_img_url>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div> 
+                  </div>
+          
+          
+                  <div x-cloak x-show="openTab === 5">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR img_screenlist>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div> 
+                  </div>     
+                </div>
+              </div>
+              </div>					  
+            </div>
+          </article> 				  
+        </TMPL_LOOP> 	
+      </div>
+      </TMPL_IF>
+  
+      <TMPL_IF image_files>
+        <div class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 my-8 rounded-md shadow-lg">
+          <div class="flex items-start space-x-5">
+            <div class="flex-shrink-0">
+            <div class="relative rounded-md bg-indigo-500 p-2">
+              <svg class="w-6 h-6 text-white fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"></path></svg>
+              </div>
+            </div>
+            <div class="pt-1">
+            <h1 class="text-2xl font-bold text-gray-300">Image</h1>
+            </div>
+          </div>
+          <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+            <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+              <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+              Links				
+            </button>
+            <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+              <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M0 256C0 167.6 71.6 96 160 96h64c17.7 0 32 14.3 32 32s-14.3 32-32 32H160c-53 0-96 43-96 96s43 96 96 96h64c17.7 0 32 14.3 32 32s-14.3 32-32 32H160C71.6 416 0 344.4 0 256zm576 0c0 88.4-71.6 160-160 160H352c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c53 0 96-43 96-96s-43-96-96-96H352c-17.7 0-32-14.3-32-32s14.3-32 32-32h64c88.4 0 160 71.6 160 160zM192 224H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg>
+              Direct				
+            </button>				  
+          </div>
+        </div>			
+      
+  
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+        <!-- Images -->		
+        <TMPL_LOOP image_files>
+          <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+            <div class="relative  lg:w-64 ">
+              <img src="<TMPL_IF video_thumb_url><TMPL_VAR video_thumb_url></TMPL_IF>" alt="" class=" h-full w-full rounded-lg bg-gray-900 object-cover">
+              <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+            </div>
+  
+            <div>
+              <div class="group relative">
+              <h3 class="text-lg font-semibold leading-6 text-white hover:text-indigo-300">
+                <a href="<TMPL_VAR download_link>" target="_blank">
+                <span class="absolute inset-0"></span>
+                <TMPL_VAR file_title>
+                </a>
+              </h3>
+              </div>
+              <div class="mt-4 flex items-center gap-x-4 text-sm">
+              <span class="text-gray-400 inline-flex items-center">
+                <span class="relative z-10 rounded-full bg-gray-800 px-2 py-1 font-medium text-gray-300 text-xs"><TMPL_VAR file_extension></span>
+              </span> 
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>            
+                <TMPL_VAR file_size_mb>
+              </span>                                  
+              </div>
+              <div class="mt-3 max-w-[27rem] min-w-[27rem]">
+              <div x-data="{openTab: 1, activeClasses: 'border-b-2 border-indigo-500', inactiveClasses: 'text-gray-400 hover:border-indigo-500 hover:border-b-2'}">
+                <div>
+                  <div class="hidden sm:block border-b border-gray-700">
+                  <nav class="-mb-px flex" aria-label="Tabs">
+                    <span @click="openTab = 1">
+                      <a :class="openTab === 1 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs font-medium text-gray-300 cursor-pointer">File Link</a>
+                    </span>
+                    <span @click="openTab = 2">
+                      <a :class="openTab === 2 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs  font-medium text-gray-300 cursor-pointer">Direct Link</a>
+                    </span> 
+                  </nav>
+                  </div>
+                  <div x-cloak x-show="openTab === 1">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR download_link>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>     
+                  </div>
+          
+                  <div x-cloak x-show="openTab === 2">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR video_thumb_url>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>  
+                  </div>
+    
+                </div>
+              </div>
+              </div>					  
+            </div>
+          </article> 
+        </TMPL_LOOP>
+      </div>
+      </TMPL_IF>
+
+      <TMPL_IF other_files>
+      <div class="md:flex md:items-center md:justify-between md:space-x-5 bg-gray-700/10 p-3 my-8 rounded-md shadow-lg">
+        <div class="flex items-start space-x-5">
+          <div class="flex-shrink-0">
+          <div class="relative rounded-md bg-indigo-500 p-2">
+            <svg class="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M320 0H160C124.7 0 96 28.7 96 64V352c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V128H352c-17.7 0-32-14.3-32-32V0zM448 96L416 64 384 32 352 0V45.3 64 96h32 18.7H448zM48 120c0-13.3-10.7-24-24-24S0 106.7 0 120V376c0 75.1 60.9 136 136 136H328c13.3 0 24-10.7 24-24s-10.7-24-24-24H136c-48.6 0-88-39.4-88-88V120z"/></svg>
+            </div>
+          </div>
+          <div class="pt-1">
+          <h1 class="text-2xl font-bold text-gray-300">Files</h1>
+          </div>
+        </div>
+        <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-3 sm:space-y-0 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+          <button type="button" class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/20 focus-visible:outline">
+            <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
+            Links				
+          </button>			  
+        </div>
+      </div>		
+  
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+        <!-- Else files -->
+        <TMPL_LOOP other_files>	
+          <article class="relative isolate flex flex-col gap-8 lg:flex-row">
+            <div>
+              <div class="group relative">
+              <h3 class="text-lg font-semibold leading-6 text-white hover:text-indigo-300">
+                <a href="<TMPL_VAR download_link>" target="_blank">
+                <span class="absolute inset-0"></span>
+                <TMPL_VAR file_title>
+                </a>
+              </h3>
+              </div>
+              <div class="mt-4 flex items-center gap-x-4 text-sm">
+              <span class="text-gray-400 inline-flex items-center">
+                <span class="relative z-10 rounded-full bg-gray-800 px-2 py-1 font-medium text-gray-300 text-xs"><TMPL_VAR file_extension></span>
+              </span> 
+              <span class="text-gray-400 inline-flex items-center">
+                <svg class="fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>            
+                <TMPL_VAR file_size_mb>
+              </span>                                  
+              </div>
+              <div class="mt-3 max-w-[27rem] min-w-[27rem]">
+              <div x-data="{openTab: 1, activeClasses: 'border-b-2 border-indigo-500', inactiveClasses: 'text-gray-400 hover:border-indigo-500 hover:border-b-2'}">
+                <div>
+                  <div class="hidden sm:block border-b border-gray-700">
+                  <nav class="-mb-px flex" aria-label="Tabs">
+                    <span @click="openTab = 1">
+                      <a :class="openTab === 1 ? activeClasses : inactiveClasses" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-xs font-medium text-gray-300 cursor-pointer">File Link</a>
+                    </span>
+                  </nav>
+                  </div>
+                  <div x-cloak x-show="openTab === 1">
+                  <div class="relative w-full mt-4">
+                    <input value="<TMPL_VAR download_link>" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-400  focus:ring-2 focus:ring-inset focus:ring-indigo-500 text-xs leading-5" onclick="this.select();" readonly>
+                    <button class="absolute right-0 top-0 mt-1 mr-1 text-xs text-white bg-indigo-500 focus:outline-none hover:bg-indigo-600 rounded-md px-2 py-1">
+                      Copy
+                    </button>
+                  </div>     
+                  </div>
+                </div>
+              </div>
+              </div>					  
+            </div>
+          </article> 
+        </TMPL_LOOP>
+      </div> 
+      </TMPL_IF> 
+    </div>
+  <TMPL_INCLUDE menu-2.html> 	

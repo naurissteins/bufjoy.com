@@ -1,0 +1,94 @@
+<h3>Transfer queue</h3>
+
+<Table class="tbl1" width=350>
+<tr><th colspan=2>Stats: Transfers To</th></tr>
+<TMPL_LOOP srv_list_to>
+<tr><td><a href="?op=admin_transfer_list&srv_id2=<TMPL_VAR srv_id><TMPL_VAR token_str>"><TMPL_VAR srv_name></a></td><td>
+<TMPL_IF PENDING><TMPL_VAR PENDING> pending</TMPL_IF>
+<TMPL_IF MOVING><TMPL_VAR MOVING> moving</TMPL_IF>
+<TMPL_IF STUCK><TMPL_VAR STUCK> stucked</TMPL_IF>
+<TMPL_IF ERROR><TMPL_VAR ERROR> errors</TMPL_IF>
+</td></tr>
+</TMPL_LOOP>
+</Table>
+
+<Table class="tbl1" width=350 style="margin-top: 5px;">
+<tr><th colspan=2>Stats: Transfers From</th></tr>
+<TMPL_LOOP srv_list_from>
+<tr><td><a href="?op=admin_transfer_list&srv_id1=<TMPL_VAR srv_id><TMPL_VAR token_str>"><TMPL_VAR srv_name></a></td><td>
+<TMPL_IF PENDING><TMPL_VAR PENDING> pending</TMPL_IF>
+<TMPL_IF MOVING><TMPL_VAR MOVING> moving</TMPL_IF>
+<TMPL_IF STUCK><TMPL_VAR STUCK> stucked</TMPL_IF>
+<TMPL_IF ERROR><TMPL_VAR ERROR> errors</TMPL_IF>
+</td></tr>
+</TMPL_LOOP>
+</Table>
+
+<br>
+
+<TMPL_IF stucked>
+<div>
+	<input type="button" value="Restart stucked <TMPL_VAR stucked>" onclick="window.location='?op=admin_transfer_list&amp;restart_stucked=1<TMPL_VAR token_str>'" class="f-btn-blue"> &nbsp; 
+	<input type="button" value="Cancel stucked <TMPL_VAR stucked>" onclick="window.location='?op=admin_transfer_list&amp;delete_stucked=1<TMPL_VAR token_str>'" class="f-btn-red">
+</div>
+</TMPL_IF>
+
+<TMPL_IF errors>
+<div style="margin:5px;">
+	<input type="button" value="Restart errors <TMPL_VAR errors>" onclick="window.location='?op=admin_transfer_list&amp;restart_errors=1<TMPL_VAR token_str>'" class="f-btn-blue">
+	<input type="button" value="Cancel errors <TMPL_VAR errors>" onclick="window.location='?op=admin_transfer_list&amp;delete_errors=1<TMPL_VAR token_str>'" class="f-btn-red">
+</div>
+</TMPL_IF>
+
+<br>
+
+<form method="POST">
+<input type="hidden" name="op" value="admin_transfer_list">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1" cellspacing=1 cellpadding=3 id="xfiles">
+<TR class="hdr">
+	<TD><input type="checkbox" id="selall"></TD>
+	<TD>Title</TD>
+	<TD>Size</TD>
+	<TD>Added</TD>
+	<TD title="Source Server">Server From</TD>
+	<TD title="Target Server">Server To</TD>
+	<TD>Progress</TD>
+	</TR>
+	<TMPL_LOOP list>
+	<TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+	<TD><input type="checkbox" name="file_real" value="<TMPL_VAR file_real>"></TD>
+	<TD align=left><a href="<TMPL_VAR download_link>"><TMPL_IF premium><b></TMPL_IF><TMPL_VAR file_title_txt></a><TMPL_VAR qstatus></TD>
+	<TD align=right><TMPL_VAR file_size_total></TD>
+	<TD nowrap><small><TMPL_VAR created2></small></TD>
+	<TD><TMPL_VAR srv_name1> [<TMPL_VAR srv_id1>]</TD>
+	<TD><TMPL_VAR srv_name2> [<TMPL_VAR srv_id2>]</TD>
+	<TD align=left class="enc_td"><div style="position:relative;"><div class="enc_status" style="width:<TMPL_VAR progress>%;"></div><div class="enc_value"><TMPL_VAR progress>%<TMPL_IF transferred> (<TMPL_VAR transferred_mb> of <TMPL_VAR file_size_total>, <TMPL_VAR speed> KB/s)</TMPL_IF></div></div></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+<TD colspan=9>
+    <input type="submit" name="restart" value="Restart" class="f-btn-blue"> &nbsp; 
+    <input type="submit" name="cancel" value="Cancel" class="f-btn-red" onClick="return confirm('Cancel selected transfers?')"> &nbsp; 
+    <input type="submit" name="delete" value="Delete File" class="f-btn-red" onClick="return confirm('Delete selected files?')"> &nbsp; 
+</TD>
+</TR>
+</Table>
+
+</form>
+
+<TMPL_VAR paging>
+
+<script>
+$(document).ready(function(){
+    $("input[name=file_real]").change( function(){ $(this).parent().parent().toggleClass('hi2'); } );
+    $("#selall").change(function(){ 
+           var sel=this.checked;
+           $("#xfiles input[name=file_real]:enabled").each(function(){
+               $(this).prop('checked',sel);
+               if(sel){$(this).parent().parent().addClass('hi2');} else {$(this).parent().parent().removeClass('hi2');}
+           });
+    });
+});
+</script>

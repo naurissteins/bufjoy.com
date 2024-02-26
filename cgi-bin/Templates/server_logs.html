@@ -1,0 +1,23 @@
+<TMPL_INCLUDE menu-1.html>  
+
+    <TMPL_INCLUDE top_menu.html>   
+
+            <div class="bg-gray-900 py-10" id="error_log">
+                <div class="px-4 sm:px-6 lg:px-8" >
+                   <div class="sm:flex sm:items-center">
+                      <div class="sm:flex-auto">
+                         <h1 class="text-base font-semibold leading-6 text-white mb-3">VPS Error Log</h1>
+                      </div>
+                   </div>
+                   <x-placeholder message="Your code example">
+                      <pre class="text-[0.8125rem] leading-6 text-gray-300  p-2 overflow-x-auto overflow-y-auto" style="height: 300px;"><code>
+<TMPL_VAR error_log></code></pre>
+                   </x-placeholder>
+                </div>
+             </div>            
+                  
+ 
+
+
+
+    <TMPL_INCLUDE menu-2.html>      

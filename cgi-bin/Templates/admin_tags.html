@@ -1,0 +1,57 @@
+<h3>Tags management</h3>
+
+<Form>
+<input type="hidden" name="op" value="admin_tags">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+    <td>Keyword</td>
+    <td><input type="text" name="filter_key" value="<TMPL_VAR filter_key>" size=16></td>
+</tr>
+<tr>
+    <td>Shorter than</td>
+    <td><input type="text" name="filter_short" value="<TMPL_VAR filter_short>" size=3> chars</td>
+</tr>
+<tr>
+    <td>Longer than</td>
+    <td><input type="text" name="filter_long" value="<TMPL_VAR filter_long>" size=3> chars</td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value="Filter"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR>
+    <TH><input type="checkbox" id="selall"></TH>
+    <TH>Tag</TH>
+    <TH>Files</TH>
+</TR>
+<TMPL_LOOP list>
+<TR>
+    <TD><input type="checkbox" name="tag_id" value="<TMPL_VAR tag_id>"></TD>
+    <TD><TMPL_VAR tag_value></small></TD>
+    <TD align=center><a href="?op=admin_files&amp;tag_id=<TMPL_VAR tag_id><TMPL_VAR token_str>"><TMPL_VAR files></a></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<TMPL_VAR paging>
+
+<script>
+$(document).ready(function(){
+
+    $("#selall").change(function(){ 
+           var sel=this.checked;
+           
+           $("input[name=tag_id]:enabled").each(function(){
+               $(this).prop('checked',sel);
+           });
+    });
+
+});
+</script>

@@ -1,0 +1,52 @@
+<h3>User reports</h3>
+
+<Form>
+<input type="hidden" name="op" value="admin_user_reports">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="usr_id" value="<TMPL_VAR usr_id>">
+From <input type="text" name="date1" value="<TMPL_VAR date1>" size=9> to <input type="text" name="date2" value="<TMPL_VAR date2>" size=9>
+<input type="submit" value="Show">
+</Form>
+
+<br>
+
+<embed src="<TMPL_VAR site_url>/FCF_MSLine.swf?chartWidth=600&chartHeight=360" flashVars="&dataXML=<TMPL_VAR data_xml>" quality="high" width="600" height="360" name="Column3D" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+
+<br><br>
+
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH>Date</TH>
+    <TH>Uploads</TH>
+    <TH>Downloads</TH>
+    <TH>Views</TH>
+    <TH>Premium Sales</TH>
+    <TH>Referrals</TH>
+    <TH>New Refs</TH>
+    <TH>Total</TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><TMPL_VAR day></TD>
+    <TD align=right><TMPL_VAR uploads> / <TMPL_VAR uploads_mb> MB</TD>
+    <TD><TMPL_VAR downloads></TD>
+    <TD align=right><TMPL_VAR views> / $<TMPL_VAR profit_views></TD>
+    <TD align=right><a href="?op=admin_transactions&date=<TMPL_VAR day>&aff_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR sales></a> / $<TMPL_VAR profit_sales></TD>
+    <TD align=right>$<TMPL_VAR profit_refs></TD>
+    <TD><TMPL_VAR refs></TD>
+    <TD align=right>$<TMPL_VAR profit_total></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+    <TH></TH>
+    <TH><TMPL_VAR sum_uploads> / <TMPL_VAR sum_uploads_mb> MB</TH>
+    <TH><TMPL_VAR sum_downloads></TH>
+    <TH><TMPL_VAR sum_views> / $<TMPL_VAR sum_profit_views></TH>
+    <TH><TMPL_VAR sum_sales> / $<TMPL_VAR sum_profit_sales></TH>
+    <TH>$<TMPL_VAR sum_profit_refs></TH>
+    <TH><TMPL_VAR sum_refs></TH>
+    <TH>$<TMPL_VAR sum_profit_total></TH>
+</TR>
+</Table>
+
+

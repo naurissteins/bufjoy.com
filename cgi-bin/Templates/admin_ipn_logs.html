@@ -1,0 +1,36 @@
+<h2>IPN Logs</h2>
+<Form>
+<input type="hidden" name="op" value="admin_ipn_logs">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+Search:<input type="text" name="key" value="<TMPL_VAR key>"> &nbsp; 
+Last
+<select name="last">
+<option value="1"<TMPL_VAR last_1>>1 day</option>
+<option value="7"<TMPL_VAR last_7>>7 days</option>
+<option value="30"<TMPL_VAR last_30>>1 month</option>
+<option value="90"<TMPL_VAR last_90>>3 months</option>
+<option value="180"<TMPL_VAR last_180>>6 months</option>
+<option value="360"<TMPL_VAR last_360>>1 year</option>
+<option value="0"<TMPL_VAR last_0>>all time</option>
+</select>
+<br>
+<input type="submit" value="Search">
+</Form>
+
+<br>
+
+<Table class="tbl1" cellpadding=2>
+<TMPL_LOOP list>
+<TR>
+    <TD>
+    	<b><TMPL_VAR created></b>
+    	<br>
+    	<TMPL_IF usr_id>User ID: <a href="?op=admin_user_edit&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_id></a><br></TMPL_IF>
+    	<TMPL_IF txn_id>TxnID: <TMPL_VAR txn_id><br></TMPL_IF>
+    	<TMPL_VAR info>
+    </TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<TMPL_VAR paging>
+<br>

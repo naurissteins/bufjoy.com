@@ -1,0 +1,17 @@
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH colspan=3>Country statistics for <TMPL_VAR day></TH>
+</TR>
+<TR>
+    <TH>Country</TH>
+    <TH><TMPL_VAR lng_myreports_views></TH>
+    <TH>Money</TH>
+</TR>
+<TMPL_LOOP countries>
+<TR align=center>
+    <TD><TMPL_VAR country></TD>
+    <TD align=right><TMPL_VAR views></TD>
+    <TD align=right>$<TMPL_VAR money></TD>
+</TR>
+</TMPL_LOOP>
+</Table>

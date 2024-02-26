@@ -1,0 +1,49 @@
+<h3>Top IPs</h3>
+
+<Form>
+<input type="hidden" name="op" value="admin_top_ips">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+    <td>Data for last <input type="text" name="days" value="<TMPL_VAR days>" size=2> days</td>
+</tr>
+<tr>
+    <td align=center><input type="submit" value="Show"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR><TH colspan=2>Traffic top</TH></TR>
+<TR>
+    <TH>IP</TH>
+    <TH>Traffic, GB</TH>
+</TR>
+<TMPL_LOOP list1>
+<TR>
+    <TD><TMPL_VAR ipt></TD>
+    <TD align=center><TMPL_VAR traffic></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<br>
+
+<Table class="tbl1">
+<TR><TH colspan=2>Money top</TH></TR>
+<TR>
+    <TH>IP</TH>
+    <TH>Money, USD</TH>
+</TR>
+<TMPL_LOOP list2>
+<TR>
+    <TD><TMPL_VAR ipt></TD>
+    <TD align=center>$<TMPL_VAR money></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+

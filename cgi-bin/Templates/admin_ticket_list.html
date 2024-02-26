@@ -1,0 +1,65 @@
+<div style="width:100%;margin:3px auto;">
+<h2>Admin Tickets</h2>
+
+<Form style="margin:0;" method="POST">
+<input type="hidden" name="op" value="admin_ticket_list">
+<div class="adminForm col-6">
+<Table class="tbl1">
+<tr>
+    <td>Search</td>
+    <td><input type="text" name="key" value="<TMPL_VAR key>" size=36></td>
+</tr>
+<TR>
+	<TD>Category</TD>
+	<TD>
+		<select name="category">
+		<option value="">All</option>
+		<TMPL_LOOP categories><option value="<TMPL_VAR category>"<TMPL_IF selected> selected</TMPL_IF>><TMPL_VAR category></option></TMPL_LOOP>
+		</select>
+	</TD>
+</TR>
+<tr>
+    <td>User</td>
+    <td>Login:<input type="text" name="usr_login" value="<TMPL_VAR usr_login>" size=12> usr_id:<input type="text" name="usr_id" value="<TMPL_VAR usr_id>" size=5></td>
+</tr>
+<tr>
+    <td>Show also</td>
+    <td>
+        <label><input type="checkbox" name="show_closed" value="1"<TMPL_IF show_closed> checked</TMPL_IF>>Closed</label>
+        <label><input type="checkbox" name="show_replied" value="1"<TMPL_IF show_replied> checked</TMPL_IF>>Replied</label>
+    </td>
+</tr>
+<tr>
+    <td>Only show last</td>
+    <td><input type="text" name="days" value="<TMPL_VAR days>" size=4> days updated</td>
+</tr>
+<tr>
+    <td colspan=2 style="text-align:center"><input type="submit" value="Show tickets" class="f-btn-blue"></td>
+</tr>
+</table>
+</div>
+</Form>
+
+<table class="tbl1" style="margin-top: 10px; width:90%;">
+<tr>
+	<th>Title</th>
+	<th style="width:150px">User</th>
+	<th style="width:130px">Updated</th>
+	<th style="width:130px">Category</th>
+	<th style="width:40px" title="Unread">UR</th>
+</tr>
+<TMPL_LOOP list>
+<tr align=center>
+	<td align=left>
+		<a href="?op=admin_ticket_view&ti_id=<TMPL_VAR ti_id>"><TMPL_IF unread_adm><b></TMPL_IF><TMPL_VAR ti_title></a>
+		<TMPL_UNLESS open> [closed]</TMPL_UNLESS>
+		<TMPL_IF replied> [replied]</TMPL_IF>
+	</td>
+	<td><a href="/?op=admin_ticket_list&usr_id=<TMPL_VAR usr_id>"><TMPL_VAR usr_login></a></td>
+	<td><TMPL_VAR updated></td>
+	<td><TMPL_VAR category></td>
+	<td><TMPL_VAR unread_adm></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</div>

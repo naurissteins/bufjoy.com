@@ -1,0 +1,19 @@
+<center>
+		<h3>
+		Welcome, <TMPL_VAR usr_login>!<br>
+		<span>Please enter the security from your email <TMPL_VAR usr_email>:</span>
+		</h3>
+
+		<TMPL_IF msg><b class='err'><TMPL_VAR msg></b><br></TMPL_IF>
+	
+		<form method="POST" action="<TMPL_VAR site_url>/" name="FL">
+		<input type="hidden" name="op" value="login_code">
+		<input type="hidden" name="redirect" value="<TMPL_VAR redirect>">
+			<input type="text" name="code" value="<TMPL_VAR code>"><br>
+			<input type="submit" value="Validate">
+		</form>
+	
+</center>
+<Script>
+document.FL.code.focus();
+</Script>

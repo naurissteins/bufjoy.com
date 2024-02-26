@@ -1,0 +1,23 @@
+<h3>News management</h3>
+
+<br><input type="button" value="Add news" onClick="window.location='?op=admin_news_edit<TMPL_VAR token_str>'"><br><br>
+
+<Table class="tbl1" cellspacing=1 cellpadding=3>
+<TR class="hdr">
+<TD>Title</TD>
+<TD>Cmt</TD>
+<TD>Published</TD>
+<TD>&nbsp;</TD>
+<TD>&nbsp;</TD>
+</TR>
+<TMPL_LOOP news>
+<TR>
+<TD><a href="<TMPL_VAR site_url>/n<TMPL_VAR news_id>-<TMPL_VAR news_title2>.html"><TMPL_VAR news_title></a></TD>
+<TD align=center><TMPL_VAR comments></TD>
+<TD><TMPL_VAR created></TD>
+<TD><a href="?op=admin_news_edit&amp;news_id=<TMPL_VAR news_id><TMPL_VAR token_str>"><img src="<TMPL_VAR site_url>/images/edit.gif" border=0></a></TD>
+<TD><a href="?op=admin_news&amp;del_id=<TMPL_VAR news_id><TMPL_VAR token_str>" onClick="return confirm('Delete this news?')"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<TMPL_VAR paging>

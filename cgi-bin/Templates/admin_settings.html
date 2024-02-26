@@ -1,0 +1,2819 @@
+<TMPL_IF message>
+<div style="background:#fea;border:1px solid #dd9;padding:5px;"><TMPL_VAR message></div><br><br >
+</TMPL_IF>
+
+<a href="?op=admin_news<TMPL_VAR token_str>">News</a> | 
+<a href="?op=admin_categories<TMPL_VAR token_str>">Video Categories</a> | 
+<a href="?op=admin_languages<TMPL_VAR token_str>">Languages</a> | 
+<a href="?op=admin_sql_stats<TMPL_VAR token_str>">SQL Stats</a>
+
+<br><br>
+
+<script>
+document.write('<style>.tabber{display:none;}<\/style>');
+var tab_cookie='tab_settings';
+</script>
+
+<Form name="F1" id="F1" method="POST">
+<input type="hidden" name="op" value="admin_settings">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<input type="submit" name="save" value=" Save Settings ">
+<br><br>
+
+<div style="width:800px;margin:0 auto;">
+<div class="tabber" id="tabber0">
+
+<div class="tabbertab">
+<h2>Settings</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%" align=center>
+<TR>
+	<TD class="rc">License ID</TD>
+	<TD><input type="text" name="license_key" value="<TMPL_VAR license_key>" style="opacity:0.6" size=80 disabled><br>dl_key: <TMPL_VAR dl_key></TD>
+</TR>
+<TR>
+	<TD class="rc">Site Name</TD>
+	<TD><input type="text" name="site_name" value="<TMPL_VAR site_name>" size=32></TD>
+</TR>
+<TR>
+	<TD class="rc">CDN URL</TD>
+	<TD><input type="text" name="cdn_url" value="<TMPL_VAR cdn_url>" size=36> <small>Optional. Used for caching static images/css/js</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Version number</TD>
+	<TD><input type="text" name="cdn_version_num" value="<TMPL_VAR cdn_version_num>" size=3> <small>Change this when new version of JS / CSS file uploaded. So cache will be updated.</small></TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Captcha mode</TD>
+	<TD>
+        <input type="radio" name="captcha_mode" value="1" id="c1" onClick="$$('rc_div').style.display='none';"<TMPL_VAR captcha_1>><label for="c1">Image (GD required)</label> &nbsp; 
+        <input type="radio" name="captcha_mode" value="2" id="c2" onClick="$$('rc_div').style.display='none';"<TMPL_VAR captcha_2>><label for="c2">Text</label> &nbsp; 
+        <input type="radio" name="captcha_mode" value="3" id="c3" onClick="$$('rc_div').style.display='block';"<TMPL_VAR captcha_3>><label for="c3">reCaptcha</label>
+	</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">reCaptcha keys<br><br><a href="https://www.google.com/recaptcha/admin" target=_blank><small>generate reCaptcha keys</small></a></TD>
+	<TD>
+    	reCaptcha v2 public Key: <input type="text" name="recaptcha_pub_key" value="<TMPL_VAR recaptcha_pub_key>" size=56><br>
+        reCaptcha v2 private Key: <input type="text" name="recaptcha_pri_key" value="<TMPL_VAR recaptcha_pri_key>" size=55><br>
+        <br>
+        reCaptcha v3 public Key: <input type="text" name="recaptcha3_pub_key" value="<TMPL_VAR recaptcha3_pub_key>" size=56><br>
+        reCaptcha v3 private Key: <input type="text" name="recaptcha3_pri_key" value="<TMPL_VAR recaptcha3_pri_key>" size=55>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Items per page</TD>
+	<TD><input type="text" name="items_per_page" value="<TMPL_VAR items_per_page>" size=2></TD>
+</TR>
+<TR>
+	<TD class="rc top">Banned IPs<i>(one IP per row)<br>Use * for wildcard</i></TD>
+	<TD><Textarea name="ip_not_allowed" cols=16 rows=3><TMPL_VAR ip_not_allowed></Textarea></TD>
+</TR>
+<TR>
+	<TD class="rc top">Banned countries</TD>
+	<TD><input type="text" name="banned_countries" value="<TMPL_VAR banned_countries>" size=30 onclick="selectCountry(this)"></TD>
+</TR>
+<TR>
+	<TD class="rc">Resolve IP Country</TD>
+	<TD><input type="checkbox" name="resolve_ip_country" value="1" id="ricc"<TMPL_IF resolve_ip_country> checked</TMPL_IF>><label for="ricc">Enabled</label> <small>(Admin pages only)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Generate Google Sitemap</TD>
+	<TD><input type="checkbox" name="ping_google_sitemaps" value="1" id="gsm"<TMPL_IF ping_google_sitemaps> checked</TMPL_IF>><label for="gsm">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Site News</TD>
+	<TD><input type="checkbox" name="news_enabled" value="1" id="nena"<TMPL_IF news_enabled> checked</TMPL_IF>><label for="nena">Enabled</label></TD>
+</TR>
+<TR valign=top>
+	<TD width=200 class="rc">Video Search</TD>
+	<TD>
+        <label><input type="radio" name="enable_search" value="1" <TMPL_VAR enable_search_1>>Enabled to everyone</label> &nbsp; 
+        <label><input type="radio" name="enable_search" value="2" <TMPL_VAR enable_search_2>>Logged only</label> &nbsp; 
+        <label><input type="radio" name="enable_search" value="0" <TMPL_VAR enable_search_0>>Disabled</label>
+        <br>
+        <label><input type="checkbox" name="search_public_only" value="1" <TMPL_IF search_public_only> checked</TMPL_IF>>Search Public videos only</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">My Files views</TD>
+	<TD>
+		<label><input type="checkbox" name="my_views_enabled" value="1" <TMPL_IF my_views_enabled> checked</TMPL_IF>>Enabled</label>
+		<br>
+		Show My Views for last <input type="text" name="my_views_last_days" value="<TMPL_VAR my_views_last_days>" size=2> days only
+	</TD>
+</TR>
+
+<TR class="hdr">
+	<TD colspan=2>Security Settings</TD>
+</TR>
+<TR>
+	<TD class="rc">CloudFlare proxy</TD>
+	<TD><label title="This option affects user IP detection"><input type="checkbox" name="use_cloudflare_ip_header" value="1" <TMPL_IF use_cloudflare_ip_header> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Main server IP</TD>
+	<TD><input type="text" name="main_server_ip" value="<TMPL_VAR main_server_ip>" size=20 title="Empty to disable Main server IP check, multiple IPs split by |"></TD>
+</TR>
+<TR>
+	<TD class="rc">Check for File Servers IP</TD>
+	<TD><label><input type="checkbox" name="file_server_ip_check" value="1" <TMPL_IF file_server_ip_check> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Allow site open in frames</TD>
+	<TD><input type="checkbox" name="xframe_allow_frames" value="1" id="xaif"<TMPL_IF xframe_allow_frames> checked</TMPL_IF>><label for="xaif">Enabled</label> <small>(Lower security)</small></TD>
+</TR>
+
+<TR class="hdr">
+	<TD colspan=2>Email Settings</TD>
+</TR>
+<TR>
+	<TD class="rc">Send E-mail FROM:</TD>
+	<TD><input type="text" name="email_from" value="<TMPL_VAR email_from>" size=32></TD>
+</TR>
+<TR>
+	<TD class="rc">Site Contact E-mail</TD>
+	<TD><input type="text" name="contact_email" value="<TMPL_VAR contact_email>" size=32><br><small>Messages from Contact Form will be sent there</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Email format:</TD>
+	<TD>
+    	<label><input type="radio" name="email_html" value="0"<TMPL_UNLESS email_html> checked</TMPL_UNLESS>> Text</label>
+    	<label><input type="radio" name="email_html" value="1"<TMPL_IF email_html> checked</TMPL_IF>> HTML</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Email mode:</TD>
+	<TD>
+    	<label><input type="radio" name="smtp_auth" value=""<TMPL_UNLESS smtp_auth> checked</TMPL_UNLESS> onclick="$('.mails').hide();$('.sendmail').show();"> Local sendmail</label>
+    	<label><input type="radio" name="smtp_auth" value="tls"<TMPL_IF smtp_auth_tls> checked</TMPL_IF> onclick="$('.mails').hide();$('.gmail').show();"> Gmail / SMTP</label>
+    	<label><input type="radio" name="smtp_auth" value="mailgun"<TMPL_IF smtp_auth_mailgun> checked</TMPL_IF> onclick="$('.mails').hide();$('.mailgun').show();"> Mailgun</label>
+	</TD>
+</TR>
+
+<TR class="mails gmail"<TMPL_UNLESS smtp_auth_tls> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">SMTP details</TD>
+	<TD>
+    	Server:<input type="text" name="smtp_server" value="<TMPL_VAR smtp_server>" size=16> <small>smtp.gmail.com for Gmail</small><br>
+    	User:<input type="text" name="smtp_user" value="<TMPL_VAR smtp_user>" size=16><br>
+    	Password:<input type="text" name="smtp_pass" value="<TMPL_VAR smtp_pass>" size=16>
+    	<div class="mails gmail">If you have problems sending emails try to lower your security using these pages: <a href="https://g.co/allowaccess" target=_blank>one</a> and <a href="https://www.google.com/settings/security/lesssecureapps" target=_blank>two</a></div>
+	</TD>
+</TR>
+
+<TR class="mails mailgun"<TMPL_UNLESS smtp_auth_mailgun> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">Mailgun Api URL</TD>
+	<TD>
+		<input type="text" name="mailgun_api_url" value="<TMPL_VAR mailgun_api_url>" size=56 placeholder="https://api.mailgun.net/v3/mydomain.com/messages"> <a href="https://signup.mailgun.com/new/signup" target="_blank">register</a>
+		<br><small>for EU use https://api.<b>eu</b>.mailgun.net/v3/<b>YOUR-DOMAIN</b>/messages
+	</TD>
+</TR>
+<TR class="mails mailgun"<TMPL_UNLESS smtp_auth_mailgun> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">Mailgun Api Key</TD>
+	<TD><input type="text" name="mailgun_api_key" value="<TMPL_VAR mailgun_api_key>" size=48 placeholder="key-8888a9555452a78444"></TD>
+</TR>
+
+<TR class="hdr">
+	<TD colspan=2>User Registration</TD>
+</TR>
+<TR>
+	<TD class="rc">E-mail confirmation</TD>
+	<TD><input type="checkbox" name="registration_confirm_email" value="1" id="emd"<TMPL_IF registration_confirm_email> checked</TMPL_IF>><label for="emd">Enabled</label> (confirm link will be sent to user's email)</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Banned Mail Servers<i>(one host per row)</i></TD>
+	<TD><Textarea name="mailhosts_not_allowed" cols=24 rows=3><TMPL_VAR mailhosts_not_allowed></Textarea></TD>
+</TR>
+<TR>
+	<TD class="rc top">Coupons</TD>
+	<TD>
+    	<Textarea name="coupons" cols=16 rows=3 style="float:left"><TMPL_VAR coupons></textarea>
+        Usage: <b>CODE=DAYS</b><br>
+        One coupon per row
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Extra user fields</TD>
+	<TD>
+        <input type="text" name="extra_user_fields" value="<TMPL_VAR extra_user_fields>" size=48> <small>(e.g.: Age, Country, City)</small>
+	</TD>
+</TR>
+<TR class="hdr">
+	<TD colspan=2>User Auth</TD>
+</TR>
+<TR>
+	<TD class="rc top">Login recaptcha</TD>
+	<TD>
+        <label><input type="checkbox" name="login_captcha" value="1" <TMPL_IF login_captcha> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Login limits</TD>
+	<TD>
+        Allow user login only from <input type="text" name="login_limit1_ips" value="<TMPL_VAR login_limit1_ips>" size=2> IPs last <input type="text" name="login_limit1_hours" value="<TMPL_VAR login_limit1_hours>" size=2> hours (Account sharing limit)
+        <br>
+        <input type="checkbox" name="login_limit1_subnets" value="1" id="ll1s"<TMPL_IF login_limit1_subnets> checked</TMPL_IF>><label for="ll1s">Ignore IPs from same subnet</label>
+        <br><br>
+        Allow user login only <input type="text" name="login_limit2_max" value="<TMPL_VAR login_limit2_max>" size=2> times last <input type="text" name="login_limit2_hours" value="<TMPL_VAR login_limit2_hours>" size=2> hours (Login throttle limit)
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">E-mail validation code</TD>
+	<TD>
+    	<label><input type="radio" name="email_validation_code" value="0"<TMPL_VAR email_validation_code_0>>Disabled</label>&nbsp;
+    	<label><input type="radio" name="email_validation_code" value="1"<TMPL_VAR email_validation_code_1>>Admin only</label>&nbsp;
+    	<label><input type="radio" name="email_validation_code" value="2"<TMPL_VAR email_validation_code_2>>All users</label>&nbsp;
+    	<label><input type="radio" name="email_validation_code" value="3"<TMPL_VAR email_validation_code_3>>Users with LOGINEMAILVALIDATE in notes</label>&nbsp;
+	</TD>
+</TR>
+
+<TR class="hdr">
+	<TD colspan=2>Index Page</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Featured videos</TD>
+	<TD>
+        <input type="checkbox" name="index_featured_on" value="1" id="ind1"<TMPL_IF index_featured_on> checked</TMPL_IF>><label for="ind1">Enabled</label><br>
+        <input type="text" name="index_featured_num" value="<TMPL_VAR index_featured_num>" size=2 class="myForm"> videos per section<br>
+        only videos longer than <input type="text" name="index_featured_min_length" value="<TMPL_VAR index_featured_min_length>" size=5> 
+        and shorter than <input type="text" name="index_featured_max_length" value="<TMPL_VAR index_featured_max_length>" size=5> seconds
+	</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Most Viewed videos</TD>
+	<TD>
+        <input type="checkbox" name="index_most_viewed_on" value="1" id="ind2"<TMPL_IF index_most_viewed_on> checked</TMPL_IF>><label for="ind2">Enabled</label><br>
+        <input type="text" name="index_most_viewed_num" value="<TMPL_VAR index_most_viewed_num>" size=2 class="myForm"> videos per section<br>
+        <input type="text" name="index_most_viewed_hours" value="<TMPL_VAR index_most_viewed_hours>" size=2 class="myForm"> last hours uploaded videos<br>
+        only videos longer than <input type="text" name="index_most_viewed_min_length" value="<TMPL_VAR index_most_viewed_min_length>" size=5> 
+        and shorter than <input type="text" name="index_most_viewed_max_length" value="<TMPL_VAR index_most_viewed_max_length>" size=5> seconds
+	</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Most Rated videos</TD>
+	<TD>
+        <input type="checkbox" name="index_most_rated_on" value="1" id="ind3"<TMPL_IF index_most_rated_on> checked</TMPL_IF>><label for="ind3">Enabled</label><br>
+        <input type="text" name="index_most_rated_num" value="<TMPL_VAR index_most_rated_num>" size=2 class="myForm"> videos per section<br>
+        <input type="text" name="index_most_rated_hours" value="<TMPL_VAR index_most_rated_hours>" size=2 class="myForm"> last hours uploaded videos<br>
+        only videos longer than <input type="text" name="index_most_rated_min_length" value="<TMPL_VAR index_most_rated_min_length>" size=5> 
+        and shorter than <input type="text" name="index_most_rated_max_length" value="<TMPL_VAR index_most_rated_max_length>" size=5> seconds
+	</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Just Added videos</TD>
+	<TD>
+        <input type="checkbox" name="index_just_added_on" value="1" id="ind4"<TMPL_IF index_just_added_on> checked</TMPL_IF>><label for="ind4">Enabled</label><br>
+        <input type="text" name="index_just_added_num" value="<TMPL_VAR index_just_added_num>" size=2 class="myForm"> videos per section<br>
+        only videos longer than <input type="text" name="index_just_added_min_length" value="<TMPL_VAR index_just_added_min_length>" size=5> 
+        and shorter than <input type="text" name="index_just_added_max_length" value="<TMPL_VAR index_just_added_max_length>" size=5> seconds
+	</TD>
+</TR>
+<TMPL_IF m_q>
+<TR valign=top>
+	<TD class="rc">Live Streams list</TD>
+	<TD>
+        <label><input type="checkbox" name="index_live_streams_on" value="1" <TMPL_IF index_live_streams_on> checked</TMPL_IF>>Enabled</label><br>
+        <input type="text" name="index_live_streams_num" value="<TMPL_VAR index_live_streams_num>" size=2 class="myForm"> streams per section<br>
+	</TD>
+</TR>
+</TMPL_IF>
+<TR class="hdr"><TD colspan=2>Site Maintenance</TD></TR>
+<TR>
+	<TD class="rc">Uploads Maintenance</TD>
+	<TD>
+        <label><input type="checkbox" name="maintenance_upload" value="1" <TMPL_IF maintenance_upload> checked</TMPL_IF>>Enabled</label>
+        &nbsp; Message:<input type="text" name="maintenance_upload_msg" value="<TMPL_VAR maintenance_upload_msg>" size=48>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Downloads Maintenance</TD>
+	<TD>
+        <label><input type="checkbox" name="maintenance_download" value="1" <TMPL_IF maintenance_download> checked</TMPL_IF>>Enabled</label>
+        &nbsp; Message:<input type="text" name="maintenance_download_msg" value="<TMPL_VAR maintenance_download_msg>" size=48>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Full Site Maintenance</TD>
+	<TD>
+        <label><input type="checkbox" name="maintenance_full" value="1" <TMPL_IF maintenance_full> checked</TMPL_IF>>Enabled</label>
+        &nbsp; Message:<input type="text" name="maintenance_full_msg" value="<TMPL_VAR maintenance_full_msg>" size=48>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">High Load mode</TD>
+	<TD>
+        <label><input type="checkbox" name="highload_mode" value="1" <TMPL_IF highload_mode> checked</TMPL_IF>>Enabled</label> (disables some features so your site handle high load better)
+        <br>Enable High Load mode when loadavg15 > <input type="text" name="highload_mode_auto" value="<TMPL_VAR highload_mode_auto>" size=2> (0 to disable auto mode change)
+	</TD>
+</TR>
+<TR class="hdr"><TD colspan=2>File Servers Maintenance</TD></TR>
+<TR>
+	<TD class="rc">Server network overload</TD>
+	<TD>
+    	<label><input type="checkbox" name="overload_no_transfer" value="1" <TMPL_IF overload_no_transfer> checked</TMPL_IF>>Don't transfer files to server when overloaded</label><br>
+    	<label><input type="checkbox" name="overload_no_upload" value="1" <TMPL_IF overload_no_upload> checked</TMPL_IF>>Don't upload files to server when overloaded</label>
+    	<TMPL_IF m_h><br><label><input type="checkbox" name="overload_no_hd" value="1" <TMPL_IF overload_no_hd> checked</TMPL_IF>>Don't serve HD quality when network overloaded</label></TMPL_IF>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Test file servers in cron.pl</TD>
+	<TD><input type="checkbox" name="cron_test_servers" value="1" id="ccs"<TMPL_IF cron_test_servers> checked</TMPL_IF>><label for="ccs">Enabled</label> <small>(Message will be sent to Contact email when any fileserver error occured)</small></TD>
+</TR>
+</Table>
+
+</div>
+
+
+<div class="tabbertab">
+
+<h2>Files</h2>
+<Table class="tbl1 rct" width="100%" align=center cellpadding=4>
+<TR>
+	<TD class="rc">Server transfer speed</TD>
+	<TD><input type="text" name="server_transfer_speed" value="<TMPL_VAR server_transfer_speed>" size=5>KB/s <small>(default speed, you can specify custom speeds for each Host)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Optimize HDD Perfomance</TD>
+	<TD><input type="checkbox" name="optimize_hdd_perfomance" value="1" id="ohp"<TMPL_IF optimize_hdd_perfomance> checked</TMPL_IF>><label for="ohp">Enabled</label> <small>(Allow only 1 Transfer / URL Upload stream to single HDD to prevent disk overload)</small></TD>
+</TR>
+
+<TR>
+	<TH colspan=2>Upload settings</TH>
+</TR>
+<TR>
+	<TD>Video extensions</TD>
+	<TD><input type="text" name="video_extensions" value="<TMPL_VAR video_extensions>" size=56> other extensions will be skipped</TD>
+</TR>
+<TR>
+	<TD>Audio extensions</TD>
+	<TD><input type="text" name="audio_extensions" value="<TMPL_VAR audio_extensions>" size=56></TD>
+</TR>
+<TR>
+	<TD>Image extensions</TD>
+	<TD><input type="text" name="image_extensions" value="<TMPL_VAR image_extensions>" size=56></TD>
+</TR>
+<TR>
+	<TD>Archive extensions</TD>
+	<TD><input type="text" name="archive_extensions" value="<TMPL_VAR archive_extensions>" size=56></TD>
+</TR>
+<TR>
+	<TD class="rc">Allow non-video files upload</TD>
+	<TD><label><input type="checkbox" name="allow_non_video_uploads" value="1" <TMPL_IF allow_non_video_uploads> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD>Next browser upload server logic</TD>
+	<TD>
+        <label><input type="radio" name="next_upload_server_logic" value="space"<TMPL_VAR next_upload_server_logic_space>>Least used space</label> &nbsp; 
+        <label><input type="radio" name="next_upload_server_logic" value="round"<TMPL_VAR next_upload_server_logic_round>>Round-robin</label> &nbsp; 
+        <label><input type="radio" name="next_upload_server_logic" value="random"<TMPL_VAR next_upload_server_logic_random>>Random</label> &nbsp; 
+        <label><input type="radio" name="next_upload_server_logic" value="encodings"<TMPL_VAR next_upload_server_logic_encodings>>Least encodings</label>
+    	<TMPL_IF next_upload_server_logic_encodings><br>Skip UPLOADER priority when available STORAGE hosts with less than <input type="text" name="skip_uploader_priority" value="<TMPL_VAR skip_uploader_priority>" size=2> encode queues</TMPL_IF>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Anti-dupe system</TD>
+	<TD><label><input type="checkbox" name="anti_dupe_system" value="1" id="ead"<TMPL_IF anti_dupe_system> checked</TMPL_IF>>Enabled</label> <small>(Keep only one copy of same file to save diskspace)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">File Description</TD>
+	<TD><label><input type="checkbox" name="enable_file_descr" value="1" id="efd"<TMPL_IF enable_file_descr> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Save source raw info</TD>
+	<TD><label><input type="checkbox" name="save_source_raw_info" value="1" id="efd"<TMPL_IF save_source_raw_info> checked</TMPL_IF>>Enabled</label> (for debug only, increase Files db size)</TD>
+</TR>
+<TR>
+	<TD class="rc">Additional file fields</TD>
+	<TD><input type="text" name="file_data_fields" value="<TMPL_VAR file_data_fields>" size=45> <small>(comma delimited words)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Video category required</TD>
+	<TD><label><input type="checkbox" name="category_required" value="1" <TMPL_IF category_required> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">TOS checkbox required</TD>
+	<TD><label><input type="checkbox" name="tos_accept_checkbox" value="1" <TMPL_IF tos_accept_checkbox> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc top">Require file approval</TD>
+	<TD>
+        <label><input type="checkbox" name="approve_required" value="1"<TMPL_IF approve_required> checked</TMPL_IF>>Enabled</label> <small>(Admin or Moderator have to approve videos before going live)</small>
+        <br>
+        Autoapprove after <input type="text" name="approve_required_first" value="<TMPL_VAR approve_required_first>" size=2> approved user files
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Sanitize filename</TD>
+	<TD><input type="checkbox" name="sanitize_filename" value="1" id="efs"<TMPL_IF sanitize_filename> checked</TMPL_IF>><label for="efs">Enabled</label> <small>(replace all letters except a-z0-9-_.)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Add postfix to filename</TD>
+	<TD><input type="text" name="add_filename_postfix" value="<TMPL_VAR add_filename_postfix>" size=16> <small>original filename will be like filenamePOSTFIX.avi</small></TD>
+</TR>
+<TR>
+	<TD class="rc top">Remove words from filename<i>(one word per row)</i></TD>
+	<TD><Textarea name="fnames_not_allowed" cols=16 rows=4 style="float:left;width:120px;"><TMPL_VAR fnames_not_allowed></Textarea></TD>
+</TR>
+<TR>
+	<TD class="rc">Max uploads per day</TD>
+	<TD><input type="text" name="upload_limit_files_last24" value="<TMPL_VAR upload_limit_files_last24>" size=4> files per user</TD>
+</TR>
+<TR>
+	<TD class="rc">Max video length</TD>
+	<TD><input type="text" name="max_upload_length_min" value="<TMPL_VAR max_upload_length_min>" size=4> minutes</TD>
+</TR>
+<TR>
+	<TD class="rc">Min video length</TD>
+	<TD><input type="text" name="min_upload_length_sec" value="<TMPL_VAR min_upload_length_sec>" size=4> seconds</TD>
+</TR>
+<TR>
+	<TD class="rc">Upload server selection</TD>
+	<TD>
+    	<label><input type="radio" name="upload_server_selection" value=""<TMPL_VAR upload_server_selection_>>Disabled</label> 
+    	<label><input type="radio" name="upload_server_selection" value="admin"<TMPL_VAR upload_server_selection_admin>>Admin only</label> 
+    	<label><input type="radio" name="upload_server_selection" value="premium"<TMPL_VAR upload_server_selection_premium>>Premium users</label> 
+    	<label><input type="radio" name="upload_server_selection" value="all"<TMPL_VAR upload_server_selection_all>>All users</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Show srv_id of upload server</TD>
+	<TD><label><input type="checkbox" name="show_upload_srv_id" value="1" <TMPL_IF show_upload_srv_id> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+
+<TR>
+	<TH colspan=2>Download settings</TH>
+</TR>
+<TR>
+	<TD class="rc">reCaptcha v3</TD>
+	<TD>
+    	<label><input type="checkbox" name="download_orig_recaptcha_v3" value="1"<TMPL_IF download_orig_recaptcha_v3> checked</TMPL_IF>>On download buttons</label>
+    	<TMPL_IF download_orig_recaptcha_v3><TMPL_UNLESS recaptcha3_pub_key> <b style="color:red">Generate reCaptcha v3 keys!</b></TMPL_UNLESS></TMPL_IF>
+	</TD>
+</TR>
+
+<TR>
+	<TH colspan=2>View settings</TH>
+</TR>
+<TR>
+	<TD class="rc">Video page URL</TD>
+	<TD>
+    	<TMPL_VAR site_url>/ <select name="link_format">
+        <option value="0"<TMPL_VAR link_format0>>xxxxxxxxxxxx/file.zip.html</option>
+        <option value="1"<TMPL_VAR link_format1>>xxxxxxxxxxxx/file.zip.htm</option>
+        <option value="2"<TMPL_VAR link_format2>>xxxxxxxxxxxx/file.zip</option>
+        <option value="3"<TMPL_VAR link_format3>>xxxxxxxxxxxx.html</option>
+        <option value="4"<TMPL_VAR link_format4>>xxxxxxxxxxxx.htm</option>
+        <option value="5"<TMPL_VAR link_format5>>xxxxxxxxxxxx</option>
+        </select> &nbsp; 
+        <label><input type="checkbox" name="link_format_uppercase" value="1"<TMPL_IF link_format_uppercase> checked</TMPL_IF>>Uppercase video code</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Video links IP check</TD>
+	<TD>
+		<!--label><input type="radio" name="ip_check_logic" value="asn"<TMPL_VAR ip_check_logic_asn>>ASN</label><br-->
+		<label><input type="radio" name="ip_check_logic" value="ip"<TMPL_VAR ip_check_logic_ip>>Standard</label><br>
+		<label><input type="radio" name="ip_check_logic" value="no_mobiles"<TMPL_VAR ip_check_logic_no_mobiles>>Disabled for mobiles</label><br>
+		<label><input type="radio" name="ip_check_logic" value="no_ipv6"<TMPL_VAR ip_check_logic_no_ipv6>>Disabled for IPv6</label><br>
+		<label><input type="radio" name="ip_check_logic" value="agent"<TMPL_VAR ip_check_logic_agent>>UserAgent only check</label><br>
+		<label><input type="radio" name="ip_check_logic" value=""<TMPL_VAR ip_check_logic_>>Disabled</label><br>
+		<br>
+		Disable IP check for countries: <input type="text" name="no_ipcheck_countries" value="<TMPL_VAR no_ipcheck_countries>" size=32 placeholder="RU|TH|NZ">
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Video links lifetime</TD>
+	<TD><input type="text" name="symlink_expire" value="<TMPL_VAR symlink_expire>" size=2> hours</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Direct video links referer check<i>(one domain per row)</i></TD>
+	<TD><Textarea name="dirlinks_allowed_referers" cols=16 rows=4 style="float:left;"><TMPL_VAR dirlinks_allowed_referers></Textarea><small>Check for valid referers on file servers<br>Will give error_wrong_ip if referer won't have any of these words<br>Check 'Update FileServers' option when updating this</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Comments</TD>
+	<TD>
+		<label><input type="checkbox" name="enable_file_comments" value="1" <TMPL_IF enable_file_comments> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Comments banned words<i>(one word per row)</i></TD>
+	<TD><Textarea name="bad_comment_words" cols=16 rows=4><TMPL_VAR bad_comment_words></Textarea></TD>
+</TR>
+<TR>
+	<TD class="rc" valign=top>Facebook social tools</TD>
+	<TD>
+		App ID:<input type="text" name="facebook_app_id_like" value="<TMPL_VAR facebook_app_id_like>" size=17>
+		<small>Get your App ID <a href="https://developers.facebook.com/apps" target=_blank>here</a></small><br>
+		<input type="checkbox" name="facebook_like_on" value="1" id="fb1"<TMPL_IF facebook_like_on> checked</TMPL_IF>><label for="fb1">Show LIKE button</label><br>
+		<input type="checkbox" name="facebook_comments" value="1" id="fb2"<TMPL_IF facebook_comments> checked</TMPL_IF>><label for="fb2">Use Facebook comments</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Show more user files</TD>
+	<TD><label><input type="checkbox" name="show_more_files" value="1" id="smf"<TMPL_IF show_more_files> checked</TMPL_IF>>Enabled</label> <small>on download1 page</small></TD>
+</TR>
+<TR>
+	<TD class="rc">More user files limit</TD>
+	<TD><input type="text" name="more_files_number" value="<TMPL_VAR more_files_number>" size=2> files</TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Ads banned words<i>(one word per row)</i></TD>
+	<TD><Textarea name="bad_ads_words" cols=16 rows=4 style="float:left;"><TMPL_VAR bad_ads_words></Textarea><small>Don't show ads when filename or description match one of these words</small></TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Not allowed referers<i>(one word per row)</i></TD>
+	<TD><Textarea name="bad_referers" cols=16 rows=4 style="float:left;"><TMPL_VAR bad_referers></Textarea><small>Deny clients with specific words in referer</small></TD>
+</TR>
+<TR valign=top>
+	<TD class="rc">Not allowed UserAgents<i>(one word per row)</i></TD>
+	<TD><Textarea name="bad_agents" cols=16 rows=4 style="float:left;"><TMPL_VAR bad_agents></Textarea><small>Deny clients with specific words in UserAgent header</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Add to My Account</TD>
+	<TD><label><input type="checkbox" name="file_cloning" value="1"<TMPL_IF file_cloning> checked</TMPL_IF>>Enabled</label> <small>(Clone public files of other users from download page)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Require recaptcha<br><small>Anti-leech function</small></TD>
+	<TD>
+    	<label><input type="checkbox" name="watch_require_recaptcha" value="1"<TMPL_IF watch_require_recaptcha> checked</TMPL_IF>>Before showing video player</label>
+    	<br>Approve IP for <input type="text" name="watch_require_recaptcha_expire" value="<TMPL_VAR watch_require_recaptcha_expire>" size=2> minutes after passing recaptcha
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Don't play videos</TD>
+	<TD>
+    	<label><input type="checkbox" name="noplay_from_uploader_encoder" value="1"<TMPL_IF noplay_from_uploader_encoder> checked</TMPL_IF>>From UPLOADER and ENCODER servers</label> 
+    	<small>(To avoid possible DMCA reports)</small>
+	</TD>
+</TR>
+
+<TR>
+	<TH colspan=2>Expiration settings</TH>
+</TR>
+<TR>
+	<TD class="rc"><b>Delete files after</b></TD>
+	<TD>
+        Free:<input type="text" name="files_expire_access_reg" value="<TMPL_VAR files_expire_access_reg>" id="files_expire_access_reg" size=3> &nbsp; 
+        Premium:<input type="text" name="files_expire_access_prem" value="<TMPL_VAR files_expire_access_prem>" id="files_expire_access_prem" size=3> 
+        days without views/downloads <small>(0 = keep forever)</small>
+        <input type="button" value="Calc next run" onclick="$.get('?op=admin_settings&expire_eval=1<TMPL_VAR token_str>&files_expire_access_reg='+$('#files_expire_access_reg').val()+'&files_expire_access_prem='+$('#files_expire_access_prem').val(), function( data ) {$('#expire_eval').html( data ); });">
+        <div id="expire_eval"></div>
+	</TD>
+</TR>
+<TMPL_IF enp_h>
+<TR>
+	<TD class="rc"><b>Delete 
+    			<select name="expire_quality_name">
+    				<option value="n"<TMPL_VAR expire_quality_name_n>>N</option>
+    				<option value="h"<TMPL_VAR expire_quality_name_h>>H</option>
+    				<option value="x"<TMPL_VAR expire_quality_name_x>>X</option>
+    				<option value="l"<TMPL_VAR expire_quality_name_l>>L</option>
+    				<option value="o"<TMPL_VAR expire_quality_name_o>>O</option>
+    			</select>
+    			quality after</b></TD>
+	<TD>
+        Free:<input type="text" name="expire_quality_access_reg" value="<TMPL_VAR expire_quality_access_reg>" id="expire_quality_access_reg" size=3> &nbsp; 
+        Premium:<input type="text" name="expire_quality_access_prem" value="<TMPL_VAR expire_quality_access_prem>" id="expire_quality_access_prem" size=3> 
+        days without views/downloads <small>(0 = disable)</small>
+        <input type="button" value="Calc next run" onclick="$.get('?op=admin_settings&expire_eval_quality=1&quality='+$('select[name=expire_quality_name]').val()+'<TMPL_VAR token_str>&expire_quality_access_reg='+$('#expire_quality_access_reg').val()+'&expire_quality_access_prem='+$('#expire_quality_access_prem').val(), function( data ) {$('#expire_eval_quality').html( data ); });">
+        <div id="expire_eval_quality"></div>
+	</TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD class="rc">Limit of expired files</TD>
+	<TD><input type="text" name="files_expire_limit" value="<TMPL_VAR files_expire_limit>" size=4> files per one cron_expire.pl run <small>(0 - delete all expired)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Send deleted files reports</TD>
+	<TD><label><input type="checkbox" name="deleted_files_reports" value="1"<TMPL_IF deleted_files_reports> checked</TMPL_IF>>Enabled</label> <small>(Reports email)</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Cleanup Views records after</TD>
+	<TD><input type="text" name="clean_ip2files_days" value="<TMPL_VAR clean_ip2files_days>" size=3> days</TD>
+</TR>
+<TR>
+	<TD class="rc">Truncate Views records daily</TD>
+	<TD><label><input type="checkbox" name="truncate_views_daily" value="1"<TMPL_IF truncate_views_daily> checked</TMPL_IF>>Once a day</label> (use when SQL load too high)</TD>
+</TR>
+<TR>
+	<TD class="rc">Remove deleted files from disk</TD>
+	<TD><input type="text" name="delete_disk_time" value="<TMPL_VAR delete_disk_time>" size=3> hours after delete on site</TD>
+</TR>
+</Table>
+
+</div>
+
+
+<div class="tabbertab" id="mod_video">
+<h2>Video</h2>
+<Table class="tbl1 rct" cellpadding=3 width="100%">
+
+<TR>
+	<TH colspan=2>Player settings</TH>
+</TR>
+<TR>
+	<TD>Player size</TD>
+	<TD><input type="text" name="m_v_width" value="<TMPL_VAR m_v_width>" size=3>x<input type="text" name="m_v_height" value="<TMPL_VAR m_v_height>" size=3> pixels (0 to use encoded video size, use width only to calculate height)</TD>
+</TR>
+<TR>
+	<TD>Encrypt player JS code</TD>
+	<TD><label><input type="checkbox" name="player_js_encode" value="1"<TMPL_IF player_js_encode> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD>Player</TD>
+	<TD>
+        <label><input type="radio" name="player" value="jw8" onclick="$('.playerconfig').hide();$('.playerjw8').show();"<TMPL_VAR player_jw8>>JWPlayer8</label> &nbsp; 
+        <label><input type="radio" name="player" value="clappr" onclick="$('.playerconfig').hide();$('.playerclappr').show();"<TMPL_VAR player_clappr>>Clappr</label>
+        <label><input type="radio" name="player" value="vjs" onclick="$('.playerconfig').hide();$('.playerjs').show();"<TMPL_VAR player_vjs>>VideoJS</label>
+        <label><input type="radio" name="player" value="vjsp" onclick="$('.playerconfig').hide();$('.playerjs').show();"<TMPL_VAR player_vjsp>>VideoJS+</label>
+        <label><input type="radio" name="player" value="hola" onclick="$('.playerconfig').hide();$('.hola').show();"<TMPL_VAR player_hola>>Hola</label>
+        <label><input type="radio" name="player" value="fluid" onclick="$('.playerconfig').hide();$('.playerfluid').show();"<TMPL_VAR player_fluid>>Fluid</label>
+        <label><input type="radio" name="player" value="pjs" onclick="$('.playerconfig').hide();$('.playerpjs').show();"<TMPL_VAR player_pjs>>PlayerJS</label>
+
+        <div id="play_clappr" class="player_cfg_extra"<TMPL_UNLESS player_clappr> style="display:none"</TMPL_UNLESS>>
+        </div>
+	</TD>
+</TR>
+
+<TR class="playerconfig playerpjs"<TMPL_UNLESS player_pjs> style="display:none"</TMPL_UNLESS>>
+	<TD></TD>
+	<TD>
+    	Download your <b>playerjs.js</b> file from <a href="https://playerjs.com">https://playerjs.com</a> and upload it to htdocs/player/pjs/playerjs.js path.<br>
+    	You can use XVIDEOSHARING coupon code to get 10% discount there.
+	</TD>
+</TR>
+
+<TR class="playerconfig playerjs"<TMPL_UNLESS player_vjs> style="display:none"</TMPL_UNLESS>>
+	<TD>VideoJS Theme</TD>
+	<TD>
+    	<select name="vjs_theme">
+			<option value="">Default</option>
+			<!--option value="city"<TMPL_VAR vjs_theme_city>>City</option-->
+			<option value="fantasy"<TMPL_VAR vjs_theme_fantasy>>Fantasy</option>
+			<option value="forest"<TMPL_VAR vjs_theme_forest>>Forest</option>
+			<option value="sea"<TMPL_VAR vjs_theme_sea>>Sea</option>
+		</select>
+	</TD>
+</TR>
+
+<TR class="playerconfig playerjw8"<TMPL_UNLESS player_jw8> style="display:none"</TMPL_UNLESS>>
+	<TD>JW8 License Key</TD>
+	<TD><input type="text" name="jw8_key" value="<TMPL_VAR jw8_key>" size=50></TD>
+</TR>
+
+<TR class="playerconfig playerclappr playerjs hola playerjw8 playerfluid">
+	<TD>MP4 Preload</TD>
+	<TD>
+    	<label><input type="radio" name="mp4_preload" value="none"<TMPL_VAR mp4_preload_none>>None</label> &nbsp; 
+        <label><input type="radio" name="mp4_preload" value="metadata"<TMPL_VAR mp4_preload_metadata>>Metadata</label> &nbsp; 
+        <label><input type="radio" name="mp4_preload" value="auto"<TMPL_VAR mp4_preload_auto>>Auto (full)</label>
+	</TD>
+</TR>
+<TR class="playerconfig playerclappr">
+	<TD>HLS Preload size</TD>
+	<TD><input type="text" name="hls_preload_mb" value="<TMPL_VAR hls_preload_mb>" size=3> MBytes</TD>
+</TR>
+<TMPL_IF m_h>
+<TR class="playerconfig playerclappr playerjw8 playerjs">
+	<TD>Force default quality</TD>
+	<TD>
+    	<label><input type="radio" name="player_default_quality" value="0"<TMPL_VAR player_default_quality_0>>Default</label> &nbsp; 
+        <label><input type="radio" name="player_default_quality" value="x"<TMPL_VAR player_default_quality_x>>Ultra High</label> &nbsp; 
+        <label><input type="radio" name="player_default_quality" value="h"<TMPL_VAR player_default_quality_h>>High</label> &nbsp; 
+        <label><input type="radio" name="player_default_quality" value="n"<TMPL_VAR player_default_quality_n>>Normal</label> &nbsp; 
+        <label><input type="radio" name="player_default_quality" value="l"<TMPL_VAR player_default_quality_l>>Low</label>
+	</TD>
+</TR>
+</TMPL_IF>
+<TR class="playerconfig playerclappr playerjw8 hola playerjs">
+	<TD>Chromecast / AirPlay</TD>
+	<TD><label><input type="checkbox" name="player_chromecast" value="1"<TMPL_IF player_chromecast> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>Sharing player plugin</TD>
+	<TD><label><input type="checkbox" name="player_sharing" value="1"<TMPL_IF player_sharing> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>Related videos player plugin</TD>
+	<TD><label><input type="text" name="player_related" value="<TMPL_VAR player_related>" size=2> videos (0 to disable)</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>"Watch On Site" button</TD>
+	<TD><label><input type="checkbox" name="player_embed_dl_button" value="1" <TMPL_IF player_embed_dl_button> checked</TMPL_IF>>On embed pages</label></TD>
+</TR>
+<TR>
+	<TD>Player image</TD>
+	<TD>
+        <label><input type="radio" name="player_image" value="snapshot"<TMPL_IF player_image_snapshot> checked</TMPL_IF>>Snapshot</label> &nbsp; 
+        <label><input type="radio" name="player_image" value="screenlist"<TMPL_IF player_image_screenlist> checked</TMPL_IF><TMPL_UNLESS m_x> disabled</TMPL_UNLESS>>Screenlist thumb</label> &nbsp; 
+        <label><input type="radio" name="player_image" value="timeslider"<TMPL_IF player_image_timeslider> checked</TMPL_IF><TMPL_UNLESS m_z> disabled</TMPL_UNLESS>>Time Slider thumb</label>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>Player stretching</TD>
+	<TD>
+        <label><input type="radio" name="player_image_stretching" value="uniform"<TMPL_IF player_image_stretching_uniform> checked</TMPL_IF>>Uniform</label> &nbsp; 
+        <label><input type="radio" name="player_image_stretching" value="exactfit"<TMPL_IF player_image_stretching_exactfit> checked</TMPL_IF>>Exactfit</label> &nbsp; 
+        <label><input type="radio" name="player_image_stretching" value="fill"<TMPL_IF player_image_stretching_fill> checked</TMPL_IF>>Fill</label>
+	</TD>
+</TR>
+<TR class="playerconfig playerclappr playerjw8 hola playerfluid playerjs">
+	<TD>Player logo watermark</TD>
+	<TD>Image URL:<input type="text" name="player_logo_url" value="<TMPL_VAR player_logo_url>" size=42><br>
+    	Link URL:<input type="text" name="player_logo_link" value="<TMPL_VAR player_logo_link>" size=42> (emtpy = logo not clickable)<br>
+    	<label class="playerconfig playerjw8 playerfluid"><input type="checkbox" name="player_logo_hide" value="1"<TMPL_IF player_logo_hide> checked</TMPL_IF>> Hide when playing</label><br>
+    	Position: <label><input type="radio" name="player_logo_position" value="top-right"<TMPL_VAR player_logo_position_top-right>>Top-right</label>
+    	<label><input type="radio" name="player_logo_position" value="top-left"<TMPL_VAR player_logo_position_top-left>>Top-left</label>
+    	<label><input type="radio" name="player_logo_position" value="bottom-right"<TMPL_VAR player_logo_position_bottom-right>>Bottom-right</label>
+    	<label><input type="radio" name="player_logo_position" value="bottom-left"<TMPL_VAR player_logo_position_bottom-left>>Bottom-left</label>
+    	<label class="playerconfig playerjw8"><input type="radio" name="player_logo_position" value="control-bar"<TMPL_VAR player_logo_position_control-bar>>Control-bar</label>
+    	<div class="playerconfig playerfluid">Margin: <input type="text" name="player_logo_padding" value="<TMPL_VAR player_logo_padding>" size=2>px</div>
+    	<div class="playerconfig playerfluid">Opacity: <input type="text" name="player_logo_opacity" value="<TMPL_VAR player_logo_opacity>" size=3> 0..1</div>
+    	<div class="playerconfig hola">Fadeout after: <input type="text" name="player_logo_fadeout" value="<TMPL_VAR player_logo_fadeout>" size=2>seconds</div>
+    	<div class="playerconfig hola">
+    		Logo mode: 
+    		<label><input type="radio" name="player_logo_mode" value="video"<TMPL_IF player_logo_mode_video> checked</TMPL_IF>>Over video</label> &nbsp; 
+    		<label><input type="radio" name="player_logo_mode" value="controls"<TMPL_IF player_logo_mode_controls> checked</TMPL_IF>>In control bar</label> &nbsp; 
+    		<label><input type="radio" name="player_logo_mode" value="both"<TMPL_IF player_logo_mode_both> checked</TMPL_IF>>Both places</label>
+    	</div>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>Player right click</TD>
+	<TD>
+    	Text:<input type="text" name="player_about_text" value="<TMPL_VAR player_about_text>" size=22> 
+    	Link URL:<input type="text" name="player_about_link" value="<TMPL_VAR player_about_link>" size=24>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8 playerclappr hola playerjs">
+	<TD>Playback rates</TD>
+	<TD>
+    	<input type="text" name="player_playback_rates" value="<TMPL_VAR player_playback_rates>" size=22> e.g. 1, 1.25, 1.5 , empty to disable control
+	</TD>
+</TR>
+<TR class="playerconfig playerclappr playerjw8 hola playerjs">
+	<TD>Remember & Seek to last time</TD>
+	<TD><label><input type="checkbox" name="remember_player_position" value="1"<TMPL_IF remember_player_position> checked</TMPL_IF>>For each video</label></TD>
+</TR>
+<TR class="playerconfig playerjw8 playerfluid">
+	<TD>Forward / Rewind button</TD>
+	<TD><label><input type="checkbox" name="player_forward_rewind" value="1"<TMPL_IF player_forward_rewind> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD>Player color</TD>
+	<TD><input type="text" name="player_color" value="<TMPL_VAR player_color>" placeholder="#F9F9F9" size=7></TD>
+</TR>
+
+<TR><TH colspan=2>Embed Settings</TH></TR>
+<TR>
+	<TD>Alt embed site URL</TD>
+	<TD><input type="text" name="embed_alt_domain" value="<TMPL_VAR embed_alt_domain>" size=22> (will be used for embed URLs only)</TD>
+</TR>
+<TR>
+	<TD>Disable normal video pages</TD>
+	<TD><label><input type="checkbox" name="video_page_disabled" value="1" <TMPL_IF video_page_disabled> checked</TMPL_IF>>Disable</label></TD>
+</TR>
+<TR>
+	<TD>Disable embeds</TD>
+	<TD><label><input type="checkbox" name="embed_disabled" value="1" <TMPL_IF embed_disabled> checked</TMPL_IF>>Disable all</label></TD>
+</TR>
+<TR>
+	<TD>Disable embeds</TD>
+	<TD><label><input type="checkbox" name="embed_disable_noref" value="1" <TMPL_IF embed_disable_noref> checked</TMPL_IF>>with no referer URL</label></TD>
+</TR>
+<TR>
+	<TD>Disable embeds</TD>
+	<TD>on all domains except these <input type="text" name="embed_disable_except_domains" value="<TMPL_VAR embed_disable_except_domains>" size=32> e.g. xxx.com|yyy.com</TD>
+</TR>
+<TR>
+	<TD>Disable embeds</TD>
+	<TD>on these domains only <input type="text" name="embed_disable_only_domains" value="<TMPL_VAR embed_disable_only_domains>" size=32></TD>
+</TR>
+<TR>
+	<TD>No HD Quality</TD>
+	<TD><label><input type="checkbox" name="embed_no_hd" value="1"<TMPL_IF embed_no_hd> checked</TMPL_IF><TMPL_UNLESS enp_h> disabled</TMPL_UNLESS>>for embeds</label></TD>
+</TR>
+<TR>
+	<TD>Responsive embed code</TD>
+	<TD><label><input type="checkbox" name="embed_responsive" value="1" <TMPL_IF embed_responsive> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD>Static embed code</TD>
+	<TD>
+    	<label><input type="checkbox" name="embed_static" value="1" <TMPL_IF embed_static> checked</TMPL_IF>>Enabled</label> (big save of main server resources)<br>
+    	<label><input type="checkbox" name="static_embed_recaptcha_v3" value="1" <TMPL_IF static_embed_recaptcha_v3> checked</TMPL_IF>>Use reCaptcha v3 validation</label><TMPL_IF static_embed_recaptcha_v3><TMPL_UNLESS recaptcha3_pub_key> <b style="color:red">Generate reCaptcha v3 keys!</b></TMPL_UNLESS></TMPL_IF>
+	</TD>
+</TR>
+<TR><TH colspan=2>Encoding Settings</TH></TR>
+<TR>
+	<TD>Keep original video</TD>
+	<TD>
+    	<label><input type="checkbox" name="vid_keep_orig" value="1"<TMPL_IF vid_keep_orig> checked</TMPL_IF>>after encoding</label><br>
+    	<label><input type="checkbox" name="vid_keep_orig_playable" value="1"<TMPL_IF vid_keep_orig_playable> checked</TMPL_IF>>only keep playable files (.mp4 + H264 + AAC)</label><br>
+    	Allow playback+downloads for 
+		<label><input type="checkbox" name="vid_play_anon_o" value="1"<TMPL_IF vid_play_anon_o> checked</TMPL_IF>>Anonymous</label> &nbsp; 
+		<label><input type="checkbox" name="vid_play_reg_o" value="1"<TMPL_IF vid_play_reg_o> checked</TMPL_IF>>Registered</label> &nbsp; 
+		<label><input type="checkbox" name="vid_play_prem_o" value="1"<TMPL_IF vid_play_prem_o> checked</TMPL_IF>>Premium</label> &nbsp; 
+		users
+	</TD>
+</TR>
+<!--TR>
+	<TD>Don't encode playable</TD>
+	<TD>
+        <label><input type="checkbox" name="no_reencoding_mp4" value="1" id="nrmp4"<TMPL_IF no_reencoding_mp4> checked</TMPL_IF>>MP4 videos</label> &nbsp; 
+        <label><input type="checkbox" name="no_reencoding_flv" value="1" id="nrflv"<TMPL_IF no_reencoding_flv> checked</TMPL_IF>>FLV videos</label>
+	</TD>
+</TR-->
+<TR>
+	<TD>Fair encoding slots</TD>
+	<TD><label><input type="checkbox" name="fair_encoding_slots" value="1" <TMPL_IF fair_encoding_slots> checked</TMPL_IF>>between users per host</label></TD>
+</TR>
+<TR>
+	<TD>Video resize method</TD>
+	<TD>
+        <label><input type="radio" name="vid_resize_method" value="0"<TMPL_UNLESS vid_resize_method> checked</TMPL_UNLESS>>Bicubic</label> &nbsp; 
+        <label><input type="radio" name="vid_resize_method" value="1"<TMPL_IF vid_resize_method> checked</TMPL_IF>>Lanczos</label>
+	</TD>
+</TR>
+<TR>
+	<TD>Snapshot position</TD>
+	<TD><input type="text" name="thumb_position" value="<TMPL_VAR thumb_position>" size=3> seconds or X% from start</TD>
+</TR>
+<TR>
+	<TD>Allow snapshot upload</TD>
+	<TD>
+        <input type="text" name="custom_snapshot_upload" value="<TMPL_VAR custom_snapshot_upload>" size=3>KB max filesize (0=disabled)
+	</TD>
+</TR>
+<TR>
+	<TD>Thumbnails size</TD>
+	<TD><input type="text" name="thumb_width" value="<TMPL_VAR thumb_width>" size=3>x<input type="text" name="thumb_height" value="<TMPL_VAR thumb_height>" size=3> pixels</TD>
+</TR>
+<TR>
+	<TD>Use Highload speed preset</TD>
+	<TD>when there are more than <input type="text" name="alt_preset_max_queues" value="<TMPL_VAR alt_preset_max_queues>" size=3> encoding queues per host</TD>
+</TR>
+<TR>
+	<TD>'Disable Encoding' option</TD>
+	<TD><label><input type="checkbox" name="allow_no_encoding" value="1" <TMPL_IF allow_no_encoding> checked</TMPL_IF>>Show in user's My Account page</label></TD>
+</TR>
+<TR>
+	<TD>Max FPS limit</TD>
+	<TD>
+		<input type="text" name="max_fps_limit" value="<TMPL_VAR max_fps_limit>" size=3> (0=disabled)
+	</TD>
+</TR>
+<TR>
+	<TD>Encode priority</TD>
+	<TD>
+		<!--label><input type="checkbox" name="enc_queue_premium_priority" value="1" id="mdep"<TMPL_IF enc_queue_premium_priority> checked</TMPL_IF>> Premium users videos first</label><br>
+		<label><input type="checkbox" name="enc_queue_notmp4_priority" value="1" id="mdep"<TMPL_IF enc_queue_notmp4_priority> checked</TMPL_IF>> Not .mp4 videos first</label> <small>(MP4 videos are playable not encoded)</small-->
+		Premium user video: +<input type="text" name="enc_queue_premium_priority" value="<TMPL_VAR enc_queue_premium_priority>" size=1> points<br>
+		Not .MP4 video: +<input type="text" name="enc_queue_notmp4_priority" value="<TMPL_VAR enc_queue_notmp4_priority>" size=1> points<br>
+		Transcode mode: +<input type="text" name="enc_queue_transcode_priority" value="<TMPL_VAR enc_queue_transcode_priority>" size=1> points
+	</TD>
+</TR>
+<!-- <TR>
+	<TD>Turbo boost</TD>
+	<TD>
+		<label><input type="checkbox" name="turbo_boost" value="1" <TMPL_IF turbo_boost> checked</TMPL_IF>>Activated!</label><br>(+20% speed, +1% filesize)
+	</TD>
+</TR> -->
+
+</Table>
+
+<br>
+
+<Table class="tbl1 rct" cellpadding=3 width="100%">
+<TR class="hdr">
+	<TH colspan=2>HD + Mobile mod</TH>
+</TR>
+<TR>
+	<TD class="rc">HD + Mobile mod</TD>
+	<TD width="75%"><label><input type="checkbox" name="m_h" value="1" <TMPL_IF m_h> checked</TMPL_IF><TMPL_UNLESS enp_h> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_h> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing_mod_hd_mobile.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD>Quality priorities</TD>
+	<TD>
+    	<TMPL_LOOP qualities>
+			<TMPL_VAR quality_title>:<input type="text" name="enc_priority_<TMPL_VAR quality_name>" value="<TMPL_VAR enc_priority>" size=1> &nbsp; 
+		</TMPL_LOOP>points
+		<br>
+		<label><input type="checkbox" name="enc_priority_time" value="1"<TMPL_IF enc_priority_time> checked</TMPL_IF>>First uploaded = first encoded</label>
+	</TD>
+</TR>
+<TR>
+	<TD>Quality labels in player</TD>
+	<TD>
+    	<label><input type="radio" name="quality_labels_mode" value="0"<TMPL_VAR quality_labels_mode_0>>Titles (Normal, HD)</label> <small>(configure titles in XFileConfig.pm quality_labels key)</small><br>
+    	<label><input type="radio" name="quality_labels_mode" value="1"<TMPL_VAR quality_labels_mode_1>>Resolution height (360p, 720p)</label><br>
+    	<label><input type="radio" name="quality_labels_mode" value="2"<TMPL_VAR quality_labels_mode_2>>Resolution full (640x360, 1280x720)</label><br>
+    	<label><input type="checkbox" name="quality_labels_bitrate" value="1"<TMPL_IF quality_labels_bitrate> checked</TMPL_IF>>Add video bitrate to the label (725 kbps)</label>
+	</TD>
+</TR>
+</Table>
+
+<div class="tabber" id="tabber11" style="margin:15px 0; text-align: left;">
+
+			<TMPL_LOOP qualities>
+			<div class="tabbertab" id="vq<TMPL_VAR quality_name>">
+			<h2><TMPL_VAR quality_title></h2>
+			<TMPL_IF hide><div style="text-align: left; padding:40px 20px;">HD mod required</div></TMPL_IF>
+			<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%"<TMPL_IF hide> style="display:none"</TMPL_IF>>
+			<TR>
+				<TD class="rc" style="width:27%">Encode <TMPL_VAR quality_title> quality videos</TD>
+				<TD><label><input type="checkbox" name="vid_encode_<TMPL_VAR quality_name>" value="1" <TMPL_IF quality_enabled> checked</TMPL_IF>>Enabled</label></TD>
+			</TR>
+			<TR>
+				<TD class="rc">Video resize</TD>
+				<TD>
+			        Video should fit to <input type="text" name="vid_resize_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_resize>" size=9>px <small>(e.g. 1280x720)</small>
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc top">Video quality</TD>
+				<TD>
+			        <label><input type="radio" name="vid_quality_mode_<TMPL_VAR quality_name>" value="crf" onclick="$('#qm1x_<TMPL_VAR quality_name>').show();$('#qm2x_<TMPL_VAR quality_name>').hide();"<TMPL_VAR vid_quality_mode_crf>>CRF (constant quality)</label>
+			        <label><input type="radio" name="vid_quality_mode_<TMPL_VAR quality_name>" value="cbr" onclick="$('#qm1x_<TMPL_VAR quality_name>').hide();$('#qm2x_<TMPL_VAR quality_name>').show();"<TMPL_VAR vid_quality_mode_cbr>>CBR (constant bitrate)</label> &nbsp; 
+			        <br>
+			        <span id="qm1x_<TMPL_VAR quality_name>"<TMPL_UNLESS vid_quality_mode_crf> style="display:none"</TMPL_UNLESS>>
+			            CRF:<input type="text" name="vid_quality_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_quality>" size=2><br>
+			            Max bitrate limit:<input type="text" name="vid_crf_bitrate_max_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_crf_bitrate_max>" size=4> kbps (optional)
+			        </span>
+			        <span id="qm2x_<TMPL_VAR quality_name>"<TMPL_UNLESS vid_quality_mode_cbr> style="display:none"</TMPL_UNLESS>>
+			            <input type="text" name="vid_bitrate_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_bitrate>" size=4> kbps. Higher values gives better quality.
+			        </span>
+			        <br>Speed preset:
+			        <select name="vid_preset_<TMPL_VAR quality_name>">
+			            <!--option value="ultrafast"<TMPL_VAR vid_preset_h_ultrafast>>UltraFast</option-->
+			            <option value="superfast"<TMPL_VAR vid_preset_superfast>>SuperFast</option>
+			            <option value="veryfast"<TMPL_VAR vid_preset_veryfast>>VeryFast</option>
+			            <option value="faster"<TMPL_VAR vid_preset_faster>>Faster</option>
+			            <option value="fast"<TMPL_VAR vid_preset_fast>>Fast</option>
+			            <option value="medium"<TMPL_VAR vid_preset_medium>>Medium</option>
+			            <option value="slow"<TMPL_VAR vid_preset_slow>>Slow</option>
+			            <option value="slower"<TMPL_VAR vid_preset_slower>>Slower</option>
+			            <option value="veryslow"<TMPL_VAR vid_preset_veryslow>>VerySlow</option>
+			        </select>
+			    	<TMPL_IF alt_preset_max_queues>
+			        &nbsp; Highload preset:
+			        <select name="vid_preset_alt_<TMPL_VAR quality_name>">
+			            <!--option value="ultrafast"<TMPL_VAR vid_preset_h_alt_ultrafast>>UltraFast</option-->
+			            <option value="superfast"<TMPL_VAR vid_preset_alt_superfast>>SuperFast</option>
+			            <option value="veryfast"<TMPL_VAR vid_preset_alt_veryfast>>VeryFast</option>
+			            <option value="faster"<TMPL_VAR vid_preset_alt_faster>>Faster</option>
+			            <option value="fast"<TMPL_VAR vid_preset_alt_fast>>Fast</option>
+			            <option value="medium"<TMPL_VAR vid_preset_alt_medium>>Medium</option>
+			            <option value="slow"<TMPL_VAR vid_preset_alt_slow>>Slow</option>
+			            <option value="slower"<TMPL_VAR vid_preset_alt_slower>>Slower</option>
+			        </select>
+			    	</TMPL_IF>
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Audio channels</TD>
+				<TD>
+					<select name="vid_audio_channels_<TMPL_VAR quality_name>">
+					<option value="0"<TMPL_VAR vid_audio_channels_0>>Default</option>
+					<option value="1"<TMPL_VAR vid_audio_channels_1>>Mono</option>
+					<option value="2"<TMPL_VAR vid_audio_channels_2>>Stereo</option>
+					</select>
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Audio bitrate</TD>
+				<TD>
+			        <select name="vid_audio_bitrate_<TMPL_VAR quality_name>">
+			        <option value="48"<TMPL_VAR vid_audio_bitrate_48>>48</option>
+			        <option value="64"<TMPL_VAR vid_audio_bitrate_64>>64</option>
+			        <option value="96"<TMPL_VAR vid_audio_bitrate_96>>96</option>
+			        <option value="128"<TMPL_VAR vid_audio_bitrate_128>>128</option>
+			        <option value="192"<TMPL_VAR vid_audio_bitrate_192>>192</option>
+			        <option value="256"<TMPL_VAR vid_audio_bitrate_256>>256</option>
+			        </select> kbps
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Audio sampling rate</TD>
+				<TD><select name="vid_audio_rate_<TMPL_VAR quality_name>">
+			        <option value="0"<TMPL_VAR vid_audio_rate_0>>Original</option>
+			        <option value="32000"<TMPL_VAR vid_audio_rate_32000>>32</option>
+			        <option value="44100"<TMPL_VAR vid_audio_rate_44100>>44,1</option>
+			        <option value="48000"<TMPL_VAR vid_audio_rate_48000>>48</option>
+			        <!--option value="96000"<TMPL_VAR vid_audio_rate_96000>>96</option-->
+			        </select> kHz (max value)
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Transcode</TD>
+				<TD>
+			        Don't reencode when video bitrate &lt;= <input type="text" name="vid_transcode_max_bitrate_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_transcode_max_bitrate>" size=4> kbps
+			        <br>Keep audio when audio bitrate &lt;= <input type="text" name="vid_transcode_max_abitrate_<TMPL_VAR quality_name>" value="<TMPL_VAR vid_transcode_max_abitrate>" size=3> kbps
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Encode only for</TD>
+				<TD>
+			        <label><input type="checkbox" name="vid_enc_anon_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_enc_anon> checked</TMPL_IF> disabled>Anonymous</label> &nbsp; 
+			        <label><input type="checkbox" name="vid_enc_reg_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_enc_reg> checked</TMPL_IF>>Registered</label> &nbsp; 
+			        <label><input type="checkbox" name="vid_enc_prem_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_enc_prem> checked</TMPL_IF>>Premium</label> &nbsp; 
+			        uploaders
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">Allow playback+download for</TD>
+				<TD>
+			        <label><input type="checkbox" name="vid_play_anon_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_play_anon> checked</TMPL_IF>>Anonymous</label> &nbsp; 
+			        <label><input type="checkbox" name="vid_play_reg_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_play_reg> checked</TMPL_IF>>Registered</label> &nbsp; 
+			        <label><input type="checkbox" name="vid_play_prem_<TMPL_VAR quality_name>" value="1"<TMPL_IF vid_play_prem> checked</TMPL_IF>>Premium</label> &nbsp; 
+			        users
+				</TD>
+			</TR>
+			<TR>
+				<TD class="rc">MP4 sending speed</TD>
+				<TD>
+			        <input type="text" name="watch_speed_<TMPL_VAR quality_name>" value="<TMPL_VAR watch_speed>" size=3 id="wsp<TMPL_VAR quality_name>"<TMPL_IF watch_speed_auto> disabled</TMPL_IF>> KB/s &nbsp; 
+			        <label title="Calculate speed using video size and duration"><input type="checkbox" name="watch_speed_auto_<TMPL_VAR quality_name>" value="1" onchange="$('#wsp<TMPL_VAR quality_name>').prop('disabled',this.checked);"<TMPL_IF watch_speed_auto> checked</TMPL_IF>>Auto</label>
+				</TD>
+			</TR>
+			</Table>
+			</div>
+			</TMPL_LOOP>
+
+</div>
+
+</div>
+
+
+<div class="tabbertab" style="text-align:left;min-height:250px;">
+
+<h2>Mods</h2>
+
+<Table class="tbl1" cellpadding=3 cellspacing=1 width=600 align=center>
+<TR>
+	<TD width=200 class="rc">Users monitoring mod</TD>
+	<TD><input type="checkbox" name="m_o" value="1" id="mdo"<TMPL_IF m_o> checked</TMPL_IF><TMPL_UNLESS enp_o> disabled</TMPL_UNLESS>><label for="mdo">Enabled</label><TMPL_UNLESS enp_o> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_users_monitor.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+</Table>
+
+<br>
+
+<div class="tabber" id="tabber1">
+
+<div class="tabbertab">
+<h2>Moderator</h2>
+<Table class="tbl1" width="100%">
+<TR>
+	<TD class="rc" width=160>Moderator mod</TD>
+	<TD><input type="checkbox" name="m_d" value="1" id="mdd"<TMPL_IF m_d> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd">Enabled</label><TMPL_UNLESS enp_d> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_moderator.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">File moderation</TD>
+	<TD>
+        <input type="checkbox" name="m_d_f" value="1" id="mdd1"<TMPL_IF m_d_f> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd1">Enabled</label> &nbsp; 
+        Daily delete limit: <input type="text" name="m_d_f_limit" value="<TMPL_VAR m_d_f_limit>" size=4> files
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Abuse management</TD>
+	<TD><input type="checkbox" name="m_d_a" value="1" id="mdd2"<TMPL_IF m_d_a> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd2">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc"><b>Comments moderation</TD>
+	<TD><input type="checkbox" name="m_d_c" value="1" id="mdd3"<TMPL_IF m_d_c> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd3">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Featured management</TD>
+	<TD><input type="checkbox" name="m_d_featured" value="1" id="mdd4"<TMPL_IF m_d_featured> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd4">Enabled</label></TD>
+</TR>
+<TMPL_IF approve_required>
+<TR>
+	<TD class="rc">Files approval</TD>
+	<TD><input type="checkbox" name="m_d_file_approve" value="1" id="mdd5"<TMPL_IF m_d_file_approve> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd5">Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD class="rc top">Legal accounts</TD>
+	<TD><input type="checkbox" name="m_d_legal" value="1" id="mdd6"<TMPL_IF m_d_legal> checked</TMPL_IF><TMPL_UNLESS enp_d> disabled</TMPL_UNLESS>><label for="mdd6">Enabled</label>
+        <br><small>Copyright owners account with daily delete limit.<br>Specify LEGAL=100 in user Notes to enable this function for account.</small></TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_reseller">
+<h2>Reseller</h2>
+<Table class="tbl1" width="100%">
+<TR>
+	<TD class="rc">Reseller mod</TD>
+	<TD><label><input type="checkbox" name="m_k" value="1" class="modsw"<TMPL_IF m_k> checked</TMPL_IF><TMPL_UNLESS enp_k> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_k> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_reseller.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Plans</TD>
+	<TD><input type="text" name="m_k_plans" value="<TMPL_VAR m_k_plans>" size=48><br><small>Sample: 0.5=2h,3=5d,10=30d</small></TD>
+</TR>
+<TR>
+	<TD class="rc">Manual reseller approve</TD>
+	<TD><input type="checkbox" name="m_k_manual" value="1" id="mra2"<TMPL_IF m_k_manual> checked</TMPL_IF>><label for="mra2">Enabled</label></TD>
+</TR>
+
+<TR>
+	<TD class="rc">Allow money add</TD>
+	<TD><input type="checkbox" name="m_k_add_money" value="1" id="mra3"<TMPL_IF m_k_add_money> checked</TMPL_IF>><label for="mra3">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Money add amounts</TD>
+	<TD><input type="text" name="m_k_add_money_list" value="<TMPL_VAR m_k_add_money_list>" size=48><br><small>Sample: 5.00, 10.00, 25.00</small></TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_torrent">
+<h2>Torrents</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc" width=100>Torrent mod</TD>
+	<TD colspan=3><label><input type="checkbox" name="m_t" value="1" class="modsw"<TMPL_IF m_t> checked</TMPL_IF><TMPL_UNLESS enp_t> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_t> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_torrents.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=160>Who can use torrents</TD>
+	<TD colspan=3>
+        <input type="radio" name="m_t_users" value="registered" id="mtu1"<TMPL_VAR m_t_users_registered>><label for="mtu1">All users</label><br>
+        <input type="radio" name="m_t_users" value="premium" id="mtu2"<TMPL_VAR m_t_users_premium>><label for="mtu2">Premium users</label><br>
+        <input type="radio" name="m_t_users" value="special" id="mtu3"<TMPL_VAR m_t_users_special>><label for="mtu3">Only selected users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Delete inactive torrents</TD>
+	<TD colspan=3>
+        after <input type="text" name="torrent_clean_inactive" value="<TMPL_VAR torrent_clean_inactive>" size=3> hours
+	</TD>
+</TR>
+<TR class="hdr">
+	<TD>&nbsp;</TD>
+	<TD>Registered</TD>
+	<TD>Premium</TD>
+	<TD>&nbsp;</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Torrent download slots</TD>
+	<TD><input type="text" name="torrent_dl_slots_reg" value="<TMPL_VAR torrent_dl_slots_reg>" size=2></TD>
+	<TD><input type="text" name="torrent_dl_slots_prem" value="<TMPL_VAR torrent_dl_slots_prem>" size=2></TD>
+	<TD align=left><small>Number or parallel downloads</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Download speed limit</TD>
+	<TD><input type="text" name="torrent_dl_speed_reg" value="<TMPL_VAR torrent_dl_speed_reg>" size=2></TD>
+	<TD><input type="text" name="torrent_dl_speed_prem" value="<TMPL_VAR torrent_dl_speed_prem>" size=2></TD>
+	<TD align=left><small>KBytes/s per torrent, 0 = no limit</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Upload speed limit</TD>
+	<TD><input type="text" name="torrent_up_speed_reg" value="<TMPL_VAR torrent_up_speed_reg>" size=2></TD>
+	<TD><input type="text" name="torrent_up_speed_prem" value="<TMPL_VAR torrent_up_speed_prem>" size=2></TD>
+	<TD align=left><small>KBytes/s per torrent, 0 = no limit</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Peers limit</TD>
+	<TD><input type="text" name="torrent_peers_reg" value="<TMPL_VAR torrent_peers_reg>" size=2></TD>
+	<TD><input type="text" name="torrent_peers_prem" value="<TMPL_VAR torrent_peers_prem>" size=2></TD>
+	<TD align=left><small>per torrent, 0 = no limit</small></TD>
+</TR>
+</Table>
+</div>
+
+<!--div class="tabbertab" id="mod_ssd">
+<h2>SSD</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc"><b>SSD mod</b></TD>
+	<TD width="80%"><input type="checkbox" name="m_y" value="1" id="myy"<TMPL_IF m_y> checked</TMPL_IF><TMPL_UNLESS enp_y> disabled</TMPL_UNLESS>><label for="myy">Enabled</label><TMPL_UNLESS enp_y> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_ssd.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+
+<TR>
+	<TD class="rc"><b>Filesize limit</b></TD>
+	<TD>
+    <input type="text" name="ssd_max_filesize" value="<TMPL_VAR ssd_max_filesize>" size=4>MB <small>Don't transfer files with size over this value</small>
+	</TD>
+</TR>
+
+</Table>
+</div-->
+
+<div class="tabbertab" id="mod_cold">
+<h2>Hot/Cold</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Hot / Cold Storage mod</TD>
+	<TD width="80%">
+    	<label><input type="checkbox" name="m_3" value="1" <TMPL_IF m_3> checked</TMPL_IF><TMPL_UNLESS enp_3> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_3> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/cold.html" target=_blank class="url2">?</a>]
+	</TD>
+</TR>
+<TR>
+	<TH colspan=2>Cold</TH>
+</TR>
+<TR>
+	<TD colspan=2>
+		Add word <b>cold</b> to the Cold Storage server names that will accept transfers.
+		<br>Transfer only files passing these filters:
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Uploaded more than</TD>
+	<TD>
+		<input type="text" name="m_3_uploaded_days" value="<TMPL_VAR m_3_uploaded_days>" size=3> days ago
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">No views for</TD>
+	<TD>
+		last <input type="text" name="m_3_noviews_days" value="<TMPL_VAR m_3_noviews_days>" size=3> days
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Only from servers</TD>
+	<TD>
+		filled over <input type="text" name="m_3_serverdisk_min" value="<TMPL_VAR m_3_serverdisk_min>" size=2> %
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Max total transfer size</TD>
+	<TD>
+		<input type="text" name="m_3_max_total_size" value="<TMPL_VAR m_3_max_total_size>" size=2> GB per run
+	</TD>
+</TR>
+<TR>
+	<TH colspan=2>Hot</TH>
+</TR>
+<TR>
+	<TD colspan=2>
+		Add word <b>hot</b> to the Hot Storage server names that will accept transfers.
+		<br>Transfer only files passing these filters:
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Use file traffic stats</TD>
+	<TD>
+		for last <input type="text" name="m_3_hot_stats_last_hours" value="<TMPL_VAR m_3_hot_stats_last_hours>" size=2> hours
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Transfer</TD>
+	<TD>
+		top <input type="text" name="m_3_hot_files_run" value="<TMPL_VAR m_3_hot_files_run>" size=2> hottest files per run
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Transfer to hot servers</TD>
+	<TD>
+		disk space used < <input type="text" name="m_3_hot_disk_max" value="<TMPL_VAR m_3_hot_disk_max>" size=2> %
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Max filesize filter</TD>
+	<TD>
+		<input type="text" name="m_3_hot_max_filesize" value="<TMPL_VAR m_3_hot_max_filesize>" size=3> MBytes (all qualities size summ)
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Views filter</TD>
+	<TD>
+		transfer videos with at least <input type="text" name="m_3_hot_min_views" value="<TMPL_VAR m_3_hot_min_views>" size=2> views
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_ftp">
+<h2>FTP</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">FTP mod</TD>
+	<TD><input type="checkbox" name="m_f" value="1" id="mff"<TMPL_IF m_f> checked</TMPL_IF><TMPL_UNLESS enp_f> disabled</TMPL_UNLESS>><label for="mff">Enabled</label><TMPL_UNLESS enp_f> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/ftp.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc top" width=160>Who can use FTP upload</TD>
+	<TD>
+        <input type="radio" name="m_f_users" value="registered" id="mfu1"<TMPL_VAR m_f_users_registered>><label for="mfu1">All users</label><br>
+        <input type="radio" name="m_f_users" value="premium" id="mfu3"<TMPL_VAR m_f_users_premium>><label for="mfu3">Premium users</label><br>
+        <input type="radio" name="m_f_users" value="special" id="mfu2"<TMPL_VAR m_f_users_special>><label for="mfu2">Only selected users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Users sync</TD>
+	<TD>
+        <label><input type="checkbox" name="m_f_update_on_cron" value="1" <TMPL_IF m_f_update_on_cron> checked</TMPL_IF>>Each run of cron.pl</label><br>
+        <label><input type="checkbox" name="m_f_update_on_reg" value="1" <TMPL_IF m_f_update_on_reg> checked</TMPL_IF>>When user registrers</label><br>
+        <label><input type="checkbox" name="m_f_update_on_buy" value="1" <TMPL_IF m_f_update_on_buy> checked</TMPL_IF>>When Premium account purchased</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Sync files</TD>
+	<TD>
+        <input type="text" name="m_f_sync_files_after" value="<TMPL_VAR m_f_sync_files_after>" size=2> mins after upload complete
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Static FTP subdomain</TD>
+	<TD>
+        <input type="text" name="m_f_subdomain" value="<TMPL_VAR m_f_subdomain>" size=24> <small>configure your DNS to point ftp.site.com to FTP servers IP</small>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Track current uploads</TD>
+	<TD>
+        <label><input type="checkbox" name="m_f_track_current" value="1" <TMPL_IF m_f_track_current> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_login">
+<h2>Social</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Social Login mod</TD>
+	<TD><input type="checkbox" name="m_l" value="1" id="mll"<TMPL_IF m_l> checked</TMPL_IF><TMPL_UNLESS enp_l> disabled</TMPL_UNLESS>><label for="mll">Enabled</label><TMPL_UNLESS enp_l> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/social_login.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=160>Twitter</TD>
+	<TD>
+        Consumer key:<input type="text" name="twit_consumer1" value="<TMPL_VAR twit_consumer1>" size=22><br>
+        Consumer secret:<input type="text" name="twit_consumer2" value="<TMPL_VAR twit_consumer2>" size=48>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc" width=160>Facebook</TD>
+	<TD>
+        App ID:<input type="text" name="facebook_app_id" value="<TMPL_VAR facebook_app_id>" size=16><br>
+        App secret:<input type="text" name="facebook_app_secret" value="<TMPL_VAR facebook_app_secret>" size=36>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc" width=160>Vkontakte</TD>
+	<TD>
+        App ID:<input type="text" name="vk_app_id" value="<TMPL_VAR vk_app_id>" size=12><br>
+        App secret:<input type="text" name="vk_app_secret" value="<TMPL_VAR vk_app_secret>" size=24>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc" width=160>Google+</TD>
+	<TD>
+        App ID:<input type="text" name="google_app_id" value="<TMPL_VAR google_app_id>" size=42>
+        App Secret:<input type="text" name="google_app_secret" value="<TMPL_VAR google_app_secret>" size=42>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_ftp">
+<h2>Webmasters</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Webmaster mod</TD>
+	<TD><input type="checkbox" name="m_b" value="1" id="mwb"<TMPL_IF m_b> checked</TMPL_IF><TMPL_UNLESS enp_b> disabled</TMPL_UNLESS>><label for="mwb">Enabled</label><TMPL_UNLESS enp_b> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/webmasters.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=190>Who can receive website profit</TD>
+	<TD>
+        <input type="radio" name="m_b_users" value="registered" id="mwb1"<TMPL_VAR m_b_users_registered>><label for="mwb1">All users</label><br>
+        <input type="radio" name="m_b_users" value="premium" id="mwb3"<TMPL_VAR m_b_users_premium>><label for="mwb3">Premium users</label><br>
+        <input type="radio" name="m_b_users" value="special" id="mwb2"<TMPL_VAR m_b_users_special>><label for="mwb2">Only selected users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Default rate</TD>
+	<TD><input type="text" name="m_b_rate" value="<TMPL_VAR m_b_rate>" size=2>% of premium purchase <small>(You can change this rate for each user)</small></TD>
+</TR>
+</Table>
+</div>
+
+<TMPL_UNLESS demo_mode>
+<div class="tabbertab">
+<h2>Shaving</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Shaving mod</TD>
+	<TD><input type="checkbox" name="m_c" value="1" id="msm"<TMPL_IF m_c> checked</TMPL_IF><TMPL_UNLESS enp_c> disabled</TMPL_UNLESS>><label for="msm">Enabled</label><TMPL_UNLESS enp_c> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/shaving.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Views</TD>
+	<TD>
+        Shave <input type="text" name="m_c_views_rate1" value="<TMPL_VAR m_c_views_rate1>" size=2>% after video reach <input type="text" name="m_c_views_num1" value="<TMPL_VAR m_c_views_num1>" size=3> views<br>
+        Shave <input type="text" name="m_c_views_rate2" value="<TMPL_VAR m_c_views_rate2>" size=2>% after video reach <input type="text" name="m_c_views_num2" value="<TMPL_VAR m_c_views_num2>" size=3> views<br>
+        <input type="checkbox" name="m_c_views_skip" value="1" id="mcvs"<TMPL_IF m_c_views_skip> checked</TMPL_IF>><label for="mcvs">Don't increase Views count when shaved</label><br>
+        Assign shaved views to usr_id=<input type="text" name="m_c_views_user" value="<TMPL_VAR m_c_views_user>" size=4>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Sales</TD>
+	<TD>
+        Shave <input type="text" name="m_c_sale_init_rate" value="<TMPL_VAR m_c_sale_init_rate>" size=2>% initial sales<br>
+        Shave <input type="text" name="m_c_sale_renew_rate" value="<TMPL_VAR m_c_sale_renew_rate>" size=2>% renewal sales<br>
+        Assign shaved sales to usr_id=<input type="text" name="m_c_sale_user" value="<TMPL_VAR m_c_sale_user>" size=4>
+	</TD>
+</TR>
+</Table>
+</div>
+</TMPL_UNLESS>
+
+<div class="tabbertab">
+<h2>deURL</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">deURL mod</TD>
+	<TD><input type="checkbox" name="m_j" value="1" id="mdum"<TMPL_IF m_j> checked</TMPL_IF><TMPL_UNLESS enp_j> disabled</TMPL_UNLESS>><label for="mdum">Enabled</label><TMPL_UNLESS enp_j> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/deurl.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Domain</TD>
+	<TD>
+        <input type="text" name="m_j_domain" value="<TMPL_VAR m_j_domain>" size=24> empty for current domain
+        <br>When you use custom domain replace deurl.xxx with this domain in htdocs/.htaccess
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Redirect</TD>
+	<TD>
+        <input type="checkbox" name="m_j_instant" value="1" id="mjin"<TMPL_IF m_j_instant> checked</TMPL_IF>><label for="mjin">Instant</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Hide video link</TD>
+	<TD>
+        <input type="checkbox" name="m_j_hide" value="1" id="mjhi"<TMPL_IF m_j_hide> checked</TMPL_IF>><label for="mjhi">Hide</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Cache</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Memcached mod</TD>
+	<TD><label><input type="checkbox" name="m_u" value="1" <TMPL_IF m_u> checked</TMPL_IF><TMPL_UNLESS enp_u> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_u> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/memcached.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Memcached address</TD>
+	<TD>
+        <input type="text" name="memcached_address" value="<TMPL_VAR memcached_address>" size=24> (usually 127.0.0.1:11211)
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Default expire time</TD>
+	<TD>
+        <input type="text" name="memcached_expire" value="<TMPL_VAR memcached_expire>" size=3> seconds
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Misc</TD>
+	<TD>
+        <input type="button" value="Current Stats" onclick="return jah('?op=admin_misc&memcached_stats=1<TMPL_VAR token_str>','mustat')"> &nbsp; 
+        <input type="button" value="Flush caches" onclick="return jah('?op=admin_misc&memcached_flush=1<TMPL_VAR token_str>','mustat')">
+        <div id="mustat"></div>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Clone</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Clone upload mod</TD>
+	<TD><label><input type="checkbox" name="m_n" value="1" class="modsw"<TMPL_IF m_n> checked</TMPL_IF><TMPL_UNLESS enp_n> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_n> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/clone.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=190>Who can clone links</TD>
+	<TD>
+        <label><input type="radio" name="m_n_users" value="registered"<TMPL_VAR m_n_users_registered>>All users</label><br>
+        <label><input type="radio" name="m_n_users" value="premium"<TMPL_VAR m_n_users_premium>>Premium users</label><br>
+        <label><input type="radio" name="m_n_users" value="special"<TMPL_VAR m_n_users_special>>Only selected users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Max number of links</TD>
+	<TD>
+        <input type="text" name="m_n_max_links" value="<TMPL_VAR m_n_max_links>" size=3>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Instant upload</TD>
+	<TD>
+        <label><input type="checkbox" name="m_n_instant_md5_upload" value="1"<TMPL_IF m_n_instant_md5_upload> checked</TMPL_IF>>when already have files with same size + md5</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>IProxy</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Image Proxy mod</TD>
+	<TD><label><input type="checkbox" name="m_i" value="1" <TMPL_IF m_i> checked</TMPL_IF><TMPL_UNLESS enp_i> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_i> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/image_proxy.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=190>Proxy server URL</TD>
+	<TD>
+        <input type="text" name="m_i_server" value="<TMPL_VAR m_i_server>"> (e.g. https://img.site.com)
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">CloudFlare purge</TD>
+	<TD>
+        Zone ID: <input type="text" name="m_i_cf_zone_id" value="<TMPL_VAR m_i_cf_zone_id>" size=32><br>
+        <small>Go to domain Overview, "Zone ID" there on the right bottom of the page</small><br>
+        Token: <input type="text" name="m_i_cf_token" value="<TMPL_VAR m_i_cf_token>" size=32><br>
+        <small>On <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank">API Tokens</a> page use "Create Token" button, then click button near "Create Custom Token"<br>
+			On "Create Custom Token" page select: Permissions : Zone - Cache Purge - Purge</small>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<br>
+
+<center><a href="https://sibsoft.net/xvideosharing.html#mods" target=_blank>Get more mods</a></center>
+
+</div>
+
+</div>
+
+
+<div class="tabbertab" style="text-align:left;min-height:250px;">
+
+<h2>Mods 2</h2>
+
+<div class="tabber" id="tabber1">
+
+<div class="tabbertab">
+<h2>DMCA</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">DMCA mod</TD>
+	<TD><label><input type="checkbox" name="m_a" value="1" <TMPL_IF m_a> checked</TMPL_IF><TMPL_UNLESS enp_a> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_a> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/dmca.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc" width=250>Files delete delay</TD>
+	<TD>
+        <input type="text" name="m_a_delete_after" value="<TMPL_VAR m_a_delete_after>" size=2> hours
+	</TD>
+</TR>
+<TR>
+	<TD class="rc" width=250>Lock files on DMCA delete</TD>
+	<TD>
+        <label><input type="checkbox" name="m_a_lock_delete" value="1"<TMPL_IF m_a_lock_delete> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc" width=250>Hide video URL via Redirect</TD>
+	<TD>
+        <label><input type="checkbox" name="m_a_hide_redirect" value="1"<TMPL_IF m_a_hide_redirect> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>API</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">API mod</TD>
+	<TD><label><input type="checkbox" name="m_6" value="1" <TMPL_IF m_6> checked</TMPL_IF><TMPL_UNLESS enp_6> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_6> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/api.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Who can use API</TD>
+	<TD colspan=3>
+        <label><input type="radio" name="m_6_users" value="registered"<TMPL_VAR m_6_users_registered>>All users</label><br>
+        <label><input type="radio" name="m_6_users" value="premium"<TMPL_VAR m_6_users_premium>>Premium users</label><br>
+        <label><input type="radio" name="m_6_users" value="special"<TMPL_VAR m_6_users_special>>Only selected users</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Special functions</TD>
+	<TD>
+        <label><input type="checkbox" name="m_6_clone" value="1"<TMPL_IF m_6_clone> checked</TMPL_IF>> Clone File</label><br>
+        <label><input type="checkbox" name="m_6_direct" value="1"<TMPL_IF m_6_direct> checked</TMPL_IF>> Direct Links</label><br>
+        <label><input type="checkbox" name="m_6_delete" value="1"<TMPL_IF m_6_delete> checked</TMPL_IF>> Delete File</label><br>
+        <br>Who can use special function:<br>
+        <label><input type="radio" name="m_6_users_spec" value="registered"<TMPL_VAR m_6_users_spec_registered>>All users</label> 
+        <label><input type="radio" name="m_6_users_spec" value="premium"<TMPL_VAR m_6_users_spec_premium>>Premium users</label> 
+        <label><input type="radio" name="m_6_users_spec" value="special"<TMPL_VAR m_6_users_spec_special>>Only selected users</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Requests limit</TD>
+	<TD>
+        <input type="text" name="m_6_req_limit_day" value="<TMPL_VAR m_6_req_limit_day>" size=4> per day, 0=unlimited
+        <br>
+        <input type="text" name="m_6_req_limit_min" value="<TMPL_VAR m_6_req_limit_min>" size=4> per minute, 0=unlimited
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>IP Blocker</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc" width=250>IP Blocker mod</TD>
+	<TD><label><input type="checkbox" name="m_7" value="1" <TMPL_IF m_7> checked</TMPL_IF><TMPL_UNLESS enp_7> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_7> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/ipblock.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Video logic</TD>
+	<TD>
+        Block:
+        <label><input type="checkbox" name="m_7_video_noserver" value="1"<TMPL_IF m_7_video_noserver> checked</TMPL_IF>> Servers</label> 
+        <label><input type="checkbox" name="m_7_video_noproxy" value="1"<TMPL_IF m_7_video_noproxy> checked</TMPL_IF>> Proxies</label> 
+        <label><input type="checkbox" name="m_7_video_notor" value="1"<TMPL_IF m_7_video_notor> checked</TMPL_IF>> Tor</label>
+        <br>On page: 
+        <label><input type="checkbox" name="m_7_video_download1" value="1"<TMPL_IF m_7_video_download1> checked</TMPL_IF>> Video</label> &nbsp; 
+        <label><input type="checkbox" name="m_7_video_embed" value="1"<TMPL_IF m_7_video_embed> checked</TMPL_IF>> Embed</label>
+        <br>Action:<br>
+        <label><input type="radio" name="m_7_video_action" value="redirect"<TMPL_IF m_7_video_action_redirect> checked</TMPL_IF>> Redirect to index page</label><br>
+        <label><input type="radio" name="m_7_video_action" value="message"<TMPL_IF m_7_video_action_message> checked</TMPL_IF>> Show message:</label><input type="text" name="m_7_video_action_message_txt" value="<TMPL_VAR m_7_video_action_message_txt>"><br>
+        <label><input type="radio" name="m_7_video_action" value="badlink"<TMPL_IF m_7_video_action_badlink> checked</TMPL_IF>> Make invalid video links</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Money logic</TD>
+	<TD>
+        <input type="text" name="m_7_money_percent" value="<TMPL_VAR m_7_money_percent>" size=2>% of money for 
+        <label><input type="checkbox" name="m_7_money_noserver" value="1"<TMPL_IF m_7_money_noserver> checked</TMPL_IF>> Servers</label> 
+        <label><input type="checkbox" name="m_7_money_noproxy" value="1"<TMPL_IF m_7_money_noproxy> checked</TMPL_IF>> Proxies</label> 
+        <label><input type="checkbox" name="m_7_money_notor" value="1"<TMPL_IF m_7_money_notor> checked</TMPL_IF>> Tor</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Save Statistics</TD>
+	<TD>
+        <label><input type="checkbox" name="m_7_stats" value="1"<TMPL_IF m_7_stats> checked</TMPL_IF>> Track number of blocked IPs / money saved</label> 
+        <a href="?op=admin_ipblock_stats">Stats page</a>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Whitelist IP</TD>
+	<TD>
+        <input type="text" name="m_7_white_ip" id="m_7_white_ip" value="" size=12>
+        <input type="button" value="Add" onclick="return jah('?op=admin_misc<TMPL_VAR token_str>&whitelist_ip='+$('#m_7_white_ip').val(),'m7white')">
+        <div id="m7white"></div>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Blacklist IP</TD>
+	<TD>
+        <input type="text" name="m_7_black_ip" id="m_7_black_ip" value="" size=12>
+        <input type="button" value="Add" onclick="return jah('?op=admin_misc<TMPL_VAR token_str>&blacklist_ip='+$('#m_7_black_ip').val(),'m7black')">
+        <div id="m7black"></div>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Check IP</TD>
+	<TD>
+        <input type="text" name="m_7_check_ip" id="m_7_check_ip" value="" size=12>
+        <input type="button" value="Check" onclick="return jah('?op=admin_misc<TMPL_VAR token_str>&check_ip_ban='+$('#m_7_check_ip').val(),'m7check')">
+        <div id="m7check"></div>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">DB info</TD>
+	<TD>
+        <input type="button" value="Get current DB info" onclick="return jah('?op=admin_misc&ipblock_stats=1<TMPL_VAR token_str>','m7info')">
+        <div id="m7info"></div>
+
+        <br><input type="button" value="Update DB files" onclick="return jah('?op=admin_settings&ipblock_update=1<TMPL_VAR token_str>','m7update')">
+        <div id="m7update"></div>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Tickets</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc" width=250>Tickets mod</TD>
+	<TD><label><input type="checkbox" name="m_e" value="1" <TMPL_IF m_e> checked</TMPL_IF><TMPL_UNLESS enp_e> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_e> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/tickets.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Categories</TD>
+	<TD>
+        <input type="text" name="ticket_categories" value="<TMPL_VAR ticket_categories>" placeholder="General, Payments" size=46>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Moderators</TD>
+	<TD>
+        usr_id=<input type="text" name="ticket_moderator_ids" value="<TMPL_VAR ticket_moderator_ids>" placeholder="12|56" size=16><br>
+        Allowed categories: <input type="text" name="ticket_moderator_categories" value="<TMPL_VAR ticket_moderator_categories>" placeholder="General, Technical" size=32>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Send email</TD>
+	<TD>
+        to <label><input type="checkbox" name="ticket_email_user" value="1"<TMPL_IF ticket_email_user> checked</TMPL_IF>>Users</label> 
+           <label><input type="checkbox" name="ticket_email_admin" value="1"<TMPL_IF ticket_email_admin> checked</TMPL_IF>>Admin/Moderator</label> 
+        on each answer
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Console+ADB</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Dev Console + ADB detect mod</TD>
+	<TD><label><input type="checkbox" name="m_5" value="1" <TMPL_IF m_5> checked</TMPL_IF><TMPL_UNLESS enp_5> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_5> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/devadb.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<!--TR>
+	<TD class="rc">Activate on video/embed pages</TD>
+	<TD>
+        <label><input type="checkbox" name="m_5_video_only" value="1"<TMPL_IF m_5_video_only> checked</TMPL_IF>>Only</label>
+	</TD>
+</TR-->
+<TR>
+	<TD class="rc" width=250>Dev Console</TD>
+	<TD>
+		Detection mode: 
+		<label><input type="radio" name="m_5_devtools_mode" value="0"<TMPL_VAR m_5_devtools_mode_0>>Disabled</label> &nbsp; 
+		<label><input type="radio" name="m_5_devtools_mode" value="1"<TMPL_VAR m_5_devtools_mode_1>>Mode 1</label> &nbsp; 
+		<label><input type="radio" name="m_5_devtools_mode" value="2"<TMPL_VAR m_5_devtools_mode_2>>Mode 2</label>
+		<br>
+		Redirect URL: <input type="text" name="m_5_devtools_redirect" value="<TMPL_VAR m_5_devtools_redirect>" size=32>
+		<br><label><input type="checkbox" name="m_5_devtools_no_admin" value="1"<TMPL_IF m_5_devtools_no_admin> checked</TMPL_IF>>Disabled for admin</label>
+		<br>
+		<label><input type="checkbox" name="m_5_disable_right_click" value="1"<TMPL_IF m_5_disable_right_click> checked</TMPL_IF>>Disable mouse Right Click</label>
+		<br>
+		<label><input type="checkbox" name="m_5_disable_shortcuts" value="1"<TMPL_IF m_5_disable_shortcuts> checked</TMPL_IF>>Disable keyboard shortcuts for console, page source </label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">ADBlock</TD>
+	<TD>
+		Detection mode: 
+		<label><input type="radio" name="m_5_adb_mode" value="0"<TMPL_VAR m_5_adb_mode_0> onchange="$('#adbm1').hide();">Disabled</label> &nbsp; 
+		<label><input type="radio" name="m_5_adb_mode" value="1"<TMPL_VAR m_5_adb_mode_1> onchange="$('#adbm1').show();">Mode 1 (custom JS file)</label> &nbsp; 
+		<label><input type="radio" name="m_5_adb_mode" value="2"<TMPL_VAR m_5_adb_mode_2> onchange="$('#adbm1').hide();">Mode 2 (justDetectAdblock)</label>
+		<div id="adbm1"<TMPL_UNLESS m_5_adb_mode_1> style="display:none"</TMPL_UNLESS>>
+		Mode 1 Script name: /js/<input type="text" name="m_5_adb_script" value="<TMPL_VAR m_5_adb_script>" size=8> e.g. boxad.js, gafc.js, dnsads.js, imads.js, expop.js
+		<br>get more js script name idea in <a href="https://easylist.to/easylist/easylist.txt">EasyList</a>
+		</div>
+		<label><input type="checkbox" name="m_5_adb_no_prem" value="1"<TMPL_IF m_5_adb_no_prem> checked</TMPL_IF>>Disabled for Premium watchers</label>
+		<br>
+		Show overlay after <input type="text" name="m_5_adb_delay" value="<TMPL_VAR m_5_adb_delay>" size=1> seconds
+		<br>
+		Usage logic:
+		<label><input type="radio" name="force_disable_adb" value="1" <TMPL_IF force_disable_adb_1> checked</TMPL_IF>> Force all watchers to disable ADB</label> &nbsp; 
+		<label><input type="radio" name="force_disable_adb" value="2" <TMPL_IF force_disable_adb_2> checked</TMPL_IF>> Let file owner decide</label>
+		<br><br><p>Overlay text is in <b>lng_main_disable_adb</b> language key
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Ads</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc" width=200>Ads Management mod</TD>
+	<TD><label><input type="checkbox" name="m_9" value="1" <TMPL_IF m_9> checked</TMPL_IF><TMPL_UNLESS enp_9> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_9> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/user_ads.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Who can use custom Ads</TD>
+	<TD colspan=3>
+		<label><input type="radio" name="m_9_users" value="registered"<TMPL_VAR m_9_users_registered>>All users</label><br>
+		<label><input type="radio" name="m_9_users" value="premium"<TMPL_VAR m_9_users_premium>>Premium users</label><br>
+		<label><input type="radio" name="m_9_users" value="special"<TMPL_VAR m_9_users_special>>Only selected users</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Global</TD>
+	<TD colspan=3>
+		use ads from usr_id=<input type="text" name="m_9_override_id" value="<TMPL_VAR m_9_override_id>" size=2> when not defined for user
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Domains</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc" width=200>Custom Domains mod</TD>
+	<TD><label><input type="checkbox" name="m_y" value="1" <TMPL_IF m_y> checked</TMPL_IF><TMPL_UNLESS enp_y> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_y> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/domains.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Who can use Custom Domains</TD>
+	<TD colspan=3>
+		<label><input type="radio" name="m_y_users" value="registered"<TMPL_VAR m_y_users_registered>>All users</label><br>
+		<label><input type="radio" name="m_y_users" value="premium"<TMPL_VAR m_y_users_premium>>Premium users</label><br>
+		<label><input type="radio" name="m_y_users" value="special"<TMPL_VAR m_y_users_special>>Only selected users</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">CloudFlare details</TD>
+	<TD colspan=3>
+		Auth Email: <input type="text" name="m_y_cf_auth_email" value="<TMPL_VAR m_y_cf_auth_email>" size=32><br>
+		Auth Key: <input type="text" name="m_y_cf_auth_key" value="<TMPL_VAR m_y_cf_auth_key>" size=32><br>
+		Account ID: <input type="text" name="m_y_cf_account_id" value="<TMPL_VAR m_y_cf_account_id>" size=32>
+	</TD>
+</TR>
+</Table>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="tabbertab" style="text-align:left;min-height:250px;">
+<h2>Video Mods</h2>
+
+
+<div class="tabber" id="tabber1">
+
+<div class="tabbertab" id="mod_screenlist">
+<h2>Screenlist</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Screenlist mod</TD>
+	<TD width="80%"><label><input type="checkbox" name="m_x" value="1" class="modsw"<TMPL_IF m_x> checked</TMPL_IF><TMPL_UNLESS enp_x> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_x> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_screenlist.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Width</TD>
+	<TD>
+    <input type="radio" name="m_x_width" value="1024" id="mx1"><label for="mx1">1024</label> &nbsp; 
+    <input type="radio" name="m_x_width" value="1280" id="mx2"><label for="mx2">1280</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Image Columns x Rows</TD>
+	<TD><input type="text" name="m_x_cols" value="<TMPL_VAR m_x_cols>" size=2> x <input type="text" name="m_x_rows" value="<TMPL_VAR m_x_rows>" size=2> 1..9</TD>
+</TR>
+<TR>
+	<TD class="rc">Top logo text</TD>
+	<TD><input type="text" name="m_x_logo" value="<TMPL_VAR m_x_logo>" size=24></TD>
+</TR>
+<TR>
+	<TD class="rc">Thumbnail size</TD>
+	<TD>fit to<input type="text" name="m_x_th_width" value="<TMPL_VAR m_x_th_width>" size=3>x<input type="text" name="m_x_th_height" value="<TMPL_VAR m_x_th_height>" size=3> pixels</TD>
+</TR>
+<TR>
+	<TD class="rc">Premium users only</TD>
+	<TD><input type="checkbox" name="m_x_prem_only" value="1" id="mxpu"<TMPL_IF m_x_prem_only> checked</TMPL_IF>><label for="mxpu">Enabled</label></TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_timeslider">
+<h2>Time Slider</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Time Slider mod</TD>
+	<TD width="80%"><input type="checkbox" name="m_z" value="1" id="mrz"<TMPL_IF m_z> checked</TMPL_IF><TMPL_UNLESS enp_z> disabled</TMPL_UNLESS>><label for="mrz">Enabled</label><TMPL_UNLESS enp_z> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_time_slider.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Thumb Columns</TD>
+	<TD><input type="text" name="m_z_cols" value="<TMPL_VAR m_z_cols>" size=2> 1..99</TD>
+</TR>
+<TR>
+	<TD class="rc">Thumb rows</TD>
+	<TD><input type="text" name="m_z_rows" value="<TMPL_VAR m_z_rows>" size=2> 1..99</TD>
+</TR>
+<TR>
+	<TD class="rc">Show slider for</TD>
+	<TD>
+        <input type="checkbox" name="time_slider_anon" value="1" id="tsl1"<TMPL_IF time_slider_anon> checked</TMPL_IF>><label for="tsl1">Anonymous</label> &nbsp; 
+        <input type="checkbox" name="time_slider_reg" value="1" id="tsl2"<TMPL_IF time_slider_reg> checked</TMPL_IF>><label for="tsl2">Registered</label> &nbsp; 
+        <input type="checkbox" name="time_slider_prem" value="1" id="tsl3"<TMPL_IF time_slider_prem> checked</TMPL_IF>><label for="tsl3">Premium</label> &nbsp; 
+        users
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_vidpreview">
+<h2>Preview</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Video Preview mod</TD>
+	<TD width="80%"><input type="checkbox" name="m_p" value="1" id="mvp"<TMPL_IF m_p> checked</TMPL_IF><TMPL_UNLESS enp_p> disabled</TMPL_UNLESS>><label for="mvp">Enabled</label><TMPL_UNLESS enp_p> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_video_preview.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Parts</TD>
+	<TD><input type="text" name="m_p_parts" value="<TMPL_VAR m_p_parts>" size=2></TD>
+</TR>
+<TR>
+	<TD class="rc">Part length</TD>
+	<TD><input type="text" name="m_p_length" value="<TMPL_VAR m_p_length>" size=3> seconds</TD>
+</TR>
+<TR>
+	<TD class="rc">Preview quality</TD>
+	<TD>
+        <input type="radio" name="m_p_source" value="n" id="mpss1"<TMPL_VAR m_p_source_n>><label for="mpss1">Normal</label>
+    	<TMPL_IF m_h_hd> &nbsp; <input type="radio" name="m_p_source" value="h" id="mpss2"<TMPL_VAR m_p_source_h>><label for="mpss2">HD</label></TMPL_IF>
+    	<TMPL_IF m_h_lq> &nbsp; <input type="radio" name="m_p_source" value="l" id="mpss3"<TMPL_VAR m_p_source_l>><label for="mpss3">Low</label></TMPL_IF>
+        quality
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Show preview for</TD>
+	<TD>
+        <input type="checkbox" name="m_p_show_anon" value="1" id="mps1"<TMPL_IF m_p_show_anon> checked</TMPL_IF>><label for="mps1">Anonymous</label>
+        <input type="checkbox" name="m_p_show_reg"  value="1" id="mps2"<TMPL_IF m_p_show_reg> checked</TMPL_IF>><label for="mps2">Registered</label>
+        <input type="checkbox" name="m_p_show_prem" value="1" id="mps3"<TMPL_IF m_p_show_prem> checked</TMPL_IF>><label for="mps3">Premium</label> &nbsp; 
+        instead of normal video
+	</TD>
+</TR>
+<TR>
+	<TD class="rc top">Allow custom</TD>
+	<TD>
+        <input type="checkbox" name="m_p_custom_upload" value="1" id="mpac"<TMPL_IF m_p_custom_upload> checked</TMPL_IF>><label for="mpac">preview video upload</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_watermark">
+<h2>Watermark</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Video Watermark mod</TD>
+	<TD width="80%"><input type="checkbox" name="m_v" value="1" id="mvw"<TMPL_IF m_v> checked</TMPL_IF><TMPL_UNLESS enp_v> disabled</TMPL_UNLESS>><label for="mvw">Enabled</label><TMPL_UNLESS enp_v> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_watermark.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Who can use watermarks</TD>
+	<TD>
+        <input type="radio" name="m_v_users" value="admin" id="mvwu1"<TMPL_VAR m_v_users_admin>><label for="mvwu1">Admin only for all videos on site</label><br>
+        <input type="radio" name="m_v_users" value="special" id="mvwu2"<TMPL_VAR m_v_users_special>><label for="mvwu2">Only selected users</label><br>
+        <input type="radio" name="m_v_users" value="premium" id="mvwu3"<TMPL_VAR m_v_users_premium>><label for="mvwu3">Premium users</label><br>
+        <input type="radio" name="m_v_users" value="registered" id="mvwu4"<TMPL_VAR m_v_users_registered>><label for="mvwu4">Registered users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Allow image logos</TD>
+	<TD><input type="checkbox" name="m_v_image_logo" value="1" id="mvil"<TMPL_IF m_v_image_logo> checked</TMPL_IF>><label for="mvil">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Max image size</TD>
+	<TD><input type="text" name="m_v_image_max_size" value="<TMPL_VAR m_v_image_max_size>" size=3> pixels</TD>
+</TR>
+<!--TR>
+	<TD class="rc">Font list</TD>
+	<TD><input type="text" name="m_v_fonts" value="<TMPL_VAR m_v_fonts>" size=36> <small>e.g.: arial,verdana<br>these fonts should be on your fileservers in Modules/fonts/ folder.</small></TD>
+</TR-->
+</Table>
+</div>
+
+<div class="tabbertab" id="mod_screenshots">
+<h2>Snapshots</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Better screenshots mod</TD>
+	<TD width="75%"><input type="checkbox" name="m_s" value="1" id="mss"<TMPL_IF m_s> checked</TMPL_IF><TMPL_UNLESS enp_s> disabled</TMPL_UNLESS>><label for="mss">Enabled</label><TMPL_UNLESS enp_s> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_snapshot.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc top">Who can edit screenshot</TD>
+	<TD>
+        <input type="radio" name="m_s_users" value="admin" id="mswu1"<TMPL_VAR m_s_users_admin>><label for="mswu1">Admin only</label><br>
+        <input type="radio" name="m_s_users" value="special" id="mswu2"<TMPL_VAR m_s_users_special>><label for="mswu2">Only selected users</label><br>
+        <input type="radio" name="m_s_users" value="premium" id="mswu3"<TMPL_VAR m_s_users_premium>><label for="mswu3">Premium users</label><br>
+        <input type="radio" name="m_s_users" value="registered" id="mswu4"<TMPL_VAR m_s_users_registered>><label for="mswu4">All users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Number or samples</TD>
+	<TD>
+        <select name="m_s_samples">
+        <option<TMPL_VAR m_s_samples_6>>6</option>
+        <option<TMPL_VAR m_s_samples_10>>10</option>
+        <option<TMPL_VAR m_s_samples_16>>16</option>
+        <option<TMPL_VAR m_s_samples_20>>20</option>
+        </select>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Allow image uploads</TD>
+	<TD><input type="checkbox" name="m_s_upload" value="1" id="msiu"<TMPL_IF m_s_upload> checked</TMPL_IF>><label for="msiu">Enabled</label></TD>
+</TR>
+</Table>
+</div>
+
+
+<div class="tabbertab">
+<h2>HLS</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TH colspan=2>HLS Streaming</TH>
+</TR>
+<TR>
+	<TD class="rc">HLS streaming mod</TD>
+	<TD width="70%"><label><input type="checkbox" name="m_r" value="1" class="modsw"<TMPL_IF m_r> checked</TMPL_IF><TMPL_UNLESS enp_r> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_r> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_hls.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Speed</TD>
+	<TD><input type="text" name="hls_speed" value="<TMPL_VAR hls_speed>" size=3> KBytes/s (0=no limit)</TD>
+</TR>
+<TR>
+	<TH colspan=2>HLS Proxy</TH>
+</TR>
+<TR>
+	<TD class="rc"><b>HLS Proxy mode</b></TD>
+	<TD>
+		<label><input type="checkbox" name="hls_proxy" value="1" <TMPL_IF hls_proxy> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc"><b>Proxy ratio</b></TD>
+	<TD>
+		Use proxy for <input type="text" name="hls_proxy_percent" value="<TMPL_VAR hls_proxy_percent>" size=2>% views, other from original file servers
+		<br>or add HLSCACHED=75 to Storage Host Notes to set custom proxy percent per host
+	</TD>
+</TR>
+<TR>
+	<TD class="rc"><b>Proxy condition</b></TD>
+	<TD>
+		Use Proxy only when:<br>
+		Storage host Net Out > <input type="text" name="hls_proxy_min_out" value="<TMPL_VAR hls_proxy_min_out>" size=3> Mbps
+		<br>and<br>
+		Video have > <input type="text" name="hls_proxy_min_views" value="<TMPL_VAR hls_proxy_min_views>" size=3> views total
+		<br>and<br>
+		Video had any views last <input type="text" name="hls_proxy_last_hours" value="<TMPL_VAR hls_proxy_last_hours>" size=2> hours
+	</TD>
+</TR>
+<TR>
+	<TD class="rc"><b>Proxy order logic</b></TD>
+	<TD>
+		Choose Least network utilized proxy
+		<br>
+		Choose Random proxy in <input type="text" name="hls_proxy_random_chance" value="<TMPL_VAR hls_proxy_random_chance>" size=2>%
+	</TD>
+</TR>
+<TR>
+	<TD class="rc"><b>Number of proxies per file</b></TD>
+	<TD>
+		Normal uploader: <input type="text" name="proxy_num_reg" value="<TMPL_VAR proxy_num_reg>" size=2><br>
+		Premium uploader: <input type="text" name="proxy_num_prem" value="<TMPL_VAR proxy_num_prem>" size=2>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Expire proxy pairs</TD>
+	<TD>
+		after <input type="text" name="proxy_pairs_expire" value="<TMPL_VAR proxy_pairs_expire>" size=2> days
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>SRT</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%" id="mod_srt">
+<TR>
+	<TD class="rc">Subtitles mod</TD>
+	<TD width="75%"><label><input type="checkbox" name="m_g" value="1" id="mrg" <TMPL_IF m_g> checked</TMPL_IF><TMPL_UNLESS enp_g> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_g> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mod_srt.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc top">SRT settings</TD>
+	<TD>
+        <label><input type="checkbox" name="srt_on" value="1" onchange="$('#srt_div').slideToggle('normal');"<TMPL_IF srt_on> checked</TMPL_IF>>SRT upload enabled for users</label><br>
+        <div id="srt_div"<TMPL_UNLESS srt_on> style="display:none"</TMPL_UNLESS>>
+        SRT language codes: <input type="text" name="srt_auto_langs" value="<TMPL_VAR srt_auto_langs>" size=56> <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target=_blank>list</a><br>
+        <!--input type="text" name="srt_langs" value="<TMPL_VAR srt_langs>" size=42> <small>(e.g. English, Spanish)</small-->
+        <br>Max SRT filesize: <input type="text" name="srt_max_size_kb" value="<TMPL_VAR srt_max_size_kb>" size=3> KB<br>
+        <!--label><input type="checkbox" name="srt_convert_to_vtt" value="1" <TMPL_IF srt_convert_to_vtt> checked</TMPL_IF>>Convert uploaded SRT to VTT</label><br>
+        <br><br-->
+        <label><input type="checkbox" name="srt_mass_upload" value="1" <TMPL_IF srt_mass_upload> checked</TMPL_IF>>Allow mass SRT uploads into folder</label><br>
+        <br><br>
+        <label><input type="checkbox" name="srt_allow_anon_upload" value="1" <TMPL_IF srt_allow_anon_upload> checked</TMPL_IF>>Allow in-player anonymous SRT uploads</label><br>
+        <br><br>
+        <label><input type="checkbox" name="srt_auto" value="1" <TMPL_IF srt_auto> checked</TMPL_IF>>Auto-Extract SRT from videos</label><br>
+        <label><input type="checkbox" name="srt_auto_enable" value="1" <TMPL_IF srt_auto_enable> checked</TMPL_IF>>Enable captions by default</label><br>
+        <br><br>
+        <b>Subtitles style:</b><br>
+        Font color: <input type="text" name="srt_color" value="<TMPL_VAR srt_color>" size=7> (e.g. #FFFFFF, white)<br>
+        Shadow color: <input type="text" name="srt_shadow_color" value="<TMPL_VAR srt_shadow_color>" size=7> (e.g. #FFFFFF, transparent)<br>
+        Background color: <input type="text" name="srt_back_color" value="<TMPL_VAR srt_back_color>" size=7> (e.g. #FFFFFF, transparent)<br>
+        Font family: <input type="text" name="srt_font" value="<TMPL_VAR srt_font>" size=8> (e.g. Arial, Verdana)<br>
+        <div class="playerconfig playerclappr playerjs playerjw8">Font size: <input type="text" name="srt_size" value="<TMPL_VAR srt_size>" size=3>% of default</div>
+        <!--div class="playerconfig">Font size: <input type="text" name="srt_size_px" value="<TMPL_VAR srt_size_px>" size=3>px</div-->
+        Back Opacity: <input type="text" name="srt_opacity" value="<TMPL_VAR srt_opacity>" size=2>%<br>
+        <div class="playerconfig playerjw8 playerjs">
+        Text Opacity: <input type="text" name="srt_opacity_text" value="<TMPL_VAR srt_opacity_text>" size=2>%
+    	</div>
+        <!--Text Edge style: <select name="srt_edge_style">
+                        <option<TMPL_VAR srt_edge_style_none> label="None">none</option>
+                        <option<TMPL_VAR srt_edge_style_dropshadow> label="Drop shadow">dropshadow</option>
+                        <option<TMPL_VAR srt_edge_style_raised> label="Raised">raised</option>
+                        <option<TMPL_VAR srt_edge_style_depressed> label="Depressed">depressed</option>
+                        <option<TMPL_VAR srt_edge_style_uniform> label="Uniform">uniform</option>
+                    </select>-->
+        </div>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Subtitles Burn</TD>
+	<TD>
+        <label><input type="checkbox" name="srt_burn" value="1"<TMPL_IF srt_burn> checked</TMPL_IF>>Draw subtitles over video (for MKV videos with subtitles in file)</label>
+        <br>Font name:
+        <select name="srt_burn_font">
+        	<TMPL_LOOP srt_fonts>
+        		<option value="<TMPL_VAR font_name>"<TMPL_VAR selected>><TMPL_VAR font_name></option>
+        	</TMPL_LOOP>
+        </select>
+        <br>Font size: <input type="text" name="srt_burn_size" value="<TMPL_VAR srt_burn_size>" size=2>px
+        <br>Bottom margin: <input type="text" name="srt_burn_margin" value="<TMPL_VAR srt_burn_margin>" size=2>px
+        <br>Color: #<input type="text" name="srt_burn_color" value="<TMPL_VAR srt_burn_color>" size=6> Format: BBGGRR, or AABBGGRR with Alpha-channel
+        <br>Outline Color: #<input type="text" name="srt_burn_coloroutline" value="<TMPL_VAR srt_burn_coloroutline>" size=6>
+        <br><label><input type="checkbox" name="srt_burn_blackbox" value="1"<TMPL_IF srt_burn_blackbox> checked</TMPL_IF>>Draw black box around text</label>
+        <br>Default Language: #<input type="text" name="srt_burn_default_language" value="<TMPL_VAR srt_burn_default_language>" size=3> (eng, rus, spa)
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>P2P</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">P2P streaming mod</TD>
+	<TD width="70%">
+    	<label><input type="checkbox" name="p2p_on" value="1" <TMPL_IF p2p_on> checked</TMPL_IF>>Enabled</label> [<a href="https://sibsoft.net/xvideosharing/mods/p2p.html" target=_blank class="url2">?</a>]
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">P2P plugin provider</TD>
+	<TD>
+    	<label><input type="radio" name="p2p_provider" value="streamroot"<TMPL_VAR p2p_provider_streamroot> onclick="$('.p2prov').hide();$('.p2pstreamroot').show();">Streamroot</label> <a href="https://streamroot.io/" target="_blank">register</a><br>
+    	<label><input type="radio" name="p2p_provider" value="peer5"<TMPL_VAR p2p_provider_peer5> onclick="$('.p2prov').hide();$('.p2ppeer5').show();">Peer5</label> <a href="https://app.peer5.com/register?plan=pro" target="_blank">register</a><br>
+    	<label><input type="radio" name="p2p_provider" value="self"<TMPL_VAR p2p_provider_self> onclick="$('.p2prov').hide();$('.p2pself').show();">Self-hosted</label>
+	</TD>
+</TR>
+<TR class="p2prov p2pstreamroot"<TMPL_UNLESS p2p_provider_streamroot> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">Streamroot key</TD>
+	<TD><input type="text" name="p2p_streamroot_key" value="<TMPL_VAR p2p_streamroot_key>" size=36></TD>
+</TR>
+<TR class="p2prov p2ppeer5"<TMPL_UNLESS p2p_provider_peer5> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">Peer5 key</TD>
+	<TD><input type="text" name="p2p_peer5_key" value="<TMPL_VAR p2p_peer5_key>" size=36></TD>
+</TR>
+<TR class="p2prov p2pself"<TMPL_UNLESS p2p_provider_self> style="display:none"</TMPL_UNLESS>>
+	<TD class="rc">Tracker URL</TD>
+	<TD>
+    	<input type="text" name="p2p_self_tracker_url" value="<TMPL_VAR p2p_self_tracker_url>" size=36> (wss://subdomain:8433)
+    	<br>Tracker Stats URL: https://subdomain:8433/stats.json
+	</TD>
+</TR>
+<TR class="hdr">
+	<TD colspan=2>Apply P2P only to videos using filters below<br><small>leave empty to skip filter</TD>
+</TR>
+<TR>
+	<TD class="rc">Current Host speed ></TD>
+	<TD><input type="text" name="p2p_min_host_out" value="<TMPL_VAR p2p_min_host_out>" size=4>Mbps</TD>
+</TR>
+<TR>
+	<TD class="rc">Total video views ></TD>
+	<TD><input type="text" name="p2p_min_views" value="<TMPL_VAR p2p_min_views>" size=4></TD>
+</TR>
+<TR>
+	<TD class="rc">Video views for last 30 mins ></TD>
+	<TD><input type="text" name="p2p_min_views_30m" value="<TMPL_VAR p2p_min_views_30m>" size=4></TD>
+</TR>
+<TR>
+	<TD class="rc">Server name contains</TD>
+	<TD><input type="text" name="p2p_only_srvname_with" value="<TMPL_VAR p2p_only_srvname_with>" size=8></TD>
+</TR>
+<TR>
+	<TD class="rc">Working Hours</TD>
+	<TD>
+    <input type="text" name="p2p_hours" value="<TMPL_VAR p2p_hours>" size=75>
+    <br><small>Use P2P only during these peak hours, e.g. 00|01|22|23</small>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>Live Stream</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Live Streaming mod</TD>
+	<TD width="75%"><label><input type="checkbox" name="m_q" value="1" class="modsw"<TMPL_IF m_q> checked</TMPL_IF><TMPL_UNLESS enp_q> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_q> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/live_streaming.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc top">Who can create streams</TD>
+	<TD>
+        <label><input type="radio" name="m_q_users" value="admin"<TMPL_VAR m_q_users_admin>>Admin only</label><br>
+        <label><input type="radio" name="m_q_users" value="special"<TMPL_VAR m_q_users_special>>Only selected users</label><br>
+        <label><input type="radio" name="m_q_users" value="premium"<TMPL_VAR m_q_users_premium>>Premium users</label><br>
+        <label><input type="radio" name="m_q_users" value="registered"<TMPL_VAR m_q_users_registered>>All users</label><br>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Max live streams per user</TD>
+	<TD><input type="text" name="m_q_max_streams_live" value="<TMPL_VAR m_q_max_streams_live>" size=2></TD>
+</TR>
+<TR>
+	<TD class="rc">Stop user stream</TD>
+	<TD>when player not visible for <input type="text" name="m_q_stop_invis_after" value="<TMPL_VAR m_q_stop_invis_after>" size=2> sec</TD>
+</TR>
+<TR>
+	<TD class="rc">Allow streams recording</TD>
+	<TD>
+        <label><input type="checkbox" name="m_q_allow_recording" value="1"<TMPL_IF m_q_allow_recording> checked</TMPL_IF>>Enabled</label>
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>VAST</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">VAST Ads mod</TD>
+	<TD width="75%">
+		<label><input type="checkbox" name="m_w" value="1" <TMPL_IF m_w> checked</TMPL_IF><TMPL_UNLESS enp_w> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_w> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/vast_ads.html" target=_blank class="url2">?</a>]
+		<a href="https://publishers.adsterra.com/referral/VVdAPeFhgt" style="float:right" target=_blank>VAST tag provider</a>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">VAST tag URL</TD>
+	<TD>
+        <input type="text" name="vast_tag" value="<TMPL_VAR vast_tag>" style="width: 97%">
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD class="rc">Ad client</TD>
+	<TD>
+        <label><input type="radio" name="vast_client" value="vast"<TMPL_VAR vast_client_vast>>VAST</label> &nbsp; 
+		<label><input type="radio" name="vast_client" value="googima"<TMPL_VAR vast_client_googima>>Google IMA</label> &nbsp;
+		<label><input type="radio" name="vast_client" value="dai"<TMPL_VAR vast_client_dai>>DAI</label> &nbsp;
+		<label><input type="radio" name="vast_client" value="freewheel"<TMPL_VAR vast_client_freewheel>>Freewheel</label>
+	</TD>
+</TR>
+
+<TR class="playerconfig playerjw8 playerclappr">
+	<TD class="rc">VPAID mode</TD>
+	<TD>
+        <label><input type="radio" name="vast_vpaid_mode" value="disabled"<TMPL_VAR vast_vpaid_mode_disabled>>Disabled</label> &nbsp; 
+		<label><input type="radio" name="vast_vpaid_mode" value="enabled"<TMPL_VAR vast_vpaid_mode_enabled>>Enabled</label> &nbsp; 
+		<label><input type="radio" name="vast_vpaid_mode" value="insecure"<TMPL_VAR vast_vpaid_mode_insecure>>Insecure</label>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD class="rc">Ad Preloading</TD>
+	<TD>
+        <label><input type="checkbox" name="vast_preload" value="1" <TMPL_IF vast_preload> checked</TMPL_IF>></label>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8 hola playerclappr playerfluid playerpjs">
+	<TD class="rc">Pre-roll</TD>
+	<TD>
+        <label class="playerconfig playerjw8 hola playerfluid playerpjs"><input type="checkbox" name="vast_preroll" value="1" <TMPL_IF vast_preroll> checked</TMPL_IF>>Pre-roll</label>
+        <div class="playerconfig playerclappr">Always Enabled</div>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8 hola playerclappr playerfluid playerpjs">
+	<TD class="rc">Mid-roll</TD>
+	<TD>
+        <label><input type="checkbox" name="vast_midroll" value="1" <TMPL_IF vast_midroll> checked</TMPL_IF>>Mid-roll</label> 
+        after <input type="text" name="vast_midroll_time" value="<TMPL_VAR vast_midroll_time>" size=3> seconds (or specify X% of video length)
+        <div class="playerconfig playerjw8 hola playerfluid playerpjs">Custom tag URL: <input type="text" name="vast_midroll_tag" value="<TMPL_VAR vast_midroll_tag>" placeholder="empty to use the same" style="width: 70%"></div>
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8 hola playerclappr playerfluid playerpjs">
+	<TD class="rc">Post-roll</TD>
+	<TD>
+        <label><input type="checkbox" name="vast_postroll" value="1" <TMPL_IF vast_postroll> checked</TMPL_IF>>Post-roll</label> 
+        at <input type="text" name="vast_postroll_time" value="<TMPL_VAR vast_postroll_time>" size=3> seconds from the end (or X% from the end)
+        <div class="playerconfig playerjw8 hola playerfluid playerpjs">Custom tag URL: <input type="text" name="vast_postroll_tag" value="<TMPL_VAR vast_postroll_tag>" placeholder="empty to use the same" style="width: 70%"></div>
+	</TD>
+</TR>
+<TR class="playerconfig playerpjs playerjw8">
+	<TD class="rc">Pause-roll</TD>
+	<TD>
+        <label><input type="checkbox" name="vast_pauseroll" value="1" <TMPL_IF vast_pauseroll> checked</TMPL_IF>>Pause-roll</label> 
+        <div class="playerconfig playerjw8 hola playerfluid playerpjs">Custom tag URL: <input type="text" name="vast_pauseroll_tag" value="<TMPL_VAR vast_pauseroll_tag>" placeholder="empty to use the same" style="width: 70%"></div>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">VAST ads frequency</TD>
+	<TD>
+        don't show ads for <input type="text" name="vast_skip_mins" value="<TMPL_VAR vast_skip_mins>" size=3> minutes for this user (0 to show always)
+	</TD>
+</TR>
+<!--TR>
+	<TD class="rc">Alt Ads mode logic</TD>
+	<TD>
+        <label><input type="checkbox" name="vast_alt_ads_hide" value="1" <TMPL_IF vast_alt_ads_hide> checked</TMPL_IF>>Don't show VAST ads when user enabled <a href="#" onclick="document.getElementById('tabber0').tabber.tabShow(7);$('html, body').animate({ scrollTop: parseInt($('#altadsm').offset().top)}, 2000);return false;">Low Ads mode</a></label>
+	</TD>
+</TR-->
+<TR>
+	<TD class="rc">Country filter</TD>
+	<TD>
+        show ads in these countries only: <input type="text" name="vast_countries" value="<TMPL_VAR vast_countries>" size=36> e.g. US|CA|FR
+	</TD>
+</TR>
+</Table>
+</div>
+
+<div class="tabbertab">
+<h2>MultiAudio</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%">
+<TR>
+	<TD class="rc">Multiple audio tracks mod</TD>
+	<TD width="70%"><label><input type="checkbox" name="m_8" value="1" class="modsw"<TMPL_IF m_8> checked</TMPL_IF><TMPL_UNLESS enp_8> disabled</TMPL_UNLESS>>Enabled</label><TMPL_UNLESS enp_8> <small>(not available with your license)</small></TMPL_UNLESS> [<a href="https://sibsoft.net/xvideosharing/mods/multi_audio.html" target=_blank class="url2">?</a>]</TD>
+</TR>
+<TR>
+	<TD class="rc">Encode Multiple Audio</TD>
+	<TD><label><input type="checkbox" name="multi_audio_on" value="1" <TMPL_IF multi_audio_on> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Default audio language</TD>
+	<TD>
+        <input type="text" name="default_audio_lang" value="<TMPL_VAR default_audio_lang>" size=3> (e.g. eng,spa,rus <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">list of codes</a>)
+        <br>also can force default language in User Notes: DEFAUDIO=eng
+	</TD>
+</TR>
+
+<TR>
+	<TD class="rc">Users can choose default language</TD>
+	<TD><label><input type="checkbox" name="multi_audio_user_custom" value="1" <TMPL_IF multi_audio_user_custom> checked</TMPL_IF>>Enabled in My Account</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Languages list for users</TD>
+	<TD>
+        <input type="text" name="multi_audio_user_list" value="<TMPL_VAR multi_audio_user_list>" size=64 placeholder="eng=English,rus=Russian"> <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">list</a>
+	</TD>
+</TR>
+
+<TR class="playerconfig playerjw8">
+	<TD class="rc">Autoselect audio in player</TD>
+	<TD>
+        <input type="text" name="player_default_audio_track" value="<TMPL_VAR player_default_audio_track>" size=8> (same as language name in player e.g. English, Русский)
+	</TD>
+</TR>
+<TR class="playerconfig playerjw8">
+	<TD class="rc">Sticky audio language in player</TD>
+	<TD><label><input type="checkbox" name="player_default_audio_sticky" value="1" <TMPL_IF player_default_audio_sticky> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</Table>
+</div>
+
+</div>
+</div>
+
+
+<div class="tabbertab">
+
+<h2>User limits</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%" align=center id="userstbl">
+<TR class="hdr">
+	<TD>&nbsp;</TD>
+	<TD>Anonymous</TD>
+	<TD>Registered</TD>
+	<TD>Premium</TD>
+	<TD>&nbsp;</TD>
+</TR>
+<TR><TH colspan=5>Video Uploads</TH></TR>
+<TR align=center>
+	<TD class="rc">User type enabled</TD>
+	<TD>-</TD>
+	<TD><input type="checkbox" name="enabled_reg" value="1"<TMPL_IF enabled_reg> checked</TMPL_IF> title="Allow user registration"></TD>
+	<TD><input type="checkbox" name="enabled_prem" value="1"<TMPL_IF enabled_prem> checked</TMPL_IF> title="Allow premium accounts"></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Allow uploads to</TD>
+	<TD>-</TD>
+	<TD colspan=2><input type="checkbox" name="uploads_selected_only" value="1" id="uploads_selected_only" onclick="if(this.checked){$('#upen input').prop('disabled',true)}else{$('#upen input').prop('disabled','')}"<TMPL_IF uploads_selected_only> checked</TMPL_IF>><label for="uploads_selected_only">Selected users only</label></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center id="upen">
+	<TD class="rc">Uploads enabled</TD>
+	<TD>-</TD>
+	<TD><input type="checkbox" name="upload_enabled_reg" value="1" id="upload_enabled_reg"<TMPL_IF upload_enabled_reg> checked</TMPL_IF><TMPL_IF uploads_selected_only> disabled</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="upload_enabled_prem" value="1" id="upload_enabled_prem"<TMPL_IF upload_enabled_prem> checked</TMPL_IF><TMPL_IF uploads_selected_only> disabled</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Remote URL upload</TD>
+	<TD>-</TD>
+	<TD><input type="checkbox" name="remote_url_reg" value="1" id="remote_url_reg"<TMPL_IF remote_url_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="remote_url_prem" value="1" id="remote_url_prem"<TMPL_IF remote_url_prem> checked</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max queued remote URLs</TD>
+	<TD>-</TD>
+	<TD><input type="text" name="queue_url_max_reg" value="<TMPL_VAR queue_url_max_reg>" size=3></TD>
+	<TD><input type="text" name="queue_url_max_prem" value="<TMPL_VAR queue_url_max_prem>" size=3></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max working remote URLs</TD>
+	<TD>-</TD>
+	<TD><input type="text" name="queue_url_working_max_reg" value="<TMPL_VAR queue_url_working_max_reg>" size=3></TD>
+	<TD><input type="text" name="queue_url_working_max_prem" value="<TMPL_VAR queue_url_working_max_prem>" size=3></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max upload filesize</TD>
+	<TD>-</TD>
+	<TD><input type="text" name="max_upload_filesize_reg" value="<TMPL_VAR max_upload_filesize_reg>" size=4></TD>
+	<TD><input type="text" name="max_upload_filesize_prem" value="<TMPL_VAR max_upload_filesize_prem>" size=4></TD>
+	<TD align=left>Mbytes <small>(0 = unlimited)</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max uploads number</TD>
+	<TD>-</TD>
+	<TD><input type="text" name="max_upload_files_reg" value="<TMPL_VAR max_upload_files_reg>" size=4></TD>
+	<TD><input type="text" name="max_upload_files_prem" value="<TMPL_VAR max_upload_files_prem>" size=4></TD>
+	<TD align=left>files last 24h <small>(0 = unlimited)</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Storage space</TD>
+	<TD>-</TD>
+	<TD><input type="input" name="disk_space_reg" value="<TMPL_VAR disk_space_reg>" size=5></TD>
+	<TD><input type="input" name="disk_space_prem" value="<TMPL_VAR disk_space_prem>" size=5></TD>
+	<TD align=left>GB <small>(0 = unlimited)</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Folders limit</TD>
+	<TD>-</TD>
+	<TD><input type="input" name="max_folders_limit_reg" value="<TMPL_VAR max_folders_limit_reg>" size=5></TD>
+	<TD><input type="input" name="max_folders_limit_prem" value="<TMPL_VAR max_folders_limit_prem>" size=5></TD>
+	<TD align=left><small>(0 = unlimited)</small></TD>
+</TR>
+<TR><TH colspan=5>Video watching</TH></TR>
+<TR align=center>
+	<TD class="rc">Show video player</TD>
+	<TD><input type="checkbox" name="video_player_anon" value="1"<TMPL_IF video_player_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="video_player_reg" value="1"<TMPL_IF video_player_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="video_player_prem" value="1"<TMPL_IF video_player_prem> checked</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Show Ads</TD>
+	<TD><input type="checkbox" name="ads_anon" value="1"<TMPL_IF ads_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="ads_reg" value="1"<TMPL_IF ads_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="ads_prem" value="1"<TMPL_IF ads_prem> checked</TMPL_IF>></TD>
+	<TD align=left><small>&lt;TMPL_IF video_ads&gt;...&lt;/TMPL_IF&gt;<br> code in templates</small></TD>
+</TR>
+<!--TR align=center>
+	<TD class="rc"><TMPL_VAR downloads_captcha></TD>
+	<TD><input type="checkbox" name="captcha_anon" value="1" id="captcha_anon"<TMPL_IF captcha_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="captcha_reg" value="1" id="captcha_reg"<TMPL_IF captcha_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="captcha_prem" value="1" id="captcha_prem"<TMPL_IF captcha_prem> checked</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR-->
+<TR align=center>
+	<TD class="rc">Intro page</TD>
+	<TD><input type="checkbox" name="pre_download_anon" value="1"<TMPL_IF pre_download_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="pre_download_reg" value="1"<TMPL_IF pre_download_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="pre_download_prem" value="1"<TMPL_IF pre_download_prem> checked</TMPL_IF>></TD>
+	<TD align=left>pre-view page</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Intro page countdown</TD>
+	<TD><input type="text" name="download_countdown_anon" value="<TMPL_VAR download_countdown_anon>" size=4></TD>
+	<TD><input type="text" name="download_countdown_reg" value="<TMPL_VAR download_countdown_reg>" size=4></TD>
+	<TD><input type="text" name="download_countdown_prem" value="<TMPL_VAR download_countdown_prem>" size=4></TD>
+	<TD align=left>seconds</TD>
+</TR>
+<!--TR align=center>
+	<TD class="rc">Max daily watch time</TD>
+	<TD><input type="text" name="max_watch_time_anon" value="<TMPL_VAR max_watch_time_anon>" size=4></TD>
+	<TD><input type="text" name="max_watch_time_reg" value="<TMPL_VAR max_watch_time_reg>" size=4></TD>
+	<TD><input type="text" name="max_watch_time_prem" value="<TMPL_VAR max_watch_time_prem>" size=4></TD>
+	<TD align=left>Minutes per User / IP <small>(0 = unlimited)</small></TD>
+</TR-->
+<TR align=center>
+	<TD class="rc">Play only first</TD>
+	<TD><input type="text" name="video_time_limit_anon" value="<TMPL_VAR video_time_limit_anon>" size=4></TD>
+	<TD><input type="text" name="video_time_limit_reg" value="<TMPL_VAR video_time_limit_reg>" size=4></TD>
+	<TD><input type="text" name="video_time_limit_prem" value="<TMPL_VAR video_time_limit_prem>" size=4></TD>
+	<TD align=left>seconds of video <small>(0 = unlimited)</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Allow iframe embeds</TD>
+	<TD><input type="checkbox" name="video_embed_anon" value="1"<TMPL_IF video_embed_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="video_embed_reg" value="1"<TMPL_IF video_embed_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="video_embed_prem" value="1"<TMPL_IF video_embed_prem> checked</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR>
+
+<TR class="hdr">
+	<TD>&nbsp;</TD>
+	<TD colspan=3>Video files download</TD>
+	<TD>&nbsp;</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Allow to download files</TD>
+	<TD><input type="checkbox" name="download_anon" value="1"<TMPL_IF download_anon> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="download_reg" value="1"<TMPL_IF download_reg> checked</TMPL_IF>></TD>
+	<TD><input type="checkbox" name="download_prem" value="1"<TMPL_IF download_prem> checked</TMPL_IF>></TD>
+	<TD align=left></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Download speed</TD>
+	<TD><input type="text" name="down_speed_anon" value="<TMPL_VAR down_speed_anon>" size=4></TD>
+	<TD><input type="text" name="down_speed_reg" value="<TMPL_VAR down_speed_reg>" size=4></TD>
+	<TD><input type="text" name="down_speed_prem" value="<TMPL_VAR down_speed_prem>" size=4></TD>
+	<TD align=left>KB/s</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Next download delay</TD>
+	<TD><input type="text" name="add_download_delay_anon" value="<TMPL_VAR add_download_delay_anon>" size=4></TD>
+	<TD><input type="text" name="add_download_delay_reg" value="<TMPL_VAR add_download_delay_reg>" size=4></TD>
+	<TD><input type="text" name="add_download_delay_prem" value="<TMPL_VAR add_download_delay_prem>" size=4></TD>
+	<TD align=left>for each 100MB downloaded, seconds</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Next download delay</TD>
+	<TD><input type="text" name="file_dl_delay_anon" value="<TMPL_VAR file_dl_delay_anon>" size=4></TD>
+	<TD><input type="text" name="file_dl_delay_reg" value="<TMPL_VAR file_dl_delay_reg>" size=4></TD>
+	<TD><input type="text" name="file_dl_delay_prem" value="<TMPL_VAR file_dl_delay_prem>" size=4></TD>
+	<TD align=left> after each download, seconds</TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max bandwidth last <input type="text" name="bw_limit_days" value="<TMPL_VAR bw_limit_days>" size=1> days</TD>
+	<TD><input type="text" name="bw_limit_anon" value="<TMPL_VAR bw_limit_anon>" size=4></TD>
+	<TD><input type="text" name="bw_limit_reg" value="<TMPL_VAR bw_limit_reg>" size=4></TD>
+	<TD><input type="text" name="bw_limit_prem" value="<TMPL_VAR bw_limit_prem>" size=4></TD>
+	<TD align=left>GBytes per User / IP <small>(0 = unlimited)</small></TD>
+</TR>
+<TR align=center>
+	<TD class="rc">Max download file size</TD>
+	<TD><input type="input" name="max_download_filesize_anon" value="<TMPL_VAR max_download_filesize_anon>" size=4></TD>
+	<TD><input type="input" name="max_download_filesize_reg" value="<TMPL_VAR max_download_filesize_reg>" size=4></TD>
+	<TD><input type="input" name="max_download_filesize_prem" value="<TMPL_VAR max_download_filesize_prem>" size=4></TD>
+	<TD align=left>Mbytes <small>(0 = unlimited)</small></TD>
+</TR>
+
+</Table>
+
+</div>
+
+<div class="tabbertab">
+
+<h2>Payment Settings</h2>
+<Table class="tbl1" cellpadding=3 cellspacing=1 width="100%" align=center>
+<TR class="hdr"><TD colspan=2>Premium Sales Profit</TD></TR>
+<TR>
+	<TD class="rc">Sales profit</TD>
+	<TD><input type="checkbox" name="sales_profit_on" value="1" id="sprf"<TMPL_IF sales_profit_on> checked</TMPL_IF>><label for="sprf">Enabled</label></TD>
+</TR>
+<TMPL_IF sales_profit_on>
+<TR>
+	<TD class="rc">Affiliate receive </TD>
+	<TD><input type="text" name="sale_aff_percent" value="<TMPL_VAR sale_aff_percent>" size=3>% from each Premium account sale</TD>
+</TR>
+<TR>
+	<TD class="rc">Product name</TD>
+	<TD><input type="text" name="item_name" value="<TMPL_VAR item_name>" size=36></TD>
+</TR>
+<TR>
+	<TD class="rc">Premium plans</TD>
+	<TD><input type="text" name="payment_plans" value="<TMPL_VAR payment_plans>" size=56><br><small>Format: payment_amount=number_of_days, comma delimited<br>e.g: <b>5.00=7,9.00=14,15.00=30</b></small></TD>
+</TR>
+<TR>
+	<TD class="rc">Extra storage plans</TD>
+	<TD>
+		<input type="text" name="plans_storage" value="<TMPL_VAR plans_storage>" size=56><br>
+		<small>Format: payment_amount=storage space in GBytes=days to expire, comma delimited<br>e.g: <b>10.00=1000=30,20.00=1000=90</b></small>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Currency</TD>
+	<TD><input type="text" name="currency_code" value="<TMPL_VAR currency_code>" size=3> e.g. USD, EUR</TD>
+</TR>
+<TR>
+	<TD class="rc">Disable anonymous payments</TD>
+	<TD><label><input type="checkbox" name="disable_anon_payments" value="1" <TMPL_IF disable_anon_payments> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TMPL_LOOP payments_list>
+<TR>
+	<TD class="rc"><TMPL_VAR title></TD>
+	<TD>
+    	<TMPL_IF type_checkbox>
+        <input type="<TMPL_VAR type>" name="<TMPL_VAR name>" value="1" <TMPL_IF value>checked</TMPL_IF>>
+    	<TMPL_ELSE>
+        <input type="<TMPL_VAR type>" name="<TMPL_VAR name>" value="<TMPL_VAR value>" size="<TMPL_VAR size>">
+    	</TMPL_IF>
+    	<TMPL_VAR comment>
+	</TD>
+</TR>
+</TMPL_LOOP>
+
+</TMPL_IF>
+
+<TR class="hdr"><TD colspan=2>Misc</TD></TR>
+<TR>
+	<TD class="rc">Affiliate receive </TD>
+	<TD><input type="text" name="referral_aff_percent" value="<TMPL_VAR referral_aff_percent>" size=3>% earned money from each his referral</TD>
+</TR>
+<TR>
+	<TD class="rc">Deduct file earned money </TD>
+	<TD><input type="checkbox" name="del_money_file_del" value="1"<TMPL_IF del_money_file_del> checked</TMPL_IF>> when deleting user files by admin/moderator</TD>
+</TR>
+<TMPL_IF enabled_prem>
+<TR>
+	<TD class="rc">Allow user to convert</TD>
+	<TD>$<input type="text" name="convert_money" value="<TMPL_VAR convert_money>" size=4> to <input type="text" name="convert_days" value="<TMPL_VAR convert_days>" size=3> days premium account <small>(Extend existing or Create new)</small></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD class="rc">Minimal payout </TD>
+	<TD>$<input type="text" name="min_payout" value="<TMPL_VAR min_payout>" size=4></TD>
+</TR>
+<TR>
+	<TD class="rc">Payout systems list </TD>
+	<TD><input type="text" name="payout_systems" value="<TMPL_VAR payout_systems>" size=52> <small>comma delimited</small></TD>
+</TR>
+
+<TR class="hdr">
+	<TD colspan=2>Views Profit</TD>
+</TR>
+<TR>
+	<TD class="rc">Views profit</TD>
+	<TD><input type="checkbox" name="views_profit_on" value="1" id="vprf"<TMPL_IF views_profit_on> checked</TMPL_IF>><label for="vprf">Enabled</label></TD>
+</TR>
+<TR>
+	<TD class="rc">Tier factor</TD>
+	<TD>
+        Apply rule below if video watched <input type="text" name="track_views_percent" value="<TMPL_VAR track_views_percent>" size=2>% and its total
+        <!--br><input type="radio" name="tier_factor" value="length" id="tfac1"<TMPL_VAR tier_factor_length>><label for="tfac1">length > X minutes</label>
+        <br><input type="radio" name="tier_factor" value="size" id="tfac2"<TMPL_VAR tier_factor_size>><label for="tfac2">filesize > X MBytes</label-->
+        <br>length > X minutes, X=<input type="text" name="tier_sizes" value="<TMPL_VAR tier_sizes>" size=27>
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Views number</TD>
+	<TD>
+        Y=<input type="text" name="tier_views_number" value="<TMPL_VAR tier_views_number>" size=5> views
+	</TD>
+</TR>
+<TR>
+	<TD class="rc">Tier1</TD>
+	<TD>Countries:<input type="text" name="tier1_countries" value="<TMPL_VAR tier1_countries>" size=32 onclick="selectCountry(this)"> Money: $<input type="text" name="tier1_money" value="<TMPL_VAR tier1_money>" size=10> per Y views</TD>
+</TR>
+<TR>
+	<TD class="rc">Tier2</TD>
+	<TD>Countries:<input type="text" name="tier2_countries" value="<TMPL_VAR tier2_countries>" size=32 onclick="selectCountry(this)"> Money: $<input type="text" name="tier2_money" value="<TMPL_VAR tier2_money>" size=10> per Y views</TD>
+</TR>
+<TR>
+	<TD class="rc">Tier3</TD>
+	<TD>Countries:<input type="text" name="tier3_countries" value="<TMPL_VAR tier3_countries>" size=32 onclick="selectCountry(this)"> Money: $<input type="text" name="tier3_money" value="<TMPL_VAR tier3_money>" size=10> per Y views</TD>
+</TR>
+<TR>
+	<TD class="rc">Tier4</TD>
+	<TD>Countries:<input type="text" name="tier4_countries" value="<TMPL_VAR tier4_countries>" size=32 onclick="selectCountry(this)"> Money: $<input type="text" name="tier4_money" value="<TMPL_VAR tier4_money>" size=10> per Y views</TD>
+</TR>
+<TR>
+	<TD class="rc">Tier5</TD>
+	<TD>Countries:<input type="text" name="tier5_countries" value="OTHER" size=32 readonly> Money: $<input type="text" name="tier5_money" value="<TMPL_VAR tier5_money>" size=10> per Y views</TD>
+</TR>
+<TR>
+	<TD class="rc">Max money per day</TD>
+	<TD>$<input type="text" name="max_money_last24" value="<TMPL_VAR max_money_last24>" size=2> from same IP</TD>
+</TR>
+<TR>
+	<TD class="rc">Max money</TD>
+	<TD>$<input type="text" name="max_money_x_limit" value="<TMPL_VAR max_money_x_limit>" size=2> for last <input type="text" name="max_money_x_days" value="<TMPL_VAR max_money_x_days>" size=2> days from same IP</TD>
+</TR>
+<TR>
+	<TD class="rc">Max paid views per day</TD>
+	<TD><input type="text" name="max_complete_views_daily" value="<TMPL_VAR max_complete_views_daily>" size=2> from same IP</TD>
+</TR>
+<TR>
+	<TD class="rc">Embeds receive</TD>
+	<TD><input type="text" name="embeds_money_percent" value="<TMPL_VAR embeds_money_percent>" size=3>% of money</TD>
+</TR>
+<TR>
+	<TD class="rc">Downloads receive</TD>
+	<TD><input type="text" name="downloads_money_percent" value="<TMPL_VAR downloads_money_percent>" size=3>% of money</TD>
+</TR>
+<TR>
+	<TD align=right valign=top><b>No view money when</b></TD>
+	<TD>
+		<label><input type="checkbox" name="adb_no_money" value="1" <TMPL_IF adb_no_money> checked</TMPL_IF>> ADB enabled in browser</label>
+		<br>
+		<label><input type="checkbox" name="premium_no_money" value="1" <TMPL_IF premium_no_money> checked</TMPL_IF>> Premium user watching</label>
+		<br>
+		<label><input type="checkbox" name="no_referer_no_money" value="1" <TMPL_IF no_referer_no_money> checked</TMPL_IF>> No Referer</label>
+	</TD>
+</TR>
+<TR id="altadsm">
+	<TD align=right valign=top><b>Alt Ads mode</b></TD>
+	<TD>
+		<label><input type="checkbox" name="alt_ads_mode" value="1" <TMPL_IF alt_ads_mode> checked</TMPL_IF>> Let users choose Ads levels with different profit</label><br>
+		Modes list: Mode title, Views Profit % (0..100), Ad tags (vast, ad1, ad2, ...)
+		<br>
+		Mode0: 
+		<input type="text" name="alt_ads_title0" value="<TMPL_VAR alt_ads_title0>" size=26 placeholder="Mode title">
+		<input type="text" name="alt_ads_percent0" value="<TMPL_VAR alt_ads_percent0>" size=2>%
+		<input type="text" name="alt_ads_tags0" value="<TMPL_VAR alt_ads_tags0>" size=24 placeholder="ad tags">
+		<br>
+		Mode1: 
+		<input type="text" name="alt_ads_title1" value="<TMPL_VAR alt_ads_title1>" size=26 placeholder="Mode title">
+		<input type="text" name="alt_ads_percent1" value="<TMPL_VAR alt_ads_percent1>" size=2>%
+		<input type="text" name="alt_ads_tags1" value="<TMPL_VAR alt_ads_tags1>" size=24 placeholder="ad tags">
+		<br>
+		Mode2: 
+		<input type="text" name="alt_ads_title2" value="<TMPL_VAR alt_ads_title2>" size=26 placeholder="Mode title">
+		<input type="text" name="alt_ads_percent2" value="<TMPL_VAR alt_ads_percent2>" size=2>%
+		<input type="text" name="alt_ads_tags2" value="<TMPL_VAR alt_ads_tags2>" size=24 placeholder="ad tags">
+		<br>
+		Mode3: 
+		<input type="text" name="alt_ads_title3" value="<TMPL_VAR alt_ads_title3>" size=26 placeholder="Mode title">
+		<input type="text" name="alt_ads_percent3" value="<TMPL_VAR alt_ads_percent3>" size=2>%
+		<input type="text" name="alt_ads_tags3" value="<TMPL_VAR alt_ads_tags3>" size=24 placeholder="ad tags">
+		<br>
+		Mode4: 
+		<input type="text" name="alt_ads_title4" value="<TMPL_VAR alt_ads_title4>" size=26 placeholder="Mode title">
+		<input type="text" name="alt_ads_percent4" value="<TMPL_VAR alt_ads_percent4>" size=2>%
+		<input type="text" name="alt_ads_tags4" value="<TMPL_VAR alt_ads_tags4>" size=24 placeholder="ad tags">
+
+		<br>In download1.html & video_embed.html add Ads codes like that:<br>
+		<tt>&lt;TMPL_IF ad1&gt;...Ad1 HTML code here...&lt;/TMPL_IF&gt;<br>
+			&lt;TMPL_IF ad2&gt;...Ad2 HTML code here...&lt;/TMPL_IF&gt;</tt>
+	</TD>
+</TR>
+</Table>
+</div>
+
+</div>
+</div>
+
+<br>
+<input type="checkbox" name="update_fs_config" value="1" id="ufss"><label for="ufss">Update FileServers</label>
+<br>
+<input type="submit" name="save" value=" Save Settings ">
+<br><br>
+
+</Form>
+<script src="<TMPL_VAR static_url>/js/tabber.js"></script>
+<script src="<TMPL_VAR static_url>/js/jquery.lbox.js"></script>
+<script>
+$(function() {
+	$("input[name=player][value=<TMPL_VAR player>]").prop("checked", true).click();
+});
+
+
+$("input.modsw").change(function(){ 
+	$(this).closest('table').find("input:not(.modsw)").prop('disabled', !$(this).prop('checked') );
+});
+$("input.modsw").change();
+$("form#F1").submit(function (){ $('input:disabled').prop('disabled',false); return true; });
+
+$('input[name="m_x_width"][value="<TMPL_VAR m_x_width>"]').attr("checked","checked");
+
+<TMPL_UNLESS m_h_hd>$('tr.trhd').hide();</TMPL_UNLESS>
+<TMPL_UNLESS m_h_lq>$('tr.trlq').hide();</TMPL_UNLESS>
+$('#mh1').change(function(){ $('tr.trhd').toggle(); });
+$('#mh2').change(function(){ $('tr.trlq').toggle(); });
+<TMPL_UNLESS enabled_prem>
+$('#userstbl tr td:nth-child(4) input:not([name="enabled_prem"])').hide();
+</TMPL_UNLESS>
+
+function selectCountry(x)
+{
+    $('#lang_sel').lbox();
+    var list = $(x).val().split('|');
+    
+    $("select[name=lang_list] > option").each(function (){ 
+        if( jQuery.inArray($(this).val(),list)>-1 ){
+            $(this).prop('selected',true);
+        } else {
+            $(this).prop('selected','')
+        } 
+    });
+    showSelectStatus( $("select[name=lang_list]"), 'clist2' );
+    $("select[name=lang_list]").change(function (){ showSelectStatus( $("select[name=lang_list]"), 'clist2' ) });
+    $("#country_save").off();
+    $("#country_save").click(function (){
+        var ll=[];
+        $("select[name=lang_list] > option:selected").each(function (){ ll.push( $(this).val() ) });
+        $(x).val( ll.join('|') );
+        $('#lang_sel').trigger('reveal:close');
+    });
+}
+function showSelectStatus(obj,div)
+{
+    var list2=[];
+    $(obj).children("option:selected").each(function (){
+        list2.push($(this).text());
+    });
+    $('#'+div).text( list2.join(', ') );
+}
+</script>
+
+<div id="lang_sel" class="lbox medium">
+    <select name="lang_list" multiple size=16 style="width:99%;height:360px;">
+	<TMPL_LOOP lang_list><option value="<TMPL_VAR value>"><TMPL_VAR name></option></TMPL_LOOP>
+    </select>
+    <br>Selected countries:<div id="clist2"></div>
+    <input type="button" value="Save" id="country_save">
+</div>

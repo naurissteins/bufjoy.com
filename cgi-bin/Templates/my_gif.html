@@ -1,0 +1,41 @@
+<h2>Generate GIF animation from video</h2>
+
+<form method="post" onsubmit="this.create.value='Generating...';return true;">
+<input type="hidden" name="op" value="my_gif">
+<input type="hidden" name="file_code" value="<TMPL_VAR file_code>">
+
+<Table class="tbl1" cellpadding=2 width=480>
+<TR><TH colspan=2>GIF options</TH></TR>
+<TR>
+    <TD class="rc">Time boundaries</TD>
+    <TD>
+        from <input type="text" name="t1" value="<TMPL_VAR t1>" size=5> 
+        to <input type="text" name="t2" value="<TMPL_VAR t2>" size=5> seconds
+    </TD>
+</TR>
+<TR>
+    <TD class="rc">Input FPS</TD>
+    <TD><input type="text" name="fps" value="<TMPL_VAR fps>" size=2> fps (allowed: 0.1 - 24)</TD>
+</TR>
+<TR>
+    <TD class="rc">Width</TD>
+    <TD><input type="text" name="width" value="<TMPL_VAR width>" size=3> pixels (allowed: 60 - 640)</TD>
+</TR>
+<TR>
+    <TD class="rc">Frames delay</TD>
+    <TD><input type="text" name="delay" value="<TMPL_VAR delay>" size=3> 1/100 sec (allowed: 10 - 100)</TD>
+</TR>
+<TR>
+    <TD colspan=2 align=center><input type="submit" name="create" value="Generate GIF image"></TD>
+</TR>
+<TMPL_IF gif_fname>
+<TR>
+    <TD colspan=2 align=center>
+        <img src="<TMPL_VAR srv_htdocs_url>/tmp/<TMPL_VAR gif_fname>">
+        <br><TMPL_VAR gif_frames> frames, <TMPL_VAR gif_size> KB
+    </TD>
+</TR>
+</TMPL_IF>
+</Table>
+
+</form>

@@ -1,0 +1,38 @@
+<TMPL_IF msg><b class="msg"><TMPL_VAR msg></b><br><br></TMPL_IF>
+<Form method="POST">
+<input type="hidden" name="op" value="stream_save">
+<input type="hidden" name="stream_id" value="<TMPL_VAR stream_id>">
+<input type="hidden" name="host_id" value="<TMPL_VAR host_id>">
+<Table class="tbl1" cellpadding=3 cellspacing=1 width=640>
+<TR class="hdr"><TD colspan=2><TMPL_IF stream_id>Edit Stream<TMPL_ELSE>New Stream</TMPL_IF></TD></TR>
+<TR>
+	<TD class="rc">Stream title</TD>
+	<TD><input type="text" name="stream_title" value="<TMPL_VAR stream_title>" size=56 style="width:97%;"></TD>
+</TR>
+<TMPL_IF stream_id>
+<TR>
+	<TD class="rc">Stream URL</TD>
+	<TD><b><TMPL_VAR rtmp_url>/live/<TMPL_VAR stream_code>?key=<TMPL_VAR stream_key></b></TD>
+</TR>
+<TR>
+	<TD class="rc">Player URL</TD>
+	<TD><a href="<TMPL_VAR site_url>/stream/<TMPL_VAR stream_code>"><TMPL_VAR site_url>/stream/<TMPL_VAR stream_code></a></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD class="rc">Description</TD>
+	<TD><textarea name="stream_descr" style="width:97%;height:120px;"><TMPL_VAR stream_descr></textarea></TD>
+</TR>
+<TMPL_IF m_q_allow_recording>
+<TR>
+	<TD class="rc">Record</TD>
+	<TD><label><input type="checkbox" name="stream_record" value="1"<TMPL_IF stream_record> checked</TMPL_IF>>Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD colspan=2 align=center><input type="submit" name="save" value=" <TMPL_IF stream_id>Save changes<TMPL_ELSE>Create Stream</TMPL_IF> "></TD>
+</TR>
+</Table>
+</Form>
+
+<br><a href="?op=my_streams">My Streams</a>

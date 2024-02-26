@@ -1,0 +1,53 @@
+<h2>Translation definitions</h2>
+<br>
+<form method="POST">
+<input type="hidden" name="op" value="admin_translations">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="lang_id" value="<TMPL_VAR lang_id>">
+<div style="width:600px;text-align:left;">
+<TMPL_LOOP groups>
+
+<a href="#" onclick="$('#tb<TMPL_VAR name>').toggle();return false;"><TMPL_VAR name></a>
+<Table class="tbl1" id="tb<TMPL_VAR name>" style="display:none">
+<TMPL_LOOP list>
+<tr>
+	<td><input type="text" name="trans_name" value="<TMPL_VAR trans_name>" size="32"></td>
+	<td><input type="text" name="trans_value" value="<TMPL_VAR trans_value>" size="48"></td>
+</tr>
+</TMPL_LOOP>
+<tr><td colspan=2 align=center><input type="button" value="Add key" onclick="$(this).parents('table').append($('#hid1').val());$(this).parents('table').find('input[name=trans_name]:last').focus().val('lng_<TMPL_VAR name>_');" class="btn2"></td></tr>
+</Table>
+<br><br>
+</TMPL_LOOP>
+
+<Table class="tbl1" id="tab1">
+</Table>
+</div>
+
+<input type="button" value="Add key" onclick="$('#tab1').append($('#hid1').val());" class="btn2">
+<br><br>
+<input type="submit" name="save" value="Save translation keys">
+</form>
+
+<form method="POST">
+<input type="hidden" name="op" value="admin_translations">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="lang_id" value="<TMPL_VAR lang_id>">
+<br><br>Copy missed fields from 
+<select name="from">
+	<option value=""></option>
+	<TMPL_LOOP languages>
+	<option value="<TMPL_VAR lang_id>"><TMPL_VAR lang_name></option>
+	</TMPL_LOOP>
+</select>
+<input type="submit" name="copy_from" value="Copy">
+</form>
+
+<br><br><a href="?op=admin_languages<TMPL_VAR token_str>">Back to languages list</a><br><br>
+
+<textarea id="hid1" style="display:none">
+<tr>
+	<td><input type="text" name="trans_name" value="<TMPL_VAR trans_name>" size="32"></td>
+	<td><input type="text" name="trans_value" value="<TMPL_VAR trans_value>" size="48"></td>
+</tr>
+</textarea>

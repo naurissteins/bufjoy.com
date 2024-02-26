@@ -1,0 +1,199 @@
+<Script>
+var srv_htdocs_url="<TMPL_VAR srv_htdocs_url>";
+var ext_allowed="<TMPL_UNLESS allow_non_video_uploads><TMPL_VAR video_extensions></TMPL_UNLESS>";
+var category_required="<TMPL_VAR category_required>";
+var lng_uploadform_ext_not_allowed="<TMPL_VAR lng_uploadform_ext_not_allowed>";
+var lng_uploadform_only_these_ext_allowed="<TMPL_VAR lng_uploadform_only_these_ext_allowed>";
+var lng_uploadform_choose_category="<TMPL_VAR lng_uploadform_choose_category>";
+var lng_uploadform_select_file_to_upload="<TMPL_VAR lng_uploadform_select_file_to_upload>";
+var lng_uploadform_agree_to_tos="<TMPL_VAR lng_uploadform_agree_to_tos>";
+var interval, total, time_start;
+<TMPL_IF m_n_instant_md5_upload>var auto_md5_upload=1;</TMPL_IF>
+var v2=1;
+</Script>
+<Center>
+<TMPL_INCLUDE upload_menu.html>
+
+<h2><TMPL_VAR lng_uploadform_title></h2>
+
+<TMPL_VAR msg>
+
+<div id="upload_div">
+
+<TMPL_IF hosts>
+Upload server: 
+<select onchange="window.location='/?op=upload_file&srv_id='+$(this).val()">
+<TMPL_LOOP hosts>
+<optgroup label="<TMPL_VAR host_name>">
+	<TMPL_LOOP servers><option value="<TMPL_VAR srv_id>"<TMPL_VAR selected>><TMPL_VAR srv_name></option></TMPL_LOOP>
+</optgroup>
+</TMPL_LOOP>
+</select>
+</TMPL_IF>
+
+<div id="div_file" class="upload_block">
+<TMPL_VAR lng_uploadform_max_filesize>: <TMPL_VAR max_upload_filesize> Mb
+
+<form name="file" enctype="multipart/form-data" action="<TMPL_VAR srv_upload_url>/upload/<TMPL_VAR disk_id>" method="post" onSubmit="return StartUpload(this);">
+<input type="hidden" name="sess_id" value="<TMPL_VAR sess_id>">
+<input type="hidden" name="json" value="0">
+
+<div id="x1">
+<table cellpadding=2 cellspacing=3 class="upload_slot">
+<tr>
+	<td align=right><TMPL_VAR lng_uploadform_file></td>
+	<td align=left>
+		<div id="divinputfile">
+			<input name="file" type="file" size="30" id="filepc" onchange="fileSelected(this);"<TMPL_UNLESS allow_non_video_uploads> accept=".mp4, .mkv, .avi, .webm, .ts, .mpg, .mpeg, .vob, .flv, .wmv, .3gp, .mov"</TMPL_UNLESS> multiple>
+			<input name="fakefilepc" type="text" id="fakefilepc">
+			<span class="btn-green"><TMPL_VAR lng_uploadform_choose></span>
+		</div>
+	</td>
+</tr>
+<tr class="onefile">
+	<td align=right><TMPL_VAR lng_uploadform_file_title></td>
+	<td><input type="text" name="file_title" size=64></td>
+</tr>
+<TMPL_IF enable_file_descr>
+<tr valign=top class="onefile">
+	<td align=right><TMPL_VAR lng_uploadform_description></td>
+	<td><textarea name="file_descr" cols=36 rows=4></textarea></td>
+</tr>
+</TMPL_IF>
+<TMPL_IF custom_snapshot_upload>
+<tr class="onefile">
+	<td align=right><TMPL_VAR lng_fileform_video_snapshot></td>
+	<td><input type="file" name="snapshot" size=64 accept="image/*"></td>
+</tr>
+</TMPL_IF>
+<tr>
+	<td align=right width="5%"><TMPL_VAR lng_uploadform_category></td>
+	<td><select name="cat_id" id="cat_id"><option value="0"><TMPL_VAR lng_uploadform_choose></option><TMPL_LOOP categories><option value="<TMPL_VAR cat_id>"><TMPL_VAR pre><TMPL_VAR cat_name></TMPL_LOOP></select></td>
+</tr>
+<tr>
+	<td align=right><TMPL_VAR lng_uploadform_tags></td>
+	<td><input type="text" name="tags" size=64></td>
+</tr>
+<TMPL_LOOP extra_data>
+<tr valign=top>
+	<td align=right><TMPL_VAR name></td>
+	<td><input type="text" name="extra_<TMPL_VAR name>" value="" class="extra_field extra_<TMPL_VAR name>"></td>
+</tr>
+</TMPL_LOOP>
+<tr>
+	<td align=right><TMPL_VAR lng_myfiles_folder></td>
+	<td>
+		<Select name="fld_id" id="fld_id" onChange="$.cookie('up_fld_id',this.value,{ expires: 300 })">
+		<option value="0">  / </option>
+		<option value="000">-Create new-</option>
+		<TMPL_LOOP folders_tree>
+		<option value="<TMPL_VAR fld_id>"<TMPL_VAR selected>><TMPL_VAR pre><TMPL_VAR fld_name></option>
+		</TMPL_LOOP>
+		</Select>
+	</td>
+</tr>
+<tr valign=top>
+	<td></td>
+	<td><label><input type="checkbox" name="file_public" value="1"><TMPL_VAR lng_uploadform_public></label></td>
+</tr>
+<tr valign=top>
+		<td></td>
+	<td><label><input type="checkbox" name="file_adult" value="1"><TMPL_VAR lng_uploadform_adult></label></td>
+</tr>
+</table>
+</div>
+<div id="x2"></div>
+
+<div style="width:520px;text-align:right;">
+<input type="button" value="+ <TMPL_VAR lng_uploadform_upload_slot>" onclick="$('#x2').append(x1code);return false;" class="btn2">
+</div>
+
+<TMPL_IF m_e_enabled>
+<div>
+<a href="#" onclick="$(this).hide();$('#effects').show();return false;"><TMPL_VAR lng_uploadform_advanced_options></a>
+<table cellpadding=2 cellspacing=3 id="effects" style="margin:5px;display:none;">
+<tr>
+	<td>
+		<TMPL_INCLUDE file_effects.html>
+	</td>
+</tr>
+</table>
+</div>
+</TMPL_IF>
+
+
+<TMPL_IF tos_accept_checkbox>
+<div style="margin:10px;"><label><TMPL_VAR lng_uploadform_i_agree> <a href="tos.html"><TMPL_VAR lng_uploadform_tos_short></a> <input type="checkbox" name="tos" value="1" id="tos" checked onClick="if(this.checked){this.form.submit_btn.disabled=false}else{this.form.submit_btn.disabled=true};this.blur();"></label></div>
+</TMPL_IF>
+<input type="submit" name="submit_btn" id="submit_btn" value=" <TMPL_VAR lng_uploadform_upload_button> " class="f-btn-green">
+
+<br>
+</td></tr></table>
+</form>
+</div>
+
+
+
+</div>
+
+<iframe src="javascript:false;" name="xupload" style="position:absolute;top:-9999px;"></iframe>
+
+<script src="<TMPL_VAR static_url>/js/jquery.cookie.js"></script>
+<script src="<TMPL_VAR static_url>/js/md5.js"></script>
+<script src="<TMPL_VAR static_url>/js/hashme.js"></script>
+<Script>
+var x1code = $('#x1').html();
+//document.getElementById('progress_frame').allowTransparency="true";
+$("select[name=cat_id]").val( $.cookie('cat_id') );
+$("select[name=cat_id]").change(function(){ $.cookie('cat_id', $(this).val(), { expires: 9999 }); });
+$("input[name=file_public]").prop("checked", $.cookie('file_public') );
+$("input[name=file_public]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_public', val, { expires: 9999 }); });
+$("input[name=file_adult]").prop("checked", $.cookie('file_adult') );
+$("input[name=file_adult]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_adult', val, { expires: 9999 }); });
+$("#fld_id").change(function()
+{
+ if($(this).val()!="000")return false;
+ x=prompt('New folder name','');
+ if(typeof(x)=='undefined' || x=='' || x==null){$("#fld_id").val('0');return false;}
+ $.post("<TMPL_VAR site_url>/", {op:"ajax_new_folder", create_new_folder:x}, function(data) {
+  if(!data.match(/^<option/i)){alert(data)}
+  else {$("#fld_id").append(data);$("#fld_id option:last").attr('selected','selected');}
+ });
+});
+</Script>
+
+
+
+<Style>
+div#progress  {background-color:transparent; font: 13px Arial; padding: 2px;}
+#progress a {color:#44b;text-decoration:none;}
+#onoff {text-align:right;color:#777;font-size:11px;}
+#bar1 {position:relative;line-height:1em;text-align: left;border: 1px solid #a3a3a3; background-color: #f6f6f6; margin-bottom: 5px; border-radius: 3px;}
+#upload_status {height: 1.5em; width: 0%; background-color: #c9c9c9;}
+#bar2 {position: absolute; text-align: center; padding-top: .25em;width:100%;top:0;left:0;font-weight:bold;}
+#progress_msg {margin-top:15px;font-weight:bold;}
+#progress_info {display:none;}
+#progress {position:absolute; display:none;}
+</Style>
+
+
+<div id="progress">
+	<div id="onoff"><a href="#" id="pbon">on</a></div>
+
+	<div id="bar1">
+	<div id="upload_status"></div>
+	<div id="bar2"><span id='percent'>0%</span></div>
+	</div>
+
+	<div id="progress_info">
+	<b><span id='cursize'></span></b> of <b><span id='totalsize'></span></b><br><br>
+
+	<TMPL_VAR lng_uploadform_speed>: <b><span id='speed'></span> KB/sec</b> &nbsp;<br>
+
+	<TMPL_VAR lng_uploadform_remaining>: <b><span id='estimate'></span></b>
+	<br><br><a href="#" onClick="window.location='<TMPL_VAR site_url>/?op=upload';"><TMPL_VAR lng_uploadform_abort_upload></a>
+	</div>
+	<div id='progress_msg'><TMPL_VAR lng_uploadform_initializing></div>
+</div>
+
+</Center>

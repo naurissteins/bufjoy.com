@@ -1,0 +1,45 @@
+<h2>Ads Management</h2>
+
+<table class="tbl1" width="720">
+<tr>
+	<th>Title</th>
+	<th>Code</th>
+	<th>Weight</th>
+	<th colspan="2"></th>
+</tr>
+<TMPL_LOOP ads>
+<tr align=center>
+	<td align=left><TMPL_IF ad_disabled><s></TMPL_IF><TMPL_VAR ad_title></td>
+	<td><textarea cols=24 rows=3 style="width: 97%" readonly><TMPL_VAR ad_code></textarea></td>
+	<td><TMPL_VAR ad_weight> (<TMPL_VAR percent>%)</td>
+	<td><a href="?op=my_ads_form&ad_id=<TMPL_VAR ad_id>"><img src="/images/edit.png"></a></td>
+	<td><a href="?op=my_ads&delete_id=<TMPL_VAR ad_id>" onClick="return confirm('Delete ad?')"><img src="/images/delete.png"></a></td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+<TMPL_IF ads_adult>
+<br>
+<table class="tbl1" width="720">
+<tr><th colspan=5>Adult Ads</th></tr>
+<tr>
+	<th>Title</th>
+	<th>Code</th>
+	<th>Weight</th>
+	<th colspan="2"></th>
+</tr>
+<TMPL_LOOP ads_adult>
+<tr align=center>
+	<td align=left><TMPL_IF ad_disabled><s></TMPL_IF><TMPL_VAR ad_title></td>
+	<td><textarea cols=24 rows=3 style="width: 97%" readonly><TMPL_VAR ad_code></textarea></td>
+	<td><TMPL_VAR ad_weight> (<TMPL_VAR percent>%)</td>
+	<td><a href="?op=my_ads_form&ad_id=<TMPL_VAR ad_id>"><img src="/images/edit.png"></a></td>
+	<td><a href="?op=my_ads&delete_id=<TMPL_VAR ad_id>" onClick="return confirm('Delete ad?')"><img src="/images/delete.png"></a></td>
+</tr>
+</TMPL_LOOP>
+</table>	
+</TMPL_IF>
+
+<br>
+
+<button onclick="window.location='?op=my_ads_form';">Add Ad</button>

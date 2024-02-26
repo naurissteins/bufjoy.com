@@ -1,0 +1,95 @@
+<h2>Admin Deleted files</h2>
+
+<TMPL_IF msg><b class="msg"><TMPL_VAR msg></b></TMPL_IF>
+
+<form method="POST">
+<input type="hidden" name="op" value="admin_files_deleted">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+    <td>Title</td>
+    <td><input type="text" name="file_title" value="<TMPL_VAR file_title>" size=36></td>
+</tr>
+<tr>
+    <td>File code</td>
+    <td><input type="text" name="file_code" value="<TMPL_VAR file_code>" size=13></td>
+</tr>
+<tr>
+    <td>Owner User</td>
+    <td>usr_id:<input type="text" name="usr_id" value="<TMPL_VAR usr_id>" size=5></td>
+</tr>
+<tr>
+    <td>Deleted By</td>
+    <td>usr_id:<input type="text" name="del_by" value="<TMPL_VAR del_by>" size=5></td>
+</tr>
+<tr>
+    <td>Deleted last</td>
+    <td><input type="text" name="last" value="<TMPL_VAR last>" size=3> hours</td>
+</tr>
+<tr>
+    <td>Per page</td>
+    <td><input type="text" name="per_page" value="<TMPL_VAR per_page>" size=3> files</td>
+</tr>
+<tr>
+    <th colspan=2><input type="submit" value="Show"></th>
+</tr>
+</Table>
+
+<TMPL_IF deleters_chart>
+<br>
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH>Deleter</TH>
+    <TH>Files</TH>
+</TR>
+<TMPL_LOOP deleters_chart>
+<TR align=center>
+    <TD><a href="?op=admin_files_deleted&del_by=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+    <TD><TMPL_VAR x></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+</TMPL_IF>
+
+<br>
+
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH><input type="checkbox" id="selall"></TH>
+    <TH>File code</TH>
+    <TH>File Title</TH>
+    <TH>Del By</TH>
+    <TH>Owner</TH>
+    <TH>Deleted, ago</TH>
+</TR>
+<TMPL_LOOP files>
+<TR>
+    <TD align=center><TMPL_IF restore><input type="checkbox" name="file_id" value="<TMPL_VAR file_id>"></TMPL_IF></TD>
+    <TD><tt><TMPL_VAR file_code></TD>
+    <TD><TMPL_VAR file_title></TD>
+    <TD><a href="?op=admin_files_deleted&del_by=<TMPL_VAR del_by><TMPL_VAR token_str>"><TMPL_VAR del_by_login></a></TD>
+    <TD><a href="?op=admin_files_deleted&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+    <TD><TMPL_VAR ago></TD>
+</TR>
+</TMPL_LOOP>
+<tr>
+	<td colspan=6><input type="submit" name="restore" value="Restore selected" class="f-btn-green"> &nbsp; <label><input type="checkbox" name="new_codes" value="1">Create new codes</label></td>
+</tr>
+</Table>
+</form>
+
+<TMPL_VAR paging>
+
+
+<script>
+$("#selall").change(function(){ 
+           var sel=this.checked;
+           $("input[name=file_id]:enabled").each(function(){
+                $(this).prop('checked',sel);
+                $(this).change();
+            });
+    });
+$("input[name=file_id]:enabled").shiftSelectable();
+</script>
+

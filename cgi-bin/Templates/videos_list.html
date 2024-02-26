@@ -1,0 +1,68 @@
+
+<!-- <TMPL_LOOP files>
+				<div class="videobox">
+					<a href="<TMPL_VAR download_link>" class="video200 <TMPL_VAR extra_css>">
+					<div style="background: url('<TMPL_VAR video_thumb_url>') no-repeat;">
+						<span><TMPL_VAR file_length2></span>
+					</div>
+					</a>
+					<a href="<TMPL_VAR download_link>" class="title"><TMPL_VAR file_title_txt></a>
+					<TMPL_UNLESS no_views><span class="views"><TMPL_VAR file_views> <TMPL_VAR lng_videoslist_views></span></TMPL_UNLESS>
+					<TMPL_UNLESS no_created><span class="date"><TMPL_VAR created> <TMPL_VAR lng_videoslist_days_ago></span></TMPL_UNLESS>
+					<span class="cat"><a href="<TMPL_VAR site_url>/category/<TMPL_VAR cat_name2>"><TMPL_VAR cat_name></a></span>
+					<TMPL_IF extra_info><span class="views"><TMPL_VAR extra_info></span></TMPL_IF>
+				</div>
+</TMPL_LOOP> -->
+
+<!-- <div class="mx-auto max-w-7xl px-6 lg:px-8">
+	<div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">	
+		<TMPL_LOOP files>
+			<div class="flex flex-col items-start justify-between">
+				<div class="relative w-full">
+					<a href="<TMPL_VAR download_link>" class="video200 <TMPL_VAR extra_css>">
+					<div style="background: url('<TMPL_VAR video_thumb_url>') no-repeat;" class="aspect-[16/9] w-full rounded-t-md object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+						<span><TMPL_VAR file_length2></span>
+					</div>
+					</a>
+					<a href="<TMPL_VAR download_link>" class="title"><TMPL_VAR file_title_txt></a>
+					<TMPL_UNLESS no_views><span class="views"><TMPL_VAR file_views> <TMPL_VAR lng_videoslist_views></span></TMPL_UNLESS>
+					<TMPL_UNLESS no_created><span class="date"><TMPL_VAR created> <TMPL_VAR lng_videoslist_days_ago></span></TMPL_UNLESS>
+					<span class="cat"><a href="<TMPL_VAR site_url>/category/<TMPL_VAR cat_name2>"><TMPL_VAR cat_name></a></span>
+					<TMPL_IF extra_info><span class="views"><TMPL_VAR extra_info></span></TMPL_IF>
+				</div>		
+			</div>
+		</TMPL_LOOP>
+	</div>	
+</div> -->
+
+
+<!-- <div class="mx-auto max-w-7xl px-6 lg:px-8"> -->
+    <!-- <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">From the blog</h2>
+      <p class="mt-2 text-lg leading-8 text-gray-300">Learn how to grow your business with our expert advice.</p>
+    </div> -->
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+		
+        <TMPL_LOOP files>
+		<article class="flex flex-col items-start  rounded-md">
+			<a href="<TMPL_VAR download_link>">
+				<div class="relative w-full">
+					<img src="<TMPL_VAR video_thumb_url>" alt="" class="aspect-[16/9] w-full rounded-md object-cover sm:aspect-[16/9] lg:aspect-[16/9]">
+					<div class="absolute inset-0 rounded-md ring-1 ring-inset ring-gray-900/10"></div>
+				</div>
+			</a>
+		    <div class="w-full mt-3">
+			<div class="group relative">
+			  <h3 class="text-xs font-semibold leading-normal text-white group-hover:text-indigo-300">
+				<a href="<TMPL_VAR download_link>">
+				  <span class="absolute inset-0"></span>
+				  <TMPL_VAR file_title>
+				</a>
+			  </h3>
+			</div>        
+		  </div>
+        </article>
+		</TMPL_LOOP>
+    </div>
+<!-- </div> -->
+

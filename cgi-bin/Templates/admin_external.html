@@ -1,0 +1,30 @@
+<form action="" method="POST">
+<input type="hidden" name="op" value="admin_external">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+External domain: <input type="text" name="domain"> <input type="submit" name="generate_key" value="Generate key">
+<table class="tbl1" width="640">
+<tr class="hdr">
+   <td>Domain</td>
+   <td>API Key</td>
+   <td>Permissions</td>
+</tr>
+<TMPL_LOOP list>
+<tr>
+   <td><TMPL_VAR domain></td>
+   <td><TMPL_VAR key_id><TMPL_VAR key_code></td>
+   <td>
+      <input type="checkbox" class="perms" id="perm_download_<TMPL_VAR key_id>" name="perm_download" <TMPL_IF perm_download>checked</TMPL_IF>><label for="perm_download_<TMPL_VAR key_id>"> Download</label><br>
+      <input type="checkbox" class="perms" id="perm_upload_<TMPL_VAR key_id>" name="perm_upload" <TMPL_IF perm_upload>checked</TMPL_IF>><label for="perm_upload_<TMPL_VAR key_id>"> Upload</label><br>
+   </td>
+</tr>
+</TMPL_LOOP>
+<tr class="hdr">
+   <td colspan="3"></td>
+</tr>
+</table>
+</form>
+<script>
+$('.perms').change(function() {
+        $.ajax({ url: "<TMPL_VAR site_url>/?op=admin_external&set_perm=" + this.id + "&value=" + (this.checked ? 1 : 0) });
+});
+</script>

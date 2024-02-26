@@ -1,0 +1,140 @@
+<Form method="POST" onSubmit="return checkForm(this)">
+<input type="hidden" name="op" value="admin_server_save">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="srv_id" value="<TMPL_VAR srv_id>">
+<Table class="tbl1" cellpadding=3 cellspacing=1>
+<TR>
+    <TH colspan=2>Server form</TH>
+</TR>
+<TR>
+    <TD class="rc">Server name</TD>
+    <TD>
+        <input type="text" name="srv_name" value="<TMPL_VAR srv_name>" size=16>
+        <TMPL_IF srv_id>
+        &nbsp; <a href="?op=admin_server_import&srv_id=<TMPL_VAR srv_id><TMPL_VAR token_str>">Import files</a>
+        &nbsp; <a href="?op=admin_server_del&srv_id=<TMPL_VAR srv_id><TMPL_VAR token_str>" onClick="return confirm('WARNING: Delete server and all its files?')">delete server</a>
+        </TMPL_IF>
+    </TD>
+</TR>
+<TR>
+    <TD class="rc">Host ID</TD>
+    <TD><input type="text" name="host_id" value="<TMPL_VAR host_id>" size=3></TD>
+</TR>
+<TR>
+    <TD class="rc">htdocs URL</TD>
+    <TD><input type="text" name="srv_htdocs_url" value="<TMPL_VAR srv_htdocs_url>" size=42></TD>
+</TR>
+<TR>
+    <TD class="rc">cgi-bin URL</TD>
+    <TD><input type="text" name="srv_cgi_url" value="<TMPL_VAR srv_cgi_url>" size=42 id="cgiurl"></TD>
+</TR>
+<TR>
+    <TD class="rc">IP</TD>
+    <TD><input type="text" name="srv_ip" value="<TMPL_VAR srv_ip>" size=16></TD>
+</TR>
+<TMPL_IF srv_id>
+<TR>
+    <TD class="rc">Created</TD>
+    <TD><TMPL_VAR srv_created></TD>
+</TR>
+</TMPL_IF>
+<TR>
+    <TD class="rc">Server type</TD>
+    <TD>
+        <input type="radio" name="srv_type" value="STORAGE" id="type1"<TMPL_VAR srv_type_STORAGE>><label for="type1">STORAGE</label><br> 
+        <input type="radio" name="srv_type" value="UPLOADER" id="type2"<TMPL_VAR srv_type_UPLOADER>><label for="type2">UPLOADER</label><br>
+        <!--input type="radio" name="srv_type" value="ENCODER" id="type3"<TMPL_VAR srv_type_ENCODER>><label for="type3">ENCODER</label-->
+    </TD>
+</TR>
+<TR>
+    <TD class="rc">Encoding</TD>
+    <TD><label><input type="checkbox" name="srv_encode" value="1" id="encc"<TMPL_UNLESS srv_id> checked</TMPL_UNLESS><TMPL_IF srv_encode> checked</TMPL_IF><TMPL_IF srv_type_ENCODER> checked disabled</TMPL_IF>>Enabled</label></TD>
+</TR>
+<TR>
+    <TD class="rc">Status</TD>
+    <TD>
+        <label><input type="radio" name="srv_status" value="ON"<TMPL_VAR s_ON><TMPL_IF srv_type_ENCODER> disabled</TMPL_IF>>ON</label>
+        <br><small style="margin-left: 22px">Uploads, downloads, file transfers</small><br><br>
+
+        <label><input type="radio" name="srv_status" value="READONLY"<TMPL_VAR s_READONLY>>READONLY</label>
+        <br><small style="margin-left: 22px">Downloads, file transfers</small><br><br>
+
+        <label><input type="radio" name="srv_status" value="READONLY2"<TMPL_VAR s_READONLY2>>READONLY2</label>
+        <br><small style="margin-left: 22px">Downloads only</small><br><br>
+
+        <label><input type="radio" name="srv_status" value="OFF"<TMPL_VAR s_OFF>>OFF</label>
+        <br><small style="margin-left: 22px">Server is not functioning</small>
+    </TD>
+</TR>
+<TR>
+    <TD class="rc">Disk ID</TD>
+    <TD><input type="text" name="disk_id" value="<TMPL_VAR disk_id>" size=2> (e.g. 01, 02, ...)</TD>
+</TR>
+<TR>
+    <TD class="rc">HDD space</TD>
+    <TD><input type="text" name="srv_disk_max" value="<TMPL_VAR srv_disk_max>" size=5> Gb</TD>
+</TR>
+<TR>
+    <TD class="rc top">Disk devices<br><input type="button" value="Get devices" onclick="$(this).hide();$.post('<TMPL_VAR site_url>/adm',{op:'admin_server_add',token:'<TMPL_VAR token>',get_dev:'1',srv_cgi_url:$('#cgiurl').val()},function(data){$('#iod').html(data)} );"></TD>
+    <TD>
+        DF:<input type="text" name="disk_dev_df" value="<TMPL_VAR disk_dev_df>" size=6> (e.g. sda, sdb)<br>
+        IO:<input type="text" name="disk_dev_io" value="<TMPL_VAR disk_dev_io>" size=6><br>
+        <div id="iod" style="font:12px Verdana;color:#373;"></div>
+    </TD>
+</TR>
+<TR class="extraserv1">
+	<TD colspan=2 align=center><a href="#" onclick="$('.extraserv1').hide();$('.extraserv').show();return false;">Extra settings</a></TD>
+</TR>
+<TR class="inv extraserv">
+    <TD class="rc">Server only for</TD>
+    <TD>
+        <input type="checkbox" name="srv_allow_regular" value="1" id="alr"<TMPL_IF srv_allow_regular> checked</TMPL_IF>><label for="alr">Regular users</label><br>
+        <input type="checkbox" name="srv_allow_premium" value="1" id="alp"<TMPL_IF srv_allow_premium> checked</TMPL_IF>><label for="alp">Premium users</label>
+    </TD>
+</TR>
+<TR class="inv extraserv">
+    <TD class="rc">Special users upload only</TD>
+    <TD>
+        <input type="text" name="srv_users_only" value="<TMPL_VAR srv_users_only>" size=32> (e.g. 1,5,37)
+    </TD>
+</TR>
+<TR class="inv extraserv">
+    <TD class="rc">Selected countries upload only</TD>
+    <TD>
+        <input type="text" name="srv_countries_only" value="<TMPL_VAR srv_countries_only>" size=32> (e.g. US,CA)
+    </TD>
+</TR>
+
+<TMPL_IF tests>
+<TR>
+    <TD colspan=2>
+        <b>Server tests:</b><br>
+        <TMPL_LOOP tests>
+        <div class="<TMPL_VAR class>"><TMPL_VAR text></div>
+        </TMPL_LOOP>
+    </TD></TR>
+</TMPL_IF>
+<TR class="hdr">
+    <TD align=center colspan=2><br><input type="submit" name="save" value=" Save "><br><br></TD>
+</TR>
+</Table>
+</Form>
+
+<Script>
+function checkForm(f1)
+{
+    if(f1.srv_name.value.length<2){alert("Enter server name at least 2 chars");return false;}
+    if(f1.srv_cgi_url.value.length<5){alert("Enter valid cgi-bin URL");return false;}
+    if(f1.srv_htdocs_url.value.length<5){alert("Enter valid files URL");return false;}
+    if(!f1.srv_allow_regular.checked && !f1.srv_allow_premium.checked){alert("Choose at least one type of users server will be used for");return false;}
+    if(parseInt(f1.srv_disk_max.value) <= 0 || !parseInt(f1.srv_disk_max.value)){alert("Specify HDD space");return false;}
+    return true;
+}
+$("input[name='srv_type']").click(function(){
+    if($(this).val()=='ENCODER') { $("#encc,#sm1").prop('disabled', 'disabled'); $("#sm2").prop('checked',true); }
+    else { $("#encc,#sm1").prop('disabled', '') }
+});
+// $("a.xdf").click(function(){
+//     $("input[name=disk_dev_df]").val($(this).text());
+// });
+</Script>

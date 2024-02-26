@@ -1,0 +1,40 @@
+<h3>URL Upload queue</h3>
+
+<TMPL_IF stucked>
+<div style="padding:3px;">
+	<input type="button" value="Restart stucked" onclick="window.location='?op=admin_url_list&amp;restart_stucked=1<TMPL_VAR token_str>'" class="f-btn-blue"></a>
+	<input type="button" value="Delete stucked" onclick="window.location='?op=admin_url_list&amp;delete_stucked=1<TMPL_VAR token_str>'" class="f-btn-red"></a>
+</div>
+</TMPL_IF>
+
+<TMPL_IF errors>
+<div style="padding:3px;">
+	<input type="button" value="Restart errors" onclick="window.location='?op=admin_url_list&amp;restart_errors=1<TMPL_VAR token_str>'" class="f-btn-blue"></a>
+	<input type="button" value="Delete errors" onclick="window.location='?op=admin_url_list&amp;delete_errors=1<TMPL_VAR token_str>'" class="f-btn-red"></a>
+</div>
+</TMPL_IF>
+
+<Table class="tbl1" cellspacing=1 cellpadding=3 id="xfiles">
+<TR class="hdr">
+<TD>URL</TD>
+<TD>Status</TD>
+<TD>User</TD>
+<TD>Started</TD>
+<TD title="Server ID">Srv</TD>
+<TD>Progress</TD>
+<TD>&nbsp;</TD>
+</TR>
+<TMPL_LOOP list>
+<TR align=center<TMPL_UNLESS __ODD__> class="hi"</TMPL_UNLESS>>
+<TD align=left><TMPL_IF premium><b></TMPL_IF><TMPL_VAR url><TMPL_IF qstatus> <TMPL_VAR qstatus></TMPL_IF><TMPL_IF restart> <a href="?op=admin_url_list&restart=<TMPL_VAR id><TMPL_VAR token_str>"><i style="color:#aa3">[restart]</i></a></TMPL_IF></TD>
+<TD><TMPL_VAR status></TD>
+<TD><TMPL_IF usr_id><a href="?op=admin_files&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TMPL_IF></TD>
+<TD nowrap><small><TMPL_VAR started2></small></TD>
+<TD><TMPL_VAR srv_id></TD>
+<TD align=left class="enc_td"><div style="position:relative;"><div class="enc_status" style="width:<TMPL_VAR progress>%;"></div><div class="enc_value"><TMPL_VAR progress>%<TMPL_IF size_full> (<TMPL_VAR size_dl> MB of <TMPL_VAR size_full> MB) <TMPL_VAR speed> KB/s</TMPL_IF></div></div></TD>
+<TD><a href="?op=admin_url_list&del_id=<TMPL_VAR id><TMPL_VAR token_str>"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<TMPL_VAR paging>

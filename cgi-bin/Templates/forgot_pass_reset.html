@@ -1,0 +1,18 @@
+<h3>Reset password</h3>
+<form method="POST" onsubmit="if(this.password.value!=this.password2.value){ alert('Passwords do not match!'); return false; }">
+	<input type="hidden" name="op" value="forgot_pass">
+	<input type="hidden" name="sess_id" value="<TMPL_VAR sess_id>">
+	<table>
+	<tr>
+		<td>New password:</td>
+	 	<td><input type="password" name="password"></td>
+	 </tr>
+	 <tr>
+		<td>Retype new password:</td>
+	 	<td><input type="password" name="password2"></td>
+	 </tr>
+	 <tr>
+	 	<td colspan=2 align=center><input type="submit" value="Proceed"></td>
+	 </tr>
+	</table	>
+</form>

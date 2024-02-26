@@ -1,0 +1,215 @@
+<div
+  class="absolute top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50  bg-white/95 supports-backdrop-blur:bg-white/60 dark:bg-transparent">
+  <nav x-data="{ open: false }">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 justify-between">
+        <div class="flex">
+          <div class="-ml-2 mr-2 flex items-center md:hidden">
+            <!-- Mobile menu button -->
+            <button type="button"
+              class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
+              aria-controls="mobile-menu" @click="open = !open" aria-expanded="false"
+              x-bind:aria-expanded="open.toString()">
+              <span class="sr-only">Open main menu</span>
+              <svg x-description="Icon when menu is closed." x-state:on="Menu open" x-state:off="Menu closed"
+                class="block h-6 w-6" :class="{ 'hidden': open, 'block': !(open) }" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5">
+                </path>
+              </svg>
+              <svg x-description="Icon when menu is open." x-state:on="Menu open" x-state:off="Menu closed"
+                class="hidden h-6 w-6" :class="{ 'block': open, 'hidden': !(open) }" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-shrink-0 items-center">
+            <a href="<TMPL_VAR site_url>" class="font-bold text-white text-2xl inline-flex">
+              flezu
+              <img class="h-8 w-auto ml-2" src="<TMPL_VAR site_url>/images/logo.png" alt="Your Company">
+            </a>
+          </div>
+          <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+            <!-- <TMPL_IF enabled_prem>
+            <a href="/premium/" class="bg-gray-900 hover:bg-gray-700 inline-flex items-center gap-x-1.5 text-white rounded-md px-3 py-2 text-sm font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 576 512">
+                <path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/>
+              </svg> Premium</a>
+            </TMPL_IF> -->
+
+            <div class="hidden md:flex md:flex-shrink-0 md:items-center">
+              <!-- Profile dropdown -->
+              <div class="relative" x-data="{ isOpen: false }">
+                <div>
+                  <button type="button" @click="isOpen = !isOpen"
+                    class="text-xs text-white leading-5 font-semibold bg-slate-950/30 rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 dark:highlight-white/5"
+                    id="nav-menu-btn" aria-expanded="false" aria-haspopup="true">
+                    Menu<svg width="6" height="3" class="ml-2 overflow-visible" aria-hidden="true">
+                      <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Dropdown menu with animation -->
+                <div style="display: none;" @click.away="isOpen = false" x-show="isOpen"
+                  x-transition:enter="transition ease-out duration-100 transform opacity-0 scale-95"
+                  x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                  x-transition:leave="transition ease-in duration-100 transform opacity-100 scale-100"
+                  x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                  class="absolute top-full mt-1 py-2 w-40 rounded-lg bg-[#151d2b] shadow-2xl ring-1 ring-slate-900/5 text-sm leading-6 font-semibold text-slate-700"
+                  role="menu" aria-orientation="vertical" aria-labelledby="nav-menu-btn" tabindex="-1">
+                  <!-- Active: "bg-gray-100", Not Active: "" -->
+                  <a href="<TMPL_VAR site_url>/premium"
+                    class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300" role="menuitem" tabindex="-1"
+                    id="user-menu-item-1">Pricing</a>
+                  <a href="<TMPL_VAR site_url>/api" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-0">API</a>
+                  <a href="<TMPL_VAR site_url>/faq" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-0">FAQ</a>
+                  <a href="<TMPL_VAR site_url>/news" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-1">Blog</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- <a href="/api/" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">API</a>
+            <a href="/faq/" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">FAQ</a>
+            <a href="/news/" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">News</a> -->
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <TMPL_IF my_login>
+              <a href="/?op=upload" type="button"
+                class="relative inline-flex items-center gap-x-1.5 mr-2 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 640 512">
+                  <path
+                    d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z" />
+                </svg>
+                Upload File
+              </a>
+              <a href="/dashboard" type="button"
+                class="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 576 512">
+                  <path
+                    d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z" />
+                </svg>
+                Dashboard
+              </a>
+              <TMPL_ELSE>
+                <a href="/login/" type="button"
+                  class="relative inline-flex items-center gap-x-1.5 mr-2 rounded-md bg-white/10  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 512 512">
+                    <path
+                      d="M352 96l64 0c17.7 0 32 14.3 32 32l0 256c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0c53 0 96-43 96-96l0-256c0-53-43-96-96-96l-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-9.4 182.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L242.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128z" />
+                  </svg>
+                  Sign In
+                </a>
+                <a href="/register/" type="button"
+                  class="relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="fill-white" viewBox="0 0 640 512">
+                    <path
+                      d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                  </svg>
+                  Sign Up
+                </a>
+            </TMPL_IF>
+          </div>
+
+
+          <div class="hidden md:flex md:flex-shrink-0 md:items-center">
+            <TMPL_IF my_login>
+              <!-- Profile dropdown -->
+              <div class="relative ml-5" x-data="{ isOpen: false }">
+                <div>
+                  <button type="button" @click="isOpen = !isOpen"
+                    class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo focus:ring-offset-2 focus:ring-offset-indigo-500"
+                    id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Open user menu</span>
+                    <TMPL_IF avatar>
+                      <img class="h-8 w-8 rounded-full object-cover"
+                        src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR avatar>" alt="<TMPL_VAR my_login>">
+                      <TMPL_ELSE>
+                        <span
+                          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[0.9rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+                          <TMPL_VAR usr_login_short>
+                        </span>
+                    </TMPL_IF>
+                  </button>
+                </div>
+
+                <!-- Dropdown menu with animation -->
+                <div style="display: none;" @click.away="isOpen = false" x-show="isOpen"
+                  x-transition:enter="transition ease-out duration-100 transform opacity-0 scale-95"
+                  x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                  x-transition:leave="transition ease-in duration-100 transform opacity-100 scale-100"
+                  x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                  class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-[#151d2b] font-semibold text-slate-700 py-1 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                  <!-- Active: "bg-gray-100", Not Active: "" -->
+                  <a href="/?op=my_files" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-1">
+                    Files
+                  </a>
+                  <a href="<TMPL_VAR site_url>/@<TMPL_VAR my_login>"
+                    class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300" role="menuitem" tabindex="-1"
+                    id="user-menu-item-0">
+                    Account
+                  </a>
+                  <a href="/?op=my_account" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-0">
+                    Settings
+                  </a>
+                  <TMPL_IF reseller>
+                    <a href="/?op=my_reseller" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                      role="menuitem" tabindex="-1">
+                      <TMPL_VAR lng_main_reseller_acc>
+                    </a>
+                  </TMPL_IF>
+                  <a href="/?op=logout" class="block px-4 py-2 text-sm text-gray-300 hover:text-indigo-300"
+                    role="menuitem" tabindex="-1" id="user-menu-item-2">
+                    Sign out
+                  </a>
+                </div>
+              </div>
+            </TMPL_IF>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div x-description="Mobile menu, show/hide based on menu state." class="md:hidden" id="mobile-menu" x-show="open">
+      <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+        <a href="<TMPL_VAR site_url>/?op=my_files"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+          Files
+        </a>
+        <a href="<TMPL_VAR site_url>/@<TMPL_VAR my_login>"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+          Account
+        </a>
+        <TMPL_IF reseller>
+          <a href="<TMPL_VAR site_url>/?op=my_reseller"
+            class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+            Reseller
+          </a>
+        </TMPL_IF>
+        <a href="<TMPL_VAR site_url>/?op=my_account"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+          Settings
+        </a>
+      </div>
+      <div class="border-t border-gray-700 pb-3">
+        <div class="mt-3 space-y-1 px-2 sm:px-3">
+          <a href="/?op=logout"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">
+            Sign out
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -1,0 +1,12 @@
+<h3>Copyright files deletion tool</h3>
+
+<TMPL_IF msg><b class="ok"><TMPL_VAR msg></b></TMPL_IF>
+<br>
+
+<Form style="margin:0;" method="POST">
+<input type="hidden" name="op" value="legal_tool">
+Files delete limit today: <TMPL_VAR left><br>
+<textarea name="mass_delete" cols=72 rows=12></textarea>
+<br>
+<input type="submit" value=" Delete files ">
+</Form>

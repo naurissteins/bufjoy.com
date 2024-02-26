@@ -1,0 +1,66 @@
+<h3>Payment Transactions</h3>
+
+<Form>
+<input type="hidden" name="op" value="admin_transactions">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TD>Key</TD>
+    <TD><input type="text" name="key" value="<TMPL_VAR key>" size=16></TD>
+</TR>
+<TR>
+    <TD>IP</TD>
+    <TD><input type="text" name="ip" value="<TMPL_VAR ip>" size=15></TD>
+</TR>
+<TR>
+    <TD>Only last</TD>
+    <TD>
+        <select name="last">
+        <option value="0">all time</option>
+        <option value="1"<TMPL_VAR last_1>>1 day</option>
+        <option value="7"<TMPL_VAR last_7>>7 days</option>
+        <option value="30"<TMPL_VAR last_30>>1 month</option>
+        <option value="90"<TMPL_VAR last_90>>3 months</option>
+        <option value="180"<TMPL_VAR last_180>>6 months</option>
+        <option value="360"<TMPL_VAR last_360>>1 year</option>
+        </select>
+    </TD>
+</TR>
+<TR><TD colspan=2 align=center><input type="submit" value=" Search "></TD></TR>
+</Table>
+</Form>
+<br>
+
+<Table class="tbl1" cellpadding=3 cellspacing=1>
+<TR class="hdr">
+    <TD>Date</TD>
+    <TD>Type</TD>
+    <TD>Amount</TD>
+    <TD>IP</TD>
+    <TD>User</TD>
+    <TD>Email</TD>
+    <TD>Affiliate</TD>
+    <TD>TxnID</TD>
+    <TD>RefURL</TD>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><a href="?op=admin_ipn_logs&amp;ipn_id=<TMPL_VAR ipn_id>"><TMPL_VAR created></a></TD>
+    <TD><TMPL_VAR name></TD>
+    <TD align=right>$<TMPL_VAR amount></TD>
+    <TD><a href="?op=admin_transactions&ip=<TMPL_VAR ip><TMPL_VAR token_str>"><TMPL_VAR ip></a></TD>
+    <TD><a href="?op=admin_user_edit&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+    <TD><TMPL_VAR email></TD>
+    <TD><a href="?op=admin_user_edit&usr_id=<TMPL_VAR aff_id><TMPL_VAR token_str>"><TMPL_VAR aff_login></a></TD>
+    <TD><a href="?op=admin_ipn_logs&key=<TMPL_VAR txn_id><TMPL_VAR token_str>"><TMPL_VAR txn_id></a></TD>
+    <TD><small><TMPL_VAR ref_url></small></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<TMPL_VAR paging>
+
+<br>
+
+<input type="button" value="Cleanup unverified transactions older than 30 days" onclick="window.location='?op=admin_transactions&amp;cleanup=1<TMPL_VAR token_str>'">

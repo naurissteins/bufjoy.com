@@ -1,0 +1,27 @@
+{
+    "remotePath": "/var/www",
+    "host": "95.217.8.204",
+    "username": "root",
+    "password": "LjT5&r3111611988",
+    "port": 57775,
+    "secure": false,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}

@@ -1,0 +1,10 @@
+You have requested changes in your account:<br>
+<TMPL_LOOP fields><TMPL_VAR name> : <TMPL_VAR old> to <TMPL_VAR new><br></TMPL_LOOP>
+
+<br><br>
+
+Requested from:<br>
+IP: <TMPL_VAR ip><br>
+Browser: <TMPL_VAR agent><br>
+<br><br>
+To approve this change open this link in browser: <a href="<TMPL_VAR site_url>/?op=my_account&confirmchanges=<TMPL_VAR hash>"><TMPL_VAR site_url>/?op=my_account&confirmchanges=<TMPL_VAR hash></a>

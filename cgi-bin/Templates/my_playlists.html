@@ -1,0 +1,89 @@
+<TMPL_INCLUDE menu-1.html>
+
+    <TMPL_INCLUDE top_menu.html>
+
+        <div class="border-b border-white/10">
+			<nav class="flex overflow-x-auto py-4 max-w-7xl">
+				<ul role="list" class="flex min-w-full flex-none gap-x-6 px-4 text-sm leading-6 text-gray-400 sm:px-6 lg:px-8">
+					<li class="flex items-center">
+						<div>
+							<div class="flex items-center gap-x-3">
+								<div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+									<div class="h-2 w-2 rounded-full bg-current"></div>
+								</div>
+								<h1 class="flex gap-x-3 text-base leading-8 items-center">
+									<a href="/?op=my_playlists" class="font-semibold text-purple-300">My Playlists</a>
+									<span class="text-xs">
+                                        Manage your playlists
+                                    </span>
+								</h1>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+        <TMPL_IF list>
+            <div class="mx-auto  px-6 lg:px-8">
+                <div class="mx-auto my-8 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:my-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+                    <TMPL_LOOP list>
+                        <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 aspect-[1/1] sm:aspect-[1/1] lg:aspect-[1/1] hover:opacity-80">
+                            <img src="<TMPL_VAR playlist_thumb_url>" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+                            <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+                            <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+
+                            <div class="absolute top-0 right-0 bg-gray-900/80 py-3 px-3 rounded-full mt-3 mr-3 z-10">
+                                <div class="flex flex-none items-center gap-x-4">
+                                    <div x-data="{ isOpen: false }" class="relative flex-none">
+                                        <button @click="isOpen = !isOpen" type="button" class="-m-2.5 block p-2.5 text-white" id="playlist-edit" aria-expanded="false" aria-haspopup="true">
+                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"></path>
+                                            </svg>
+                                        </button>
+
+                                        <div x-cloak @click.away="isOpen = false" x-show="isOpen" class="absolute right-0 z-10 mt-4 mr-2 w-30 origin-top-right rounded-md bg-[#151d2b] py-1 shadow-2xl ring-1 ring-black ring-opacity-5 font-semibold text-slate-700 focus:outline-none" x-transition:enter="transition ease-out duration-100 transform opacity-0 scale-95" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100 transform opacity-100 scale-100" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" role="menu" aria-orientation="vertical" aria-labelledby="playlist-edit" tabindex="-1">
+                                            <a href="?op=my_playlist_files&amp;pls_id=<TMPL_VAR pls_id>" class="flex px-4 py-2 items-center text-sm text-gray-300 hover:text-indigo-300 text-left" role="menuitem" tabindex="-1" id="playlist-edit-0">
+                                                <svg class="h-4 w-4 fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                  <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"></path>
+                                                </svg>
+                                                <span>Edit</span>
+                                            </a>
+                                            <a href="?op=my_playlists&amp;del_playlist=<TMPL_VAR pls_id>&amp;token=<TMPL_VAR token>" onClick="return confirm('Delete this playlist?')" class="flex px-4 py-2 text-sm text-gray-300 hover:text-indigo-300 text-left items-center" role="menuitem" tabindex="-1" id="playlist-edit-1" onclick="return confirm('Delete this folder with all files inside?')">
+                                                <svg class="h-4 w-4 fill-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                  <path d="M163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3C140.6 6.8 151.7 0 163.8 0zM32 128H416L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32 128zM143 239c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"></path>
+                                                </svg>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-y-1 overflow-hidden leading-6 space-x-3">
+                                <TMPL_IF audio_num>
+                                    <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR audio_num> audios</span>
+                                </TMPL_IF>
+                                <TMPL_IF video_num>
+                                    <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR video_num> videos</span>
+                                </TMPL_IF>
+                                <TMPL_IF image_num>
+                                    <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR image_num> images</span>
+                                </TMPL_IF>
+                            </div>
+                            <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+                            <a href="<TMPL_VAR site_url>/playlist/<TMPL_VAR pls_url>">
+                                <span class="absolute inset-0"></span>
+                                <TMPL_VAR pls_name>
+                            </a>
+                            </h3>
+                        </article>
+                    </TMPL_LOOP>
+                </div>
+            </div>
+        </TMPL_IF>
+
+        <div class="flex items-center justify-center  bg-grey-800 mt-8">
+            <TMPL_VAR paging>
+        </div>

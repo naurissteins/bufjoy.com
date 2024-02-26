@@ -1,0 +1,42 @@
+<h3>MySQL table statistics</h3>
+<br>
+<form method="post">
+<input type="hidden" name="op" value="admin_sql_stats">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH><input type="checkbox" id="selectall" title="Select all"></TH>
+    <TH>Table name</TH>
+    <TH>Rows</TH>
+    <TH>Data Size</TH>
+    <TH>Index Size</TH>
+    <TH></TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=right>
+    <TD align=center><input type="checkbox" name="table" value="<TMPL_VAR Name>"></TD>
+    <TD align=left><TMPL_VAR Name></TD>
+    <TD><TMPL_VAR Rows></TD>
+    <TD><TMPL_VAR Data_length></TD>
+    <TD><TMPL_VAR Index_length></TD>
+    <!--TD><a href="?op=admin_sql_stats&table=<TMPL_VAR Name>&exec=opt">OPTIMIZE</a></TD-->
+    <TD><TMPL_IF truncate><a href="?op=admin_sql_stats&table=<TMPL_VAR Name>&exec=trunc<TMPL_VAR token_str>" onclick="return confirm('Really cleanup this table?')">TRUNCATE</a></TMPL_IF></TD>
+</TR>
+</TMPL_LOOP>
+<TR><TH colspan=7 align=left>
+    <input type="submit" name="optimize" value="Optimize"> &nbsp; 
+    <input type="submit" name="repair" value="Repair"> &nbsp; 
+    <input type="submit" name="dump" value="Dump to gz">
+</TH></TR>
+</Table>
+</form>
+<br>
+<script>
+$("#selectall").change(function() {
+        	var sel=this.checked;
+        	$("input[name=table]:enabled").each(function(){
+        	    $(this).prop('checked',sel);
+                $(this).change();
+        	});
+    });
+</script>

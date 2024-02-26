@@ -1,0 +1,37 @@
+<TMPL_IF msg><b class="ok"><TMPL_VAR msg></b><br></TMPL_IF>
+
+<Form method="POST" enctype="multipart/form-data" action="<TMPL_VAR site_url>/">
+<input type="hidden" name="op" value="my_ads_form">
+<input type="hidden" name="ad_id" value="<TMPL_VAR ad_id>">
+<Table class="tbl1 rct" cellpadding=3 width="720">
+
+<TR>
+    <TH colspan=2>Ad details</TH>
+</TR>
+<TMPL_IF admin>
+</TMPL_IF>
+<TR>
+	<TD width=120>Title</TD>
+	<TD><input type="text" name="ad_title" value="<TMPL_VAR ad_title>" size=16></TD>
+</TR>
+<TR>
+	<TD>HTML Code</TD>
+	<TD><textarea name="ad_code" cols=24 rows=5 style="width:97%"><TMPL_VAR ad_code></textarea></TD>
+</TR>
+<TR>
+	<TD>Weight</TD>
+	<TD><input type="text" name="ad_weight" value="<TMPL_VAR ad_weight>" size=4> (0..255)</TD>
+</TR>
+<TR>
+	<TD></TD>
+	<TD><label><input type="checkbox" name="ad_adult" value="1"<TMPL_IF ad_adult> checked</TMPL_IF>>Adult</label></TD>
+</TR>
+<TR>
+	<TD></TD>
+	<TD><label><input type="checkbox" name="ad_disabled" value="1"<TMPL_IF ad_disabled> checked</TMPL_IF>>Disabled</label></TD>
+</TR>
+
+<th colspan=2 style="text-align: center;"><input type="submit" name="save" value=" <TMPL_VAR lng_misc_save> " class="f-btn-green"></th>
+</Table>
+<TMPL_IF msg><b class="ok"><TMPL_VAR msg></b><br></TMPL_IF>
+</Form>

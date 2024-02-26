@@ -1,0 +1,118 @@
+<TMPL_INCLUDE upload_menu.html>
+
+<h2><TMPL_VAR lng_uploadform_clone_upload></h2>
+
+<TMPL_IF msg><b class="ok"><TMPL_VAR msg></b><br></TMPL_IF>
+
+<TMPL_IF list>
+<br><br>
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH colspan=4>Clone results</TH>
+</TR>
+<TR>
+    <TH>Filename</TH>
+    <TH>URL</TH>
+</TR>
+<TMPL_LOOP list>
+<TR>
+    <TD><TMPL_VAR file_name></TD>
+    <TD><TMPL_VAR url></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<br>
+</TMPL_IF>
+
+<Form method="POST" action="<TMPL_VAR site_url>/" onSubmit="return validateURLForm(this)">
+<input type="hidden" name="op" value="upload_clone">
+
+
+<TMPL_VAR lng_uploadurl_you_can_enter_up_to> <TMPL_VAR m_n_max_links> URLs:<br>
+
+<table cellpadding=2 class="upload_slot">
+<tr>
+    <td align=right valign=top>URLs</td>
+    <td><textarea name="urls" cols=32 rows=12 style="width:99%;" wrap="off" class="myForm"></textarea></td>
+</tr>
+<tr>
+    <td align=right width="5%"><TMPL_VAR lng_uploadform_category></td>
+    <td><select name="cat_id" id="cat_id"><option value="0"><TMPL_VAR lng_uploadform_choose></option><TMPL_LOOP categories><option value="<TMPL_VAR cat_id>"><TMPL_VAR pre><TMPL_VAR cat_name></TMPL_LOOP></select></td>
+</tr>
+<tr>
+    <td align=right><TMPL_VAR lng_uploadform_tags></td>
+    <td><input type="text" name="tags" size=64></td>
+</tr>
+<tr valign=top>
+    <td align=right></td>
+    <td><label><input type="checkbox" name="file_public" value="1"><TMPL_VAR lng_uploadform_public></label></td>
+</tr>
+<tr valign=top>
+    <td align=right></td>
+    <td><label><input type="checkbox" name="file_adult" value="1"><TMPL_VAR lng_uploadform_adult></label></td>
+</tr>
+<TMPL_LOOP extra_data>
+<tr valign=top>
+    <td align=right><TMPL_VAR name></td>
+    <td><input type="text" name="extra_<TMPL_VAR name>" value="" class="extra_field extra_<TMPL_VAR name>"></td>
+</tr>
+</TMPL_LOOP>
+<tr>
+	<td align=right><TMPL_VAR lng_myfiles_folder></td>
+	<td>
+		<Select name="fld_id" id="fld_id" onChange="$.cookie('up_fld_id',this.value,{ expires: 300 })">
+		<option value="0">  / </option>
+		<option value="000">-Create new-</option>
+		<TMPL_LOOP folders_tree>
+		<option value="<TMPL_VAR fld_id>"<TMPL_VAR selected>><TMPL_VAR pre><TMPL_VAR fld_name></option>
+		</TMPL_LOOP>
+		</Select>
+	</td>
+</tr>
+</table>
+
+<TMPL_IF tos_accept_checkbox>
+<div style="margin:12px;"><label for="tos4"><TMPL_VAR lng_uploadform_i_agree></label> <a href="tos.html"><TMPL_VAR lng_uploadform_tos_short></a> <input type="checkbox" name="tos" value="1" id="tos4" checked onClick="if(this.checked){this.form.submit_btn.disabled=false}else{this.form.submit_btn.disabled=true};this.blur();"></div>
+<br>
+</TMPL_IF>
+<input type="submit" name="submit_btn" value=" <TMPL_VAR lng_uploadform_clone_urls> " class="f-btn-green">
+
+</Form>
+
+<script src="<TMPL_VAR static_url>/js/jquery.cookie.js"></script>
+<script>
+var lng_uploadurl_select_url_to_upload='<TMPL_VAR lng_uploadurl_select_url_to_upload>';
+var lng_uploadform_agree_to_tos='<TMPL_VAR lng_uploadform_agree_to_tos>';
+var category_required='<TMPL_VAR category_required>';
+$("select[name=cat_id]").val( $.cookie('cat_id') );
+$("select[name=cat_id]").change(function(){ $.cookie('cat_id', $("#cat_id").val(), { expires: 9999 }); });
+$("input[name=file_public]").prop("checked", $.cookie('file_public') );
+$("input[name=file_public]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_public', val, { expires: 9999 }); });
+$("input[name=file_adult]").prop("checked", $.cookie('file_adult') );
+$("input[name=file_adult]").click(function(){ var val='';if($(this).prop("checked"))val=1;$.cookie('file_adult', val, { expires: 9999 }); });
+function validateURLForm(f)
+{
+    <TMPL_IF category_required>
+    if($('#cat_id').val()==0) { alert("<TMPL_VAR lng_uploadurl_choose_category>"); return false; }
+    </TMPL_IF>
+
+    var NF = 0;
+    var arr = f.urls.value.split(/\n/);
+    for(i = 0; i < arr.length; i++)
+    {
+        if(arr[i].length > 10)NF++;
+    }    
+    if(NF<=0){alert(lng_uploadurl_select_url_to_upload);return false;};
+    if(f.tos && !f.tos.checked){alert(lng_uploadform_agree_to_tos);return false;};
+}
+$("#fld_id").change(function()
+{
+ if($(this).val()!="000")return false;
+ x=prompt('New folder name','');
+ if(typeof(x)=='undefined' || x=='' || x==null){$("#fld_id").val('0');return false;}
+ $.post("<TMPL_VAR site_url>/", {op:"ajax_new_folder", create_new_folder:x}, function(data) {
+  if(!data.match(/^<option/i)){alert(data)}
+  else {$("#fld_id").append(data);$("#fld_id option:last").attr('selected','selected');}
+ });
+});
+</script>

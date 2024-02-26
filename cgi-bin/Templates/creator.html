@@ -1,0 +1,331 @@
+<TMPL_INCLUDE menu_main.html>
+  <TMPL_LOOP users>
+      <div class="">
+          <div class="relative isolate">
+              <img class="h-56 w-full object-cover lg:h-96" src="http://192.168.122.128/images/test/test-6.jpg" alt="">
+              <div class="absolute inset-0  bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+              <div class="absolute inset-0  rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+          </div>
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+              <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                  <div class="flex">
+                      <TMPL_IF user_channel_avatar>
+                          <img class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32" src="<TMPL_VAR user_channel_avatar>?v=<TMPL_VAR rnd>" alt="<TMPL_VAR usr_login>">
+                          <TMPL_ELSE>
+                              <span class="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white ring-4 ring-white sm:h-32 sm:w-32">F</span>
+                      </TMPL_IF>
+                  </div>
+                  <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                      <div class="mt-3 min-w-0 flex-1 sm:hidden md:block">
+                          <TMPL_IF usr_adm>
+                              <span class="inline-flex justify-center rounded-md text-red-400 bg-red-400/10 px-2 py-1 text-xs shadow-sm">
+                                <span>Admin</span>
+                              </span>
+                              <h1 class="truncate text-2xl font-bold text-white mt-1">
+                                  <TMPL_VAR usr_channel_name>
+                                      <svg class="fill-indigo-400 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"></path>
+                                      </svg>
+                              </h1>
+                              <span class="text-sm text-gray-500 font-medium">@<TMPL_VAR usr_login></span>
+                          </TMPL_IF>
+                          <TMPL_IF usr_mod>
+                              <span class="inline-flex justify-center rounded-md text-green-400 bg-green-400/10 px-2 py-1 text-xs shadow-sm">
+                                <span>Mod</span>
+                              </span>
+                              <h1 class="truncate text-2xl font-bold text-white mt-1">
+                                  <TMPL_VAR usr_channel_name>
+                                      <svg class="fill-indigo-400 h-5 w-5 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"></path>
+                                      </svg>
+                              </h1>
+                              <span class="text-sm text-gray-500 font-medium">@<TMPL_VAR usr_login></span>
+                          </TMPL_IF>
+                          <TMPL_UNLESS usr_mod>
+                              <TMPL_UNLESS usr_adm>
+                                  <TMPL_IF ispremium>
+                                      <span class="inline-flex justify-center rounded-md text-purple-400 bg-purple-400/10 px-2 py-1 text-xs shadow-sm">
+                                        <span>Pro</span>
+                                      </span>
+                                      <h1 class="truncate text-2xl font-bold text-white mt-1">
+                                          <TMPL_VAR usr_channel_name>
+                                      </h1>
+                                      <span class="text-sm text-gray-500 font-medium">@<TMPL_VAR usr_login></span>
+                                  </TMPL_IF>
+                                  <TMPL_UNLESS ispremium>
+                                      <span class="inline-flex justify-center rounded-md text-gray-400 bg-purple-400/10 px-2 py-1 text-xs shadow-sm invisible">
+                                        <span>NA</span>
+                                      </span>
+                                      <h1 class="truncate text-2xl font-bold text-white mt-1">
+                                          <TMPL_VAR usr_channel_name>
+                                      </h1>
+                                      <span class="text-sm text-gray-500 font-medium">@<TMPL_VAR usr_login></span>
+                                  </TMPL_UNLESS>
+                              </TMPL_UNLESS>
+                          </TMPL_UNLESS>
+                      </div>
+                      <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+                          <button type="button" class="inline-flex justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-gray-200 shadow-sm  hover:bg-white/20">
+                          <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+                            <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+                          </svg>
+                          <span>Message</span>
+                          </button>
+                          <!-- <span class="inline-flex justify-center rounded-md text-red-400 bg-red-400/10 px-3 py-2 text-sm  shadow-sm">
+                <span>Admin</span>
+              </span> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
+                  <h1 class="truncate text-2xl font-bold text-gray-900">Ricardo Cooper</h1>
+              </div>
+          </div>
+      </div>
+
+      <div>
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative mt-10">
+              <div class="sm:hidden">
+                  <label for="tabs" class="sr-only">Select a tab</label>
+                  <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                  <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+              <option>My Account</option>
+              <option>Company</option>
+              <option selected>Team Members</option>
+              <option>Billing</option>
+                </select>
+              </div>
+              <div class="hidden sm:block border-b border-gray-700">
+                <nav class="-mb-px flex" aria-label="Tabs">
+
+                    <TMPL_UNLESS videos>
+                      <TMPL_UNLESS audios>
+                        <TMPL_UNLESS images>
+                        <span class="border-b-2 border-indigo-500">
+                            <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                              All
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_files></span>
+                            </a>
+                        </span>
+    
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="@<TMPL_VAR user>/videos" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg  font-medium text-gray-100 cursor-pointer">
+                            Videos
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_video_files></span>
+                          </a>
+                        </span>                
+            
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                            <a href="@<TMPL_VAR user>/audios" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                              Audios
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_audio_files></span>
+                            </a>
+                        </span>
+            
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                            <a href="@<TMPL_VAR user>/images" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg  font-medium text-gray-100 cursor-pointer">
+                              Images
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_image_files></span>
+                            </a>
+                        </span>
+                        </TMPL_UNLESS>
+                      </TMPL_UNLESS>
+                    </TMPL_UNLESS>
+
+                    <TMPL_IF videos>
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                            All
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_files></span>
+                          </a>
+                        </span>
+                        <span class="border-b-2 border-indigo-500">
+                            <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/videos" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">   
+                              Videos
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_video_files></span>
+                            </a>
+                        </span>
+            
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                            <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/audios" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">  
+                              Audios
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_audio_files></span>
+                            </a>
+                        </span>
+            
+                        <span class="hover:border-indigo-500 hover:border-b-2">
+                            <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/images" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg  font-medium text-gray-100 cursor-pointer">
+                              Images
+                              <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_image_files></span>
+                            </a>
+                        </span>
+                    </TMPL_IF>
+
+
+                    <TMPL_IF audios>
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                        <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                          All
+                          <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_files></span>
+                        </a>
+                      </span>
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/videos" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                            Videos
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_video_files></span>
+                          </a>
+                      </span>
+          
+                      <span class="border-b-2 border-indigo-500">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/audios" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                            Audios
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_audio_files></span>
+                          </a>
+                      </span>
+          
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/images" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg  font-medium text-gray-100 cursor-pointer">
+                            Images
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_image_files></span>
+                          </a>
+                      </span>
+                    </TMPL_IF>
+
+
+                    <TMPL_IF images>
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                        <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                          All
+                          <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_files></span>
+                        </a>
+                      </span>
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/videos" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                            Videos
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_video_files></span>
+                          </a>
+                      </span>
+          
+                      <span class="hover:border-indigo-500 hover:border-b-2">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/audios" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg font-medium text-gray-100 cursor-pointer">
+                            Audios
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_audio_files></span>
+                          </a>
+                      </span>
+          
+                      <span class="border-b-2 border-indigo-500">
+                          <a href="<TMPL_VAR site_url>/@<TMPL_VAR user>/images" class="relative inline-flex items-center gap-x-1.5  px-3 py-2 text-lg  font-medium text-gray-100 cursor-pointer">
+                            Images
+                            <span class="bg-gray-700 text-gray-300 ml-3 hidden rounded-full py-0.5 px-2.5 text-xs font-medium md:inline-block"><TMPL_VAR total_image_files></span>
+                          </a>
+                      </span>
+                    </TMPL_IF>                    
+                </nav>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-10 px-4 py-6 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-2">
+              <div class="col-span-1 md:col-span-9">
+                  <!-- Video Files -->
+                      <div>
+                          <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                              <TMPL_LOOP files>
+                                  <article class="flex flex-col items-start  rounded-md">
+                                      <a href="<TMPL_VAR download_link>">
+                                          <div class="relative w-full">
+                                              <img src="<TMPL_VAR video_thumb_url>" alt="" class="aspect-[16/9] w-full rounded-md object-cover sm:aspect-[16/9] lg:aspect-[16/9]">
+                                              <div class="absolute inset-0 rounded-md ring-1 ring-inset ring-gray-900/10"></div>
+                                          </div>
+                                      </a>
+                                      <div class="w-full mt-3">
+                                          <div class="group relative">
+                                              <h3 class="text-xs font-semibold leading-normal text-white group-hover:text-indigo-300">
+                                                  <a href="<TMPL_VAR download_link>">
+                                                      <span class="absolute inset-0"></span>
+                                                      <TMPL_VAR file_title>
+                                                  </a>
+                                              </h3>
+                                          </div>
+                                      </div>
+                                  </article>
+                              </TMPL_LOOP>
+                          </div>
+                      </div>
+
+              </div>
+              <div class="col-span-1 md:col-span-3">
+                <TMPL_IF usr_bio>
+                  <p class="text-gray-400 text-sm leading-6 bg-gray-700/10 p-6">
+                      <TMPL_VAR usr_bio>
+                  </p>
+                </TMPL_IF>  
+              </div>
+          </div>
+      </div>
+
+  </TMPL_LOOP>
+
+  <TMPL_LOOP playlists>
+    <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+        <div class="flex w-0 flex-1 items-center">
+            <!-- <svg class="h-5 w-5 flex-shrink-0 fill-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M64 112c-8.8 0-16 7.2-16 16V384c0 8.8 7.2 16 16 16H320c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H64zM0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64v33V351v33c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM528 363.4V148.6L416 199V146.4L520.3 99.5c5.1-2.3 10.6-3.5 16.2-3.5c21.8 0 39.5 17.7 39.5 39.5v241c0 21.8-17.7 39.5-39.5 39.5c-5.6 0-11.1-1.2-16.2-3.5L416 365.6V313l112 50.4z"/></svg> -->
+            <svg class="h-4 w-4 flex-shrink-0 fill-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M498.7 6c8.3 6 13.3 15.7 13.3 26V96c0 13.8-8.8 26-21.9 30.4L416 151.1V432c0 44.2-50.1 80-112 80s-112-35.8-112-80s50.1-80 112-80c17.2 0 33.5 2.8 48 7.7V128 64c0-13.8 8.8-26 21.9-30.4l96-32C479.6-1.6 490.4 0 498.7 6zM32 64H256c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96S14.3 64 32 64zm0 128H256c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 128h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32z"></path></svg>
+            <div class="ml-4 flex min-w-0 flex-1 gap-2">
+                <span class="truncate font-medium"><TMPL_VAR pls_name></span>
+                <span class="flex-shrink-0 rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium text-gray-400 bg-gray-400/10"><TMPL_VAR num></span>
+            </div>
+        </div>
+        <div class="ml-4 flex-shrink-0">
+            <a href="/?op=add_to_playlist&file_code=<TMPL_VAR file_code>&pls_id=<TMPL_VAR pls_id>&<TMPL_VAR token_str>" class="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-400" onclick="return jah(this.href,$(this).parent())">Add to Playlist</a>
+        </div>
+    </li>
+</TMPL_LOOP>
+
+
+<style>
+/* #col3{
+
+}
+#col3 div{
+width: 200px;
+float: left;
+margin-right: 13px;
+} */
+/* .video200{
+width: 200px;
+display: block;
+height: 112px;
+position: relative;
+margin: 0 0 5px 0;
+} */
+.video200 div{
+display:block;
+/* width:200px;
+height:112px; */
+position:absolute;
+background-repeat: no-repeat;
+background-size: 100% 100%;
+}
+</style>
+
+
+
+
+
+<div class="flex items-center justify-center  bg-grey-800 px-4 py-3 sm:px-6">
+  <TMPL_VAR paging>
+</div>  
+
+ 
+
+
+
+<TMPL_IF m_z>
+    <script src="<TMPL_VAR cdn_url>/js/thumb_slide.js"></script>
+    <script>
+    tile_x=<TMPL_VAR m_z_cols>,tile_y=<TMPL_VAR m_z_rows>;
+    thumb_w=640, thumb_h=360;
+    </script>
+</TMPL_IF>
+

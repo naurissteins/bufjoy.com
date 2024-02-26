@@ -1,0 +1,27 @@
+[Sun Feb 25 18:44:18 2024][4180] INFO:1:lrsx35kqc5e3:lrsx35kqc5e3:prem:OK
+disk_id=01
+m_x_cols=3
+m_x_logo=bufjoy
+m_x_rows=3
+m_x_th_height=600
+m_x_th_width=600
+m_x_width=1280
+screenlist=1
+[Sun Feb 25 18:45:02 2024][4698] INFO:2:3lptto9as7jf:3lptto9as7jf:prem:OK
+disk_id=01
+m_x_cols=3
+m_x_logo=bufjoy
+m_x_rows=3
+m_x_th_height=600
+m_x_th_width=600
+m_x_width=1280
+screenlist=1
+[Sun Feb 25 19:29:19 2024][9149] INFO:3:dfll1zuxo1ll:dfll1zuxo1ll:prem:OK
+disk_id=01
+m_x_cols=3
+m_x_logo=bufjoy
+m_x_rows=3
+m_x_th_height=600
+m_x_th_width=600
+m_x_width=1280
+screenlist=1

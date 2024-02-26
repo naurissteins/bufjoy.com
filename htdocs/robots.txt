@@ -1,0 +1,1 @@
+Sitemap: /upload-data/sitemap_index.xml

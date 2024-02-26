@@ -1,0 +1,17 @@
+<H2><TMPL_VAR lng_myreferrals_title></H2>
+<Table class="tbl1" cellpadding=2>
+<TR>
+    <TH><TMPL_VAR lng_myreferrals_username></TH>
+    <TH><TMPL_VAR lng_myreferrals_registered></TH>
+    <TH><TMPL_VAR lng_myreferrals_balance></TH>
+</TR>
+<TMPL_LOOP list>
+<TR>
+    <TD><TMPL_VAR usr_login><TMPL_IF prem><img src="<TMPL_VAR site_url>/images/star.gif" title="Premium"></TMPL_IF></TD>
+    <TD><TMPL_VAR usr_created></TD>
+    <TD>$<TMPL_VAR usr_money></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<TMPL_VAR paging>

@@ -1,0 +1,95 @@
+<h3>Admin <TMPL_IF download>downloads<TMPL_ELSE>views</TMPL_IF></h3>
+
+<TMPL_IF download>
+<a href="?op=admin_views<TMPL_VAR token_str>">Views</a>
+<TMPL_ELSE>
+<a href="?op=admin_views&download=1<TMPL_VAR token_str>">Downloads</a>
+</TMPL_IF>
+
+<Form>
+<input type="hidden" name="op" value="admin_views">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+	<td>Video file_code</td>
+	<td><input type="text" name="file_code" value="<TMPL_VAR file_code>" size=13></td>
+</tr>
+<tr>
+	<td>Video file_id</td>
+	<td><input type="text" name="file_id" value="<TMPL_VAR file_id>" size=7></td>
+</tr>
+<tr>
+	<td>File owner usr_id</td>
+	<td><input type="text" name="owner_id" value="<TMPL_VAR owner_id>" size=6></td>
+</tr>
+<tr>
+	<td>Viewer IP</td>
+	<td><input type="text" name="ip" value="<TMPL_VAR ip>" size=15></td>
+</tr>
+<tr>
+	<td>Money > 0</td>
+	<td><input type="checkbox" name="money" value="1"<TMPL_IF money> checked</TMPL_IF>></td>
+</tr>
+<tr>
+	<td>Referer key</td>
+	<td><input type="text" name="key" value="<TMPL_VAR key>" size=15></td>
+</tr>
+<tr>
+	<td>Country code</td>
+	<td><input type="text" name="country" value="<TMPL_VAR country>" size=2></td>
+</tr>
+<tr>
+	<td>Watched last</td>
+	<td><input type="text" name="last_hours" value="<TMPL_VAR last_hours>" size=2> hours</td>
+</tr>
+<tr>
+	<td>Finished</td>
+	<td><input type="checkbox" name="finished" value="1"<TMPL_IF finished> checked</TMPL_IF>></td>
+</tr>
+<tr>
+	<td>Download</td>
+	<td><input type="checkbox" name="download" value="1"<TMPL_IF download> checked</TMPL_IF>></td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value="Filter"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR>
+    <TH>Date</TH>
+    <TH>Filename</TH>
+    <TH>Money</TH>
+    <TH>Owner</TH>
+    <TH>IP</TH>
+    <TH>Size</TH>
+    <TH>Country</TH>
+    <TH>Referer</TH>
+    <TH></TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><small><TMPL_VAR created></small></TD>
+    <TD align=left><a href="<TMPL_VAR download_link>"><TMPL_VAR file_name></a></TD>
+    <TD><TMPL_VAR money></TD>
+    <TD><a href="?op=admin_views&owner_id=<TMPL_VAR owner_id><TMPL_VAR token_str>"><TMPL_VAR owner_id></a></TD>
+    <TD><a href="?op=admin_views&ip=<TMPL_VAR ip><TMPL_VAR token_str>"><TMPL_VAR ip></a></TD>
+    <TD><TMPL_VAR size> MB</TD>
+    <TD><TMPL_VAR country></TD>
+    <TD align=left><TMPL_VAR referer></TD>
+    <TD>
+    	<TMPL_IF finished>Finished<br></TMPL_IF>
+    	<TMPL_IF premium>Premium<br></TMPL_IF>
+    	<TMPL_IF adb>ADB<br></TMPL_IF>
+    	<TMPL_IF embed>Embed</TMPL_IF>
+    	<TMPL_IF download>Download</TMPL_IF>
+    </TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+<TMPL_VAR paging>

@@ -1,0 +1,137 @@
+<br>
+
+<h2>Buy <span id="product-name"><TMPL_VAR product_name></span> with <span id="currency-name"><TMPL_VAR currency_name></span></h2>
+
+<style>
+table tr:hover td{ background: #fbfbfb !important; }
+
+.progressbar-outer {
+        width: 100%;
+        height: 20px;
+        background: #f2f2f2;
+        border: #e4e4e4 1px solid;
+}
+.progressbar-inner {
+        width: 10px;
+        height: 20px;
+        background: #229ec9;
+}
+
+.strong {
+   font-weight: bold;
+}
+</style>
+
+<center>
+	<form action="<TMPL_VAR site_url>" method="GET" name="crypto-checkout">
+		<input type="hidden" name="payment_complete" value="<TMPL_VAR id>-<TMPL_VAR usr_id>">
+		<table id="bitcoin_offer" width="700">
+			<tr>
+				<td align="center" rowspan="2">
+					<img alt="qrcode" id="qr-code" src="data:image/png;base64,<TMPL_VAR qr_code>" />
+					<br>
+					<a href="<TMPL_VAR payment_uri>" id="payment-uri">or click here to pay</a>
+				</td>
+				<td>
+					Send exactly <span class="strong" id="payment-amount"><TMPL_VAR amount> <TMPL_VAR currency_code></span> to the following address:
+					<br>
+					<span class="strong" id="payment-addr"><TMPL_VAR addr></span>
+					<br><br>
+					<small>You will be automatically redirected after proceeding with payment.<br>
+               Please note that processing a <TMPL_VAR currency_name> transaction may take up to several minutes.</small>
+				</td>
+			</tr>
+         <tr>
+            <td>Time remains: <span id="countdown">1:00:00</span>
+               <br><br>
+               <div id="progress">
+	               <div class="progressbar-outer">
+	                  <div class="progressbar-inner">
+	                  </div>
+	               </div>
+               </div>
+            </td>
+         </tr>
+		</table>
+	</form>
+
+	<div style="text-align:left;width:500px;margin-top: 50px">
+	<h3>FAQ</h3>
+	
+	<strong><a href="" onclick="$('#faq_1').toggle(); return(false)">1. I don't have <TMPL_VAR currency_name> wallet, where can I signup?</a></strong>
+	<div id="faq_1">
+	Most popular and easy: <a href="https://blockchain.info/wallet/#/signup">blockchain.info</a>, <a href="https://localbitcoins.com/">localbitcoins.com</a>.
+	</div>
+	<br>
+	<strong><a href="" onclick="$('#faq_2').toggle(); return(false)">2. I'm getting some problems during the payment - what should I do?</a></strong>
+	<div id="faq_2">
+	Please don't hesistate to <a href="<TMPL_VAR site_url>/contact.html">contact us</a> - we'll pay a highest attention to your report.
+	</div>
+
+</center>
+
+<script>
+var interval = setInterval(function() {
+   updateCounter();
+   checkCompleted();
+}, 1000);
+
+var pos = 1, seconds_to_wait = 3600;
+
+function updateCounter()
+{
+   var remains = seconds_to_wait - pos;
+   if(remains <= 0) return;
+
+   pos += 1;
+
+   var hh = Math.floor(remains / 3600);
+   var mm = Math.floor((remains - hh * 3600) / 60);
+   var ss = (remains - hh * 3600) % 60;
+
+   var pad = function(n, len) {
+      var str = n.toString();
+      if(str.length < len) str = '0' + str;
+      return str;
+   };
+
+   $('#countdown').html([ pad(hh, 1), pad(mm, 2), pad(ss, 2) ].join(':'));
+
+   var w1 = $('.progressbar-outer').width();
+   $('.progressbar-inner').width(w1 * pos / seconds_to_wait);
+}
+
+function checkCompleted()
+{
+   $.ajax({
+      url: '<TMPL_VAR site_url>',
+      method: "POST",
+      data: {
+         op: 'payments',
+         check_transaction: '<TMPL_VAR id>',
+         token: '<TMPL_VAR token>',
+      },
+      success: function(data) {
+         if(data.error)
+         {
+            alert(data.error);
+         }
+         else if(data.status == 'verified')
+         {
+            clearInterval(interval);
+            document.location = '?payment_complete=<TMPL_VAR id>-1';
+         }
+      }
+   });
+}
+</script>
+
+<div id="superseeded" style="display: none" title="Transaction superseeded">
+This transaction was closed because you have initiated another one.
+</div>
+
+<style>
+.progressbar-inner {
+   width: 0;
+}
+</style>

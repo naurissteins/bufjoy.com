@@ -1,0 +1,282 @@
+<TMPL_INCLUDE menu_main.html>
+  <div class="relative isolate">
+    <TMPL_IF usr_cover>
+      <img class="h-56 w-full object-cover lg:h-96" src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR usr_cover>"
+        alt="<TMPL_VAR usr_channel_name>">
+    </TMPL_IF>
+    <div class="absolute inset-0  bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+    <div class="absolute inset-0  rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-10 px-4 py-6 sm:px-6 lg:px-8 max-w-7xl mx-auto mt-2">
+    <div class="col-span-1 md:col-span-3 rounded-2xl">
+      <div class="relative bg-gray-700/10 p-5 -mt-36 rounded-2xl shadow-2xl">
+        <!-- Avaar Container -->
+        <div class="relative">
+          <!-- User Avatar -->
+          <TMPL_IF usr_avatar>
+            <img class="w-full rounded-md object-cover"
+              src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR usr_avatar>" alt="<TMPL_VAR usr_channel_name>" />
+            <TMPL_ELSE>
+              <span
+                class="flex w-40 h-40 shrink-0 items-center justify-center rounded-md border border-gray-700 bg-gray-800 text-[2rem] font-semibold text-gray-400 group-hover:text-white  uppercase w-40 h-40">
+                <TMPL_VAR usr_login_short_p>
+              </span>
+          </TMPL_IF>
+        </div>
+
+
+        <!-- Badge Role -->
+        <div class="relative text-center -mt-4">
+          <TMPL_IF usr_adm>
+            <span
+              class="inline-flex justify-center rounded-md text-red-400 bg-gray-900 px-2 py-1 text-sm shadow-sm font-bold ring-2 ring-red-400/30">
+              <span>Admin</span>
+            </span>
+          <TMPL_ELSIF usr_mod>
+            <span
+              class="inline-flex justify-center rounded-md text-green-400 bg-gray-900 px-2 py-1 text-sm shadow-sm font-bold ring-2 ring-green-400/30">
+              <span>Moderator</span>
+            </span>
+          <TMPL_ELSIF is_premium>
+            <span
+              class="inline-flex justify-center rounded-md text-purple-400 bg-gray-900 px-2 py-1 text-sm shadow-sm font-bold ring-2 ring-purple-400/30">
+              <span>PRO</span>
+            </span>
+          </TMPL_IF>
+        </div>
+
+        <div class="flex flex-row items-center justify-center relative my-3">
+          <!-- Username -->
+          <h2 class="text-2xl text-white font-semibold">
+            <TMPL_VAR usr_channel_name>
+          </h2>
+
+          <TMPL_IF usr_verified>
+            <svg class="fill-indigo-400 my-auto ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512">
+              <path
+                d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+              </path>
+            </svg>
+          </TMPL_IF>
+        </div>
+
+        <TMPL_IF usr_bio>
+          <div class="text-gray-400 text-sm leading-6 ">
+            <TMPL_VAR usr_bio>
+          </div>
+        </TMPL_IF>
+
+      </div>
+    </div>
+    <div class="col-span-1 md:col-span-9">
+
+      <TMPL_UNLESS private_account>
+      <div class="flex flex-row space-x-6">
+        <TMPL_IF total_audio_files>
+          <div>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>/audios" class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 <TMPL_IF is_audio>bg-slate-400/20<TMPL_ELSE>bg-slate-950/30</TMPL_IF>">
+              <span class="text-gray-400 mr-2"><TMPL_VAR total_audio_files></span> Audios
+            </a>
+          </div>
+        </TMPL_IF>
+        <TMPL_IF total_video_files>
+          <div>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>/videos" class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 <TMPL_IF is_video>bg-slate-400/20<TMPL_ELSE>bg-slate-950/30</TMPL_IF>">
+              <span class="text-gray-400 mr-2"><TMPL_VAR total_video_files></span> Videos
+            </a>
+          </div>
+        </TMPL_IF>
+        <TMPL_IF total_image_files>
+          <div>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>/images" class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 <TMPL_IF is_image>bg-slate-400/20<TMPL_ELSE>bg-slate-950/30</TMPL_IF>">
+              <span class="text-gray-400 mr-2"><TMPL_VAR total_image_files></span> Images
+            </a>
+          </div>
+        </TMPL_IF>
+        <TMPL_IF total_folders>
+          <div>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>/albums" class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 <TMPL_IF folders>bg-slate-400/20<TMPL_ELSE>bg-slate-950/30</TMPL_IF>">
+              <span class="text-gray-400 mr-2"><TMPL_VAR total_folders></span> Albums
+            </a>
+          </div>
+        </TMPL_IF>
+        <TMPL_IF total_playlists>
+          <div>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>/playlists" class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 <TMPL_IF playlists>bg-slate-400/20<TMPL_ELSE>bg-slate-950/30</TMPL_IF>">
+              <span class="text-gray-400 mr-2"><TMPL_VAR total_playlists></span> Playlists
+            </a>
+          </div>
+        </TMPL_IF>
+      </div>
+      </TMPL_UNLESS>
+      <!-- Video Files -->
+        <div
+          class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none mt-10
+          <TMPL_IF audios>lg:grid-cols-1
+          <TMPL_ELSIF images>lg:grid-cols-4 md:grid-cols-2
+          <TMPL_ELSIF folders>lg:grid-cols-3
+          <TMPL_ELSIF playlists>lg:grid-cols-2
+          <TMPL_ELSE>lg:grid-cols-3</TMPL_IF>
+          <TMPL_IF images>pswp-gallery</TMPL_IF>"
+          id="my-gallery">
+
+          <TMPL_IF folders>
+            <TMPL_LOOP folders>
+              <article class="flex flex-col items-start rounded-md">
+                <a href="<TMPL_VAR site_url>/album/<TMPL_VAR fld_url>">
+                  <div class="relative w-full aspect-[1/1] sm:aspect-[1/1] lg:aspect-[1/1]">
+                    <img src="<TMPL_IF fld_cover><TMPL_VAR site_url>/upload-data/<TMPL_VAR fld_cover><TMPL_ELSIF folder_thumb_url><TMPL_VAR folder_thumb_url><TMPL_ELSE><TMPL_VAR site_url>/images/no-album-cover.png</TMPL_IF>" alt="<TMPL_VAR fld_name>"
+                      class="w-full h-full rounded-md object-cover object-center min-w-full hover:opacity-80">
+                    <!-- Text at the bottom of the image -->
+                    <span
+                      class="absolute bottom-0 left-0 text-white font-bold py-2 px-3 w-full text-center drop-shadow-lg shadow-black text-xs">
+                      <span style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9)">
+                        <TMPL_VAR fld_name>
+                      </span>
+                    </span>
+                    <!-- Button placed at the top-right corner of the image -->
+                    <span
+                      class="absolute top-0 right-0 bg-gray-800 bg-opacity-50 text-white font-bold py-2 px-3 rounded-full mt-3 mr-3 text-xs">
+                      <TMPL_VAR fld_file_count>
+                    </span>
+                  </div>
+                </a>
+              </article>
+            </TMPL_LOOP>
+
+            <TMPL_ELSIF playlists>
+              <TMPL_LOOP playlists>
+                <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-md bg-gray-900 px-8 pb-8 aspect-[1/1] sm:aspect-[1/1] lg:aspect-[1/1] hover:opacity-80">
+                  <img src="<TMPL_VAR playlist_thumb_url>" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+                  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
+                  <div class="absolute inset-0 -z-10 rounded-md ring-1 ring-inset ring-gray-900/10"></div>
+                  <div class="flex flex-wrap items-center gap-y-1 overflow-hidden leading-6 space-x-3">
+                      <TMPL_IF audio_num>
+                          <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR audio_num> audios</span>
+                      </TMPL_IF>
+                      <TMPL_IF video_num>
+                          <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR video_num> videos</span>
+                      </TMPL_IF>
+                      <TMPL_IF image_num>
+                          <span class="text-xs text-white leading-5 font-semibold  rounded-full py-1 px-3 flex items-center space-x-2 hover:bg-slate-400/20 bg-slate-950/40"><TMPL_VAR image_num> images</span>
+                      </TMPL_IF>
+                  </div>
+                  <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+                  <a href="<TMPL_VAR site_url>/playlist/<TMPL_VAR pls_url>">
+                      <span class="absolute inset-0"></span>
+                      <TMPL_VAR pls_name>
+                  </a>
+                  </h3>
+                </article>
+              </TMPL_LOOP>
+
+            <TMPL_ELSE>
+
+              <TMPL_LOOP files>
+                <TMPL_IF audios>
+                  <TMPL_INCLUDE dev_audio.html>
+                    <TMPL_ELSIF videos>
+                      <article class="flex flex-col items-start  rounded-md">
+                        <a href="<TMPL_VAR download_link>">
+                          <div class="relative w-full">
+                            <img src="<TMPL_VAR video_thumb_url>" alt=""
+                              class="aspect-[16/9] lg:aspect-[16/9] sm:aspect-[16/9] w-full rounded-md object-cover">
+                          </div>
+                        </a>
+                        <div class="w-full mt-3">
+                          <div class="group relative">
+                            <h3 class="text-xs font-semibold leading-normal text-white group-hover:text-indigo-300">
+                              <a href="<TMPL_VAR download_link>">
+                                <span class="absolute inset-0"></span>
+                                <TMPL_VAR file_title>
+                              </a>
+                            </h3>
+                          </div>
+                        </div>
+                      </article>
+                      <TMPL_ELSE>
+                        <article class="flex flex-col items-start rounded-md">
+                          <a href="<TMPL_VAR video_thumb_url>" id="pic" data-download-link="<TMPL_VAR download_link>">
+                            <div class="relative w-full aspect-[1/1] sm:aspect-[1/1] lg:aspect-[1/1]">
+                              <img src="<TMPL_VAR video_thumb_url>" alt=""
+                                class="w-full h-full rounded-md object-cover object-center min-w-full">
+                            </div>
+                          </a>
+                        </article>
+                </TMPL_IF>
+              </TMPL_LOOP>
+          </TMPL_IF>
+        </div>
+        <div class="flex items-center justify-center  bg-grey-800 mt-8">
+          <TMPL_VAR paging>
+        </div>
+    </div>
+  </div>
+
+
+
+  <TMPL_INCLUDE footer.html>
+
+    <script type="module">
+      import PhotoSwipeLightbox from '<TMPL_VAR site_url>/js/photoswipe-lightbox.esm.min.js';
+      const options = {
+        gallery: '#my-gallery',
+        children: '#pic',
+        showHideAnimationType: 'none',
+        maxSpreadZoom: 1, // Limit maximum zoom level
+        pswpModule: () => import('<TMPL_VAR site_url>/js/photoswipe.esm.min.js')
+      };
+      const lightbox = new PhotoSwipeLightbox(options);
+      lightbox.on('uiRegister', function () {
+        lightbox.pswp.ui.registerElement({
+          name: 'download-button',
+          order: 8,
+          isButton: true,
+          tagName: 'a',
+
+          // SVG with outline
+          html: {
+            isCustomSVG: true,
+            inner: '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+            outlineID: 'pswp__icn-download'
+          },
+
+          onInit: (el, pswp) => {
+            el.setAttribute('target', '_blank');
+            el.setAttribute('rel', 'noopener noreferrer'); // Added noreferrer for security
+
+            pswp.on('change', () => {
+              const currentSlideElement = pswp.currSlide.data.element;
+              const downloadLink = currentSlideElement.getAttribute('data-download-link');
+              el.href = downloadLink;
+            });
+
+          }
+        });
+      });
+
+      document.querySelectorAll('#my-gallery #pic').forEach(anchor => {
+        const img = anchor.querySelector('img');
+        img.onload = () => {
+          anchor.setAttribute('data-pswp-width', img.naturalWidth);
+          anchor.setAttribute('data-pswp-height', img.naturalHeight);
+        };
+        if (img.complete) {
+          anchor.setAttribute('data-pswp-width', img.naturalWidth);
+          anchor.setAttribute('data-pswp-height', img.naturalHeight);
+        }
+      });
+
+      lightbox.init();
+    </script>
+
+
+    <TMPL_IF m_z>
+      <script src="<TMPL_VAR cdn_url>/js/thumb_slide.js"></script>
+      <script>
+        tile_x = <TMPL_VAR m_z_cols>,tile_y=<TMPL_VAR m_z_rows>;
+          thumb_w=640, thumb_h=360;
+      </script>
+    </TMPL_IF>

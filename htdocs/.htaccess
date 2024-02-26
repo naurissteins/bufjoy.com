@@ -1,0 +1,156 @@
+#deny from all
+
+AddDefaultCharset utf-8
+
+IndexIgnore *
+
+### Disable PHP
+<Files *.php>
+ Deny from all
+</Files>
+<IfModule mod_php5.c>
+ php_flag engine off
+</IfModule>
+Options -Includes -IncludesNOEXEC -ExecCGI
+RemoveHandler cgi-script .pl .py .cgi
+RemoveType php
+
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_METHOD} !^(GET|POST) [NC]
+RewriteRule .* - [F,L]
+
+RewriteCond	%{REQUEST_FILENAME} !-f
+RewriteRule ^([0-9A-Za-z\-_]+)-(\d+)$ /cgi-bin/index_dl.cgi?op=download1&id=$2&file_seo=$1-$2 [L]
+
+
+#RewriteRule    ^e/([0-9A-Za-z]{12})(\.html|$)				/cgi-bin/index_dl.cgi?op=embed&file_code=$1 [L]
+#RewriteRule    ^e-([0-9A-Za-z]{12})							/emb.html [L]
+#RewriteRule    ^e/([0-9A-Za-z]{12})							/emb.html [L]
+RewriteRule    ^e/([0-9A-Za-z]{12})$				/cgi-bin/index_dl.cgi?op=embed&file_code=$1 [L]
+RewriteRule    ^ee/([0-9]+)$				/cgi-bin/index_dl.cgi?op=embed&file_id=$1 [L]
+RewriteRule    ^embed-([0-9A-Za-z]{12})-(\d+)x(\d+)\.html$	/cgi-bin/index_dl.cgi?op=embed&file_code=$1&w=$2&h=$3 [L]
+
+RewriteRule    ^d/([0-9A-Za-z]{12})_(\w)					/cgi-bin/index_dl.cgi?op=download_orig&id=$1&mode=$2 [L]
+RewriteRule    ^d/([0-9A-Za-z]{12})							/cgi-bin/index_dl.cgi?op=download_versions&id=$1 [L]
+
+RewriteRule    ^u/([0-9A-Za-z\-_]+)				/cgi-bin/index_dl.cgi?op=deurl&id=$1 [L,NC]
+RewriteCond	%{HTTP_HOST} deurl.xxx [NC]
+RewriteRule	^(.*) 						/cgi-bin/index_dl.cgi?op=deurl&id=$1 [L,NC]
+
+RewriteRule    ^dl$						/cgi-bin/index_dl.cgi [L]
+RewriteRule    ^fs$						/cgi-bin/fs.cgi [L]
+
+RewriteRule    ^dlf$						/cgi-bin/index_dl.cgi [L]
+RewriteRule    ^pair$						/cgi-bin/index_dl.cgi?op=pair [L]
+RewriteRule    ^\w{13}\.html$				/cgi-bin/index_dl.cgi?op=download1 [L]
+#RewriteRule    ^t/([0-9A-Za-z]{13})_o$				/cgi-bin/index_dl.cgi?op=test [L]
+
+#RewriteRule ^d/([0-9A-Za-z]{13})_(\w)$ /cgi-bin/index_dl.cgi?op=download_orig&mode=$2 [L]
+
+RewriteRule    ^stream/(\w{10})$			/cgi-bin/index_dl.cgi?op=stream_page&stream_code=$1 [L]
+RewriteRule    ^streamplay/(\w{10})$		/cgi-bin/index_dl.cgi?op=stream_player&stream_code=$1 [L]
+
+
+RewriteCond	%{REQUEST_METHOD} !POST
+RewriteCond	%{QUERY_STRING} ^$
+RewriteRule	^$								/cgi-bin/index_dl.cgi [L]
+
+
+RewriteRule    ^adm$						/cgi-bin/adm.cgi [L]
+
+RewriteRule    ^$							/cgi-bin/index.cgi [L]
+RewriteRule    ^check_files$				/cgi-bin/index.cgi?op=checkfiles [L]
+RewriteRule    ^catalogue(.*)\.html$		/cgi-bin/index.cgi?op=catalogue&date=$1 [L]
+RewriteRule    ^categories_all(\.html|)$	/cgi-bin/index.cgi?op=page_static&tmpl=categories_all [L]
+RewriteRule    ^make_money$					/cgi-bin/index.cgi?op=make_money [L]
+RewriteRule    ^api/(\w+)/(\w+)$			/cgi-bin/xapi.cgi [L]
+
+### Custom ###
+RewriteRule    ^dashboard([0-9]*)(/?)$		/cgi-bin/index.cgi?op=dashboard [L]
+RewriteRule    ^serverlogs([0-9]*)(/?)$		/cgi-bin/index.cgi?op=serverlogs [L]
+RewriteRule    ^register([0-9]*)(/?)$		/cgi-bin/index.cgi?op=registration [L]
+RewriteRule    ^login([0-9]*)(/?)$			/cgi-bin/index.cgi?op=login [L]
+RewriteRule    ^news([0-9]*)(/?)$			/cgi-bin/index.cgi?op=news&page=$1 [L]
+RewriteRule    ^api([0-9]*)(/?)$			/cgi-bin/index.cgi?op=api_reference [L]
+RewriteRule    ^tos([0-9]*)(/?)$			/cgi-bin/index.cgi?op=page&tmpl=tos [L]
+RewriteRule    ^copyrights([0-9]*)(/?)$		/cgi-bin/index.cgi?op=page&tmpl=copyrights [L]
+RewriteRule    ^n([0-9]+)-.*$			    /cgi-bin/index.cgi?op=news_details&news_id=$1 [L]
+RewriteRule    ^faq([0-9]*)(/?)$			/cgi-bin/index.cgi?op=page&tmpl=faq [L]
+RewriteRule    ^premium([0-9]*)(/?)$		/cgi-bin/index.cgi?op=payments [L]
+RewriteRule    ^contact([0-9]*)(/?)$		/cgi-bin/index.cgi?op=contact [L]
+RewriteRule    ^account([0-9]*)(/?)$		/cgi-bin/index.cgi?op=my_account [L]
+RewriteRule    ^reg([0-9]*)(/?)$			/cgi-bin/index.cgi?op=registration&aff_id=$1 [L]
+RewriteRule    ^recover([0-9]*)(/?)$		/cgi-bin/index.cgi?op=forgot_pass [L]
+
+# User
+#RewriteRule ^@([0-9A-Za-z\-_]{4,64})\/?([0-9]+|$)  /cgi-bin/index.cgi?op=user_public&usr_login=$1&fld_id=$2
+RewriteRule ^@([0-9A-Za-z\-_]{4,64})\/?([0-9]+|$)  /cgi-bin/index.cgi?op=user_public&usr_login=$1 [L,NC,QSA]
+
+# Handle URLs with file type and page
+#RewriteRule ^@([0-9A-Za-z\-_]+)/([a-zA-Z]+)\?page=([0-9]+)$ /cgi-bin/index.cgi?op=user_public&usr_login=$1&files=$2&page=$3 [L,NC,QSA]
+
+# Handle URLs with file type /@/videos?page=4
+
+# Exclude 'folders' from the file type rule
+RewriteRule ^@([0-9A-Za-z\-_]+)/(?!playlists|albums)([a-zA-Z]+)$ /cgi-bin/index.cgi?op=user_public&usr_login=$1&files=$2 [L,NC,QSA]
+
+# Handle URLs for folders
+RewriteRule ^@([0-9A-Za-z\-_]+)/albums$ /cgi-bin/index.cgi?op=user_public&usr_login=$1&folders=1 [L,NC,QSA]
+
+# Handle URLs for folders
+RewriteRule ^@([0-9A-Za-z\-_]+)/playlists$ /cgi-bin/index.cgi?op=user_public&usr_login=$1&playlists=1 [L,NC,QSA]
+
+
+RewriteCond	%{REQUEST_FILENAME} !-f
+RewriteRule    ^pages/([a-z0-9\-\_]+).html	/cgi-bin/index.cgi?op=page&tmpl=$1 [L]
+
+RewriteCond	%{REQUEST_FILENAME} !-f
+RewriteCond	%{REQUEST_FILENAME} !-d
+RewriteRule    ^fld/([0-9A-Za-z\-_]{10})	/cgi-bin/index.cgi?op=search&fld_code=$1 [L,NC]
+
+
+
+RewriteRule    ^users/([0-9A-Za-z\-_]+)		/cgi-bin/index.cgi?op=search&user=$1 [L,NC]
+
+RewriteRule    ^s/(.+?)/(.+?)/page(\d+)$	/cgi-bin/index.cgi?op=search&data_name=$1&data_value=$2&page=$3 [L]
+RewriteRule    ^s/(.+?)/(.+)$				/cgi-bin/index.cgi?op=search&data_name=$1&data_value=$2 [L]
+
+RewriteRule    ^list/(.+)$					/cgi-bin/index.cgi?op=page_static&tmpl=list_data_$1 [L]
+
+RewriteRule    ^category/(.+)/page(\d+)$	/cgi-bin/index.cgi?op=search&cat_name=$1&page=$2 [L]
+RewriteRule    ^category/(.+)$				/cgi-bin/index.cgi?op=search&cat_name=$1 [L]
+
+#RewriteRule    ^playlist/(.+)$				/cgi-bin/index.cgi?op=search&playlist=$1 [L]
+
+#RewriteRule    ^tag/(.+?)/page(\d+)$			/cgi-bin/index.cgi?op=search&tag=$1&page=$2 [L]
+#RewriteRule    ^tag/(.+)$				/cgi-bin/index.cgi?op=search&tag=$1 [L]
+#RewriteRule ^tags/(.+)$  /cgi-bin/index.cgi?op=tags&tag=$1
+#RewriteRule    ^tag/(.+)$				/cgi-bin/index.cgi?op=tags&tag=$1 [L]
+
+# Rule for URL with file type - Folder (assuming fld_url ends with -[numeric])
+RewriteRule ^album/([0-9A-Za-z\-_]+-\d+)/([0-9A-Za-z\-_]+)$ /cgi-bin/index.cgi?op=user_folder&fld_url=$1&file_type=$2 [L,NC]
+
+# Rule for URL without file type - Folder (assuming fld_url ends with -[numeric])
+RewriteRule ^album/([0-9A-Za-z\-_]+-\d+)$ /cgi-bin/index.cgi?op=user_folder&fld_url=$1 [L,NC]
+
+# Rule for URL with file type - Tags
+RewriteRule ^tag/([^/]+)/([^/]+)$ /cgi-bin/index.cgi?op=tags&tag=$1&file_type=$2 [L]
+
+# Rule for URL without file type - Tags
+RewriteRule ^tag/([^/]+)$ /cgi-bin/index.cgi?op=tags&tag=$1&file_type=$2 [L]
+
+# Rule for URL with file type - Playlist
+RewriteRule ^playlist/([0-9A-Za-z\-_]+-\d+)/([0-9A-Za-z\-_]+)$ /cgi-bin/index.cgi?op=user_playlist&pls_url=$1&file_type=$2 [L]
+
+# Rule for URL without file type - Playlist
+RewriteRule ^playlist/([0-9A-Za-z\-_]+-\d+)$ /cgi-bin/index.cgi?op=user_playlist&pls_url=$1 [L]
+
+
+RewriteRule    ^category-(\d+).+?(-p\d+|$)		/cgi-bin/index.cgi?cat_id=$1&page=$2 [L]
+RewriteRule    ^category-(\d+)/.+?(-p\d+|$)		/cgi-bin/index.cgi?cat_id=$1&page=$2 [L]
+
+RewriteRule    \.pm$					/404.html [L]
+
+#ErrorDocument 404 /404.html

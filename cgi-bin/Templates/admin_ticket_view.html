@@ -1,0 +1,47 @@
+<div style="width:800px;margin:3px auto;">
+
+<h2>Ticket details</h2>
+
+<a href="?op=admin_ticket_list">- All tickets -</a>	
+
+<br><br>
+
+<table class="tickets" width="90%">
+<TR class="hdr">
+	<TH>
+		<TMPL_VAR ti_title>
+		<a href="?op=admin_ticket_view&ti_id=<TMPL_VAR ti_id>&close=1" style="float:right;font-weight:normal;">Close ticket</a>
+	</TH>
+</TR>
+<tr><td>
+	Status: <TMPL_IF open>Open<TMPL_ELSE>Closed</TMPL_IF><br>
+	Category: <TMPL_VAR category><br>
+	User: <a href="/adm?op=admin_user_edit&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a>
+</td></tr>
+
+<TMPL_LOOP messages>
+<tr class="<TMPL_IF mine>mine<TMPL_ELSE>answer</TMPL_IF>">
+	<td>
+		<b><TMPL_VAR usr_login></b>
+		<span class="date" title="<TMPL_VAR ip>"><TMPL_VAR created></span><br>
+		<TMPL_VAR message>
+	</td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+<Form method="POST">
+<input type="hidden" name="op" value="admin_ticket_reply">
+<input type="hidden" name="ti_id" value="<TMPL_VAR ti_id>">
+<Table class="tbl1" width="90%" style="margin-top: 5px;">
+<!--TR class="hdr"><TD colspan=2>Reply</TD></TR-->
+<TR>
+	<TD><textarea name="message" style="width:99%;height:150px;padding:3px;"><TMPL_VAR message></textarea></TD>
+</TR>
+<TR>
+	<TD style="text-align:center;"><input type="submit" name="save" value=" Reply " class="f-btn-blue"></TD>
+</TR>
+</Table>
+</Form>
+
+</div>

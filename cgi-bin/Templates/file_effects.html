@@ -1,0 +1,19 @@
+	<p>Cut video from <input type="text" name="eff_tt1" style="width:30px"> to <input type="text" name="eff_tt2" style="width:30px"> seconds</p>
+	<p>
+	Video crop: Left:<input type="text" name="eff_cropl" style="width:20px">px &nbsp; 
+	Top:<input type="text" name="eff_cropt" style="width:20px">px &nbsp; 
+	Right:<input type="text" name="eff_cropr" style="width:20px">px &nbsp; 
+	Bottom:<input type="text" name="eff_cropb" style="width:20px">px
+	<br>
+	<input type="checkbox" name="eff_crop_auto" value="1" id="acrop"><label for="acrop">Auto Crop</label>
+	</p>
+	<p><input type="checkbox" name="eff_deinterlace" value="1"><label onclick="$(this).prev().click();">Deinterlace video</label></p>
+	<p><input type="checkbox" name="eff_grayscale" value="1"><label onclick="$(this).prev().click();">Grayscale</label></p>
+	<p><input type="checkbox" name="eff_denoise" value="1"><label onclick="$(this).prev().click();">Denoise filter</label></p>
+	<p>
+	Rotate: 
+	<input type="radio" name="eff_rotate" value=""><label onclick="$(this).prev().click();">None</label> 
+	<input type="radio" name="eff_rotate" value="1"><label onclick="$(this).prev().click();">Clockwise</label> 
+	<input type="radio" name="eff_rotate" value="2"><label onclick="$(this).prev().click();">Counterclockwise</label>
+	</p>
+	<p>Audio volume multiplier <input type="text" name="eff_volume" style="width:30px"> (0.0 - 5.0)</p>

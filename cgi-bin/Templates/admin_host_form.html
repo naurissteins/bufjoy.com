@@ -1,0 +1,150 @@
+<Form method="POST" onSubmit="return checkForm(this)">
+<input type="hidden" name="op" value="admin_host_save">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="host_id" value="<TMPL_VAR host_id>">
+
+<Table class="tbl1" cellpadding=3 cellspacing=1>
+<TR class="hdr"><TD colspan=2>Host Form</TD></TR>
+<TR>
+    <TD align=right><b>Host name</b></TD>
+    <TD><input type="text" name="host_name" value="<TMPL_VAR host_name>" size=16> &nbsp; &nbsp; 
+        <TMPL_IF host_id><a href="?op=admin_host_edit&host_id=<TMPL_VAR host_id>&del=1<TMPL_VAR token_str>" onclick="return confirm('Delete this Host?')">Delete Host</a></TMPL_IF>
+    </TD>
+</TR>
+<TR>
+    <TD align=right><b>files URL</b></TD>
+    <TD><input type="text" name="host_htdocs_url" value="<TMPL_VAR host_htdocs_url>" size=42></TD>
+</TR>
+<TR>
+    <TD align=right><b>cgi-bin URL</b></TD>
+    <TD><input type="text" name="host_cgi_url" value="<TMPL_VAR host_cgi_url>" size=42></TD>
+</TR>
+<TR>
+    <TD align=right><b>IP</b></TD>
+    <TD><input type="text" name="host_ip" value="<TMPL_VAR host_ip>" size=16></TD>
+</TR>
+<TR class="<TMPL_UNLESS host_id>inv </TMPL_UNLESS>hostinfoblock">
+    <TD colspan=2 id="hostinfo"><input type="button" value="Get host info" onclick="$(this).hide();$.post('<TMPL_VAR site_url>/adm',{op:'admin_host_edit',token:'<TMPL_VAR token>',get_host_info:'1',host_cgi_url:$('input[name=host_cgi_url]').val()},function(data){$('#hostinfo').html(data)} );"></TD>
+</TR>
+<TR>
+    <TD align=right><b>Encoder processes</b></TD>
+    <TD>
+        <select name="host_max_enc">
+            <option<TMPL_VAR epr0>>0</option>
+            <option<TMPL_VAR epr1>>1</option>
+            <option<TMPL_VAR epr2>>2</option>
+            <option<TMPL_VAR epr3>>3</option>
+            <option<TMPL_VAR epr4>>4</option>
+            <option<TMPL_VAR epr6>>6</option>
+            <option<TMPL_VAR epr8>>8</option>
+        </select> per server
+    </TD>
+</TR>
+<TR>
+    <TD align=right><b>Transfer processes</b></TD>
+    <TD>
+        <select name="host_max_trans">
+            <option<TMPL_VAR trans0>>0</option>
+            <option<TMPL_VAR trans1>>1</option>
+            <option<TMPL_VAR trans2>>2</option>
+            <option<TMPL_VAR trans3>>3</option>
+            <option<TMPL_VAR trans4>>4</option>
+            <option<TMPL_VAR trans6>>6</option>
+            <option<TMPL_VAR trans8>>8</option>
+        </select> per server
+    </TD>
+</TR>
+<TR>
+    <TD align=right><b>URL Upload processes</b></TD>
+    <TD>
+        <select name="host_max_url">
+            <option<TMPL_VAR url0>>0</option>
+            <option<TMPL_VAR url1>>1</option>
+            <option<TMPL_VAR url2>>2</option>
+            <option<TMPL_VAR url3>>3</option>
+            <option<TMPL_VAR url4>>4</option>
+            <option<TMPL_VAR url6>>6</option>
+            <option<TMPL_VAR url8>>8</option>
+        </select> per server
+    </TD>
+</TR>
+<TMPL_IF m_t>
+<TR>
+    <TD class="rc"></TD>
+    <TD><label><input type="checkbox" name="host_torrent" value="1"<TMPL_IF host_torrent> checked</TMPL_IF>>Torrent engine</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF m_f>
+<TR>
+    <TD class="rc"></TD>
+    <TD><label><input type="checkbox" name="host_ftp" value="1"<TMPL_IF host_ftp> checked</TMPL_IF>>FTP Server</label></TD>
+</TR>
+</TMPL_IF>
+<TMPL_IF m_r>
+<TR>
+    <TD class="rc"></TD>
+    <TD><label><input type="checkbox" name="host_proxy" value="1"<TMPL_IF host_proxy> checked</TMPL_IF>>HLS Proxy Server</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+    <TD align=right><b>Transfer speed</b></TD>
+    <TD><input type="text" name="host_transfer_speed" value="<TMPL_VAR host_transfer_speed>" size=5> KB/s, receiving speed, 0 for default</TD>
+</TR>
+<TR>
+    <TD align=right><b>Network speed</b></TD>
+    <TD><input type="text" name="host_net_speed" value="<TMPL_VAR host_net_speed>" size=5> Mbps</TD>
+</TR>
+<TR>
+    <TD align=right><b>Make tests</b></TD>
+    <TD><label><input type="checkbox" name="util_test" value="1" checked> Test ffmpeg+atop+iostat+convert</label></TD>
+</TR>
+<TMPL_IF m_q>
+<TR>
+    <TD align=right><b>Live streaming</b></TD>
+    <TD><label><input type="checkbox" name="host_live" value="1"<TMPL_IF host_live> checked</TMPL_IF>> Enabled</label></TD>
+</TR>
+</TMPL_IF>
+<TR>
+    <TD class="rc">Notes</TD>
+    <TD><textarea name="host_notes" rows=2 style="width:95%"><TMPL_VAR host_notes></textarea></TD>
+</TR>
+
+<TMPL_IF tests>
+<TR><TD colspan=2>
+<b>Host tests:</b><br>
+<TMPL_LOOP tests>
+<div class="<TMPL_VAR class>"><TMPL_VAR text></div>
+</TMPL_LOOP>
+</TD></TR>
+</TMPL_IF>
+
+<TR class="hdr"><TD align=center colspan=2><br>
+<input type="submit" name="save" value=" Save ">
+<br><br></TD></TR>
+</Table>
+</Form>
+
+<Script>
+function checkForm(f1)
+{
+    if(f1.host_name.value.length<2){alert("Enter host name at least 2 chars");return false;}
+    if(f1.host_cgi_url.value.length<5){alert("Enter valid cgi-bin URL");return false;}
+    if(f1.host_htdocs_url.value.length<5){alert("Enter valid files URL");return false;}
+    return true;
+}
+$("input[name=host_htdocs_url]").blur(function (){ 
+	var url = $("input[name=host_htdocs_url]").val().replace(/\/$/, "");;
+	if(url && !$("input[name=host_cgi_url]").val())
+	{
+		$("input[name=host_cgi_url]").val(url+'/cgi-bin');
+		$("input[name=host_htdocs_url]").val(url);
+		if(url.match(/\/\/(\w+)\./)) $("input[name=host_name]").val(RegExp.$1.toUpperCase());
+		$("input[name=host_ip]").focus();
+		$(".hostinfoblock").show();
+	}
+});
+$("input[name=host_cgi_url]").change(function (){ 
+	$(".hostinfoblock").show();
+});	
+<TMPL_UNLESS host_id>$("input[name=host_htdocs_url]").focus();</TMPL_UNLESS>
+</Script>

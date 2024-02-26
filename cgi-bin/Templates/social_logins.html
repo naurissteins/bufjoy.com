@@ -1,0 +1,98 @@
+<TMPL_IF google_plus_client_id>
+    <script>
+      (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+     function signinCallback(authResult)
+     {
+        if (authResult['access_token']) {
+        window.location='<TMPL_VAR site_url>/?op=register_ext&method=googleplus&token='+authResult['access_token'];
+        }
+     }
+    </script>
+<span id="signinButton">
+  <span
+    class="g-signin"
+    data-callback="signinCallback"
+    data-approvalprompt="force"
+    data-width="wide"
+    data-clientid="<TMPL_VAR google_plus_client_id>"
+    data-cookiepolicy="single_host_origin"
+    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+    data-scope="https://www.googleapis.com/auth/plus.login">
+  </span>
+</span>
+</TMPL_IF>
+
+<TMPL_IF facebook_app_id_login>
+<div style="margin:5px;">
+<div id="fb-root"></div>
+<script>
+  // Additional JS functions here
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '<TMPL_VAR facebook_app_id_login>', // App ID
+      channelUrl : '<TMPL_VAR site_url>/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+    FB.logout();
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+function fb_login()
+{
+   FB.login(function(response) {
+       if (response.authResponse) {
+         //console.log('Welcome!  Fetching your information.... ');
+         var signedRequest = response.authResponse.signedRequest;
+         FB.api('/me', function(response) {
+           //alert('Good to see you, ' + response.username + '. '+signedRequest);
+           window.location = '<TMPL_VAR site_url>/?op=register_ext&method=facebook&id='+response.id+'&email='+response.email+'&name='+response.username+'&sig='+signedRequest;
+         }, {scope:'email'});
+       } else {
+         alert('User cancelled login or did not fully authorize.');
+   }
+ });
+}
+</script>
+<button type="button" onclick="fb_login()" style="border:0;padding:0;cursor:pointer;"><img src="<TMPL_VAR static_url>/images/facebook_connect.gif"></button>
+</div>
+</TMPL_IF>
+
+
+<TMPL_IF twitter_api_key>
+<div style="margin:5px;">
+  <a href="/?op=register_ext&amp;method=twitter1"><img src="<TMPL_VAR cdn_url>/images/twitter_sign.png"></a>
+</div>
+</TMPL_IF>
+
+
+<TMPL_IF vk_app_id_login>
+<div style="margin:5px;">
+<script src="//vk.com/js/api/openapi.js?63"></script>
+<script>
+  VK.init({apiId: <TMPL_VAR vk_app_id_login>});
+</script>
+<div id="vk_auth"></div>
+<script>
+VK.Widgets.Auth("vk_auth", {width: "200px", authUrl: '/?op=register_ext&method=vkontakte'});
+</script>
+</div>
+</TMPL_IF>
+
+
+<TMPL_IF loginradius_code>
+	<TMPL_VAR loginradius_code>
+</TMPL_IF>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title><TMPL_VAR site_name> Pair</title>
+   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/> 
+   <link rel="stylesheet" href="<TMPL_VAR static_url>/css/main.css?v=1">
+   <script src="<TMPL_VAR static_url>/js/jquery.min.js"></script>
+   <script src="<TMPL_VAR static_url>/js/xupload.js?v=3"></script>
+   <META NAME="description" CONTENT="<TMPL_IF meta_descr><TMPL_VAR meta_descr><TMPL_ELSE><TMPL_VAR site_name> - Free file upload service</TMPL_IF>">
+   <META NAME="keywords"    CONTENT="<TMPL_IF meta_keywords><TMPL_VAR meta_keywords><TMPL_ELSE>file upload,share files,free upload</TMPL_IF>">
+<style>
+body {padding:20px;text-align:center;font-size:120%;}
+</style>
+</head>
+<body<TMPL_IF lng_rtl> style="direction:rtl;"</TMPL_IF>>
+<center>
+
+<TMPL_IF paired>
+
+Your IP <b><TMPL_VAR ip></b> was just paired with <TMPL_VAR site_name> for <TMPL_VAR pair_hours> hours.
+
+<TMPL_ELSE>
+<form method="POST" action="/pair">
+<input type="hidden" name="op" value="pair">
+
+<h1>Pair your device to use <TMPL_VAR site_name> with 3rd party applications</h1>
+
+<br><b>To use <TMPL_VAR site_name> with 3rd-party applications (e.g. TV players),<br>check the captcha and submit the form below.</b>
+
+<br><br>
+
+We will then enable access to <TMPL_VAR site_name> streams from 3rd party applications <br>for <TMPL_VAR pair_hours> hours from your IP<br><b><TMPL_VAR ip></b>
+
+<TMPL_IF msg><b class="err"><TMPL_VAR msg></b><br><br></TMPL_IF>
+
+<TMPL_IF captcha><br><br><TMPL_VAR captcha></TMPL_IF>
+
+<br><br><input type="submit" name="pair" value="Pair" class="btn-blue" style="width:200px;padding:10px;border:2px solid #79B;border-radius:5px;">
+</form>
+</TMPL_IF>
+
+</center>
+</body>
+</html>

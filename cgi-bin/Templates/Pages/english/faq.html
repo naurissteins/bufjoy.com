@@ -1,0 +1,130 @@
+<TMPL_INCLUDE Templates/menu_main.html>
+
+  <!-- <div class="relative border-b border-neutral-800 pt-32 pb-10 mb-10">
+    <div class="absolute top-0 bottom-0 left-0 right-0">
+    <img class="opacity-25" src="https://betterstack.com/assets/betterstack/policy-bg-92a54a67301b17f1f23989e8fda75e2c7b369751c022ab45aa18a2273ed3917a.png">
+  </div> -->
+
+
+<div class="bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-32">
+      <div class="mx-auto max-w-4xl divide-y divide-white/10">
+        <h2 class="text-2xl font-bold leading-10 tracking-tight text-white">Frequently asked questions</h2>
+        <dl class="mt-10 space-y-6 divide-y divide-white/10">
+          <div x-data="{ open: true }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-0" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">What is <TMPL_VAR site_name>?</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-0" x-show="open">
+                <p class="text-base leading-7 text-gray-300"><TMPL_VAR site_name> is a video hosting provider. We offer online storage, sophisticated uploading and video streaming tools.</p>
+              </dd>
+            </div>
+          <div x-data="{ open: false }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-1" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">Why should I use <TMPL_VAR site_name>?</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-1" x-show="open">
+                <p class="text-base leading-7 text-gray-300">Whenever you need to share a video, <TMPL_VAR site_name> can help.<br> 
+                    We optimize quality / size of your videos and make them playable in web player. So you can start watching video quickly without downloading whole file.</p>
+              </dd>
+            </div>
+          <div x-data="{ open: false }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-2" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">Can I search for files other people uploaded?</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-2" x-show="open">
+                <p class="text-base leading-7 text-gray-300">Yes, you can Search for other video files that were marked as Public.</p>
+              </dd>
+            </div>
+          <div x-data="{ open: false }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-3" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">What kind of files can be uploaded?</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-3" x-show="open">
+                <p class="text-base leading-7 text-gray-300">All video format files.<br>
+                    The only restrictions are for copyrighted material, pornography, nudity and any kind offensive material.<br>
+                    Please refer to our <a class="text-sm font-semibold leading-6 text-indigo-400 no-underline hover:text-indigo-300" href="/tos/">Terms of Service<span aria-hidden="true">&rarr;</span></a> for more info on <TMPL_VAR site_name> terms of service. </p>
+              </dd>
+            </div>
+          <div x-data="{ open: false }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-4" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">How to delete a file I uploaded?</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-4" x-show="open">
+                <p class="text-base leading-7 text-gray-300">To delete a file you uploaded you can use Delete Link that was provided to you after the upload proccess or delete it from My Videos page.</p>
+              </dd>
+            </div>
+          <div x-data="{ open: false }" class="pt-6">
+              <dt>
+                <button type="button" x-description="Expand/collapse question button" class="flex w-full items-start justify-between text-left text-white" aria-controls="faq-5" @click="open = !open" aria-expanded="false" x-bind:aria-expanded="open.toString()">
+                  <span class="text-base font-semibold leading-7">I still have questions!</span>
+                  <span class="ml-6 flex h-7 items-center">
+                    <svg x-description="Icon when question is collapsed." x-state:on="Item expanded" x-state:off="Item collapsed" class="h-6 w-6" :class="{ 'hidden': open }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <svg x-description="Icon when question is expanded." x-state:on="Item expanded" x-state:off="Item collapsed" class="hidden h-6 w-6" :class="{ 'hidden': !(open) }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
+              </dt>
+              <dd class="mt-2 pr-12" id="faq-5" x-show="open">
+                <p class="text-base leading-7 text-gray-300">Don't hesitate to contact us using our <a class="text-sm font-semibold leading-6 text-indigo-400 no-underline hover:text-indigo-300" href="/contact/">contact form</a></p>
+              </dd>
+            </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  
+<TMPL_INCLUDE Templates/footer.html>  

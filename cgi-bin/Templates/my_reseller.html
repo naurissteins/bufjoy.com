@@ -1,0 +1,78 @@
+<TMPL_INCLUDE menu-1.html>  
+
+    <TMPL_INCLUDE top_menu.html>   
+        <TMPL_INCLUDE menu-2.html>  
+
+<center>
+<h2><TMPL_VAR lng_myreseller_title></h2>
+
+<br>
+
+<TMPL_IF msg><font class="ok"><TMPL_VAR msg></font><br><br></TMPL_IF>
+<TMPL_VAR lng_myreseller_account_balance>: <b>$<TMPL_VAR usr_money></b>
+<TMPL_IF add_amounts>
+    <form name="F0">
+    <input type="hidden" name="op" value="payments">
+    <input type="hidden" name="reseller" value="1">
+    <TMPL_VAR lng_myreseller_add_money>: 
+    $<select name="amount">
+        <TMPL_LOOP add_amounts><option value="<TMPL_VAR amount>"><TMPL_VAR amount></TMPL_LOOP>
+    </select>
+    <TMPL_VAR lng_myreseller_via>
+    <select name="type">
+        <TMPL_IF paypal_email><option value="paypal">PayPal</option></TMPL_IF>
+        <TMPL_IF two_checkout_sid><option value="2co">2Checkout</option></TMPL_IF>
+        <TMPL_IF alertpay_email><option value="alertpay">AlertPay</option></TMPL_IF>
+        <TMPL_IF webmoney_merchant_id><option value="wmz">Webmoney</option></TMPL_IF>
+        <TMPL_IF moneybookers_email><option value="moneybookers">Moneybookers</option></TMPL_IF>
+    </select>    
+    <input type="submit" name="pay" value="<TMPL_VAR lng_myreseller_proceed>">
+</form>
+</TMPL_IF>
+
+<br><br>
+
+<Table class="tbl1" width=460>
+<tr><th><TMPL_VAR lng_myreseller_premium_time></th><th><TMPL_VAR lng_myreseller_your_price></th><th></th></tr>
+<TMPL_LOOP plans>
+<tr>
+<td><TMPL_VAR time></td>
+<td>$<TMPL_VAR price></td>
+<td><input type="button" value="<TMPL_VAR lng_myreseller_generate_premium_key>" onClick="window.location='?op=my_reseller&amp;generate=<TMPL_VAR price>'"<TMPL_UNLESS enough> disabled</TMPL_UNLESS>></td>
+</tr>
+</TMPL_LOOP>
+</Table>
+
+<br><br>
+
+<Table class="tbl1" cellpadding=2 width=460>
+<TR>
+    <TH><TMPL_VAR lng_myreseller_premium_key></TH>
+    <TH><TMPL_VAR lng_myreseller_premium_time></TH>
+    <TH><TMPL_VAR lng_myreseller_status></TH>
+</TR>
+<TMPL_LOOP keys>
+<TR>
+    <TD><TMPL_VAR key_id><TMPL_VAR key_code></TD>
+    <TD align=center><TMPL_VAR key_time></TD>
+    <TD><TMPL_IF usr_id_activated><TMPL_VAR lng_myreseller_used_on> <TMPL_VAR key_activated><TMPL_ELSE>PENDING <a href="?op=my_reseller&amp;del=<TMPL_VAR key_id>" onClick="return confirm('<TMPL_VAR lng_myreseller_delete_this_key>')"><img src="<TMPL_VAR site_url>/images/del.gif" border=0></a></TMPL_IF></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<TMPL_VAR paging>
+
+<br><br>
+
+<Table class="tbl1" cellpadding=2 width=460>
+<TR>
+    <TH>Reseller API</TH>
+</TR>
+<TR>
+    <TD><tt><TMPL_VAR site_url>/?op=api_reseller&u=<TMPL_VAR my_login>&p=PASSWORD&t=TIME</tt><br>
+        PASSWORD = your account password<br>TIME = premium time, possible values: <TMPL_LOOP plans><TMPL_VAR time1> </TMPL_LOOP>
+    </TD>
+</TR>
+</Table>
+
+</center>

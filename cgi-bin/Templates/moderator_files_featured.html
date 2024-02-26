@@ -1,0 +1,30 @@
+<div>
+    <h3>Featured Videos Administration</h3>
+
+
+<TMPL_LOOP list>
+<div class="vid_block" id="f<TMPL_VAR file_id>">
+<a href="<TMPL_VAR download_link>" class="vb_thumb">
+	<div class="vb_thumb" style="background-image:url(<TMPL_VAR video_thumb_url>);">
+		<span><TMPL_VAR added></span>
+	</div>
+</a>
+<div class="vb_title"><b><TMPL_VAR file_title></b></div>
+<div class="txt11">
+    <div style="float:left;">
+        <TMPL_VAR file_views> <TMPL_VAR lng_videoslist_views>
+    </div>
+    <div style="float:right;">
+        <a href="?op=moderator_files_featured&amp;del_id=<TMPL_VAR file_id>">remove</a>
+    </div>
+</div>
+</div>
+<TMPL_IF clear><div class="clear"></div></TMPL_IF>
+</TMPL_LOOP>
+
+
+</div>
+
+<script>
+$(".vid_block div a").click(function (e){ e.preventDefault(); $.get(this.href, function (){}, 'script' ); return false; });
+</script>

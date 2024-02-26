@@ -1,0 +1,33 @@
+<b class="err"><TMPL_VAR msg></b>
+<br>
+<form method="POST">
+<input type="hidden" name="op" value="my_email">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="rand" value="<TMPL_VAR rand>">
+<Table class="tbl1" width=250 align=center>
+<TR>
+	<TH colspan=2><TMPL_VAR lng_myemail_change_email></TH>
+</TR>	
+<TR>
+    <TD class="rc"><TMPL_VAR lng_myemail_current_email></TD>
+    <TD><TMPL_VAR usr_email></TD>
+</TR>
+<TR>
+    <TD class="rc"><TMPL_VAR lng_myemail_new_email></TD>
+    <TD><input type="text" name="usr_email" size="16"></TD>
+</TR>
+<TR>
+    <TD  class="rc" width="1%" nowrap><TMPL_VAR lng_myemail_new_email_retype></TD>
+    <TD><input type="text" name="usr_email2" size="16"></TD>
+</TR>
+<TMPL_IF ihtml>
+<tr><td colspan=2 align=center><TMPL_VAR ihtml></td></tr>
+<TMPL_ELSE>
+<tr><td colspan=2 align=center>
+	<table cellspacing=0 cellpadding=1 border=0><tr><td><TMPL_IF iurl><img src="<TMPL_VAR iurl>"><TMPL_ELSE><TMPL_VAR itext></TMPL_IF></td><td><input type="text" name="code" class="captcha_code"></td></tr></table>
+</td></tr>
+</TMPL_IF>
+<TR>
+	<TD colspan=2 align=center><input type="submit" name="change" value="<TMPL_VAR lng_myemail_change_email>"></TD>
+</Table>
+</form>

@@ -1,0 +1,61 @@
+<h3>Latest downloads</h3>
+
+<a href="?op=admin_views<TMPL_VAR token_str>">Views</a>
+
+<Form>
+<input type="hidden" name="op" value="admin_downloads">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+    <td>Video file_id</td>
+    <td><input type="text" name="file_id" value="<TMPL_VAR file_id>" size=7></td>
+</tr>
+<tr>
+    <td>Downloader IP</td>
+    <td><input type="text" name="ip" value="<TMPL_VAR ip>" size=15></td>
+</tr>
+<tr>
+    <td>Downloader usr_id</td>
+    <td><input type="text" name="usr_id" value="<TMPL_VAR usr_id>" size=6></td>
+</tr>
+<tr>
+    <td>File owner usr_id</td>
+    <td><input type="text" name="owner_id" value="<TMPL_VAR owner_id>" size=6></td>
+</tr>
+<tr>
+    <td>Referer</td>
+    <td><input type="text" name="referer" value="<TMPL_VAR referer>" size=15></td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value="Filter downloads"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR>
+    <TH>Date</TH>
+    <TH>File</TH>
+    <TH>IP / usr_id</TH>
+    <TH>Quality</TH>
+    <TH>Size</TH>
+    <TH>Referer</TH>
+</TR>
+<TMPL_LOOP list>
+<TR>
+    
+    <TD><TMPL_VAR created></TD>
+    <TD><a href="<TMPL_VAR download_url>"><TMPL_VAR file_title></a></TD>
+    <TD><TMPL_VAR ip><TMPL_IF usr_id> / <TMPL_VAR usr_id></TMPL_IF></TD>
+    <TD align=center><TMPL_VAR quality></TD>
+    <TD><TMPL_VAR size></TD>
+    <TD><TMPL_VAR referer></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+
+<TMPL_VAR paging>

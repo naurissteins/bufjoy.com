@@ -1,0 +1,270 @@
+<h3>Admin Files</h3>
+<TMPL_IF msg><div class="ok"><TMPL_VAR msg></div><br></TMPL_IF>
+<a href="?op=admin_files_featured<TMPL_VAR token_str>">Featured</a> &nbsp; 
+<a href="?op=admin_tags<TMPL_VAR token_str>">Tags</a> &nbsp; 
+<a href="?op=admin_views<TMPL_VAR token_str>">Views</a> &nbsp; 
+<a href="?op=admin_high_bw_files<TMPL_VAR token_str>">High bandwidth</a> &nbsp; 
+<a href="?op=admin_files_deleted<TMPL_VAR token_str>">Deleted</a> &nbsp; 
+<TMPL_IF m_q><a href="?op=admin_streams<TMPL_VAR token_str>">Streams</a> &nbsp; </TMPL_IF>
+<a href="?op=admin_decode_hash<TMPL_VAR token_str>">Decode</a> &nbsp; 
+<br>
+
+<Form style="margin:0;" method="POST">
+<input type="hidden" name="op" value="admin_files">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="num" value="<TMPL_VAR num>">
+
+<Table class="tbl1">
+<tr>
+    <td>Search</td>
+    <td><input type="text" name="key" value="<TMPL_VAR key>" size=36></td>
+</tr>
+<tr>
+    <td>File code</td>
+    <td><input type="text" name="file_code" value="<TMPL_VAR file_code>" size=13></td>
+</tr>
+<tr>
+    <td>User</td>
+    <td>Login:<input type="text" name="usr_login" value="<TMPL_VAR usr_login>" size=12> usr_id:<input type="text" name="usr_id" value="<TMPL_VAR usr_id>" size=5></td>
+</tr>
+<tr>
+    <td>Size</td>
+    <td>
+        <select name="size_type">
+            <option value="o">Orig</option>
+            <option value="l"<TMPL_VAR size_type_l>>L</option>
+            <option value="n"<TMPL_VAR size_type_n>>N</option>
+            <option value="h"<TMPL_VAR size_type_h>>H</option>
+            <option value="x"<TMPL_VAR size_type_x>>X</option>
+            <option value="p"<TMPL_VAR size_type_p>>Pre</option>
+        </select> 
+        more than <input type="text" name="size_more" value="<TMPL_VAR size_more>" size=4>Mb 
+        less than <input type="text" name="size_less" value="<TMPL_VAR size_less>" size=4>Mb
+    </td>
+</tr>    
+<tr>
+    <td>Views</td>
+    <td>more than <input type="text" name="views_more" value="<TMPL_VAR views_more>" size=4> less than <input type="text" name="views_less" value="<TMPL_VAR views_less>" size=4></td>
+</tr>
+<tr>
+    <td>Flags</td>
+    <td>
+        <input type="checkbox" name="public_only" value="1" id="pf1"<TMPL_IF public_only> checked</TMPL_IF>><label for="pf1">Public</label> &nbsp; 
+        <input type="checkbox" name="premium_only" value="1" id="pf2"<TMPL_IF premium_only> checked</TMPL_IF>><label for="pf2">Premium Only</label>
+    </td>
+</tr>
+<tr>
+    <td>Status</td>
+    <td>
+    <input type="radio" name="file_status" value="OK" id="fsta1"<TMPL_VAR file_status_OK>><label for="fsta1">OK</label> 
+    <input type="radio" name="file_status" value="PENDING" id="fsta2" class="lmargin10"<TMPL_VAR file_status_PENDING>><label for="fsta2">PENDING</label>
+    <input type="radio" name="file_status" value="LOCKED" id="fsta3" class="lmargin10"<TMPL_VAR file_status_LOCKED>><label for="fsta3">LOCKED</label>
+    </td>
+</tr>
+<tr>
+    <td>Files per page</td>
+    <td>
+    <input type="radio" name="per_page" id="pp0" value="<TMPL_VAR items_per_page>"<TMPL_UNLESS per_page> checked</TMPL_UNLESS>><label for="pp0"><TMPL_VAR items_per_page></label>
+    <input type="radio" name="per_page" id="pp50" value="50" class="lmargin10"<TMPL_VAR per_50>><label for="pp50">50</label> 
+    <input type="radio" name="per_page" id="pp100" value="100" class="lmargin10"<TMPL_VAR per_100>><label for="pp100">100</label> 
+    <input type="radio" name="per_page" id="pp500" value="500" class="lmargin10"<TMPL_VAR per_500>><label for="pp500">500</label> 
+    <input type="radio" name="per_page" id="ppall" value="all" class="lmargin10"<TMPL_VAR per_all>><label for="ppall">All</label> 
+    </td>
+</tr>
+<tr>
+    <td>Show thumbnails</td>
+    <td>
+        <label><input type="checkbox" name="thumbnail" value="1"<TMPL_IF thumbnail> checked</TMPL_IF>>Enabled</label>
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=center>
+    <textarea name="mass_search" id="mass_search" wrap="off" style="width:97%;display:none;font-size:11px;" rows=10></textarea>
+    <small><a href="#" id="btn1">Mass Search</a></small>
+    </td>
+</tr>
+<tr>
+    <td colspan=2 align=center><input type="submit" value="Show files" class="f-btn-blue"></td>
+</tr>
+</Table>
+
+<br>
+
+<TMPL_VAR paging>
+
+<Table class="tbl1" id="xfiles" width="99%">
+<TR>
+    <TH style="width:1%;"><input type="checkbox" id="selall"></TH>
+    <TH style="width:30%;" title="File Title"><TMPL_VAR s_file_title>File title<TMPL_VAR s2_file_title></TH>
+    <TH title="File Size"><TMPL_VAR s_file_size_n>Size<TMPL_VAR s2_file_size_n></TH>
+    <TH title="Video duration"><TMPL_VAR s_file_length>Length<TMPL_VAR s2_file_length></TH>
+    <TH title="User"><TMPL_VAR s_usr_login>Uploader<TMPL_VAR s2_usr_login></TH>
+    <TH title="Downloads"><TMPL_VAR s_file_downloads>DL<TMPL_VAR s2_file_downloads></TH>
+    <TH title="Views Full / Started"><TMPL_VAR s_file_views>Views<TMPL_VAR s2_file_views></TH>
+    <TH><TMPL_VAR s_file_money>Money<TMPL_VAR s2_file_money></TH>
+    <!--TH title="GBytes"><TMPL_VAR s_bandwidth>Bandwidth<TMPL_VAR s2_bandwidth></TH-->
+    <TH title="Upload Date"><TMPL_VAR s_file_created>Created<TMPL_VAR s2_file_created></TH>
+    <TH title="Server ID">#</TH>
+    <TH colspan=2>&nbsp;</TH>
+</TR>
+<TMPL_LOOP files>
+<TR align=center>
+    <TD<TMPL_IF file_public> class='pub'</TMPL_IF>><input type="checkbox" name="file_id" value="<TMPL_VAR file_id>"></TD>
+    <TD align=left<TMPL_VAR td_style>>
+        <TMPL_IF video_thumb_url><img src="<TMPL_VAR video_thumb_url>"><br></TMPL_IF>
+        <a href="<TMPL_VAR download_link>"><TMPL_VAR file_title_txt></a>
+        <TMPL_IF file_premium_only> <tt class="red" title="Premium Only">(P)</tt></TMPL_IF>
+    </TD>
+    <TD align=right>
+        <small>
+        <TMPL_IF file_size_o><div>O: <TMPL_VAR file_size_o></div></TMPL_IF>    
+        <TMPL_IF file_size_n><div>N: <TMPL_VAR file_size_n></div></TMPL_IF>
+        <TMPL_IF file_size_h><div>H: <TMPL_VAR file_size_h></div></TMPL_IF>
+        <TMPL_IF file_size_x><div>X: <TMPL_VAR file_size_x></div></TMPL_IF>
+        <TMPL_IF file_size_l><div>L: <TMPL_VAR file_size_l></div></TMPL_IF>
+        <TMPL_IF file_size_p><div>P: <TMPL_VAR file_size_p></div></TMPL_IF>
+        </small>
+    </TD>
+    <TD align=right><TMPL_VAR file_length2></TD>
+    <TD><a href="?op=admin_files&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+    <TD><a href="?op=admin_views&download=1&file_id=<TMPL_VAR file_id><TMPL_VAR token_str>"><TMPL_VAR file_downloads></a></TD>
+    <TD><a href="?op=admin_views&file_id=<TMPL_VAR file_id><TMPL_VAR token_str>"><TMPL_VAR file_views></a></TD>
+    <TD><TMPL_VAR file_money></TD>
+    <!--TD><TMPL_VAR bandwidth></TD-->
+    <TD nowrap>
+        <small>
+        <TMPL_VAR file_created>
+        <br>
+        <a href="?op=admin_files&amp;ip=<TMPL_VAR file_ip><TMPL_VAR token_str>"><TMPL_VAR file_ip></a><TMPL_IF country> [<TMPL_VAR country>]</TMPL_IF>
+        </small>
+    </TD>
+    <TD><TMPL_VAR srv_id></TD>
+    <TD><a href="<TMPL_VAR site_url>/?op=file_edit&amp;file_code=<TMPL_VAR file_code><TMPL_VAR token_str>"><img src="<TMPL_VAR site_url>/images/edit.gif" border=0></a></TD>
+    <TD><a href="?op=admin_files&amp;del_code=<TMPL_VAR file_code><TMPL_VAR token_str>" onClick="return confirm('Delete selected files?')" class="ximg"></a></TD>
+</TR>
+</TMPL_LOOP>
+<TR>
+    <TH colspan=15 style="text-align:left;">
+    <TMPL_IF m_a>
+     <input type="submit" name="dmca_selected" value="DMCA Delete after <TMPL_VAR m_a_delete_after>h" onClick="return confirm('DMCA Delete selected files after <TMPL_VAR m_a_delete_after> hours?')" class="f-btn-orange"> 
+     <input type="submit" name="dmca_rename_selected" value="DMCA Rename" onClick="return confirm('DMCA Rename file codes for selected files?')" class="f-btn-orange"> &nbsp; 
+    </TMPL_IF>
+    <input type="submit" name="del_selected_now" value="Delete now" onClick="return confirm('Delete selected files?')" class="f-btn-red">
+    <input type="submit" name="del_selected" value="Delete" onClick="return confirm('Delete selected files?')" class="f-btn-red"> 
+    <input type="checkbox" onclick="$('#dinfo').toggle('slow')" id="cdinfo"><label for="cdinfo">reason</label>
+    <input type="text" name="del_info" size=24 id="dinfo" style="display:none">
+    <TMPL_IF srv_id_copy><input type="submit" name="del_selected_ssd" value="Delete from SSD" class="btn2" onClick="return confirm('Delete selected files from SSD?')"> </TMPL_IF>
+    </TH>
+</TR>
+<TR>
+    <TH colspan=15 style="text-align:left;">
+        <input type="button" value="Extra functions..." class="f-btn-blue" onclick="$(this).hide();$('#btn_special').show();">
+        <div id="btn_special" class="inv">
+
+    <input type="submit" name="featured_add" value="Add to Featured" class="btn2">
+    <input type="submit" name="export_direct" value="Export direct download links" class="btn2">
+    <br>
+    <input type="button" name="reencode_selected" value="Re-encode" class="btn2 lmargin10" onclick="$('#extra1').lbox();return false;">
+    <input type="submit" name="rethumb_selected" value="Regen thumbnail" class="btn2 lmargin10">
+    <input type="submit" name="reparse_selected" value="Reparse info" class="btn2 lmargin10">
+    <TMPL_IF m_x><input type="submit" name="rescreen_selected" value="Regen screenlist" class="btn2 lmargin10"></TMPL_IF>
+    <TMPL_IF m_z><input type="submit" name="reslide_selected" value="Regen timeslides" class="btn2 lmargin10"></TMPL_IF>
+
+    <br><input type="button" value="Transfer to..." class="btn2 lmargin10" onclick="$(this).hide();$('#trans_id').show();">
+    <span id="trans_id" class="inv lmargin10">
+        <select name="srv_id2">
+        <option value="">Transfer files to</option>
+            <TMPL_LOOP hosts>
+            <optgroup label="<TMPL_VAR host_name>">
+            <TMPL_LOOP servers><option value="<TMPL_VAR srv_id>"><TMPL_VAR srv_id> - <TMPL_VAR srv_name></option></TMPL_LOOP>
+            </optgroup>
+        </TMPL_LOOP>
+        </select>
+        <input type="submit" name="transfer_files" value="Transfer" class="btn2">
+    </span>
+
+    <input type="button" value="Change status..." class="btn2 lmargin10" onclick="$(this).hide();$('#status_id').show();">
+    <span id="status_id" class="inv lmargin10">
+        <select name="file_status2">
+        <option>OK</option>
+        <option>PENDING</option>
+        <option>LOCKED</option>
+        </select>
+        <input type="submit" name="change_status" value="Change" class="btn2">
+    </span>
+
+    <div style="margin-top:12px;">
+    	<input type="button" value="Delete Special..." class="f-btn-red" onClick="$(this).hide();$('#del_spec').show();">
+    	<div id="del_spec" style="display:none">
+	        <input type="hidden" name="del_special" value="">
+	        <input type="button" value="Delete Normal" class="btn2" onClick="if(!confirm('Delete Normal Quality versions for selected files?'))return false;this.form.del_special.value='n';this.form.submit();">
+	        <TMPL_IF m_h>
+	        <input type="button" value="Delete Low" class="btn2" onClick="if(!confirm('Delete Low Quality versions for selected files?'))return false;this.form.del_special.value='l';this.form.submit();">
+	        <input type="button" value="Delete HD" class="btn2" onClick="if(!confirm('Delete High Quality versions for selected files?'))return false;this.form.del_special.value='h';this.form.submit();">
+	        <input type="button" value="Delete HD2" class="btn2" onClick="if(!confirm('Delete High2 Quality versions for selected files?'))return false;this.form.del_special.value='x';this.form.submit();">
+	        </TMPL_IF>
+	        <input type="button" value="Delete Orig" class="btn2" onClick="if(!confirm('Delete Original versions for selected files?'))return false;this.form.del_special.value='o';this.form.submit();">
+    	</div>
+
+    </div>
+
+    
+
+    </div>
+    </TH>
+</TR>
+</Table>
+<TMPL_VAR paging>
+<br>
+
+        <div id="extra1" class="lbox large">
+            <center>
+            <Table class="tbl1">
+            <tr>
+                <th>Effects</th>
+            </tr>
+            <tr>
+                <td>
+                    <TMPL_INCLUDE file_effects.html>
+                </td>
+            </tr>
+            <tr>
+                <td align=center>
+                    <input type="submit" name="reencode_selected" value="Re-encode selected" class="btn2 lmargin10">
+                </td>
+            </tr>
+            </Table>
+            </center>
+            <a class="close-lbox">&#215;</a>
+        </div>
+
+</Form>
+
+
+<script src="<TMPL_VAR static_url>/js/jquery.cookie.js"></script>
+<script>
+$(document).ready(function(){
+    $("#btn1").click( function(e){
+        $("#btn1").hide("normal", function(){
+            $("#mass_search").show("normal");
+            });
+        return false;
+    });
+    $("#xfiles input[name=file_id]").change( function(){ $(this).parent().parent().toggleClass('hi2'); } );
+    $("#selall").change(function(){ 
+           var sel=this.checked;
+           
+           $("#xfiles input[name=file_id]:enabled").each(function(){
+               $(this).prop('checked',sel);
+               if(sel){$(this).parent().parent().addClass('hi2');} else {$(this).parent().parent().removeClass('hi2');}
+           });
+    });
+    $("input[name=file_id]:enabled").shiftSelectable();
+    $('input[name=thumbnail]').change(function(){
+        var sel=0;
+        if(this.checked)sel=1;
+        $.cookie('adm_thumb_mode', sel, { expires: 24*30 });
+    });
+});
+</script>
+<script src="<TMPL_VAR static_url>/js/jquery.lbox.js"></script>

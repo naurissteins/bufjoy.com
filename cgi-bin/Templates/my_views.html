@@ -1,0 +1,27 @@
+<h3>File <TMPL_IF download>downloads<TMPL_ELSE>views</TMPL_IF></h3>
+
+<Table class="tbl1">
+<TR>
+    <TH>Date</TH>
+    <TH>Money</TH>
+    <TH>Size</TH>
+    <TH>Country</TH>
+    <TH>Referer</TH>
+    <TH></TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><small><TMPL_VAR created></small></TD>
+    <TD><TMPL_VAR money></TD>
+    <TD><TMPL_VAR size> MB</TD>
+    <TD><TMPL_VAR country></TD>
+    <TD align=left><TMPL_VAR referer></TD>
+    <TD>
+    	<TMPL_IF premium>Premium<br></TMPL_IF>
+    	<TMPL_IF adb>ADB<br></TMPL_IF>
+    	<TMPL_IF embed>Embed<br></TMPL_IF>
+    	<TMPL_IF download>Download</TMPL_IF>
+    </TD>
+</TR>
+</TMPL_LOOP>
+</Table>

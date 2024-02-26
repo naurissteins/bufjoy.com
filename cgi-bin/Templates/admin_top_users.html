@@ -1,0 +1,36 @@
+<h1>Top User Profits</h1>
+
+<Form>
+<input type="hidden" name="op" value="admin_top_users">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+
+<Table class="tbl1">
+<tr>
+    <td align="center">Data for last <input type="text" name="days" value="<TMPL_VAR days>" size=2> days</td>
+</tr>
+<tr>
+    <td align=center><input type="submit" value="Show"></td>
+</tr>
+</table>
+
+</Form>
+
+<br>
+
+<Table class="tbl1">
+<TR>
+    <TH>User</TH>
+    <TH>Uploads</TH>
+    <TH>Views</TH>
+    <TH align="center">Profit, $</TH>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD align=left><a href="?op=admin_user_edit&usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></TD>
+    <TD><TMPL_VAR uploads></TD>
+    <TD><TMPL_VAR views></TD>
+    <TD><TMPL_VAR profit_views></TD>
+</TR>
+</TMPL_LOOP>
+</Table>
+

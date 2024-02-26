@@ -1,0 +1,7 @@
+<TMPL_VAR lng_registration_email_txt1> <TMPL_VAR site_name>!
+<TMPL_VAR lng_registration_email_txt2>
+
+<TMPL_VAR lng_registration_email_confirm_link>:
+<TMPL_VAR site_url>/?confirm_account=<TMPL_VAR confirm_id>
+
+<TMPL_VAR lng_registration_username>: <TMPL_VAR usr_login>

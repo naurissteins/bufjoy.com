@@ -1,0 +1,21 @@
+<h2>Video effects</h2>
+
+<form method="POST">
+<input type="hidden" name="op" value="my_file_effects">
+<input type="hidden" name="file_code" value="<TMPL_VAR file_code>">
+<Table class="tbl1">
+<tr>
+	<th>Effects</th>
+</tr>
+<tr>
+	<td>
+		<TMPL_INCLUDE file_effects.html>
+	</td>
+</tr>
+<tr>
+	<td align=center>
+		<input type="submit" name="process" value="Re-encode video with new effects">
+	</td>
+</tr>
+</Table>
+</form>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="googlebot" content="noindex, noarchive">
+   <meta charset="UTF-8">
+   <title><TMPL_IF page_title><TMPL_VAR page_title><TMPL_ELSE><TMPL_VAR site_name></TMPL_IF></title>
+   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/> 
+   <TMPL_IF maincss>
+   <link rel="stylesheet" href="<TMPL_VAR static_url>/css/main.css?<TMPL_VAR cdn_version_num>">
+    <TMPL_ELSE>
+  <link rel="stylesheet" href="<TMPL_VAR static_url>/css/output.css?<TMPL_VAR cdn_version_num>">
+  </TMPL_IF> 
+
+  <link rel="stylesheet" href="<TMPL_VAR static_url>/css/photoswipe.css?<TMPL_VAR cdn_version_num>">
+
+  <TMPL_IF qeditor>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  </TMPL_IF>  
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+  <script src="<TMPL_VAR static_url>/js/jquery.min.js?<TMPL_VAR cdn_version_num>"></script>
+
+  <script src="<TMPL_VAR static_url>/js/xupload.js?<TMPL_VAR cdn_version_num>"></script>
+
+  <TMPL_IF qeditor> 
+   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  </TMPL_IF> 
+
+   <TMPL_IF meta_descr><META NAME="description" CONTENT="<TMPL_VAR meta_descr>"></TMPL_IF>
+   <TMPL_IF meta_keywords><META NAME="keywords" CONTENT="<TMPL_VAR meta_keywords>"></TMPL_IF>
+   <TMPL_IF video_img_url><meta name="og:image" content="<TMPL_VAR video_img_url>"></TMPL_IF>
+</head>
+<body class="bg-gray-900">
+
+  <TMPL_IF maincss>
+    <div id="header">
+      <div class="container1">
+   
+       <div id="logo">
+        <a href="/"><img src="/images/logo.png?<TMPL_VAR cdn_version_num>" width="30px"></a>
+       </div>
+   
+         <!--start menu-->
+       <div id="mainmenu">
+       <ul>
+           <TMPL_IF my_login>	
+           <TMPL_IF upload_enabled><li><a href="/?op=upload"><TMPL_VAR lng_main_upload_files></a></li></TMPL_IF>
+           <li><a href="/?op=my_account"><TMPL_VAR lng_main_my_account></a></li>
+           <li><a href="/?op=my_files"><TMPL_VAR lng_main_my_files></a></li>
+           <TMPL_IF legal_tool>
+             <li><a href="/?op=legal_tool">DMCA</a></li>
+           </TMPL_IF>
+           <TMPL_IF reseller>
+             <li><a href="/?op=my_reseller"><TMPL_VAR lng_main_reseller_acc></a></li>
+           </TMPL_IF>
+           <TMPL_IF tickets_moderator>
+             <li><a href="/?op=admin_ticket_list">TicketsAdm</a></li>
+           </TMPL_IF>
+           <li><a href="/?op=my_reports"><TMPL_VAR lng_main_my_reports></a></li>
+           <TMPL_IF enabled_prem>
+           <TMPL_UNLESS premium>
+             <li><a href="/premium"><TMPL_VAR lng_main_premium></a></li>
+           </TMPL_UNLESS>
+           </TMPL_IF>
+           <li><a href="/?op=logout"><TMPL_VAR lng_main_logout></a></li>
+           <TMPL_ELSE>
+           <TMPL_IF enabled_reg>
+           <li><a href="/login.html"><b><TMPL_VAR lng_main_login></b></a></li>
+           <li><a href="/?op=registration"><b><TMPL_VAR lng_main_signup></b></a></li>
+           <li><a href="/?op=forgot_pass"><TMPL_VAR lng_main_forgot_pass></a></li>
+           </TMPL_IF>
+           </TMPL_IF>
+   
+         <TMPL_IF usr_moderator>
+         <li>
+           <a href="#" style="font-weight: bold;">Moderator</a>
+           <ul>
+           <TMPL_IF m_d_f><li><a href="/?op=moderator_files">Files</a></li></TMPL_IF>
+           <TMPL_IF m_d_file_approve><li><a href="/?op=moderator_files_approve">Approve Files</a></li></TMPL_IF>
+           <TMPL_IF m_d_a><li><a href="/?op=moderator_reports">Abuses</a></li></TMPL_IF>
+           <TMPL_IF m_d_c><li><a href="/?op=moderator_comments">Comments</a></li></TMPL_IF>
+           <TMPL_IF m_d_featured><li><a href="/?op=moderator_files_featured">Featured</a></li></TMPL_IF>
+           </ul>
+         </li>
+         </TMPL_IF>
+       </ul>
+
+       <div id="language">
+       <ul>
+         <li>
+           <a><span class="trf trf-<TMPL_VAR language_lc>"></span></a>
+           <ul>
+             <TMPL_LOOP languages>
+             <li>
+               <a href="/?op=change_lang&amp;lang=<TMPL_VAR lang_id>">
+                 <span class="trf trf-<TMPL_VAR lang_name_lc>"></span><span class="langname"><TMPL_VAR lang_name></span>
+               </a>
+             </li>
+             </TMPL_LOOP>
+           </ul>
+         </li>
+       </ul>
+       </div> <!--language-->
+   
+         </div>
+      </div>
+   
+       <TMPL_IF admin>
+       <br clear=all>
+       <div class="admin_menu">
+           <a href="/adm?op=admin_files<TMPL_VAR token_str>">Videos</a>
+           <a href="/adm?op=admin_users<TMPL_VAR token_str>">Users</a>
+           <a href="/adm?op=admin_servers<TMPL_VAR token_str>">Servers</a>
+           <a href="/adm?op=admin_enc_list<TMPL_VAR token_str>">Encoding</a>
+           <a href="/adm?op=admin_transfer_list<TMPL_VAR token_str>">Transfers</a>
+           <a href="/adm?op=admin_url_list<TMPL_VAR token_str>">URL Uploads</a>
+           <TMPL_IF m_t><a href="/adm?op=admin_torrents<TMPL_VAR token_str>">Torrents</a></TMPL_IF>
+           <TMPL_IF m_f><a href="/adm?op=admin_ftp<TMPL_VAR token_str>">FTP</a></TMPL_IF>
+           <TMPL_IF m_e><a href="/?op=admin_ticket_list<TMPL_VAR token_str>">Tickets</a></TMPL_IF>
+           <a href="/adm?op=admin_reports<TMPL_VAR token_str>">Abuses</a>
+           <a href="/adm?op=admin_comments<TMPL_VAR token_str>">Comments</a>
+           <a href="/adm?op=admin_payouts<TMPL_VAR token_str>">Payouts</a>
+           <a href="/adm?op=admin_stats<TMPL_VAR token_str>">Stats</a>
+           <a href="/adm?op=admin_settings<TMPL_VAR token_str>">Settings</a>
+       </div>
+       </TMPL_IF>
+   
+      <!--end menu-->
+   </div> <!--end header-->
+  </TMPL_IF>  
+
+<div id="container"> 
+  <TMPL_VAR tmpl>
+</div>
+<div class="clear"></div>
+</body>
+</html>

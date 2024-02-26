@@ -1,0 +1,195 @@
+<TMPL_IF my_login>
+  <div class="flex items-start space-x-4 bg-gray-700/10 px-4 py-5 sm:px-6 rounded-lg  shadow" id="comments">
+    <div class="flex-shrink-0">
+      <TMPL_IF avatar>
+        <img class="h-10 w-10 rounded-full object-cover" src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR avatar>"
+          alt="<TMPL_VAR my_login>">
+        <TMPL_ELSE>
+          <span
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[1rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+            <TMPL_VAR usr_login_short>
+          </span>
+      </TMPL_IF>
+    </div>
+    <div class="min-w-0 flex-1">
+      <form method="POST" action="<TMPL_VAR site_url>/">
+        <input type="hidden" name="op" value="comment_add">
+        <input type="hidden" name="cmt_type" value="<TMPL_VAR cmt_type>">
+        <input type="hidden" name="cmt_ext_id" value="<TMPL_VAR cmt_ext_id>">
+
+        <div class="border-b border-gray-800 focus-within:border-indigo-600">
+          <span class="sr-only">Add your comment</span>
+          <textarea rows="1" name="cmt_text" id="cmt_txt"
+            class="block w-full bg-transparent resize-none border-0 border-b border-transparent p-0 pb-2 text-gray-300 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-0 sm:text-sm sm:leading-6"
+            placeholder="Add your comment..."></textarea>
+        </div>
+        <div class="flex justify-between pt-2">
+          <div class="flex items-center space-x-5">
+
+          </div>
+          <div class="flex-shrink-0">
+            <button type="submit" id="postButton"
+              class="inline-flex items-center rounded-full bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Comment</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</TMPL_IF>
+
+<div>
+  <TMPL_LOOP comments>
+    <div id="cm<TMPL_VAR cmt_id>" class="bg-gray-700/10 px-4 py-5 sm:px-6 rounded-lg mb-4 shadow">
+      <div class="flex space-x-3">
+
+        <div class="flex-shrink-0">
+          <TMPL_IF usr_avatar>
+            <img class="h-10 w-10 rounded-full object-cover" src="<TMPL_VAR site_url>/upload-data/<TMPL_VAR usr_avatar>"
+              alt="<TMPL_VAR my_login>">
+            <TMPL_ELSE>
+              <span
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-700 bg-gray-800 text-[1rem] font-semibold text-gray-400 group-hover:text-white uppercase">
+                <TMPL_VAR usr_login_short>
+              </span>
+          </TMPL_IF>
+        </div>
+
+        <div class="min-w-0 flex-1">
+          <p>
+            <a href="<TMPL_VAR site_url>/@<TMPL_VAR usr_login>"
+              class="text-sm font-semibold <TMPL_IF usr_adm>text-red-400<TMPL_ELSIF usr_mod>text-green-400<TMPL_ELSIF ispremium>text-purple-400<TMPL_ELSE>text-gray-300</TMPL_IF>">
+              <TMPL_VAR usr_channel_name>
+            </a>
+            <TMPL_IF usr_verified>
+              <svg class="fill-indigo-400 h-3.5 w-3.5 inline-block" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512">
+                <path
+                  d="M256 0c36.8 0 68.8 20.7 84.9 51.1C373.8 41 411 49 437 75s34 63.3 23.9 96.1C491.3 187.2 512 219.2 512 256s-20.7 68.8-51.1 84.9C471 373.8 463 411 437 437s-63.3 34-96.1 23.9C324.8 491.3 292.8 512 256 512s-68.8-20.7-84.9-51.1C138.2 471 101 463 75 437s-34-63.3-23.9-96.1C20.7 324.8 0 292.8 0 256s20.7-68.8 51.1-84.9C41 138.2 49 101 75 75s63.3-34 96.1-23.9C187.2 20.7 219.2 0 256 0zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+                </path>
+              </svg>
+            </TMPL_IF>
+          </p>
+
+          <p class="text-xs text-gray-500">
+            <time datetime="<TMPL_VAR date>">
+              <TMPL_VAR date>
+            </time>
+          </p>
+        </div>
+
+        <TMPL_IF usr_adm>
+          <div class="relative inline-block text-left">
+            <span
+              class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium text-red-400 bg-red-400/10">Admin</span>
+          </div>
+          <TMPL_ELSIF usr_mod>
+            <div class="relative inline-block text-left">
+              <span
+                class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium text-green-400 bg-green-400/10">Moderator</span>
+            </div>
+            <TMPL_ELSIF ispremium>
+              <div class="relative inline-block text-left">
+                <span
+                  class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-1 text-xs font-medium text-purple-400 bg-purple-400/10">PRO</span>
+              </div>
+        </TMPL_IF>
+
+        <TMPL_IF adm>
+          <div class="mt-2">
+            <div class="relative inline-block text-left">
+              <div class="inline-flex">
+                <div x-data="{ isOpen: false }">
+                  <button @click="isOpen = !isOpen" type="button"
+                    class="-m-2 flex items-center rounded-full text-gray-400 hover:text-gray-600" id="menu-0-button"
+                    aria-expanded="false" aria-haspopup="true">
+                    <span class="sr-only">Open options</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path
+                        d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
+                    </svg>
+                  </button>
+                  <div x-cloak @click.away="isOpen = false" x-show="isOpen"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-100 transform opacity-100 scale-100"
+                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                    class="absolute right-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu" aria-orientation="vertical" aria-labelledby="menu-0-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                      <a href="#" class="text-gray-300 flex px-4 py-2 text-sm" role="menuitem" tabindex="-1"
+                        id="menu-0-item-0"
+                        onClick="return jah('<TMPL_VAR site_url>/?op=cmt_del&amp;i=<TMPL_VAR cmt_id>')">
+                        <svg class="mr-3 h-5 w-5 fill-gray-400" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 448 512">
+                          <path
+                            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                        </svg>
+                        <span class="hover:text-white">Delete comments</span>
+                      </a>
+                      <span class="text-gray-300 flex px-4 py-2 text-sm" role="menuitem" tabindex="-1"
+                        id="menu-0-item-1">
+                        <svg class="mr-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                          aria-hidden="true">
+                          <path fill-rule="evenodd"
+                            d="M6.28 5.22a.75.75 0 010 1.06L2.56 10l3.72 3.72a.75.75 0 01-1.06 1.06L.97 10.53a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0zm7.44 0a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L17.44 10l-3.72-3.72a.75.75 0 010-1.06zM11.377 2.011a.75.75 0 01.612.867l-2.5 14.5a.75.75 0 01-1.478-.255l2.5-14.5a.75.75 0 01.866-.612z"
+                            clip-rule="evenodd" />
+                        </svg>
+                        <TMPL_VAR ip>
+                      </span>
+                      <span class="text-gray-300 flex px-4 py-2 text-sm" role="menuitem" tabindex="-1"
+                        id="menu-0-item-2">
+                        <svg class="mr-3 h-5 w-5 fill-gray-400" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512">
+                          <path
+                            d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                        </svg>
+                        <TMPL_VAR email>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </TMPL_IF>
+      </div>
+      <p class="text-gray-300 mt-4">
+        <TMPL_VAR cmt_text>
+      </p>
+    </div>
+  </TMPL_LOOP>
+</div>
+
+<script>
+  // Get references to the textarea and post button
+  const textarea = document.getElementById('cmt_txt');
+  const postButton = document.getElementById('postButton');
+
+  // Initially, hide the post button
+  postButton.style.display = 'none';
+
+  // Add an event listener to the textarea to show the button when focused
+  textarea.addEventListener('focus', () => {
+    postButton.style.display = 'inline-flex';
+  });
+
+  // Add an event listener to the form submission
+  document.querySelector('form').addEventListener('submit', (event) => {
+    // Prevent the form submission if the textarea is empty
+    if (textarea.value.trim() === '') {
+      event.preventDefault();
+      // Optionally, you can provide a user-friendly validation message.
+      // For example, you can display an error message near the textarea.
+      // You'd add the error display logic here.
+    }
+  });
+</script>
+
+<script>
+  function submitCommentForm(f1) {
+    //if(f1.cmt_name && f1.cmt_name.value==''){alert("<TMPL_VAR lng_comments_name_required>");return false;}
+    //if(f1.cmt_email && !f1.cmt_email.value.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/) ){alert("<TMPL_VAR lng_comments_invalid_email>");return false;}
+    if (f1.cmt_text.value.length < 0) { alert("<TMPL_VAR lng_comments_too_short_comment>"); return false; }
+    $.post('<TMPL_VAR site_url>/', $(f1).serialize(), function (code) { eval(code); });
+    return false;
+  }
+</script>

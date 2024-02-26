@@ -1,0 +1,43 @@
+<H3>Payouts management</H3>
+<br>
+<a href="?op=admin_payouts_history<TMPL_VAR token_str>">Payout history</a> &nbsp; 
+<a href="?op=admin_ipn_logs<TMPL_VAR token_str>">IPN Logs</a> &nbsp; 
+<a href="?op=admin_transactions<TMPL_VAR token_str>">Transactions</a>
+<br><br>
+<TMPL_IF pay_types>
+Show only: <TMPL_LOOP pay_types><a href="?op=admin_payouts&pay_type=<TMPL_VAR name><TMPL_VAR token_str>"><TMPL_VAR name></a> &nbsp; </TMPL_LOOP>
+<br><br>
+</TMPL_IF>
+<TMPL_IF msg><font class="ok"><TMPL_VAR msg></font><br><br></TMPL_IF>
+<Form method="POST">
+<input type="hidden" name="op" value="admin_payouts">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<Table class="tbl1" cellpadding=2 cellspacing=1>
+<TR class="hdr"><TD colspan=8>Payouts</TD></TR>
+<TR class="hdr">
+    <TD><input type="checkbox" onClick="if(!this.form.pay_id)return false;for(i=0;i<this.form.pay_id.length;i++){this.form.pay_id[i].checked=this.checked;}if(this.form.pay_id.value)this.form.pay_id.checked=this.checked;"></TD>
+    <TD>Username</TD>
+    <TD>Amount</TD>
+    <TD>Email</TD>
+    <TD>Payout system</TD>
+    <TD>Payment Info</TD>
+    <TD>Requested</TD>
+    <TD>Paid / Rejected</TD>
+</TR>
+<TMPL_LOOP list>
+<TR align=center>
+    <TD><input type="checkbox" name="pay_id" value="<TMPL_VAR id>"></TD>
+    <TD><TMPL_VAR usr_login></TD>
+    <TD>$<TMPL_VAR amount></TD>
+    <TD><TMPL_VAR usr_email></TD>
+    <TD><TMPL_VAR pay_type></TD>
+    <TD><TMPL_VAR pay_info></TD>
+    <TD><TMPL_VAR created></TD>
+    <TD><TMPL_VAR num_ok> / <TMPL_VAR num_bad></TD>
+</TR>
+</TMPL_LOOP>
+<TR class="hdr"><TD colspan=2></TD><TD>$<TMPL_VAR amount_sum></TD><TD colspan=5></TD></TR>
+<TR class="hdr"><TD colspan=8 style="text-align:left;"><input type="submit" name="mark_paid" value="Mark selected as Paid" class="btn2" style="background-color:#99CC99;"> &nbsp; <input type="submit" name="mark_rejected" value="Mark selected as Rejected" class="btn2" style="background-color:#CC9999;"></TD></TR>
+<TR class="hdr"><TD colspan=8 style="text-align:left;"><input type="submit" name="export_file" value="Export selected as PayPal Mass Payment file" class="btn2"></TD></TR>
+</Table>
+</Form>

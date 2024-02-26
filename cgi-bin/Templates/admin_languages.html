@@ -1,0 +1,18 @@
+<h2>Languages list</h2>
+<br>
+<Table class="tbl1">
+<tr>
+	<th>Language</th>
+	<th>Order</th>
+	<th>Translations</th>
+</tr>
+<TMPL_LOOP list>
+<tr>
+	<td><a href="?op=admin_language_form&amp;lang_id=<TMPL_VAR lang_id><TMPL_VAR token_str>"><TMPL_VAR lang_name></a><TMPL_UNLESS lang_active> [OFF]</TMPL_UNLESS></td>
+	<td align=center><TMPL_VAR lang_order></td>
+	<td align=center><a href="?op=admin_translations&amp;lang_id=<TMPL_VAR lang_id><TMPL_VAR token_str>"><TMPL_VAR trans_num> definitions</a></td>
+</tr>
+</TMPL_LOOP>
+</Table>
+
+<br><br><input type="button" value="Add new language" onclick="window.location='?op=admin_language_form<TMPL_VAR token_str>'">

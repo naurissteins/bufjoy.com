@@ -1,0 +1,70 @@
+<h2>Monitor webmasters activity</h2>
+
+<TMPL_IF users>
+<table class="tbl1">
+	<tr>
+		<th>Username</th>
+		<th>Money now</th>
+		<th>Uploads</th>
+		<th>DL / DL-Prem</th>
+		<th>Views / Profit Views</th>
+		<th>Profit Sales</th>
+		<th>Refs / Profit Refs</th>
+		<th>Profit Site</th>
+	</tr>
+
+	<TMPL_LOOP users>
+	<tr>
+		<td><a href="<TMPL_VAR site_url>/adm?op=admin_user_edit&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></td>
+		<td>$<TMPL_VAR usr_money></td>
+		<td><TMPL_VAR uploads> (<TMPL_VAR uploads_old>)</td>
+		<td><TMPL_VAR downloads> / <TMPL_VAR downloads_prem> (<TMPL_VAR downloads_old> / <TMPL_VAR downloads_prem_old>)</td>
+		<td><TMPL_VAR views> / $<TMPL_VAR profit_views> (<TMPL_VAR views_old> / <TMPL_VAR profit_views_old>)</td>
+		<td>$<TMPL_VAR profit_sales> (<TMPL_VAR profit_sales_old>)</td>
+		<td><TMPL_VAR refs> / $<TMPL_VAR profit_refs> (<TMPL_VAR refs_old> / <TMPL_VAR profit_refs_old>)</td>
+		<td>$<TMPL_VAR profit_site> (<TMPL_VAR profit_site_old>)</td>
+	</tr>
+	</TMPL_LOOP>
+</table>
+</TMPL_IF>
+
+<br>
+
+<TMPL_IF top_profit_users>
+<br>
+<form method="post">
+<input type="hidden" name="op" value="admin_users_monitor">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<table class="tbl1">
+<tr>
+    <th colspan=8>Most profitable unmonitored users last 3 days</th>
+</tr>
+	<tr>
+        <th></th>
+		<th>Username</th>
+		<th>Money now</th>
+		<th>Uploads</th>
+		<th>Views</th>
+        <th>Profit Views</th>
+		<th>Profit Sales</th>
+        <th>Registered</th>
+	</tr>
+
+	<TMPL_LOOP top_profit_users>
+	<tr>
+        <td><input type="checkbox" name="usr_id" value="<TMPL_VAR usr_id>"></td>
+		<td><a href="<TMPL_VAR site_url>/adm?op=admin_user_edit&amp;usr_id=<TMPL_VAR usr_id><TMPL_VAR token_str>"><TMPL_VAR usr_login></a></td>
+		<td>$<TMPL_VAR usr_money></td>
+		<td><TMPL_VAR uploads></td>
+		<td><TMPL_VAR views></td>
+        <td>$<TMPL_VAR profit_views></td>
+		<td>$<TMPL_VAR profit_sales></td>
+        <td><TMPL_VAR usr_created> days ago</td>
+	</tr>
+	</TMPL_LOOP>
+<tr>
+    <th colspan=8><input type="submit" name="monitor" value="Start monitoring selected users" class="btn2" style="float:left"></th>
+</tr>
+</table>
+</form>
+</TMPL_IF>

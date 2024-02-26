@@ -1,0 +1,40 @@
+<Form method="POST">
+<input type="hidden" name="op" value="admin_category_form">
+<input type="hidden" name="token" value="<TMPL_VAR token>">
+<input type="hidden" name="cat_id" value="<TMPL_VAR cat_id>">
+
+<Table class="tbl1 rct" cellpadding=3 cellspacing=1 width="560">
+<TR>
+	<TH colspan=2>Category form</TH>
+</TR>
+<TR>
+	<TD>Category Name</TD>
+	<TD>
+		<input type="text" name="cat_name" value="<TMPL_VAR cat_name>" size=54>
+		<TMPL_IF cat_id> <a href="?op=admin_category_form&del=<TMPL_VAR cat_id><TMPL_VAR token_str>" onclick="if(!confirm('Delete category?'))return false;">delete</a></TMPL_IF>
+	</TD>
+</TR>
+<TR>
+	<TD class=top>Description</TD>
+	<TD><textarea name="cat_descr" cols=36 rows=3 style="width:100%"><TMPL_VAR cat_descr></textarea></TD>
+</TR>
+<TR>
+	<TD>Parent</TD>
+    <TD><select name="cat_parent_id"><option value="0"> / </option><TMPL_LOOP list><option value="<TMPL_VAR cat_id>"<TMPL_VAR selected>><TMPL_VAR pre><TMPL_VAR cat_name></option></TMPL_LOOP></select></TD>
+</TR>
+<TMPL_IF cat_id>
+<TR>
+	<TD>Order number</TD>
+	<TD><input type="text" name="cat_num" value="<TMPL_VAR cat_num>" size=3></TD>
+</TR>
+</TMPL_IF>
+<TR>
+	<TD>Premium only</TD>
+	<TD><input type="checkbox" name="cat_premium" value="1"<TMPL_IF cat_premium> checked</TMPL_IF>></TD>
+</TR>
+</Table>
+
+<TMPL_IF msg><b class="ok"><TMPL_VAR msg></b><br></TMPL_IF>
+<input type="submit" name="save" value=" Save ">
+</Form>
+<br><br>

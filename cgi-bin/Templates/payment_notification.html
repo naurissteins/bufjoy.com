@@ -1,0 +1,16 @@
+Your payment processed successfully!
+
+<br><br>
+
+<TMPL_IF login>
+Login: <TMPL_VAR login><br>
+Password: <TMPL_VAR password>
+</TMPL_IF>
+
+<br><br>
+
+Payment received: $<TMPL_VAR amount><br>
+Added Premium days: <TMPL_VAR days><br>
+Premium account expiration date: <TMPL_VAR expire><br>
+
+<TMPL_VAR site_url>

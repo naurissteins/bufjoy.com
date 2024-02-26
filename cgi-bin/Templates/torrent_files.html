@@ -1,0 +1,9 @@
+<table class="tbl1" style="margin-top:5px;">
+<TMPL_LOOP files>
+<tr>
+	<td>(<TMPL_VAR excluded>)<TMPL_VAR name></td>
+	<td nowrap><TMPL_VAR size_now> of <TMPL_VAR size></td>
+	<td><input type="button" value="Don't download" class="btn2" onclick="$.ajax('?op=my_torrents&amp;file_list=<TMPL_VAR sid>&exclude=<TMPL_VAR num>').done(function(data) {$('#<TMPL_VAR sid>').html(data);}).fail(function(data) {$('#<TMPL_VAR sid>').html(data.responseText);})"></td>
+</tr>
+</TMPL_LOOP>
+</table>
